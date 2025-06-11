@@ -30,8 +30,8 @@ export default function CampaignCard({ campaign, onCouponClaimed }: CampaignCard
     },
     onSuccess: (coupon) => {
       toast({
-        title: "Coupon Claimed!",
-        description: "Your coupon is ready to use.",
+        title: "Early Access Secured!",
+        description: "You're in! Your exclusive access is ready.",
       });
       setAlreadyClaimed(true);
       onCouponClaimed?.(coupon);
@@ -41,13 +41,13 @@ export default function CampaignCard({ campaign, onCouponClaimed }: CampaignCard
       if (error.message.includes('already claimed')) {
         setAlreadyClaimed(true);
         toast({
-          title: "Already Claimed",
-          description: "You have already claimed this coupon.",
+          title: "Already Secured",
+          description: "You already have early access to this offer.",
           variant: "destructive",
         });
       } else {
         toast({
-          title: "Failed to Claim",
+          title: "Access Unavailable",
           description: error.message || "Please try again.",
           variant: "destructive",
         });
@@ -61,9 +61,9 @@ export default function CampaignCard({ campaign, onCouponClaimed }: CampaignCard
   const isAvailable = claimedCount < maxCoupons && !alreadyClaimed;
 
   const getStatusBadge = () => {
-    if (alreadyClaimed) return <Badge variant="outline"><CheckCircle className="w-3 h-3 mr-1" />Claimed</Badge>;
-    if (progressPercentage >= 90) return <Badge variant="secondary">Limited</Badge>;
-    return <Badge variant="default">Available</Badge>;
+    if (alreadyClaimed) return <Badge variant="outline" className="glass-morphism border-green-400 text-green-400"><CheckCircle className="w-3 h-3 mr-1" />Secured</Badge>;
+    if (progressPercentage >= 90) return <Badge variant="secondary" className="bg-gradient-to-r from-orange-400 to-red-400 text-white border-0">Almost Full</Badge>;
+    return <Badge variant="default" className="bg-gradient-to-r from-green-400 to-cyan-400 text-gray-900 border-0 font-rubik font-600">Open</Badge>;
   };
 
   return (
@@ -97,10 +97,13 @@ export default function CampaignCard({ campaign, onCouponClaimed }: CampaignCard
         {/* Progress Bar */}
         <div className="mb-5">
           <div className="flex justify-between text-xs text-gray-400 mb-2 font-space">
-            <span>Claimed</span>
-            <span>{claimedCount}/{maxCoupons}</span>
+            <span>Early Access Spots</span>
+            <span>{maxCoupons - claimedCount} remaining</span>
           </div>
           <Progress value={progressPercentage} className="h-3 bg-gray-700" />
+          {progressPercentage >= 75 && (
+            <p className="text-xs text-orange-400 mt-1 font-space">Filling up fast! 🔥</p>
+          )}
         </div>
 
         <Button
@@ -109,16 +112,16 @@ export default function CampaignCard({ campaign, onCouponClaimed }: CampaignCard
           className="btn-electric w-full disabled:opacity-50 disabled:cursor-not-allowed transform transition-all duration-300 hover:scale-105"
         >
           {claimMutation.isPending ? (
-            "Claiming..."
+            "Securing Access..."
           ) : alreadyClaimed ? (
             <>
               <CheckCircle className="w-4 h-4 mr-2" />
-              Already Claimed
+              Access Secured
             </>
           ) : !isAvailable ? (
-            "Sold Out"
+            "Fully Booked"
           ) : (
-            "Claim Coupon"
+            "Get Early Access"
           )}
         </Button>
       </CardContent>

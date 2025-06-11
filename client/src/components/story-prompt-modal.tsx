@@ -1,4 +1,4 @@
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Check, Instagram, Gift, Star } from "lucide-react";
 
@@ -19,30 +19,30 @@ export default function StoryPromptModal({ onClose }: StoryPromptModalProps) {
 
   return (
     <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className="max-w-sm w-full p-6">
+      <DialogContent className="max-w-sm w-full p-6 glass-morphism border-white/20">
+        <DialogTitle className="sr-only">Share Your Experience on Instagram</DialogTitle>
         <div className="text-center">
-          <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 earlyshh-gradient rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
             <Check className="text-white text-2xl w-8 h-8" />
           </div>
 
-          <h2 className="text-xl font-bold text-gray-900 mb-2">Coupon Redeemed!</h2>
-          <p className="text-gray-600 mb-6">Share your experience and help others discover great deals</p>
+          <h2 className="text-xl font-rubik font-bold text-white mb-2">Experience Unlocked!</h2>
+          <p className="text-gray-300 mb-6 font-space">Share your story to secure priority access to future drops</p>
 
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-4 mb-6">
-            <h3 className="font-semibold text-gray-900 mb-2">Share to Instagram Story</h3>
-            <p className="text-sm text-gray-600 mb-3">
-              Tag <span className="font-semibold text-primary">@Earlyshh</span> and{" "}
-              <span className="font-semibold text-primary">@SuperRootEnergy</span> in your story
+          <div className="electric-border glass-morphism rounded-xl p-4 mb-6">
+            <h3 className="font-rubik font-semibold text-white mb-2">Share Your Story</h3>
+            <p className="text-sm text-gray-300 mb-3 font-space">
+              Tag <span className="font-semibold earlyshh-text-gradient">@Earlyshh</span> and the brand in your story
             </p>
 
-            <div className="flex items-center justify-center space-x-4 text-xs text-gray-500">
+            <div className="flex items-center justify-center space-x-4 text-xs text-gray-400 font-space">
               <div className="flex items-center space-x-1">
-                <Gift className="w-3 h-3" />
-                <span>Get early access</span>
+                <Gift className="w-3 h-3 text-yellow-400" />
+                <span>Priority access</span>
               </div>
               <div className="flex items-center space-x-1">
-                <Star className="w-3 h-3" />
-                <span>Build your profile</span>
+                <Star className="w-3 h-3 text-yellow-400" />
+                <span>VIP status</span>
               </div>
             </div>
           </div>

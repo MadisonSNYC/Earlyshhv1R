@@ -24,14 +24,14 @@ export default function CouponModal({ coupon, onClose, onRedeemed }: CouponModal
     },
     onSuccess: () => {
       toast({
-        title: "Coupon Redeemed!",
-        description: "Share your experience on Instagram to help others discover great deals.",
+        title: "Experience Activated!",
+        description: "Share your story to unlock future early access.",
       });
       onRedeemed();
     },
     onError: (error: Error) => {
       toast({
-        title: "Failed to Redeem",
+        title: "Activation Failed",
         description: error.message || "Please try again.",
         variant: "destructive",
       });
