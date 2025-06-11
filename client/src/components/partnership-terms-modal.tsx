@@ -14,7 +14,7 @@ interface PartnershipTermsModalProps {
 export default function PartnershipTermsModal({ campaign, onAccept, onClose }: PartnershipTermsModalProps) {
   return (
     <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className="max-w-md w-full p-0 glass-morphism border-white/20 overflow-hidden max-h-[85vh] flex flex-col">
+      <DialogContent className="max-w-md w-full p-0 glass-morphism border-white/20 overflow-hidden max-h-[90vh] flex flex-col">
         <DialogTitle className="sr-only">Partnership Terms and Conditions</DialogTitle>
         
         {/* Fixed Header */}
@@ -47,84 +47,85 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose }: P
           {/* Partnership Requirements */}
           <div className="p-6 py-4">
             <h3 className="text-lg font-rubik font-bold text-white mb-4 flex items-center">
-            <AlertCircle className="w-5 h-5 mr-2 text-yellow-400" />
-            Partnership Requirements
-          </h3>
+              <AlertCircle className="w-5 h-5 mr-2 text-yellow-400" />
+              Partnership Requirements
+            </h3>
 
-          <div className="space-y-4">
-            {/* Instagram Story Requirement */}
-            <div className="electric-border glass-morphism rounded-xl p-4">
-              <div className="flex items-start space-x-3">
-                <Instagram className="w-5 h-5 text-pink-500 mt-0.5 flex-shrink-0" />
-                <div>
-                  <h4 className="font-rubik font-semibold text-white mb-1">
-                    Instagram Story Required
-                  </h4>
-                  <p className="text-sm text-gray-300 font-space mb-2">
-                    Tag <span className="earlyshh-text-gradient font-semibold">@{campaign.brandName}</span> and <span className="earlyshh-text-gradient font-semibold">@Earlyshh</span> in your Instagram Story within 24 hours of redemption.
-                  </p>
-                  <Badge variant="outline" className="text-xs border-pink-500/30 text-pink-300">
-                    Stories only • No feed posts required
-                  </Badge>
+              <div className="space-y-4">
+                {/* Instagram Story Requirement */}
+                <div className="electric-border glass-morphism rounded-xl p-4">
+                  <div className="flex items-start space-x-3">
+                    <Instagram className="w-5 h-5 text-pink-500 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <h4 className="font-rubik font-semibold text-white mb-1">
+                        Instagram Story Required
+                      </h4>
+                      <p className="text-sm text-gray-300 font-space mb-2">
+                        Tag <span className="earlyshh-text-gradient font-semibold">@{campaign.brandName}</span> and <span className="earlyshh-text-gradient font-semibold">@Earlyshh</span> in your Instagram Story within 24 hours of redemption.
+                      </p>
+                      <Badge variant="outline" className="text-xs border-pink-500/30 text-pink-300">
+                        Stories only • No feed posts required
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Time Restrictions */}
+                <div className="glass-morphism rounded-xl p-4">
+                  <div className="flex items-start space-x-3">
+                    <Clock className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <h4 className="font-rubik font-semibold text-white mb-1">
+                        Valid Until
+                      </h4>
+                      <p className="text-sm text-gray-300 font-space">
+                        Partnership expires {new Date(campaign.endDate).toLocaleDateString()}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Community Guidelines */}
+                <div className="glass-morphism rounded-xl p-4">
+                  <div className="flex items-start space-x-3">
+                    <Users className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <h4 className="font-rubik font-semibold text-white mb-1">
+                        Community Partnership
+                      </h4>
+                      <p className="text-sm text-gray-300 font-space">
+                        Share authentic experiences. Help others discover your neighborhood's next big find.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-
-            {/* Time Restrictions */}
-            <div className="glass-morphism rounded-xl p-4">
-              <div className="flex items-start space-x-3">
-                <Clock className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
-                <div>
-                  <h4 className="font-rubik font-semibold text-white mb-1">
-                    Valid Until
-                  </h4>
-                  <p className="text-sm text-gray-300 font-space">
-                    Partnership expires {new Date(campaign.endDate).toLocaleDateString()}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Community Guidelines */}
-            <div className="glass-morphism rounded-xl p-4">
-              <div className="flex items-start space-x-3">
-                <Users className="w-5 h-5 text-purple-400 mt-0.5 flex-shrink-0" />
-                <div>
-                  <h4 className="font-rubik font-semibold text-white mb-1">
-                    Community Partnership
-                  </h4>
-                  <p className="text-sm text-gray-300 font-space">
-                    Share authentic experiences. Help others discover your neighborhood's next big find.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          </div>
         </div>
 
         <Separator className="bg-white/10" />
 
         {/* Benefits Summary */}
-        <div className="p-6 py-4">
-          <h3 className="text-lg font-rubik font-bold text-white mb-3">
+        <div className="p-6 pt-4">
+          <h3 className="text-lg font-rubik font-bold text-white mb-4 flex items-center">
+            <Check className="w-5 h-5 mr-2 text-green-400" />
             What You Get
           </h3>
-          <div className="space-y-2">
-            <div className="flex items-center space-x-3">
-              <Check className="w-4 h-4 text-green-400" />
+          <div className="space-y-3">
+            <div className="flex items-start space-x-3">
+              <div className="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0"></div>
               <span className="text-sm text-gray-300 font-space">
                 Free {campaign.productName} (up to ${campaign.redeemableAmount})
               </span>
             </div>
-            <div className="flex items-center space-x-3">
-              <Check className="w-4 h-4 text-green-400" />
+            <div className="flex items-start space-x-3">
+              <div className="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0"></div>
               <span className="text-sm text-gray-300 font-space">
                 Early access to future {campaign.brandName} partnerships
               </span>
             </div>
-            <div className="flex items-center space-x-3">
-              <Check className="w-4 h-4 text-green-400" />
+            <div className="flex items-start space-x-3">
+              <div className="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0"></div>
               <span className="text-sm text-gray-300 font-space">
                 VIP status in Earlyshh community
               </span>
@@ -133,17 +134,17 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose }: P
         </div>
 
         {/* Action Buttons */}
-        <div className="p-6 pt-0 space-y-3">
+        <div className="p-6 pt-4 flex-shrink-0 space-y-3">
           <Button 
             onClick={onAccept}
-            className="w-full earlyshh-gradient hover:opacity-90 font-rubik font-600 py-3"
+            className="w-full earlyshh-gradient hover:opacity-90 font-rubik font-semibold py-3 h-12 text-base"
           >
             Accept Partnership Terms
           </Button>
           <Button 
             onClick={onClose}
             variant="outline" 
-            className="w-full border-white/20 text-gray-300 hover:text-white hover:bg-white/10 font-rubik font-600"
+            className="w-full border-white/20 text-gray-300 hover:text-white hover:bg-white/10 font-rubik font-medium h-10"
           >
             Maybe Later
           </Button>
