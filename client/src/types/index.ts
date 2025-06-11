@@ -11,27 +11,29 @@ export interface User {
 }
 
 export interface Campaign {
-  id: string;
+  id: number;
   brandName: string;
   brandIgHandle: string;
   offerDescription: string;
   productName: string;
-  brandLogoUrl?: string;
+  brandLogoUrl: string;
   offerId?: string; // TCB Master Offer ID
   redeemableAmount: string;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
   maxCoupons: number;
   perUserLimit: number;
-  status: 'active' | 'inactive' | 'expired';
-  location?: {
-    latitude: number;
-    longitude: number;
-    address?: string;
-  };
+  status: string;
+  category: string;
+  radius: string | null;
+  latitude: string | null;
+  longitude: string | null;
+  legalDisclaimer: string;
+  createdAt: Date;
   distance?: number;
   claimed?: boolean;
-  spotsRemaining?: number;
+  claimedCount?: number;
+  offerValue?: string;
 }
 
 export interface Coupon {

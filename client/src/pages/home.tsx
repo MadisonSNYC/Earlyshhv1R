@@ -1,254 +1,226 @@
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import CampaignCard from '@/components/campaign-card';
+import BottomNavigation from '@/components/bottom-navigation';
+import CouponModal from '@/components/coupon-modal';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Search, Filter, Map, Grid3X3 } from 'lucide-react';
+import { Campaign } from '@/types';
 
-import React, { Suspense, lazy, memo, useCallback, useMemo, useState, useEffect } from 'react';
-import { FixedSizeList as List } from 'react-window';
-import { Card, CardContent } from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import { Badge } from '../components/ui/badge';
-import { Search, Filter, MapPin, Bell, User, Map } from 'lucide-react';
-import { useCampaigns } from '../hooks/use-campaigns';
-import { useLocation } from '../hooks/use-location';
-import { useAuth } from '../lib/auth';
-import { useGlobalState } from '../hooks/use-global-state';
-import { ErrorBoundary } from '../components/error-boundary';
-import { CampaignListSkeleton, PageLoading } from '../components/loading-states';
-import BottomNavigation from '../components/bottom-navigation';
+const formatTimeLeft = (date: Date): string => {
+  const now = new Date();
+  const diff = date.getTime() - now.getTime();
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  if (days > 0) return `${days}d`;
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  if (hours > 0) return `${hours}h`;
+  return 'Soon';
+};
 
-// Lazy load heavy components
-const CampaignCard = lazy(() => import('../components/campaign-card'));
-const MapView = lazy(() => import('../components/map-view'));
-const CouponModal = lazy(() => import('../components/coupon-modal'));
+const formatDistance = (distance: number): string => {
+  if (distance < 1000) return `${Math.round(distance)}m`;
+  return `${(distance / 1000).toFixed(1)}km`;
+};
 
-// Memoized components
-const FilterButton = memo(({ 
-  category, 
-  active, 
-  onClick 
-}: { 
-  category: string; 
-  active: boolean; 
-  onClick: (category: string) => void; 
-}) => (
-  <Button
-    variant={active ? "default" : "outline"}
-    size="sm"
-    onClick={() => onClick(category)}
-    className={`whitespace-nowrap ${
-      active 
-        ? 'bg-cyan-400 text-black' 
-        : 'bg-white/10 text-white border-white/20 hover:bg-white/20'
-    }`}
-  >
-    {category}
-  </Button>
-));
+export default function HomePage() {
+  const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
+  const [showCouponModal, setShowCouponModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
 
-const VirtualizedCampaignList = memo(({ 
-  campaigns, 
-  onCampaignClaim 
-}: { 
-  campaigns: any[]; 
-  onCampaignClaim: (campaignId: string) => void; 
-}) => {
-  const itemHeight = 140; // Fixed height for each campaign card
-  const containerHeight = Math.min(campaigns.length * itemHeight, 600); // Max 600px
+  // Fetch campaigns
+  const { data: campaigns = [], isLoading: campaignsLoading } = useQuery({
+    queryKey: ['/api/campaigns'],
+    queryFn: async () => {
+      const response = await fetch('/api/campaigns');
+      if (!response.ok) throw new Error('Failed to fetch campaigns');
+      return response.json();
+    }
+  });
 
-  const Row = useCallback(({ index, style }: { index: number; style: React.CSSProperties }) => {
-    const campaign = campaigns[index];
+  // Fetch categories
+  const { data: categories = [] } = useQuery({
+    queryKey: ['/api/campaigns/categories'],
+    queryFn: async () => {
+      const response = await fetch('/api/campaigns/categories');
+      if (!response.ok) throw new Error('Failed to fetch categories');
+      return response.json();
+    }
+  });
+
+  // Fetch user data
+  const { data: user } = useQuery({
+    queryKey: ['/api/user'],
+    queryFn: async () => {
+      const response = await fetch('/api/user');
+      if (!response.ok) throw new Error('Failed to fetch user');
+      return response.json();
+    }
+  });
+
+  const handleCampaignClaim = (campaign: Campaign) => {
+    setSelectedCampaign(campaign);
+    setShowCouponModal(true);
+  };
+
+  const handleClaimConfirm = async () => {
+    if (!selectedCampaign) return;
+    
+    try {
+      const response = await fetch(`/api/coupons/claim/${selectedCampaign.id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      
+      if (!response.ok) throw new Error('Failed to claim coupon');
+      
+      setShowCouponModal(false);
+      setSelectedCampaign(null);
+    } catch (error) {
+      console.error('Claim failed:', error);
+    }
+  };
+
+  // Filter campaigns based on search and category
+  const filteredCampaigns = campaigns.filter((campaign: Campaign) => {
+    const matchesSearch = campaign.brandName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         campaign.offerDescription.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === 'All' || campaign.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  const groupedCampaigns = filteredCampaigns.reduce((acc: Record<string, Campaign[]>, campaign: Campaign) => {
+    const category = campaign.category || 'General';
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(campaign);
+    return acc;
+  }, {});
+
+  if (campaignsLoading) {
     return (
-      <div style={style}>
-        <div className="p-2">
-          <Suspense fallback={<div className="h-[120px] bg-white/5 rounded-lg animate-pulse" />}>
-            <CampaignCard 
-              campaign={campaign} 
-              onClaim={onCampaignClaim}
-            />
-          </Suspense>
+      <div className="min-h-screen electric-bg flex items-center justify-center">
+        <div className="text-white text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400 mx-auto mb-4"></div>
+          <p>Loading amazing offers...</p>
         </div>
       </div>
     );
-  }, [campaigns, onCampaignClaim]);
-
-  return (
-    <List
-      height={containerHeight}
-      itemCount={campaigns.length}
-      itemSize={itemHeight}
-      width="100%"
-    >
-      {Row}
-    </List>
-  );
-});
-
-export default function HomePage() {
-  const { user } = useAuth();
-  const { location, isLoading: locationLoading } = useLocation();
-  const { viewMode, setViewMode } = useGlobalState();
-  
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCoupon, setSelectedCoupon] = useState(null);
-  
-  const { 
-    campaigns, 
-    isLoading: campaignsLoading,
-    error 
-  } = useCampaigns({ 
-    category: selectedCategory, 
-    location,
-    enabled: !locationLoading 
-  });
-
-  // Memoized filtered campaigns
-  const filteredCampaigns = useMemo(() => {
-    if (!campaigns) return [];
-    
-    return campaigns.filter(campaign => {
-      if (searchQuery) {
-        const query = searchQuery.toLowerCase();
-        return (
-          campaign.brandName?.toLowerCase().includes(query) ||
-          campaign.offerDescription?.toLowerCase().includes(query) ||
-          campaign.category?.toLowerCase().includes(query)
-        );
-      }
-      return true;
-    });
-  }, [campaigns, searchQuery]);
-
-  // Memoized categories
-  const categories = useMemo(() => {
-    const cats = campaigns?.reduce((acc, campaign) => {
-      if (campaign.category && !acc.includes(campaign.category)) {
-        acc.push(campaign.category);
-      }
-      return acc;
-    }, ['All'] as string[]) || ['All'];
-    
-    return cats;
-  }, [campaigns]);
-
-  // Optimized handlers
-  const handleCategoryChange = useCallback((category: string) => {
-    setSelectedCategory(category);
-  }, []);
-
-  const handleCampaignClaim = useCallback((campaignId: string) => {
-    const campaign = campaigns?.find(c => c.id === campaignId);
-    if (campaign) {
-      setSelectedCoupon(campaign);
-    }
-  }, [campaigns]);
-
-  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  }, []);
-
-  if (locationLoading) {
-    return <PageLoading message="Getting your location..." />;
-  }
-
-  if (error) {
-    throw error;
   }
 
   return (
-    <div className="min-h-screen electric-bg pb-20">
+    <div className="min-h-screen electric-bg">
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-black/20 backdrop-blur-md border-b border-white/10">
-        <div className="p-4">
+      <header className="bg-black/20 backdrop-blur-sm border-b border-gray-800/50 sticky top-0 z-40">
+        <div className="max-w-md mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
             <div>
               <h1 className="text-xl font-bold text-white">
-                Hey {user?.firstName || 'Explorer'} 👋
+                Hey {user?.fullName || 'there'}! 👋
               </h1>
-              <p className="text-gray-300 text-sm">
-                {location ? `${filteredCampaigns.length} partnerships nearby` : 'Discovering partnerships...'}
-              </p>
+              <p className="text-sm text-gray-300">Discover exclusive deals near you</p>
             </div>
             <div className="flex items-center space-x-2">
               <Button
-                variant="ghost"
+                variant={viewMode === 'grid' ? 'default' : 'ghost'}
                 size="sm"
-                onClick={() => setViewMode(viewMode === 'list' ? 'map' : 'list')}
-                className="text-white"
+                onClick={() => setViewMode('grid')}
+                className="text-gray-300"
               >
-                {viewMode === 'list' ? <Map className="w-5 h-5" /> : <Bell className="w-5 h-5" />}
+                <Grid3X3 className="w-4 h-4" />
+              </Button>
+              <Button
+                variant={viewMode === 'map' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setViewMode('map')}
+                className="text-gray-300"
+              >
+                <Map className="w-4 h-4" />
               </Button>
             </div>
           </div>
 
-          {/* Search */}
+          {/* Search Bar */}
           <div className="relative mb-4">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             <input
               type="text"
-              placeholder="Search brands, offers..."
+              placeholder="Search brands or offers..."
               value={searchQuery}
-              onChange={handleSearchChange}
-              className="w-full pl-10 pr-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400"
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400"
             />
           </div>
 
-          {/* Categories */}
-          <div className="flex space-x-2 overflow-x-auto pb-2 scrollbar-hide">
-            {categories.map((category) => (
-              <FilterButton
+          {/* Category Filter */}
+          <div className="flex space-x-2 overflow-x-auto pb-2">
+            {['All', ...categories].map((category: string) => (
+              <Badge
                 key={category}
-                category={category}
-                active={selectedCategory === category}
-                onClick={handleCategoryChange}
-              />
+                variant={selectedCategory === category ? 'default' : 'secondary'}
+                className={`whitespace-nowrap cursor-pointer ${
+                  selectedCategory === category
+                    ? 'bg-cyan-400 text-black'
+                    : 'bg-gray-700/50 text-gray-300 hover:bg-gray-600/50'
+                }`}
+                onClick={() => setSelectedCategory(category)}
+              >
+                {category}
+              </Badge>
             ))}
           </div>
         </div>
-      </div>
+      </header>
 
       {/* Content */}
-      <div className="p-4">
-        {viewMode === 'map' ? (
-          <ErrorBoundary>
-            <Suspense fallback={<PageLoading message="Loading map..." />}>
-              <MapView 
-                campaigns={filteredCampaigns} 
-                userLocation={location}
-                onCampaignSelect={handleCampaignClaim}
-              />
-            </Suspense>
-          </ErrorBoundary>
-        ) : (
-          <div className="space-y-4">
-            {campaignsLoading ? (
-              <CampaignListSkeleton count={3} />
-            ) : filteredCampaigns.length > 0 ? (
-              <VirtualizedCampaignList 
-                campaigns={filteredCampaigns}
-                onCampaignClaim={handleCampaignClaim}
-              />
-            ) : (
-              <div className="text-center py-12">
-                <p className="text-gray-400">No partnerships found</p>
-              </div>
-            )}
+      <main className="max-w-md mx-auto px-4 py-6 pb-24">
+        {Object.entries(groupedCampaigns).map(([category, categoryCampaigns]) => (
+          <div key={category} className="mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold text-white">{category}</h2>
+              <span className="text-sm text-gray-400">
+                {categoryCampaigns.length} available
+              </span>
+            </div>
+            
+            <div className="space-y-4">
+              {categoryCampaigns.map((campaign) => (
+                <CampaignCard
+                  key={campaign.id}
+                  campaign={campaign}
+                  onClaim={() => handleCampaignClaim(campaign)}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
+
+        {filteredCampaigns.length === 0 && (
+          <div className="text-center py-12">
+            <div className="mb-4">
+              <Filter className="w-12 h-12 text-gray-400 mx-auto mb-2" />
+              <h3 className="text-lg font-medium text-white mb-2">No offers found</h3>
+              <p className="text-gray-400">
+                Try adjusting your search or category filter
+              </p>
+            </div>
           </div>
         )}
-      </div>
+      </main>
 
-      {/* Modals */}
-      {selectedCoupon && (
-        <Suspense fallback={null}>
-          <CouponModal
-            coupon={selectedCoupon}
-            onClose={() => setSelectedCoupon(null)}
-            onRedeemed={() => setSelectedCoupon(null)}
-          />
-        </Suspense>
-      )}
+      {/* Coupon Modal */}
+      <CouponModal
+        isOpen={showCouponModal}
+        onClose={() => setShowCouponModal(false)}
+        onConfirm={handleClaimConfirm}
+        isLoading={false}
+        campaign={selectedCampaign}
+        error={null}
+      />
 
+      {/* Bottom Navigation */}
       <BottomNavigation />
     </div>
   );
 }
-
-FilterButton.displayName = 'FilterButton';
-VirtualizedCampaignList.displayName = 'VirtualizedCampaignList';
