@@ -6,6 +6,18 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Share2, Clock, Instagram, Copy, Check } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import QRCode from "qrcode";
+import { Coupon } from "@shared/schema";
+
+interface CouponWithCampaign extends Coupon {
+  campaign?: {
+    brandName: string;
+    productName: string;
+    offerDescription: string;
+  };
+  brandName?: string;
+  productName?: string;
+  offerDescription?: string;
+}
 
 export default function CouponRedeemPage() {
   const [match, params] = useRoute("/redeem/:couponId");
@@ -16,7 +28,7 @@ export default function CouponRedeemPage() {
 
   const couponId = params?.couponId;
 
-  const { data: coupon, isLoading } = useQuery({
+  const { data: coupon, isLoading } = useQuery<CouponWithCampaign>({
     queryKey: [`/api/coupons/${couponId}`],
     enabled: !!couponId,
   });
@@ -93,8 +105,8 @@ export default function CouponRedeemPage() {
   const handleShare = () => {
     if (navigator.share && coupon) {
       navigator.share({
-        title: `${coupon.brandName} Early Access`,
-        text: `I got early access to ${coupon.offerDescription} at ${coupon.brandName}!`,
+        title: `${coupon.brandName || 'Brand'} Early Access`,
+        text: `I got early access to ${coupon.offerDescription || 'special offer'} at ${coupon.brandName || 'this brand'}!`,
         url: window.location.href,
       });
     }
@@ -122,10 +134,10 @@ export default function CouponRedeemPage() {
             {/* Brand Name & Offer */}
             <div className="mb-6">
               <h2 className="text-4xl font-rubik font-black text-pink-400 mb-2">
-                {coupon.brandName}
+                {coupon?.brandName || 'Brand'}
               </h2>
               <div className="text-5xl font-rubik font-black earlyshh-text-gradient">
-                {coupon.offerDescription}
+                {coupon?.offerDescription || '30% OFF'}
               </div>
             </div>
 
@@ -136,8 +148,19 @@ export default function CouponRedeemPage() {
             {/* QR Code */}
             <div className="mb-6">
               <div className="w-64 h-64 mx-auto bg-white rounded-3xl p-4 border-4 border-pink-500">
-                <div className="w-full h-full bg-gray-100 rounded-xl flex items-center justify-center">
-                  <div className="text-6xl">📱</div>
+                <div className="w-full h-full bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
+                  {qrCodeDataUrl ? (
+                    <img 
+                      src={qrCodeDataUrl} 
+                      alt="QR Code for coupon redemption"
+                      className="w-full h-full object-contain rounded-lg"
+                    />
+                  ) : (
+                    <div className="text-gray-400 text-center">
+                      <div className="text-4xl mb-2">⏳</div>
+                      <div className="text-sm">Generating QR Code...</div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -155,7 +178,7 @@ export default function CouponRedeemPage() {
               <p className="text-gray-300 font-space text-sm mb-2">Or use Fetch Code:</p>
               <div className="flex items-center justify-center space-x-2">
                 <div className="text-2xl font-mono font-bold text-white bg-black/50 px-4 py-2 rounded-lg">
-                  {coupon.code}
+                  {coupon?.code || '1234-5678-9012'}
                 </div>
                 <Button 
                   variant="ghost" 
@@ -178,7 +201,7 @@ export default function CouponRedeemPage() {
             <div className="space-y-4 text-white font-space">
               <div>
                 <p className="font-semibold mb-2">You'll get:</p>
-                <p className="text-gray-300">• {coupon.offerDescription} on {coupon.productName}</p>
+                <p className="text-gray-300">• {coupon?.offerDescription || 'Special offer'} on {coupon?.productName || 'selected items'}</p>
               </div>
 
               <div>
@@ -200,7 +223,7 @@ export default function CouponRedeemPage() {
 
                 <div className="bg-black/30 rounded-lg p-3">
                   <p className="font-bold mb-2">📱 Required Tags:</p>
-                  <p className="text-gray-300 text-sm">• @{coupon.brandName?.toLowerCase()}</p>
+                  <p className="text-gray-300 text-sm">• @{coupon?.brandName?.toLowerCase() || 'brand'}</p>
                   <p className="text-gray-300 text-sm">• @inplace.usa (🔗 hidden)</p>
                 </div>
               </div>
@@ -217,7 +240,7 @@ export default function CouponRedeemPage() {
           
           <div className="text-center">
             <p className="text-gray-400 font-space text-sm">
-              🏷️ Product: {coupon.productName}
+              🏷️ Product: {coupon?.productName || 'SuperRoot Energy Drink'}
             </p>
           </div>
         </div>
