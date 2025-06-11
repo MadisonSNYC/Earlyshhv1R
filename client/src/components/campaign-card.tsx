@@ -10,13 +10,14 @@ import { apiRequest } from "@/lib/api";
 import { Campaign } from "@shared/schema";
 import { CheckCircle } from "lucide-react";
 import PartnershipTermsModal from "./partnership-terms-modal";
+import React from 'react';
 
 interface CampaignCardProps {
   campaign: Campaign & { claimedCount?: number; availableCount?: number };
   onCouponClaimed?: (coupon: any) => void;
 }
 
-export default function CampaignCard({ campaign, onCouponClaimed }: CampaignCardProps) {
+export const CampaignCard = React.memo(function CampaignCard({ campaign, onCouponClaimed }: CampaignCardProps) {
   const { user } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -147,4 +148,4 @@ export default function CampaignCard({ campaign, onCouponClaimed }: CampaignCard
       )}
     </Card>
   );
-}
+})

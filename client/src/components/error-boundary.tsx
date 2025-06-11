@@ -1,6 +1,4 @@
-The ErrorBoundary component is being enhanced with better error reporting and retry mechanisms.
-```
-```replit_final_file
+
 import React from 'react';
 import { AlertTriangle, RefreshCw, Home, Bug } from 'lucide-react';
 import { Button } from './ui/button';
