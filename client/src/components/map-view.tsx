@@ -199,6 +199,12 @@ interface MapViewProps {
   onCampaignClick: (campaign: Campaign) => void;
 }
 
+interface MapViewProps {
+  campaigns: any[];
+  userLocation: { lat: number; lng: number } | null;
+  onCampaignClick: (campaign: any) => void;
+}
+
 export default function MapView({ campaigns, userLocation, onCampaignClick }: MapViewProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);

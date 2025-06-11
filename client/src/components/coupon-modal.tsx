@@ -162,6 +162,15 @@ interface CouponModalProps {
   error: any;
 }
 
+interface CouponModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => Promise<void>;
+  isLoading: boolean;
+  campaign: any;
+  error: string | null;
+}
+
 export default function CouponModal({
   isOpen,
   onClose,
