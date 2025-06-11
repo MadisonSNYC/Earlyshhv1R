@@ -41,11 +41,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = async (instagramData: InstagramLoginData) => {
     try {
       const data = await apiClient.login(instagramData);
-      
+
       if (!data.user || !data.user.id) {
         throw new Error('Invalid user data received from server');
       }
-      
+
       setUser(data.user);
       apiClient.setUser(data.user);
       localStorage.setItem('earlyshh_user', JSON.stringify(data.user));
