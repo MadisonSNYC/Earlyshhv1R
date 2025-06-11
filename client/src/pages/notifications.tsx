@@ -20,6 +20,7 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import BottomNavigation from "@/components/bottom-navigation";
 import type { Notification } from "@shared/schema";
 
 const iconMap = {
@@ -258,6 +259,7 @@ export default function NotificationsPage() {
           )}
         </div>
       </div>
+      <BottomNavigation />
     </div>
   );
 }
