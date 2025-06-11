@@ -2,16 +2,26 @@ import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Check, Instagram, AlertCircle, MapPin, Clock, Users } from "lucide-react";
+import { Check, Instagram, AlertCircle, MapPin, Clock, Users, Navigation } from "lucide-react";
 import { Campaign } from "@shared/schema";
 
 interface PartnershipTermsModalProps {
   campaign: Campaign & { claimedCount?: number };
   onAccept: () => void;
   onClose: () => void;
+  onViewOnMap?: () => void;
 }
 
-export default function PartnershipTermsModal({ campaign, onAccept, onClose }: PartnershipTermsModalProps) {
+export default function PartnershipTermsModal({ campaign, onAccept, onClose, onViewOnMap }: PartnershipTermsModalProps) {
+  // Calculate approximate distance (using mock data for now)
+  const distance = campaign.location || "0.3 miles away";
+
+  const handleViewOnMap = () => {
+    if (onViewOnMap) {
+      onViewOnMap();
+      onClose(); // Close modal when viewing on map
+    }
+  };
   return (
     <Dialog open={true} onOpenChange={onClose}>
       <DialogContent className="max-w-md w-full p-0 glass-morphism border-white/20 overflow-hidden max-h-[90vh] flex flex-col">

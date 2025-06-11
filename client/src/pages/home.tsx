@@ -77,7 +77,12 @@ export default function HomePage() {
         </div>
 
         <div className="flex items-center space-x-3">
-          <Button variant="ghost" size="sm" className="relative hover:bg-white/10 rounded-xl p-2 mobile-touch">
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => setLocation("/notifications")}
+            className="relative hover:bg-white/10 rounded-xl p-2 mobile-touch"
+          >
             <Bell className="h-5 w-5 text-white" />
             <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-gradient-to-r from-pink-500 to-orange-400 rounded-full"></span>
           </Button>
