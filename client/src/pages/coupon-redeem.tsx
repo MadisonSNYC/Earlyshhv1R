@@ -1,15 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRoute } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Share2, Clock, Instagram, Copy, Check } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import QRCode from "qrcode";
 
 export default function CouponRedeemPage() {
   const [match, params] = useRoute("/redeem/:couponId");
   const [timeLeft, setTimeLeft] = useState(24 * 60); // 24 hours in minutes
   const [copied, setCopied] = useState(false);
+  const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string>("");
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const couponId = params?.couponId;
 
@@ -17,6 +20,31 @@ export default function CouponRedeemPage() {
     queryKey: [`/api/coupons/${couponId}`],
     enabled: !!couponId,
   });
+
+  // Generate QR code when coupon data is available
+  useEffect(() => {
+    if (coupon?.code) {
+      const qrData = JSON.stringify({
+        couponId: coupon.id,
+        code: coupon.code,
+        brandName: coupon.brandName,
+        offerDescription: coupon.offerDescription,
+        expiresAt: Date.now() + (timeLeft * 60 * 1000)
+      });
+
+      QRCode.toDataURL(qrData, {
+        width: 256,
+        margin: 2,
+        color: {
+          dark: '#000000',
+          light: '#FFFFFF'
+        },
+        errorCorrectionLevel: 'M'
+      })
+        .then(url => setQrCodeDataUrl(url))
+        .catch(err => console.error('QR code generation failed:', err));
+    }
+  }, [coupon, timeLeft]);
 
   if (isLoading) {
     return (
