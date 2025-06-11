@@ -11,6 +11,7 @@ import HomePage from "@/pages/home";
 import MyCouponsPage from "@/pages/my-coupons";
 import AnalyticsPage from "@/pages/analytics";
 import ProfilePage from "@/pages/profile";
+import CouponRedeemPage from "@/pages/coupon-redeem";
 import NotFound from "@/pages/not-found";
 
 function AuthenticatedApp() {
@@ -20,6 +21,7 @@ function AuthenticatedApp() {
       <Route path="/my-coupons" component={MyCouponsPage} />
       <Route path="/analytics" component={AnalyticsPage} />
       <Route path="/profile" component={ProfilePage} />
+      <Route path="/redeem/:couponId" component={CouponRedeemPage} />
       <Route component={NotFound} />
     </Switch>
   );

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -15,6 +16,7 @@ interface CouponModalProps {
 
 export default function CouponModal({ coupon, onClose, onRedeemed }: CouponModalProps) {
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const [showFullTerms, setShowFullTerms] = useState(false);
 
   const redeemMutation = useMutation({
@@ -24,14 +26,16 @@ export default function CouponModal({ coupon, onClose, onRedeemed }: CouponModal
     },
     onSuccess: () => {
       toast({
-        title: "Experience Activated!",
-        description: "Share your story to unlock future early access.",
+        title: "Early Access Secured!",
+        description: "Your QR code is ready for redemption.",
       });
       onRedeemed();
+      setLocation(`/redeem/${coupon.couponId}`);
+      onClose();
     },
     onError: (error: Error) => {
       toast({
-        title: "Activation Failed",
+        title: "Access Failed",
         description: error.message || "Please try again.",
         variant: "destructive",
       });

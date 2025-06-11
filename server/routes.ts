@@ -210,6 +210,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/coupons/:id", async (req, res) => {
+    try {
+      const couponId = parseInt(req.params.id);
+      const coupon = await storage.getCoupon(couponId);
+      
+      if (!coupon) {
+        return res.status(404).json({ message: "Coupon not found" });
+      }
+
+      const campaign = await storage.getCampaign(coupon.campaignId);
+      
+      res.json({
+        ...coupon,
+        campaign,
+        brandName: campaign?.brandName || "Unknown Brand",
+        productName: campaign?.productName || "Product",
+        offerDescription: campaign?.offerDescription || "Special Offer"
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch coupon", error: error instanceof Error ? error.message : "Unknown error" });
+    }
+  });
+
   app.patch("/api/coupons/:id/redeem", async (req, res) => {
     try {
       const couponId = parseInt(req.params.id);
