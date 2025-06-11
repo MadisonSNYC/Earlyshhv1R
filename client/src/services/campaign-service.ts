@@ -1,63 +1,64 @@
+import { apiClient } from '../lib/api-client';
+import type { Campaign, Coupon, APIResponse } from '../types';
 
-import { apiClient } from '@/lib/api-client';
-
-export interface Campaign {
-  id: number;
-  brandName: string;
-  brandIgHandle: string;
-  offerDescription: string;
-  productName: string;
-  brandLogoUrl: string;
-  redeemableAmount: string;
-  startDate: string;
-  endDate: string;
-  maxCoupons: number;
-  perUserLimit: number;
-  status: string;
-  latitude: string;
-  longitude: string;
-  radius: string;
-  category: string;
-  claimedCount?: number;
-  redeemedCount?: number;
-  availableCount?: number;
+interface GetCampaignsParams {
+  lat?: number;
+  lng?: number;
+  radius?: number;
+  category?: string;
+  search?: string;
+  limit?: number;
+  offset?: number;
 }
 
-export class CampaignService {
-  async getAllCampaigns(): Promise<Campaign[]> {
-    try {
-      const response = await apiClient.getCampaigns();
-      return response;
-    } catch (error) {
-      throw new Error(`Failed to fetch campaigns: ${error instanceof Error ? error.message : 'Unknown error'}`);
+class CampaignService {
+  async getCampaigns(params?: GetCampaignsParams): Promise<Campaign[]> {
+    const searchParams = new URLSearchParams();
+
+    if (params?.lat) searchParams.append('lat', params.lat.toString());
+    if (params?.lng) searchParams.append('lng', params.lng.toString());
+    if (params?.radius) searchParams.append('radius', params.radius.toString());
+    if (params?.category && params.category !== 'all') {
+      searchParams.append('category', params.category);
     }
+    if (params?.search) searchParams.append('search', params.search);
+    if (params?.limit) searchParams.append('limit', params.limit.toString());
+    if (params?.offset) searchParams.append('offset', params.offset.toString());
+
+    const response = await apiClient.get<APIResponse<Campaign[]>>(
+      `/campaigns?${searchParams.toString()}`
+    );
+    return response.data?.data || [];
   }
 
-  async getCampaignById(id: number): Promise<Campaign> {
-    try {
-      const response = await apiClient.getCampaign(id);
-      return response;
-    } catch (error) {
-      throw new Error(`Failed to fetch campaign ${id}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  async getCampaign(id: string): Promise<Campaign> {
+    const response = await apiClient.get<APIResponse<Campaign>>(`/campaigns/${id}`);
+    if (!response.data?.data) {
+      throw new Error('Campaign not found');
     }
+    return response.data.data;
   }
 
-  async claimCampaignCoupon(campaignId: number) {
-    try {
-      const response = await apiClient.claimCoupon(campaignId);
-      return response;
-    } catch (error) {
-      throw new Error(`Failed to claim coupon for campaign ${campaignId}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  async claimCoupon(campaignId: string): Promise<Coupon> {
+    const response = await apiClient.post<APIResponse<Coupon>>(
+      `/campaigns/${campaignId}/claim`
+    );
+    if (!response.data?.data) {
+      throw new Error('Failed to claim coupon');
     }
+    return response.data.data;
   }
 
-  async getCampaignAnalytics() {
-    try {
-      const response = await apiClient.getCampaignAnalytics();
-      return response;
-    } catch (error) {
-      throw new Error(`Failed to fetch campaign analytics: ${error instanceof Error ? error.message : 'Unknown error'}`);
-    }
+  async getActiveCampaigns(): Promise<Campaign[]> {
+    return this.getCampaigns({ category: 'active' });
+  }
+
+  async searchCampaigns(query: string, location?: { lat: number; lng: number }): Promise<Campaign[]> {
+    return this.getCampaigns({
+      search: query,
+      lat: location?.lat,
+      lng: location?.lng
+    });
   }
 }
 

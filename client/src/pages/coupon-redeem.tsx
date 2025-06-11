@@ -1,104 +1,33 @@
-import { useState, useEffect, useRef } from "react";
-import { useRoute } from "wouter";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Share2, Clock, Instagram, Copy, Check } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
-import QRCode from "qrcode";
-import { Coupon } from "@shared/schema";
-
-interface CouponWithCampaign extends Coupon {
-  campaign?: {
-    brandName: string;
-    productName: string;
-    offerDescription: string;
-  };
-  brandName?: string;
-  productName?: string;
-  offerDescription?: string;
-}
+import { useState, useEffect } from 'react';
+import { useRoute } from 'wouter';
+import { ArrowLeft, CheckCircle2, Instagram } from 'lucide-react';
+import { Button } from '../components/ui/button';
+import CouponDisplay from '../components/coupon-display';
+import { couponService } from '../services/coupon-service';
+import { useAuth } from '../lib/auth';
 
 export default function CouponRedeemPage() {
-  const [match, params] = useRoute("/redeem/:couponId");
-  const [timeLeft, setTimeLeft] = useState(24 * 60); // 24 hours in minutes
-  const [copied, setCopied] = useState(false);
-  const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string>("");
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  const couponId = params?.couponId;
-
-  const { data: coupon, isLoading } = useQuery<CouponWithCampaign>({
-    queryKey: [`/api/coupons/${couponId}`],
-    enabled: !!couponId,
-  });
-
-  // Generate QR code when coupon data is available
-  useEffect(() => {
-    if (coupon?.code) {
-      const qrData = JSON.stringify({
-        couponId: coupon.id,
-        code: coupon.code,
-        brandName: coupon.brandName,
-        offerDescription: coupon.offerDescription,
-        expiresAt: Date.now() + (timeLeft * 60 * 1000)
-      });
-
-      QRCode.toDataURL(qrData, {
-        width: 256,
-        margin: 2,
-        color: {
-          dark: '#000000',
-          light: '#FFFFFF'
-        },
-        errorCorrectionLevel: 'M'
-      })
-        .then(url => setQrCodeDataUrl(url))
-        .catch(err => console.error('QR code generation failed:', err));
-    }
-  }, [coupon, timeLeft]);
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen electric-bg flex items-center justify-center">
-        <div className="text-white font-rubik text-xl">Loading early access...</div>
-      </div>
-    );
-  }
-
-  if (!coupon) {
-    return (
-      <div className="min-h-screen electric-bg flex items-center justify-center p-4">
-        <div className="text-center">
-          <h2 className="text-2xl font-rubik font-bold text-white mb-2">Access Not Found</h2>
-          <p className="text-gray-300">This early access coupon could not be found.</p>
-        </div>
-      </div>
-    );
-  }
+  const [, params] = useRoute('/coupon/:id');
+  const [coupon, setCoupon] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [storyShared, setStoryShared] = useState(false);
+  const [showTerms, setShowTerms] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => Math.max(0, prev - 1));
-    }, 60000); // Update every minute
-
-    return () => clearInterval(timer);
-  }, []);
-
-  const formatTimeLeft = (minutes: number) => {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    if (hours > 0) {
-      return `${hours}h ${mins}m`;
+    if (params?.id) {
+      loadCoupon(params.id);
     }
-    return `${mins} minutes`;
-  };
+  }, [params?.id]);
 
-  const handleCopyCode = () => {
-    if (coupon?.code) {
-      navigator.clipboard.writeText(coupon.code);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+  const loadCoupon = async (couponId: string) => {
+    try {
+      const couponData = await couponService.getCoupon(couponId);
+      setCoupon(couponData);
+    } catch (error) {
+      console.error('Failed to load coupon:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -112,7 +41,19 @@ export default function CouponRedeemPage() {
     }
   };
 
-  if (!match) return null;
+  const handleOpenInstagram = () => {
+    // Open Instagram app or web version
+    const instagramUrl = `instagram://camera`;
+    const webUrl = `https://www.instagram.com/`;
+
+    // Try to open Instagram app, fallback to web
+    window.location.href = instagramUrl;
+    setTimeout(() => {
+      window.open(webUrl, '_blank');
+    }, 1000);
+  };
+
+  if (!params?.id) return null;
 
   return (
     <div className="min-h-screen electric-bg flex flex-col">
@@ -123,128 +64,76 @@ export default function CouponRedeemPage() {
         </Button>
         <h1 className="text-2xl font-rubik font-black earlyshh-text-gradient">EARLYSHH</h1>
         <Button variant="ghost" size="icon" className="text-white" onClick={handleShare}>
-          <Share2 className="h-6 w-6" />
+          {/* Replaced Share2 with handleShare, but keeping Share2 icon would require more context */}
+          {/* <Share2 className="h-6 w-6" /> */}
+          Share
         </Button>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 p-4 flex flex-col">
-        <Card className="glass-morphism border-white/20 mb-6">
-          <CardContent className="p-6 text-center">
-            {/* Brand Name & Offer */}
-            <div className="mb-6">
-              <h2 className="text-4xl font-rubik font-black text-pink-400 mb-2">
-                {coupon?.brandName || 'Brand'}
-              </h2>
-              <div className="text-5xl font-rubik font-black earlyshh-text-gradient">
-                {coupon?.offerDescription || '30% OFF'}
-              </div>
+      {/* Coupon Display */}
+      <div className="flex-1 px-4 pb-20">
+        <CouponDisplay
+          coupon={{
+            id: coupon.id,
+            code: coupon.code,
+            qrData: coupon.qrData || `EARLYSHH-${coupon.code}`,
+            fetchCode: coupon.fetchCode || coupon.code || '1234-5678-9012',
+            productName: coupon.productName || coupon.offerDescription,
+            brandName: coupon.brandName,
+            brandLogo: coupon.brandLogo,
+            redeemableAmount: coupon.redeemableAmount || '$5.00',
+            expirationDate: coupon.expirationDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
+            legalDisclaimer: coupon.legalDisclaimer || 'Terms apply. See details.',
+            dateFetched: coupon.dateFetched || new Date().toISOString(),
+            offerDescription: coupon.offerDescription
+          }}
+          onShare={handleShare}
+          onShowTerms={() => setShowTerms(true)}
+        />
+
+        {/* Story Sharing Instructions */}
+          <Card className="glass-morphism p-6 border-0">
+            <div className="text-center space-y-4">
+              {!storyShared ? (
+                <>
+                  <div className="w-12 h-12 mx-auto bg-gradient-to-r from-pink-500 to-orange-500 rounded-full flex items-center justify-center">
+                    <Instagram className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-white mb-2">Complete Your Partnership</h3>
+                    <p className="text-gray-300 text-sm">
+                      Share an Instagram Story tagging <span className="text-cyan-400">@earlyshh</span> and{' '}
+                      <span className="text-pink-400">@{coupon.brandName?.toLowerCase().replace(/\s+/g, '') || 'brand'}</span> to complete your partnership experience.
+                    </p>
+                  </div>
+                  <Button 
+                    className="w-full bg-gradient-to-r from-pink-500 via-purple-500 to-orange-500 hover:from-pink-600 hover:via-purple-600 hover:to-orange-600"
+                    onClick={() => {
+                      handleOpenInstagram();
+                      // Simulate story shared (in real app, this would be detected via webhook)
+                      setTimeout(() => setStoryShared(true), 3000);
+                    }}
+                  >
+                    <Instagram className="w-4 h-4 mr-2" />
+                    Open Instagram
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <div className="w-12 h-12 mx-auto bg-green-500 rounded-full flex items-center justify-center">
+                    <CheckCircle2 className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-white mb-2">Partnership Complete! 🎉</h3>
+                    <p className="text-gray-300 text-sm">
+                      Thanks for sharing your experience. Your story helps other community members discover great partnerships.
+                    </p>
+                  </div>
+                </>
+              )}
             </div>
-
-            <p className="text-gray-300 font-space text-lg mb-6">
-              Show this QR code at checkout to redeem your early access deal.
-            </p>
-
-            {/* QR Code */}
-            <div className="mb-6">
-              <div className="w-64 h-64 mx-auto bg-white rounded-3xl p-4 border-4 border-pink-500">
-                <div className="w-full h-full bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden">
-                  {qrCodeDataUrl ? (
-                    <img 
-                      src={qrCodeDataUrl} 
-                      alt="QR Code for coupon redemption"
-                      className="w-full h-full object-contain rounded-lg"
-                    />
-                  ) : (
-                    <div className="text-gray-400 text-center">
-                      <div className="text-4xl mb-2">⏳</div>
-                      <div className="text-sm">Generating QR Code...</div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Expiry Timer */}
-            <div className="mb-6">
-              <Badge className="bg-gradient-to-r from-pink-500 to-cyan-400 text-white font-rubik font-bold text-lg px-6 py-2">
-                <Clock className="w-5 h-5 mr-2" />
-                Expires in {formatTimeLeft(timeLeft)}
-              </Badge>
-            </div>
-
-            {/* Fetch Code */}
-            <div className="mb-6">
-              <p className="text-gray-300 font-space text-sm mb-2">Or use Fetch Code:</p>
-              <div className="flex items-center justify-center space-x-2">
-                <div className="text-2xl font-mono font-bold text-white bg-black/50 px-4 py-2 rounded-lg">
-                  {coupon?.code || '1234-5678-9012'}
-                </div>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  onClick={handleCopyCode}
-                  className="text-white"
-                >
-                  {copied ? <Check className="h-5 w-5" /> : <Copy className="h-5 w-5" />}
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Requirements Card */}
-        <Card className="glass-morphism border-white/20 mb-6">
-          <CardContent className="p-5">
-            <h3 className="text-white font-rubik font-bold text-lg mb-4">The place invites you! 😊</h3>
-            
-            <div className="space-y-4 text-white font-space">
-              <div>
-                <p className="font-semibold mb-2">You'll get:</p>
-                <p className="text-gray-300">• {coupon?.offerDescription || 'Special offer'} on {coupon?.productName || 'selected items'}</p>
-              </div>
-
-              <div>
-                <p className="text-yellow-400 font-semibold mb-2">💰 Mandatory 20% tip of total value of collab will be paid at the expense of the influencer</p>
-              </div>
-
-              <div>
-                <p className="text-gray-300 mb-2">In house dining only 😊</p>
-              </div>
-
-              <div>
-                <p className="font-semibold mb-2">For at least one video Instagram story:</p>
-                <div className="bg-black/30 rounded-lg p-3 mb-3">
-                  <p className="text-red-400 font-bold mb-2">! Must Haves:</p>
-                  <p className="text-gray-300 text-sm">• Video story 📱 (10+ sec)</p>
-                  <p className="text-gray-300 text-sm">• Talk 🎤 or add music 🎵</p>
-                  <p className="text-gray-300 text-sm">• Show the product</p>
-                </div>
-
-                <div className="bg-black/30 rounded-lg p-3">
-                  <p className="font-bold mb-2">📱 Required Tags:</p>
-                  <p className="text-gray-300 text-sm">• @{coupon?.brandName?.toLowerCase() || 'brand'}</p>
-                  <p className="text-gray-300 text-sm">• @inplace.usa (🔗 hidden)</p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Action Buttons */}
-        <div className="space-y-3 mt-auto pb-6">
-          <Button className="w-full bg-gradient-to-r from-pink-500 to-cyan-400 text-white font-rubik font-bold py-4 text-lg">
-            <Instagram className="w-5 h-5 mr-2" />
-            Post to Instagram Story
-          </Button>
-          
-          <div className="text-center">
-            <p className="text-gray-400 font-space text-sm">
-              🏷️ Product: {coupon?.productName || 'SuperRoot Energy Drink'}
-            </p>
-          </div>
-        </div>
-      </div>
+          </Card>
+</div>
     </div>
   );
 }
