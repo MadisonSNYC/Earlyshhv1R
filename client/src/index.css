@@ -29,36 +29,32 @@
 }
 
 :root {
-  --background: hsl(240, 10%, 3.9%);
+  --background: hsl(259, 94%, 51%);
   --foreground: hsl(0, 0%, 98%);
-  --muted: hsl(240, 3.7%, 15.9%);
-  --muted-foreground: hsl(240, 5%, 64.9%);
-  --popover: hsl(240, 10%, 3.9%);
+  --muted: hsla(259, 94%, 20%, 0.8);
+  --muted-foreground: hsl(259, 20%, 80%);
+  --popover: hsla(259, 94%, 20%, 0.95);
   --popover-foreground: hsl(0, 0%, 98%);
-  --card: hsl(240, 10%, 3.9%);
+  --card: hsla(259, 94%, 20%, 0.6);
   --card-foreground: hsl(0, 0%, 98%);
-  --border: hsl(240, 3.7%, 15.9%);
-  --input: hsl(240, 3.7%, 15.9%);
+  --border: hsla(259, 50%, 70%, 0.2);
+  --input: hsla(259, 94%, 20%, 0.8);
   --primary: hsl(326, 82%, 60%);
   --primary-foreground: hsl(0, 0%, 98%);
   --secondary: hsl(195, 100%, 50%);
-  --secondary-foreground: hsl(240, 10%, 3.9%);
-  --accent: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(259, 94%, 20%);
+  --accent: hsla(259, 94%, 20%, 0.6);
   --accent-foreground: hsl(0, 0%, 98%);
-  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive: hsl(0, 62.8%, 50%);
   --destructive-foreground: hsl(0, 0%, 98%);
-  --ring: hsl(240, 4.9%, 83.9%);
+  --ring: hsl(326, 82%, 60%);
   --radius: 1rem;
   
   /* Earlyshh Electric Brand Colors */
-  --earlyshh-pink: #FF1493;
-  --earlyshh-cyan: #00D4FF;
-  --earlyshh-gold: #FFD700;
-  --earlyshh-green: #32CD32;
-  --earlyshh-purple: #7B2D8E;
-  --earlyshh-orange: #E87722;
-  --earlyshh-dark: #1a1a1a;
-  --earlyshh-darker: #0a0a0a;
+  --earlyshh-pink: #E91E63;
+  --earlyshh-purple: #673AB7;
+  --earlyshh-cyan: #00BCD4;
+  --earlyshh-yellow: #FFC107;
 }
 
 .dark {
@@ -84,6 +80,50 @@
   --radius: 0.5rem;
 }
 
+/* Earlyshh Brand Background */
+.earlyshh-bg {
+  background: linear-gradient(135deg, #673AB7 0%, #9C27B0 25%, #E91E63 75%, #FF5722 100%);
+  min-height: 100vh;
+}
+
+/* Electric vibrant background */
+.electric-bg {
+  background: linear-gradient(135deg, #673AB7 0%, #9C27B0 25%, #E91E63 75%, #FF5722 100%);
+  min-height: 100vh;
+}
+
+/* Glass morphism cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+}
+
+/* Gradient buttons */
+.gradient-button {
+  background: linear-gradient(135deg, #E91E63 0%, #00BCD4 100%);
+  border: none;
+  border-radius: 25px;
+  color: white;
+  font-weight: 600;
+}
+
+/* Campaign card styling */
+.campaign-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.campaign-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -92,7 +132,7 @@
   body {
     @apply font-sans antialiased bg-background text-foreground;
     font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    background: linear-gradient(135deg, var(--earlyshh-dark) 0%, #2d1b2e 100%);
+    background: linear-gradient(135deg, #673AB7 0%, #9C27B0 25%, #E91E63 75%, #FF5722 100%);
     overscroll-behavior: none;
     -webkit-overflow-scrolling: touch;
     height: 100vh;
@@ -101,274 +141,42 @@
   }
 
   html {
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     overflow-x: hidden;
-  }
-
-  .font-rubik {
-    font-family: 'Rubik', sans-serif;
-  }
-
-  .font-space {
-    font-family: 'Space Grotesk', sans-serif;
   }
 }
 
 @layer components {
-  .earlyshh-gradient {
-    background: linear-gradient(45deg, var(--earlyshh-pink), var(--earlyshh-cyan), var(--earlyshh-gold));
-    background-size: 300% 300%;
-    animation: gradientShift 3s ease-in-out infinite;
+  /* Loading states */
+  .loading-skeleton {
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 25%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
   }
 
-  .earlyshh-text-gradient {
-    background: linear-gradient(45deg, var(--earlyshh-pink), var(--earlyshh-cyan));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    background-size: 200% 200%;
-    animation: gradientShift 2s ease-in-out infinite;
+  @keyframes loading {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
   }
 
-  .earlyshh-brand-title {
-    font-family: 'Rubik', sans-serif;
-    font-weight: 800;
-    letter-spacing: -1px;
-    background: linear-gradient(45deg, var(--earlyshh-pink), var(--earlyshh-cyan), var(--earlyshh-gold));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    background-size: 300% 300%;
-    animation: gradientShift 3s ease-in-out infinite;
-  }
-  
-  .glass-morphism {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .electric-border {
-    position: relative;
-  }
-
-  .electric-border::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(45deg, var(--earlyshh-pink), var(--earlyshh-cyan), var(--earlyshh-gold));
-    border-radius: inherit;
-  }
-
-  .btn-electric {
-    background: linear-gradient(45deg, var(--earlyshh-pink), var(--earlyshh-cyan));
-    color: white;
-    font-family: 'Rubik', sans-serif;
-    font-weight: 600;
+  /* Enhanced button styles */
+  .btn-primary {
+    background: linear-gradient(135deg, #E91E63 0%, #00BCD4 100%);
     border: none;
-    border-radius: 15px;
-    padding: 15px 30px;
-    box-shadow: 0 10px 30px rgba(255, 20, 147, 0.3);
-    transition: all 0.3s ease;
-  }
-
-  .btn-electric:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(255, 20, 147, 0.5);
-  }
-
-  .campaign-card-electric {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 25px;
-    overflow: hidden;
-    position: relative;
+    color: white;
+    font-weight: 600;
+    padding: 12px 24px;
     transition: all 0.3s ease;
   }
 
-  .campaign-card-electric:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(233, 30, 99, 0.3);
   }
-
-  .campaign-card-electric::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(45deg, var(--earlyshh-pink), var(--earlyshh-cyan), var(--earlyshh-gold));
-  }
-  
-  .story-progress {
-    background: linear-gradient(90deg, var(--earlyshh-pink) 0%, var(--earlyshh-cyan) 100%);
-  }
-  
-  .map-pin {
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-  }
-  
-  .animate-gradient {
-    background-position: 0% 50%;
-    animation: gradientShift 3s ease infinite;
-  }
-  
-  .animate-pulse-slow {
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  /* Loading screen animations */
-  @keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-20px) rotate(180deg); }
-  }
-
-  @keyframes float-delayed {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-15px) rotate(-180deg); }
-  }
-
-  .animate-float {
-    animation: float 4s ease-in-out infinite;
-  }
-
-  .animate-float-delayed {
-    animation: float-delayed 4s ease-in-out infinite;
-    animation-delay: 1s;
-  }
-
-  .animation-delay-200 {
-    animation-delay: 200ms;
-  }
-
-  .phone-mockup {
-    background: linear-gradient(145deg, #2a2a2a, var(--earlyshh-dark));
-    border-radius: 30px;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-  }
-
-  .mobile-safe-area {
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
-  }
-
-  .mobile-touch {
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
-  }
-
-  .mobile-scroll {
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
-    scroll-behavior: smooth;
-    touch-action: pan-y;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
-  }
-
-  .mobile-scroll::-webkit-scrollbar {
-    width: 4px;
-  }
-
-  .mobile-scroll::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .mobile-scroll::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 2px;
-  }
-
-  .mobile-scroll::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.5);
-  }
-}
-
-@keyframes gradientShift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes gradient {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-/* PWA specific styles */
-@media (display-mode: standalone) {
-  body {
-    user-select: none;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-  }
-}
-
-/* Instagram-inspired animations */
-.instagram-story-ring {
-  background: linear-gradient(45deg, hsl(326, 82%, 60%), hsl(258, 84%, 69%), hsl(43, 96%, 49%));
-  animation: rotate 2s linear infinite;
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Card hover effects */
-.campaign-card {
-  transition: all 0.2s ease-in-out;
-}
-
-.campaign-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
-
-/* Button press effects */
-.button-press {
-  transition: all 0.1s ease-in-out;
-}
-
-.button-press:active {
-  transform: scale(0.95);
-}
-
-/* Map styles */
-.map-container {
-  background: linear-gradient(135deg, hsl(240, 10%, 12%) 0%, hsl(240, 10%, 8%) 100%);
-}
-
-.geofence-circle {
-  border: 2px dashed hsl(207, 90%, 54%);
-  opacity: 0.5;
-  animation: pulse 2s infinite;
-}
-
-/* QR Code container */
-.qr-code-container {
-  background: repeating-conic-gradient(#000 0deg 90deg, #fff 90deg 180deg);
-  background-size: 8px 8px;
 }

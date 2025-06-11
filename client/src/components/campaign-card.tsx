@@ -13,7 +13,7 @@ interface CampaignCardProps {
 
 const CampaignCard = memo(({ campaign, onClaim, className = '' }: CampaignCardProps) => {
   const handleClaim = useCallback(() => {
-    onClaim?.(campaign.id);
+    onClaim?.(campaign.id.toString());
   }, [onClaim, campaign.id]);
 
   const formatDistance = useCallback((distance: number) => {
@@ -35,7 +35,7 @@ const CampaignCard = memo(({ campaign, onClaim, className = '' }: CampaignCardPr
   }, []);
 
   return (
-    <Card className={`glass-morphism border-0 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl ${className}`}>
+    <Card className={`campaign-card border-0 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl ${className}`}>
       <CardContent className="p-4">
         <div className="flex items-start space-x-3">
           <div className="relative">
@@ -70,7 +70,7 @@ const CampaignCard = memo(({ campaign, onClaim, className = '' }: CampaignCardPr
                 </div>
                 <div className="flex items-center space-x-1">
                   <Clock className="w-3 h-3" />
-                  <span>{formatTimeLeft(campaign.endDate)}</span>
+                  <span>{formatTimeLeft(campaign.endDate.toISOString())}</span>
                 </div>
                 <div className="flex items-center space-x-1">
                   <Users className="w-3 h-3" />

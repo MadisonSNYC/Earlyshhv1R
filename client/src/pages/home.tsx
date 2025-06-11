@@ -100,9 +100,9 @@ export default function HomePage() {
 
   if (campaignsLoading) {
     return (
-      <div className="min-h-screen electric-bg flex items-center justify-center">
+      <div className="min-h-screen earlyshh-bg flex items-center justify-center">
         <div className="text-white text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400 mx-auto mb-4"></div>
+          <div className="loading-skeleton w-12 h-12 rounded-full mx-auto mb-4"></div>
           <p>Loading amazing offers...</p>
         </div>
       </div>
@@ -110,9 +110,9 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen electric-bg">
+    <div className="min-h-screen earlyshh-bg">
       {/* Header */}
-      <header className="bg-black/20 backdrop-blur-sm border-b border-gray-800/50 sticky top-0 z-40">
+      <header className="glass-card border-0 border-b border-white/10 sticky top-0 z-40">
         <div className="max-w-md mx-auto px-4 py-4">
           <div className="flex items-center justify-between mb-4">
             <div>

@@ -42,8 +42,8 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <GlobalErrorHandler />
-          <div className="min-h-screen electric-bg">
-            <Suspense fallback={<LoadingScreen />}>
+          <div className="min-h-screen earlyshh-bg">
+            <Suspense fallback={<div className="flex items-center justify-center min-h-screen"><div className="loading-skeleton w-8 h-8 rounded-full"></div></div>}>
               <Switch>
                 <Route path="/" component={HomePage} />
                 <Route path="/onboarding" component={OnboardingPage} />
