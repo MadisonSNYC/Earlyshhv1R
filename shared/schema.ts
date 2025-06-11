@@ -1,0 +1,116 @@
+import { pgTable, text, serial, integer, boolean, timestamp, decimal, jsonb } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
+
+export const users = pgTable("users", {
+  id: serial("id").primaryKey(),
+  instagramId: text("instagram_id").notNull().unique(),
+  username: text("username").notNull(),
+  fullName: text("full_name").notNull(),
+  profilePicUrl: text("profile_pic_url"),
+  ageVerified: boolean("age_verified").notNull().default(false),
+  accessToken: text("access_token"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  lastLogin: timestamp("last_login"),
+});
+
+export const campaigns = pgTable("campaigns", {
+  id: serial("id").primaryKey(),
+  brandName: text("brand_name").notNull(),
+  brandIgHandle: text("brand_ig_handle").notNull(),
+  offerDescription: text("offer_description").notNull(),
+  productName: text("product_name").notNull(),
+  brandLogoUrl: text("brand_logo_url").notNull(),
+  offerId: text("offer_id"), // TCB Master Offer ID for Phase II
+  redeemableAmount: decimal("redeemable_amount", { precision: 8, scale: 2 }).notNull(),
+  startDate: timestamp("start_date").notNull(),
+  endDate: timestamp("end_date").notNull(),
+  maxCoupons: integer("max_coupons").notNull(),
+  perUserLimit: integer("per_user_limit").notNull().default(1),
+  status: text("status").notNull().default("active"), // active, paused, ended
+  latitude: decimal("latitude", { precision: 10, scale: 8 }),
+  longitude: decimal("longitude", { precision: 11, scale: 8 }),
+  radius: decimal("radius", { precision: 8, scale: 2 }).default("1.0"), // miles
+  category: text("category").notNull().default("general"), // food, premium, nightlife, etc.
+});
+
+export const coupons = pgTable("coupons", {
+  id: serial("id").primaryKey(),
+  campaignId: integer("campaign_id").notNull().references(() => campaigns.id),
+  userId: integer("user_id").notNull().references(() => users.id),
+  code: text("code").notNull().unique(),
+  productName: text("product_name").notNull(),
+  redeemableAmount: decimal("redeemable_amount", { precision: 8, scale: 2 }).notNull(),
+  expirationDate: timestamp("expiration_date").notNull(),
+  legalDisclaimer: text("legal_disclaimer").notNull(),
+  qrData: text("qr_data").notNull(),
+  fetchCode: text("fetch_code").notNull(),
+  dateFetched: timestamp("date_fetched").notNull().defaultNow(),
+  claimedAt: timestamp("claimed_at").notNull().defaultNow(),
+  redeemedAt: timestamp("redeemed_at"),
+  status: text("status").notNull().default("claimed"), // claimed, redeemed, expired
+});
+
+export const stories = pgTable("stories", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  campaignId: integer("campaign_id").notNull().references(() => campaigns.id),
+  couponId: integer("coupon_id").references(() => coupons.id),
+  instagramStoryId: text("instagram_story_id"),
+  postedAt: timestamp("posted_at").notNull(),
+  detectedAt: timestamp("detected_at").notNull().defaultNow(),
+  impressions: integer("impressions").default(0),
+  reach: integer("reach").default(0),
+  storyUrl: text("story_url"),
+  metadata: jsonb("metadata"), // Additional story data
+});
+
+export const analytics = pgTable("analytics", {
+  id: serial("id").primaryKey(),
+  campaignId: integer("campaign_id").notNull().references(() => campaigns.id),
+  date: timestamp("date").notNull().defaultNow(),
+  claimsIssued: integer("claims_issued").notNull().default(0),
+  couponsRedeemed: integer("coupons_redeemed").notNull().default(0),
+  storiesVerified: integer("stories_verified").notNull().default(0),
+  totalReach: integer("total_reach").notNull().default(0),
+  metadata: jsonb("metadata"),
+});
+
+// Insert schemas
+export const insertUserSchema = createInsertSchema(users).omit({
+  id: true,
+  createdAt: true,
+  lastLogin: true,
+});
+
+export const insertCampaignSchema = createInsertSchema(campaigns).omit({
+  id: true,
+});
+
+export const insertCouponSchema = createInsertSchema(coupons).omit({
+  id: true,
+  dateFetched: true,
+  claimedAt: true,
+});
+
+export const insertStorySchema = createInsertSchema(stories).omit({
+  id: true,
+  detectedAt: true,
+});
+
+export const insertAnalyticsSchema = createInsertSchema(analytics).omit({
+  id: true,
+  date: true,
+});
+
+// Types
+export type User = typeof users.$inferSelect;
+export type InsertUser = z.infer<typeof insertUserSchema>;
+export type Campaign = typeof campaigns.$inferSelect;
+export type InsertCampaign = z.infer<typeof insertCampaignSchema>;
+export type Coupon = typeof coupons.$inferSelect;
+export type InsertCoupon = z.infer<typeof insertCouponSchema>;
+export type Story = typeof stories.$inferSelect;
+export type InsertStory = z.infer<typeof insertStorySchema>;
+export type Analytics = typeof analytics.$inferSelect;
+export type InsertAnalytics = z.infer<typeof insertAnalyticsSchema>;
