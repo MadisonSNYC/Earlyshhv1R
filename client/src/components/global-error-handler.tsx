@@ -1,8 +1,18 @@
-
 import { useEffect } from 'react';
-import { toast } from '../hooks/use-toast';
+import { useToast } from '@/hooks/use-toast';
+
+// Extend Window interface for Sentry
+declare global {
+  interface Window {
+    Sentry?: {
+      captureException: (error: any) => void;
+    };
+  }
+}
 
 export default function GlobalErrorHandler() {
+  const { toast } = useToast();
+
   useEffect(() => {
     // Handle unhandled promise rejections
     const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
@@ -43,7 +53,7 @@ export default function GlobalErrorHandler() {
       window.removeEventListener('unhandledrejection', handleUnhandledRejection);
       window.removeEventListener('error', handleError);
     };
-  }, []);
+  }, [toast]);
 
   return null;
 }

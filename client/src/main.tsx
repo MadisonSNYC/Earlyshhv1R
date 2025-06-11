@@ -2,22 +2,16 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { queryClient, warmCache } from "./lib/queryClient";
-import { PerformanceMonitor, preloadCriticalResources, cleanupUnusedData } from "./lib/performance";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./lib/queryClient";
+import { PerformanceMonitor } from "./lib/performance";
 
 // Initialize performance monitoring
 PerformanceMonitor.trackPageLoad();
 PerformanceMonitor.reportWebVitals();
 
-// Preload critical resources
-preloadCriticalResources();
-
-// Clean up old data
-cleanupUnusedData();
-
 // Register service worker
-if ('serviceWorker' in navigator) {
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
       .then((registration) => {
@@ -29,18 +23,21 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// Mount React app
-const container = document.getElementById('root');
-if (!container) throw new Error('Failed to find the root element');
+const root = document.getElementById("root");
+if (!root) {
+  throw new Error("Root element not found");
+}
 
-const root = createRoot(container);
-root.render(
+createRoot(root).render(
   <React.StrictMode>
-    <App />
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
-// Warm cache after initial load
-setTimeout(() => {
-  warmCache();
-}, 1000);
+// Initialize cache
+queryClient.prefetchQuery({
+  queryKey: ['initial'],
+  queryFn: () => Promise.resolve(true),
+});

@@ -14,6 +14,7 @@ import {
   Sparkles
 } from "lucide-react";
 import { useLocation } from "wouter";
+import { useToast } from "@/hooks/use-toast";
 
 const ONBOARDING_STEPS = [
   {
@@ -63,6 +64,7 @@ export default function OnboardingPage() {
   const [, setLocation] = useLocation();
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const handleNext = () => {
     if (currentStep < ONBOARDING_STEPS.length - 1) {
@@ -86,18 +88,33 @@ export default function OnboardingPage() {
     setIsLoading(true);
     
     try {
-      // In a real implementation, this would redirect to Instagram OAuth
-      const mockInstagramData = {
-        instagramId: "user_" + Date.now(),
-        username: "earlyshh_user",
-        fullName: "Earlyshh User",
-        profilePicUrl: "/api/placeholder/100/100",
-      };
+      // In development, use mock data
+      if (process.env.NODE_ENV === 'development') {
+        const mockInstagramData = {
+          instagramId: "user_" + Date.now(),
+          username: "earlyshh_user",
+          fullName: "Earlyshh User",
+          profilePicUrl: "/api/placeholder/100/100",
+        };
 
-      await login(mockInstagramData);
-      setLocation("/");
+        await login(mockInstagramData);
+        setLocation("/");
+        return;
+      }
+
+      // In production, redirect to Instagram OAuth
+      const instagramClientId = process.env.INSTAGRAM_CLIENT_ID;
+      const redirectUri = encodeURIComponent(window.location.origin + '/auth/instagram/callback');
+      const scope = encodeURIComponent('user_profile,user_media');
+      
+      window.location.href = `https://api.instagram.com/oauth/authorize?client_id=${instagramClientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=code`;
     } catch (error) {
       console.error("Login failed:", error);
+      toast({
+        title: "Login Failed",
+        description: "There was an error logging in with Instagram. Please try again.",
+        variant: "destructive"
+      });
     } finally {
       setIsLoading(false);
     }

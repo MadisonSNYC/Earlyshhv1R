@@ -1,4 +1,3 @@
-
 // Performance monitoring and optimization utilities
 export interface PerformanceMetrics {
   loadTime: number;
@@ -6,6 +5,12 @@ export interface PerformanceMetrics {
   navigationTime: number;
   memoryUsage?: number;
 }
+
+type Metric = {
+  name: string;
+  value: number;
+  delta?: number;
+};
 
 export class PerformanceMonitor {
   private static metrics: PerformanceMetrics[] = [];
@@ -19,25 +24,16 @@ export class PerformanceMonitor {
   }
 
   static trackPageLoad() {
-    if (typeof window !== 'undefined' && 'performance' in window) {
-      window.addEventListener('load', () => {
-        const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-        const loadTime = navigation.loadEventEnd - navigation.fetchStart;
-        const renderTime = navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart;
-        
-        this.metrics.push({
-          loadTime,
-          renderTime,
-          navigationTime: navigation.domContentLoadedEventEnd - navigation.navigationStart,
-          memoryUsage: (performance as any).memory?.usedJSHeapSize,
-        });
+    if (typeof window === 'undefined') return;
 
-        // Report critical metrics
-        if (loadTime > 3000) {
-          console.warn(`Slow page load detected: ${loadTime}ms`);
-        }
-      });
-    }
+    // Track page load timing
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const timing = window.performance.timing;
+        const pageLoadTime = timing.loadEventEnd - timing.navigationStart;
+        console.log(`Page Load Time: ${pageLoadTime}ms`);
+      }, 0);
+    });
   }
 
   static getMetrics(): PerformanceMetrics[] {
@@ -45,10 +41,29 @@ export class PerformanceMonitor {
   }
 
   static reportWebVitals() {
-    // Core Web Vitals reporting
-    if ('web-vital' in window) {
-      // This would integrate with real monitoring service
-      console.log('Web Vitals ready for reporting');
+    if (typeof window === 'undefined') return;
+
+    try {
+      const observer = new PerformanceObserver((list) => {
+        list.getEntries().forEach((entry) => {
+          const metric: Metric = {
+            name: entry.name,
+            value: entry.startTime,
+            delta: entry.duration,
+          };
+
+          // Log metrics
+          console.log(`Web Vital: ${metric.name}`, {
+            value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+            delta: Math.round(metric.delta ?? 0),
+          });
+        });
+      });
+
+      // Observe performance entries
+      observer.observe({ entryTypes: ['paint', 'largest-contentful-paint', 'layout-shift'] });
+    } catch (err) {
+      console.error('Failed to initialize performance monitoring:', err);
     }
   }
 }
