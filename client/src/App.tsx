@@ -21,6 +21,7 @@ const NotificationsPage = React.lazy(() => import(/* webpackChunkName: "notifica
 const AnalyticsPage = React.lazy(() => import(/* webpackChunkName: "analytics" */ './pages/analytics'));
 const SettingsPage = React.lazy(() => import(/* webpackChunkName: "settings" */ './pages/settings'));
 const ActivityDetailPage = React.lazy(() => import(/* webpackChunkName: "activity" */ './pages/activity-detail'));
+const QRCodePage = React.lazy(() => import(/* webpackChunkName: "qr-code" */ './pages/qr-code'));
 const NotFoundPage = React.lazy(() => import(/* webpackChunkName: "not-found" */ './pages/not-found'));
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
                 <Route path="/analytics" component={AnalyticsPage} />
                 <Route path="/settings" component={SettingsPage} />
                 <Route path="/activity/:id" component={ActivityDetailPage} />
+                <Route path="/qr/:couponId" component={QRCodePage} />
                 <Route component={NotFoundPage} />
               </Switch>
             </Suspense>

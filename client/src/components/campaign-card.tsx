@@ -4,6 +4,9 @@ import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { MapPin, Clock, Users, ExternalLink } from 'lucide-react';
 import { Campaign } from '../types';
+import { useLocation } from 'wouter';
+import { useMutation } from '@tanstack/react-query';
+import { apiRequest } from '../lib/queryClient';
 
 interface CampaignCardProps {
   campaign: Campaign;
@@ -12,9 +15,40 @@ interface CampaignCardProps {
 }
 
 const CampaignCard = memo(({ campaign, onClaim, className = '' }: CampaignCardProps) => {
+  const [, setLocation] = useLocation();
+
+  const claimMutation = useMutation({
+    mutationFn: async () => {
+      const response = await fetch(`/api/coupons/claim/${campaign.id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId: 1 }), // Hardcoded for MVP
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to claim coupon');
+      }
+      
+      return response.json();
+    },
+    onSuccess: (coupon) => {
+      // Navigate to QR code page with the new coupon
+      setLocation(`/qr/${coupon.id}`);
+    },
+    onError: (error) => {
+      console.error('Failed to claim coupon:', error);
+    },
+  });
+
   const handleClaim = useCallback(() => {
-    onClaim?.(campaign.id.toString());
-  }, [onClaim, campaign.id]);
+    if (onClaim) {
+      onClaim(campaign.id.toString());
+    } else {
+      claimMutation.mutate();
+    }
+  }, [onClaim, campaign.id, claimMutation]);
 
   const formatDistance = useCallback((distance: number) => {
     return distance < 1 ? `${Math.round(distance * 1000)}m` : `${distance.toFixed(1)}km`;
@@ -99,10 +133,11 @@ const CampaignCard = memo(({ campaign, onClaim, className = '' }: CampaignCardPr
 
               <Button
                 onClick={handleClaim}
+                disabled={claimMutation.isPending}
                 size="sm"
-                className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white text-xs px-4 py-2 h-8 font-semibold rounded-full shadow-lg"
+                className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white text-xs px-4 py-2 h-8 font-semibold rounded-full shadow-lg disabled:opacity-50"
               >
-                Unlock Partnership
+                {claimMutation.isPending ? 'Claiming...' : 'Unlock Partnership'}
                 <ExternalLink className="w-3 h-3 ml-1" />
               </Button>
             </div>
