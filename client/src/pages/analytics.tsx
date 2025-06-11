@@ -135,14 +135,14 @@ export default function AnalyticsPage() {
         {/* Campaign Performance */}
         <Card className="shadow-sm">
           <CardHeader>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
               <CardTitle>Campaign Performance</CardTitle>
-              <div className="flex space-x-2">
-                <Button variant="outline" size="sm" onClick={handleDownloadCSV}>
+              <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
+                <Button variant="outline" size="sm" onClick={handleDownloadCSV} className="w-full sm:w-auto">
                   <Download className="w-4 h-4 mr-2" />
                   Download CSV
                 </Button>
-                <Button size="sm" onClick={handleSyncToMonday}>
+                <Button size="sm" onClick={handleSyncToMonday} className="w-full sm:w-auto">
                   <RefreshCw className="w-4 h-4 mr-2" />
                   Sync to Monday.com
                 </Button>

@@ -338,10 +338,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Notification routes
   app.get("/api/notifications", async (req, res) => {
     try {
-      const userId = req.user?.id;
-      if (!userId) {
-        return res.status(401).json({ message: "Authentication required" });
-      }
+      // Use hardcoded user ID 1 for MVP (same as other endpoints)
+      const userId = 1;
 
       const notifications = await storage.getUserNotifications(userId);
       res.json(notifications);
@@ -352,10 +350,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/notifications/unread", async (req, res) => {
     try {
-      const userId = req.user?.id;
-      if (!userId) {
-        return res.status(401).json({ message: "Authentication required" });
-      }
+      // Use hardcoded user ID 1 for MVP (same as other endpoints)
+      const userId = 1;
 
       const unreadNotifications = await storage.getUnreadNotifications(userId);
       res.json(unreadNotifications);
@@ -366,10 +362,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/notifications/count", async (req, res) => {
     try {
-      const userId = req.user?.id;
-      if (!userId) {
-        return res.status(401).json({ message: "Authentication required" });
-      }
+      // Use hardcoded user ID 1 for MVP (same as other endpoints)
+      const userId = 1;
 
       const count = await storage.getUnreadNotificationCount(userId);
       res.json({ count });
@@ -381,11 +375,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.patch("/api/notifications/:id/read", async (req, res) => {
     try {
       const notificationId = parseInt(req.params.id);
-      const userId = req.user?.id;
-
-      if (!userId) {
-        return res.status(401).json({ message: "Authentication required" });
-      }
+      // Use hardcoded user ID 1 for MVP (same as other endpoints)
+      const userId = 1;
 
       const notification = await storage.getNotification(notificationId);
       if (!notification || notification.userId !== userId) {
@@ -401,10 +392,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.patch("/api/notifications/read-all", async (req, res) => {
     try {
-      const userId = req.user?.id;
-      if (!userId) {
-        return res.status(401).json({ message: "Authentication required" });
-      }
+      // Use hardcoded user ID 1 for MVP (same as other endpoints)
+      const userId = 1;
 
       await storage.markAllNotificationsAsRead(userId);
       res.json({ message: "All notifications marked as read" });
@@ -415,10 +404,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/notifications", async (req, res) => {
     try {
-      const userId = req.user?.id;
-      if (!userId) {
-        return res.status(401).json({ message: "Authentication required" });
-      }
+      // Use hardcoded user ID 1 for MVP (same as other endpoints)
+      const userId = 1;
 
       const validatedData = insertNotificationSchema.parse({
         ...req.body,
