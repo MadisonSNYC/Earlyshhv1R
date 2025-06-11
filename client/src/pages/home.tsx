@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import CampaignCard from '@/components/campaign-card';
 import BottomNavigation from '@/components/bottom-navigation';
-import CouponModal from '@/components/coupon-modal';
+import PartnershipTermsModal from '@/components/partnership-terms-modal';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Search, Filter, Map, Grid3X3 } from 'lucide-react';
@@ -25,7 +25,7 @@ const formatDistance = (distance: number): string => {
 
 export default function HomePage() {
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
-  const [showCouponModal, setShowCouponModal] = useState(false);
+  const [showPartnershipModal, setShowPartnershipModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
@@ -62,22 +62,27 @@ export default function HomePage() {
 
   const handleCampaignClaim = (campaign: Campaign) => {
     setSelectedCampaign(campaign);
-    setShowCouponModal(true);
+    setShowPartnershipModal(true);
   };
 
-  const handleClaimConfirm = async () => {
+  const handlePartnershipAccept = async () => {
     if (!selectedCampaign) return;
     
     try {
       const response = await fetch(`/api/coupons/claim/${selectedCampaign.id}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: 1 })
       });
       
       if (!response.ok) throw new Error('Failed to claim coupon');
       
-      setShowCouponModal(false);
+      const coupon = await response.json();
+      setShowPartnershipModal(false);
       setSelectedCampaign(null);
+      
+      // Navigate to QR code page
+      window.location.href = `/qr/${coupon.id}`;
     } catch (error) {
       console.error('Claim failed:', error);
     }
@@ -209,15 +214,14 @@ export default function HomePage() {
         )}
       </main>
 
-      {/* Coupon Modal */}
-      <CouponModal
-        isOpen={showCouponModal}
-        onClose={() => setShowCouponModal(false)}
-        onConfirm={handleClaimConfirm}
-        isLoading={false}
-        campaign={selectedCampaign}
-        error={null}
-      />
+      {/* Partnership Terms Modal */}
+      {showPartnershipModal && selectedCampaign && (
+        <PartnershipTermsModal
+          campaign={selectedCampaign}
+          onAccept={handlePartnershipAccept}
+          onClose={() => setShowPartnershipModal(false)}
+        />
+      )}
 
       {/* Bottom Navigation */}
       <BottomNavigation />
