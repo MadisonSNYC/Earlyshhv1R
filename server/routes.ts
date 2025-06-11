@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { insertNotificationSchema } from "@shared/schema";
 import { z } from "zod";
+import { storage } from "./storage";
 
 // Business logic imports
 import { campaignBusiness } from "./business/campaign-business";
@@ -221,13 +222,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/notifications/count", async (req, res) => {
     try {
-      const { userId } = req.query;
-      
-      if (!userId) {
-        return res.status(400).json({ message: "User ID required" });
-      }
+      // Use hardcoded user ID 1 for MVP (same as other endpoints)
+      const userId = 1;
 
-      const count = await storage.getUnreadNotificationCount(parseInt(userId as string));
+      const count = await storage.getUnreadNotificationCount(userId);
       res.json({ count });
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch notification count", error: error instanceof Error ? error.message : "Unknown error" });
