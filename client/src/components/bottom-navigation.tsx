@@ -13,10 +13,10 @@ export default function BottomNavigation() {
   });
 
   const navItems = [
-    { path: "/", icon: Home, label: "Home" },
-    { path: "/my-coupons", icon: Ticket, label: "Coupons" },
+    { path: "/", icon: Home, label: "Discover" },
+    { path: "/my-coupons", icon: Ticket, label: "My Passes" },
     { path: "/notifications", icon: Bell, label: "Activity", hasBadge: true },
-    { path: "/analytics", icon: BarChart3, label: "Stats" },
+    { path: "/analytics", icon: BarChart3, label: "Partnerships" },
     { path: "/profile", icon: User, label: "Profile" },
   ];
 
