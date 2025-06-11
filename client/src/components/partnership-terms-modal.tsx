@@ -34,23 +34,12 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose, onV
     navigate(`/partnership-confirmation?campaign=${campaignData}`);
   };
   return (
-    <Dialog open={true} onOpenChange={onClose} modal={true}>
-      <DialogContent className="max-w-md w-full p-0 glass-morphism border-white/20 max-h-[95vh] flex flex-col fixed inset-4 m-auto"
-        style={{
-          maxHeight: 'calc(100vh - 2rem)',
-          height: 'auto',
-          display: 'flex',
-          flexDirection: 'column',
-          overflow: 'hidden',
-          position: 'fixed',
-          top: '1rem',
-          left: '1rem',
-          right: '1rem',
-          bottom: '1rem',
-          margin: 'auto'
-        }}
-      >
+    <Dialog open={true} onOpenChange={onClose}>
+      <DialogContent className="max-w-md w-[95vw] max-h-[90vh] p-0 glass-morphism border-white/20 flex flex-col overflow-hidden">
         <DialogTitle className="sr-only">Partnership Terms and Conditions</DialogTitle>
+        <div className="sr-only">
+          Review partnership terms, benefits, and requirements for {campaign.brandName}
+        </div>
         
         {/* Fixed Header */}
         <div className="relative p-6 pb-4 flex-shrink-0">
@@ -91,7 +80,7 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose, onV
               <div className="flex items-center space-x-3">
                 <MapPin className="w-5 h-5 text-cyan-400" />
                 <div>
-                  <p className="text-white font-rubik font-semibold text-sm">{campaign.location || "Downtown District"}</p>
+                  <p className="text-white font-rubik font-semibold text-sm">{"Downtown District"}</p>
                   <p className="text-gray-400 font-space text-xs">{distance}</p>
                 </div>
               </div>
@@ -113,15 +102,7 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose, onV
         <Separator className="bg-white/10" />
 
         {/* Main Content */}
-        <div 
-          className="flex-1 overflow-y-auto mobile-scroll" 
-          style={{ 
-            minHeight: 0,
-            WebkitOverflowScrolling: 'touch',
-            overscrollBehavior: 'contain',
-            touchAction: 'pan-y'
-          }}
-        >
+        <div className="flex-1 overflow-y-auto mobile-scroll" style={{ minHeight: 0 }}>
           {/* Featured Partnership Card */}
           <div className="p-6 pt-4">
             <div className="bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-2xl p-6 border border-yellow-400/30 backdrop-blur-sm">
@@ -144,7 +125,7 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose, onV
                 </div>
                 <div className="flex-1">
                   <h4 className="text-white font-rubik font-bold text-base">
-                    {campaign.location || "Downtown District"}
+                    Downtown District
                   </h4>
                   <p className="text-gray-400 font-space text-sm">{distance}</p>
                 </div>
