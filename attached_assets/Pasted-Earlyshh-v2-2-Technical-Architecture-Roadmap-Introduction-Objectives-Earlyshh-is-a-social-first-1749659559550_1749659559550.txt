@@ -1,0 +1,169 @@
+Earlyshh v2.2: Technical Architecture & Roadmap
+Introduction & Objectives
+Earlyshh is a social-first coupon platform that enables everyday Instagram users (18+ with public accounts) to claim serialized 8112 digital coupons for local CPG products and engage with brands via Instagram Stories. The goal of Earlyshh v2.2 is to deliver a Progressive Web App (PWA) experience where users can seamlessly claim a coupon, redeem it in-store, and post a branded Instagram Story, while the system tracks coupon redemption and social reach for brand analytics.
+Key Update: Earlyshh focuses purely on coupon redemption and brand-tagged story engagement. There are no cash rewards or payment processing requirements - users receive valuable product coupons that they redeem in-store.
+This platform leverages The Coupon Bureau (TCB) universal coupon network for secure one-time coupon codes and the Instagram Graph API for automated story detection and metrics, aligning with target user behavior (Gen Z/Millennial users who post Instagram Stories frequently and are comfortable scanning QR codes).
+Architecture Overview (Phase I and Phase II)
+Earlyshh's architecture is designed in two phases to balance speed-to-market with full compliance:
+Phase I (MVP – Stub Integration): A lean PWA built with modern front-end frameworks and a Python backend that implements core features with stubbed coupon codes and simplified flows. This phase uses a placeholder coupon lifecycle (no live TCB calls) as a fallback while TCB certification is in progress. Instagram login and story tracking are implemented, but coupon validation is simulated. This allows rapid pilot launch and de-risking of TCB integration delays.
+Phase II (Full 8112 Integration): The backend integrates with TCB's 8112 APIs for serialized coupon issuance, real-time POS validation, and redemption webhooks. All coupon codes distributed are unique, single-use 8112 codes validated against TCB's central database at checkout. Compliance requirements (like Master Offer File management, non-sequential code generation, QR and fetch code display, and one-per-user enforcement) are implemented. Additionally, more robust analytics, CRM integration (specifically Monday.com webhook), and observability are introduced.
+Phase I Architecture (MVP with Stub Coupons)
+User (Mobile PWA) → Front-End (React/Next.js PWA) → Back-End (Python/FastAPI) → Database
+                                    ↓                           ↓
+                           Instagram Graph API        8112 Stub Code Generator
+                                    ↓                           ↓
+                              External Services          Monday.com Webhook/API
+                                    ↓
+                              Sentry/Monitoring
+Phase I MVP architecture: The PWA front-end (React/Next.js) communicates with a Python/FastAPI backend. Instagram Graph API is used for login and fetching story info. Coupon codes are generated via a local stub component (no external coupon service). A database persists users, campaigns, and coupons. Monday.com webhook integration is set up for pilot analytics, and Sentry/monitoring is integrated for observability.
+Phase II Architecture (8112 Integration)
+User (Mobile PWA) → Front-End (PWA) → Back-End (Python/FastAPI) → Database
+                           ↓                    ↓
+                   External Integrations:
+                   - TCB 8112 API
+                   - Instagram Graph API  
+                   - Retailer POS (TCB Network)
+                   - Monday.com API
+                   - Sentry/Monitoring
+Phase II architecture with full 8112 integration: The PWA front-end remains largely the same, but the backend now interfaces with TCB's coupon system for issuing unique codes and receiving redemption events. Retailer POS systems (at participating bodegas/retailers) validate coupons by pinging TCB's API in real time when the QR code is scanned. The Instagram Graph API integration is expanded (for story monitoring), and deeper Monday.com analytics or data export is supported.
+Architecture Highlights: Both phases use a modular Python backend that can evolve into microservices with Java components for enterprise integrations in later phases. Initially, a single Python FastAPI codebase handles API routes, business logic, and integration calls. Future iterations may add Java services for high-throughput coupon code generation or legacy system integrations without affecting the front-end.
+Front-End Design (PWA & Coupon Stub UI)
+The front-end is a mobile-first PWA built with modern frameworks (React/Next.js) and deployed on Vercel, emphasizing a smooth UX for Gen Z and young millennials using v0-builders-selve style - creative, flexible, and component-driven design that prioritizes user experience and rapid iteration.
+Key Front-End Features
+Instagram SSO Onboarding: Users sign in via Instagram OAuth. A simple onboarding screen explains the program and enforces an age gate (confirming 18+ before proceeding). Upon login, the app fetches the user's Instagram public profile (name, username, IG ID) for account creation. Styling is modern and minimalist, using familiar IG-like elements (e.g. story-style progress bars or swipe interactions) to appeal to social-media natives.
+Campaign Discovery & Claim UI: The main screen (after login) features a map/list toggle view of available coupon campaigns. A card-style layout shows the brand logo, offer description (e.g. "Free Sample of __"), distance, and availability status. Filter pills allow users to browse by category ("Premium," "Food," "Nightlife"). Only one claim per user per campaign is allowed (the UI will disable or show "Claimed" if already used).
+Map View: Dark-mode base with custom pins for available offers vs. expired/cap-reached offers. Includes geofence circle (radius around user) and blue dot for user location. Map pins are styled to match the Earlyshh gradient brand palette.
+Enhanced Coupon Detail & QR Code Screen: After claiming, the user is taken to a comprehensive coupon detail page featuring:
+
+Two logos: Large brand logo + small Earlyshh logo for co-branding
+Product name: Clear identification of the specific product
+"Redeemable up to $X": Standard retail cap set by the brand (e.g., "Redeemable up to $3.99")
+Expiration date: Clear expiration field (e.g., "Expires 7/31/2025")
+Legal disclaimer: Placeholder text with clickable option ("Terms apply. See details.")
+QR code: Large, high-contrast QR code encoding the 8112 coupon data
+12- or 18-digit fetch code: Numeric fallback code per TCB requirements
+Date fetched: Timestamp or dynamic fetch-code refresh prompt
+
+Post-Redemption Confirmation & Story Prompt: Modal overlay with instructions ("Tag @Earlyshh + @BrandName in your Story") and button to "Open Instagram". Success message screen when story is detected.
+Dashboard Features:
+
+User Dashboard (Mobile): Simple profile page listing claimed coupons and statuses
+Brand Dashboard (Desktop): Real-time tiles showing Claims issued, Coupons redeemed, Stories verified, Slots remaining, with CTA for "Download CSV" or "Send to Monday.com"
+Admin Dashboard (Desktop): Internal monitoring with campaign stats updating in real-time
+
+Back-End Implementation (Python/FastAPI)
+The back-end is built with Python and FastAPI, enabling rapid development, excellent API documentation, and type safety. The system is designed for scalability with future Java microservices integration.
+Core Components
+Web Framework: FastAPI handles HTTP requests with automatic OpenAPI documentation. All endpoints return JSON responses for the PWA to consume. Authentication middleware ensures secure access to all protected endpoints.
+Authentication & Security: Instagram OAuth flow implemented server-side. Rate limiting and input validation middleware prevent abuse, especially for coupon claim endpoints. JWT tokens used for session management.
+Data Layer: PostgreSQL database with SQLAlchemy ORM for productivity and type safety. Database designed for scalability with proper indexing and normalized schema.
+Scalability & Future Architecture: While the MVP backend is monolithic Python, the architecture is modular. Future Java services can handle high-throughput coupon code generation or enterprise integrations. The Python core communicates with external services via REST APIs and message queues.
+Compliance & Security: Each user can only claim one coupon per campaign, enforced via database constraints and API checks. Logging and audit trails for all coupon issuance and redemption events. All communication with TCB's API uses HTTPS with proper authentication.
+Coupon Lifecycle & 8112 Integration
+Phase I – Stub Coupon Lifecycle
+Coupon Claim (Stub): When a user taps "Claim" on a campaign, the front-end calls POST /api/campaigns/{id}/claim. The backend verifies eligibility and generates a stub coupon code (e.g., STUB-XYZ123). Response includes all required fields for the enhanced coupon display.
+Enhanced Stub Implementation: The coupon response includes:
+json{
+  "couponId": "cp_1011",
+  "campaignId": "camp_202", 
+  "code": "STUB-5G7KH2",
+  "qrData": "https://earlyshh.com/coupon/STUB-5G7KH2",
+  "fetchCode": "1234-5678-9012-3456",
+  "productName": "SuperRoot Energy Drink",
+  "brandLogo": "https://cdn.earlyshh.com/brands/superroot-logo.png",
+  "earlyshLogo": "https://cdn.earlyshh.com/earlyshh-small.png",
+  "redeemableAmount": "$3.99",
+  "expirationDate": "2025-07-31T23:59:00Z",
+  "legalDisclaimer": "Terms apply. See details.",
+  "dateFetched": "2025-06-10T14:30:00Z",
+  "status": "claimed"
+}
+Phase II – 8112 Coupon Integration
+Offer Setup: Each coupon campaign configured as an 8112 offer in TCB's system via their API. Automated offer creation for scalability, with manual setup as fallback.
+Serial Code Issuance: Real-time code generation via TCB's API when user claims coupon. Ensures each code is unique, registered, and ready for redemption. Compliance with TCB's non-sequential, properly formatted code requirements.
+Real-time POS Validation: POS systems validate via TCB's network when QR code is scanned. TCB provides webhook notifications for redemption events to update our system in real-time.
+Integration with External APIs
+Instagram Graph API (Story Detection & Metrics)
+Instagram OAuth Login: Full Instagram Graph API integration with proper permissions for story access and insights. Users encouraged to use Creator accounts for full functionality.
+Automated Story Detection: Real-time webhooks from Instagram when users post stories. System automatically detects brand mentions and fetches story insights (impressions, reach).
+Privacy & Compliance: Minimal data storage, deauthorization callback handling, and Meta App Review compliance for Graph API permissions.
+Monday.com CRM Integration
+Real-time Webhooks: Direct integration with Monday.com for live campaign tracking. Each significant event (coupon claimed, redeemed, story posted) creates or updates items on Monday.com boards.
+Dashboard Integration: Monday.com boards configured to show real-time campaign performance with columns for User, Coupon Code, Redemption Status, Story Impressions.
+CSV Export Fallback: Admin endpoints for downloading campaign reports as CSV files. Automated daily email reports with CSV attachments.
+Data Model & Schema
+Core Entities
+User Table:
+
+id (PK), instagram_id (unique), username, full_name, profile_pic_url
+age_verified (boolean), access_token (encrypted), created_at, last_login
+
+Campaign Table:
+
+id (PK), brand_name, brand_ig_handle, offer_description, product_name
+brand_logo_url, offer_id (TCB Master Offer ID), redeemable_amount
+start_date, end_date, max_coupons, per_user_limit, status
+
+Enhanced Coupon Table:
+
+id (PK), campaign_id (FK), user_id (FK), code, product_name
+redeemable_amount, expiration_date, legal_disclaimer, qr_data
+fetch_code, date_fetched, claimed_at, redeemed_at, status
+
+Story Table:
+
+id (PK), user_id (FK), campaign_id (FK), instagram_story_id
+posted_at, detected_at, impressions, reach, story_url
+
+Indexing Strategy
+
+Unique constraints on (campaign_id, user_id) for one-per-user enforcement
+Indexes on campaign_id, user_id, status for efficient queries
+Composite indexes for common query patterns
+
+Observability & Monitoring
+Error Tracking: Sentry integration for both front-end and back-end error monitoring. Real-time crash detection and performance monitoring.
+Performance Monitoring: Optional DataDog or open-source alternatives for API response times, database performance, and system metrics.
+Analytics: Event tracking for user behavior analysis, conversion rates, and retention metrics.
+Uptime & Alerts: Health checks and uptime monitors with email/Slack alerts for critical component failures.
+Development Roadmap & Phases
+Phase I – MVP Launch (Earlyshh v2.2-alpha)
+Timeline: 1-2 weeks development
+Scope: Complete PWA implementation with Instagram OAuth, enhanced campaign listing with map/list views, comprehensive stub coupon generation, manual redemption flow, automated story detection, and Monday.com integration.
+Full App Development: Build complete user experience including all screens, interactions, and workflows. Focus on polished UX that can be immediately tested with real users.
+Architecture Deliverables:
+
+React/Next.js PWA with full UI implementation
+Python/FastAPI backend with comprehensive API
+PostgreSQL database with complete schema
+Monday.com webhook integration
+Sentry monitoring integration
+
+Phase II – Pilot Implementation (Earlyshh v2.2-beta)
+Timeline: 1-2 months (overlap with pilot launch)
+Scope: Full TCB 8112 integration, POS system testing, Instagram Graph API approval, webhook handling, enhanced analytics, and production monitoring.
+POS Integration Strategy: Open-ended approach to POS systems (Clover, Square, etc.) with pilot prioritization based on partner availability and TCB network coverage.
+Phase III – Scaling & Refinement
+Timeline: Post-pilot (Fall 2025)
+Scope: Microservices architecture with Java components, advanced analytics, security audits, and expanded partnership integrations.
+Technical Requirements Summary
+TCB Access Partner Requirements
+Based on TCB's requirements for becoming a Certified Universal Coupons Distribution Provider:
+
+Serialized Data Deposit: Generate valid 8112 coupon serial numbers and deposit into TCB's Master Offer File via API
+Consumer Presentation: Proper QR code display with fetch code fallback and time-bound code management
+Security & Authentication: Consumer authentication, anti-abuse measures, secure storage, and HTTPS enforcement
+API Integration: Offer setup, serial number deposit, redemption webhooks, and error handling
+Compliance: GS1 data structure adherence, proper barcode formatting, and redemption tracking
+Testing & Certification: Sandbox testing, formal certification review, and production deployment
+
+Key Compliance Features
+
+Enhanced Coupon Display: Two logos, product name, redeemable amount (set by brand), expiration date, legal disclaimer
+Security: One coupon per user per campaign enforcement, encrypted token storage, audit logging
+Redemption Flow: Real-time POS validation via TCB network with webhook notifications
+Story Tracking: Automated Instagram story detection with brand mention verification
+Analytics: Real-time Monday.com integration with CSV export capabilities
+
+
+This architecture ensures Earlyshh v2.2 delivers a complete, compliant, and scalable platform focused on coupon redemption and social engagement without any payment processing requirements. The system is designed to handle the full user journey from coupon discovery through redemption and social sharing, with robust backend systems supporting brand analytics and campaign management.
