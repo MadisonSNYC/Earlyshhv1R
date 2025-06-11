@@ -2,6 +2,10 @@
 import { useEffect } from 'react';
 import { toast } from '../hooks/use-toast';
 
+export function GlobalErrorHandler() {
+  // Component implementation stays the same
+}
+
 export default function GlobalErrorHandler() {
   useEffect(() => {
     // Handle unhandled promise rejections

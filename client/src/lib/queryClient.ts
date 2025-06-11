@@ -41,7 +41,7 @@ export const getQueryFn: <T>(options: {
     return await res.json();
   };
 
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 60 * 5, // 5 minutes
@@ -135,6 +135,36 @@ export function prefetchCommonQueries() {
     queryFn: () => fetch('/api/campaigns').then(res => res.json()),
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
+}
+
+// Smart prefetching based on user behavior
+export function setupSmartPrefetching() {
+  let prefetchTimer: NodeJS.Timeout;
+  
+  // Prefetch on hover/focus
+  const prefetchOnIntent = (href: string) => {
+    clearTimeout(prefetchTimer);
+    prefetchTimer = setTimeout(() => {
+      if (href.includes('/coupon/')) {
+        const couponId = href.split('/coupon/')[1];
+        queryClient.prefetchQuery({
+          queryKey: ['coupon', couponId],
+          queryFn: () => fetch(`/api/coupons/${couponId}`).then(res => res.json()),
+          staleTime: CACHE_TIMES.campaigns,
+        });
+      }
+    }, 100);
+  };
+
+  // Add event listeners for link prefetching
+  document.addEventListener('mouseover', (e) => {
+    const link = (e.target as HTMLElement).closest('a[href]') as HTMLAnchorElement;
+    if (link && link.href.startsWith(window.location.origin)) {
+      prefetchOnIntent(link.href);
+    }
+  });
+
+  return () => clearTimeout(prefetchTimer);
 }
 
 // Background cache warming

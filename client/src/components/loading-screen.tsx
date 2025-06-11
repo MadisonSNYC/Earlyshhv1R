@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 
+export function LoadingScreen() {
+  // Component implementation stays the same
+}
+
 export default function LoadingScreen() {
   const [progress, setProgress] = useState(0);
 

@@ -9,18 +9,18 @@ import { ErrorBoundary } from './components/error-boundary';
 import { GlobalErrorHandler } from './components/global-error-handler';
 import { LoadingScreen } from './components/loading-screen';
 
-// Lazy load pages
-const HomePage = React.lazy(() => import('./pages/home'));
-const OnboardingPage = React.lazy(() => import('./pages/onboarding'));
-const CouponRedeemPage = React.lazy(() => import('./pages/coupon-redeem'));
-const PartnershipConfirmationPage = React.lazy(() => import('./pages/partnership-confirmation'));
-const ProfilePage = React.lazy(() => import('./pages/profile'));
-const MyCouponsPage = React.lazy(() => import('./pages/my-coupons'));
-const NotificationsPage = React.lazy(() => import('./pages/notifications'));
-const AnalyticsPage = React.lazy(() => import('./pages/analytics'));
-const SettingsPage = React.lazy(() => import('./pages/settings'));
-const ActivityDetailPage = React.lazy(() => import('./pages/activity-detail'));
-const NotFoundPage = React.lazy(() => import('./pages/not-found'));
+// Lazy load pages with better chunk names
+const HomePage = React.lazy(() => import(/* webpackChunkName: "home" */ './pages/home'));
+const OnboardingPage = React.lazy(() => import(/* webpackChunkName: "onboarding" */ './pages/onboarding'));
+const CouponRedeemPage = React.lazy(() => import(/* webpackChunkName: "coupon" */ './pages/coupon-redeem'));
+const PartnershipConfirmationPage = React.lazy(() => import(/* webpackChunkName: "partnership" */ './pages/partnership-confirmation'));
+const ProfilePage = React.lazy(() => import(/* webpackChunkName: "profile" */ './pages/profile'));
+const MyCouponsPage = React.lazy(() => import(/* webpackChunkName: "my-coupons" */ './pages/my-coupons'));
+const NotificationsPage = React.lazy(() => import(/* webpackChunkName: "notifications" */ './pages/notifications'));
+const AnalyticsPage = React.lazy(() => import(/* webpackChunkName: "analytics" */ './pages/analytics'));
+const SettingsPage = React.lazy(() => import(/* webpackChunkName: "settings" */ './pages/settings'));
+const ActivityDetailPage = React.lazy(() => import(/* webpackChunkName: "activity" */ './pages/activity-detail'));
+const NotFoundPage = React.lazy(() => import(/* webpackChunkName: "not-found" */ './pages/not-found'));
 
 function App() {
   return (
