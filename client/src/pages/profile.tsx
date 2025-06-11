@@ -226,9 +226,9 @@ export default function ProfilePage() {
         </Card>
 
         {/* App Info */}
-        <div className="text-center text-sm text-gray-500 space-y-1">
-          <p>Earlyshh v2.2 (MVP)</p>
-          <p>© 2024 Earlyshh Inc. All rights reserved.</p>
+        <div className="text-center space-y-2 px-4">
+          <p className="text-base font-medium text-gray-300">Earlyshh v2.2 (MVP)</p>
+          <p className="text-sm text-gray-400 leading-relaxed">© 2024 Earlyshh Inc. All rights reserved.</p>
         </div>
       </div>
 
