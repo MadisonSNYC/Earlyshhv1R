@@ -14,11 +14,11 @@ interface PartnershipTermsModalProps {
 export default function PartnershipTermsModal({ campaign, onAccept, onClose }: PartnershipTermsModalProps) {
   return (
     <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className="max-w-md w-full p-0 glass-morphism border-white/20 overflow-hidden">
+      <DialogContent className="max-w-md w-full p-0 glass-morphism border-white/20 overflow-hidden max-h-[85vh] flex flex-col">
         <DialogTitle className="sr-only">Partnership Terms and Conditions</DialogTitle>
         
-        {/* Header */}
-        <div className="relative p-6 pb-4">
+        {/* Fixed Header */}
+        <div className="relative p-6 pb-4 flex-shrink-0">
           <div className="flex items-center space-x-4 mb-4">
             <img
               src={campaign.brandLogoUrl}
@@ -42,8 +42,10 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose }: P
 
         <Separator className="bg-white/10" />
 
-        {/* Partnership Requirements */}
-        <div className="p-6 py-4">
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto mobile-scroll">
+          {/* Partnership Requirements */}
+          <div className="p-6 py-4">
           <h3 className="text-lg font-rubik font-bold text-white mb-4 flex items-center">
             <AlertCircle className="w-5 h-5 mr-2 text-yellow-400" />
             Partnership Requirements
