@@ -38,25 +38,29 @@ export default function BrandProfilePage() {
       {
         id: 1,
         title: 'Free Energy Sample',
-        description: 'Try our premium energy formula',
+        description: 'Try our premium energy formula - Complete this first!',
         value: '$3.99',
         status: 'active',
         claimed: 85,
-        total: 100
+        total: 100,
+        isPrerequisite: true,
+        unlocks: 'Exclusive 50% off offer'
       },
       {
         id: 2,
-        title: 'Buy 2 Get 1 Free',
-        description: 'Special bundle offer',
-        value: '$11.97',
-        status: 'active',
-        claimed: 32,
-        total: 50
+        title: '50% Off First Box',
+        description: 'Exclusive discount on your first monthly box',
+        value: '$24.99',
+        status: 'locked',
+        claimed: 0,
+        total: 50,
+        requiresCompletion: 1,
+        lockReason: 'Complete the free sample offer first to unlock this deal'
       },
       {
         id: 3,
         title: 'VIP Membership Trial',
-        description: '30-day premium access',
+        description: '30-day premium access with personalized nutrition plan',
         value: '$29.99',
         status: 'coming_soon',
         claimed: 0,
@@ -222,28 +226,97 @@ export default function BrandProfilePage() {
           </TabsList>
 
           <TabsContent value="campaigns" className="space-y-4 mt-6">
+            {/* Progress Journey */}
+            <Card className="bg-gradient-to-r from-purple-900/50 to-cyan-900/50 border-purple-700/30">
+              <CardContent className="p-4">
+                <h3 className="text-white font-semibold mb-3">Your SuperRoot Journey</h3>
+                <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-8 bg-green-400 rounded-full flex items-center justify-center">
+                      <span className="text-black text-sm font-bold">1</span>
+                    </div>
+                    <div>
+                      <p className="text-green-300 text-sm font-medium">Free Sample</p>
+                      <p className="text-gray-400 text-xs">Available now</p>
+                    </div>
+                  </div>
+                  <div className="flex-1 h-px bg-gray-600"></div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+                      <span className="text-black text-sm font-bold">🔒</span>
+                    </div>
+                    <div>
+                      <p className="text-yellow-300 text-sm font-medium">50% Off Box</p>
+                      <p className="text-gray-400 text-xs">Complete step 1</p>
+                    </div>
+                  </div>
+                  <div className="flex-1 h-px bg-gray-600"></div>
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
+                      <span className="text-gray-400 text-sm font-bold">3</span>
+                    </div>
+                    <div>
+                      <p className="text-gray-400 text-sm font-medium">VIP Access</p>
+                      <p className="text-gray-500 text-xs">Coming soon</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             {brandData.campaigns.map((campaign) => (
-              <Card key={campaign.id} className="bg-gray-900/90 border-gray-700/50">
+              <Card key={campaign.id} className={`bg-gray-900/90 border-gray-700/50 ${
+                campaign.status === 'locked' ? 'opacity-75' : ''
+              }`}>
                 <CardContent className="p-4">
                   <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <h3 className="font-semibold text-white text-sm">{campaign.title}</h3>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="font-semibold text-white text-sm">{campaign.title}</h3>
+                        {campaign.status === 'locked' && (
+                          <div className="w-4 h-4 bg-yellow-500 rounded-full flex items-center justify-center">
+                            <span className="text-black text-xs font-bold">🔒</span>
+                          </div>
+                        )}
+                        {campaign.isPrerequisite && (
+                          <Badge className="bg-green-400/20 text-green-300 text-xs px-2 py-0.5">
+                            Step 1
+                          </Badge>
+                        )}
+                      </div>
                       <p className="text-gray-400 text-xs mt-1">{campaign.description}</p>
+                      {campaign.isPrerequisite && campaign.unlocks && (
+                        <p className="text-yellow-400 text-xs mt-1 font-medium">
+                          🎁 Unlocks: {campaign.unlocks}
+                        </p>
+                      )}
+                      {campaign.status === 'locked' && campaign.lockReason && (
+                        <p className="text-yellow-400 text-xs mt-2 bg-yellow-400/10 p-2 rounded">
+                          {campaign.lockReason}
+                        </p>
+                      )}
                     </div>
                     <Badge
                       variant={campaign.status === 'active' ? 'default' : 'secondary'}
                       className={`text-xs ${
                         campaign.status === 'active'
                           ? 'bg-green-400/20 text-green-300'
+                          : campaign.status === 'locked'
+                          ? 'bg-yellow-400/20 text-yellow-300'
                           : 'bg-gray-600/50 text-gray-400'
                       }`}
                     >
-                      {campaign.status === 'active' ? 'Active' : 'Coming Soon'}
+                      {campaign.status === 'active' ? 'Active' : 
+                       campaign.status === 'locked' ? 'Locked' : 'Coming Soon'}
                     </Badge>
                   </div>
 
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-cyan-400 font-bold text-lg">{campaign.value}</span>
+                    <span className={`font-bold text-lg ${
+                      campaign.status === 'locked' ? 'text-gray-500' : 'text-cyan-400'
+                    }`}>
+                      {campaign.value}
+                    </span>
                     <span className="text-gray-400 text-xs">
                       {campaign.claimed}/{campaign.total} claimed
                     </span>
@@ -251,17 +324,28 @@ export default function BrandProfilePage() {
 
                   <div className="w-full bg-gray-700 rounded-full h-2 mb-3">
                     <div
-                      className="bg-gradient-to-r from-cyan-400 to-green-400 h-2 rounded-full"
+                      className={`h-2 rounded-full ${
+                        campaign.status === 'locked' 
+                          ? 'bg-gray-600' 
+                          : 'bg-gradient-to-r from-cyan-400 to-green-400'
+                      }`}
                       style={{ width: `${(campaign.claimed / campaign.total) * 100}%` }}
                     ></div>
                   </div>
 
                   <Button
-                    className="w-full bg-gradient-to-r from-cyan-400 to-green-400 text-black font-semibold"
+                    className={`w-full font-semibold ${
+                      campaign.status === 'active'
+                        ? 'bg-gradient-to-r from-cyan-400 to-green-400 text-black hover:from-cyan-500 hover:to-green-500'
+                        : campaign.status === 'locked'
+                        ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
+                        : 'bg-gray-600 text-gray-300'
+                    }`}
                     disabled={campaign.status !== 'active'}
-                    onClick={() => handleCampaignClaim(campaign.id)}
+                    onClick={() => campaign.status === 'active' && handleCampaignClaim(campaign.id)}
                   >
-                    {campaign.status === 'active' ? 'Claim Offer' : 'Coming Soon'}
+                    {campaign.status === 'active' ? 'Claim Offer' : 
+                     campaign.status === 'locked' ? '🔒 Complete Step 1 First' : 'Coming Soon'}
                   </Button>
                 </CardContent>
               </Card>
