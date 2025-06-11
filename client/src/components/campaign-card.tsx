@@ -11,10 +11,11 @@ import { apiRequest } from '../lib/queryClient';
 interface CampaignCardProps {
   campaign: Campaign;
   onClaim?: (campaignId: string) => void;
+  onCardClick?: (campaign: Campaign) => void;
   className?: string;
 }
 
-const CampaignCard = memo(({ campaign, onClaim, className = '' }: CampaignCardProps) => {
+const CampaignCard = memo(({ campaign, onClaim, onCardClick, className = '' }: CampaignCardProps) => {
   const [, setLocation] = useLocation();
 
   const claimMutation = useMutation({
@@ -75,8 +76,17 @@ const CampaignCard = memo(({ campaign, onClaim, className = '' }: CampaignCardPr
     }
   }, []);
 
+  const handleCardClick = useCallback(() => {
+    if (onCardClick) {
+      onCardClick(campaign);
+    }
+  }, [onCardClick, campaign]);
+
   return (
-    <Card className={`campaign-card bg-gray-900/90 border border-gray-700/50 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:border-cyan-400/30 ${className}`}>
+    <Card 
+      className={`campaign-card bg-gray-900/90 border border-gray-700/50 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:border-cyan-400/30 cursor-pointer ${className}`}
+      onClick={handleCardClick}
+    >
       <CardContent className="p-4">
         <div className="flex items-start space-x-3">
           <div className="relative">

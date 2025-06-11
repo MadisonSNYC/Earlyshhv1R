@@ -197,6 +197,10 @@ export default function HomePage() {
                   key={campaign.id}
                   campaign={campaign}
                   onClaim={() => handleCampaignClaim(campaign)}
+                  onCardClick={() => {
+                    setSelectedCampaign(campaign);
+                    setShowPartnershipModal(true);
+                  }}
                 />
               ))}
             </div>
