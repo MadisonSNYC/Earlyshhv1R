@@ -1,12 +1,11 @@
-import { useLocation } from "wouter";
+import { useLocation, Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Home, Ticket, BarChart3, User, Bell } from "lucide-react";
+import { Home, User, Bell } from "lucide-react";
 
 const NAV_ITEMS = [
   { href: '/', icon: Home, label: 'Home' },
-  { href: '/my-coupons', icon: Ticket, label: 'Coupons' },
   { href: '/notifications', icon: Bell, label: 'Notifications' },
   { href: '/profile', icon: User, label: 'Profile' }
 ];
@@ -33,30 +32,30 @@ export default function BottomNavigation() {
             const Icon = item.icon;
             
             return (
-              <Button
-                key={item.href}
-                variant="ghost"
-                size="sm"
-                className={`flex flex-col items-center space-y-1 h-auto py-2 px-3 ${
-                  isActive 
-                    ? 'text-cyan-400 bg-cyan-400/10' 
-                    : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
-                }`}
-                onClick={() => window.location.href = item.href}
-              >
-                <div className="relative">
-                  <Icon className="w-5 h-5" />
-                  {item.label === 'Notifications' && notificationCount > 0 && (
-                    <Badge 
-                      variant="destructive" 
-                      className="absolute -top-2 -right-2 w-5 h-5 p-0 text-xs flex items-center justify-center min-w-0"
-                    >
-                      {notificationCount > 9 ? '9+' : notificationCount}
-                    </Badge>
-                  )}
-                </div>
-                <span className="text-xs font-medium">{item.label}</span>
-              </Button>
+              <Link key={item.href} href={item.href}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className={`flex flex-col items-center space-y-1 h-auto py-2 px-3 ${
+                    isActive 
+                      ? 'text-cyan-400 bg-cyan-400/10' 
+                      : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
+                  }`}
+                >
+                  <div className="relative">
+                    <Icon className="w-5 h-5" />
+                    {item.label === 'Notifications' && notificationCount > 0 && (
+                      <Badge 
+                        variant="destructive" 
+                        className="absolute -top-2 -right-2 w-5 h-5 p-0 text-xs flex items-center justify-center min-w-0"
+                      >
+                        {notificationCount > 9 ? '9+' : notificationCount}
+                      </Badge>
+                    )}
+                  </div>
+                  <span className="text-xs font-medium">{item.label}</span>
+                </Button>
+              </Link>
             );
           })}
         </div>
