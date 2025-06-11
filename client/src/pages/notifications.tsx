@@ -137,28 +137,26 @@ export default function NotificationsPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4">
+      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 p-4">
         <div className="max-w-md mx-auto space-y-4">
           {/* Header skeleton */}
-          <div className="flex items-center justify-between mb-6">
-            <div className="h-8 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
-            <div className="h-8 w-20 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+          <div className="flex items-center justify-between mb-6 pt-6">
+            <div className="h-8 w-32 bg-purple-600/50 rounded animate-pulse" />
+            <div className="h-8 w-20 bg-purple-600/50 rounded animate-pulse" />
           </div>
           
           {/* Notification skeletons */}
           {[...Array(5)].map((_, i) => (
-            <Card key={i} className="animate-pulse">
-              <CardContent className="p-4">
-                <div className="flex items-start space-x-3">
-                  <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded-full" />
-                  <div className="flex-1 space-y-2">
-                    <div className="h-4 w-3/4 bg-gray-200 dark:bg-gray-700 rounded" />
-                    <div className="h-3 w-full bg-gray-200 dark:bg-gray-700 rounded" />
-                    <div className="h-3 w-1/4 bg-gray-200 dark:bg-gray-700 rounded" />
-                  </div>
+            <div key={i} className="glass-morphism rounded-xl p-4 animate-pulse border border-purple-500/30">
+              <div className="flex items-start space-x-3">
+                <div className="w-10 h-10 bg-purple-600/50 rounded-full" />
+                <div className="flex-1 space-y-2">
+                  <div className="h-4 w-3/4 bg-purple-600/50 rounded" />
+                  <div className="h-3 w-full bg-purple-600/50 rounded" />
+                  <div className="h-3 w-1/4 bg-purple-600/50 rounded" />
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -169,31 +167,32 @@ export default function NotificationsPage() {
   const readNotifications = (notifications || []).filter((n: Notification) => n.isRead);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 pb-20">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 p-4 pb-20">
       <div className="max-w-md mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center space-x-2">
-            <Bell className="w-6 h-6 text-gray-900 dark:text-white" />
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-              Activity
-            </h1>
-            {(unreadCount?.count || 0) > 0 && (
-              <Badge variant="destructive" className="ml-2">
-                {unreadCount?.count || 0}
-              </Badge>
-            )}
+        {/* Header with EARLYSHH Branding */}
+        <div className="flex items-center justify-between mb-6 pt-6">
+          <div>
+            <div className="flex items-center space-x-2 mb-2">
+              <div className="text-2xl font-black bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">
+                EARLYSHH
+              </div>
+              <Zap className="w-6 h-6 text-yellow-400" />
+            </div>
+            <h1 className="text-xl font-bold text-white">Partnership Updates</h1>
+            <p className="text-sm text-purple-200 mt-1">
+              {unreadNotifications.length} new update{unreadNotifications.length !== 1 ? 's' : ''}
+            </p>
           </div>
           
           {unreadNotifications.length > 0 && (
             <Button
-              variant="ghost"
+              variant="outline"
               size="sm"
               onClick={handleMarkAllAsRead}
               disabled={markAllAsReadMutation.isPending}
-              className="text-blue-600 hover:text-blue-700"
+              className="border-purple-400 text-purple-200 hover:bg-purple-700/50"
             >
-              Mark all read
+              {markAllAsReadMutation.isPending ? "Marking..." : "Mark all read"}
             </Button>
           )}
         </div>
