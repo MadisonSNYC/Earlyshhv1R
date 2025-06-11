@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useLocation } from 'wouter';
 import CampaignCard from '@/components/campaign-card';
 import BottomNavigation from '@/components/bottom-navigation';
 import PartnershipTermsModal from '@/components/partnership-terms-modal';
@@ -29,6 +30,7 @@ export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [viewMode, setViewMode] = useState<'grid' | 'map'>('grid');
+  const [, setLocation] = useLocation();
 
   // Fetch campaigns
   const { data: campaigns = [], isLoading: campaignsLoading } = useQuery({
@@ -82,7 +84,7 @@ export default function HomePage() {
       setSelectedCampaign(null);
       
       // Navigate to QR code page
-      window.location.href = `/qr/${coupon.id}`;
+      setLocation(`/qr/${coupon.id}`);
     } catch (error) {
       console.error('Claim failed:', error);
     }
