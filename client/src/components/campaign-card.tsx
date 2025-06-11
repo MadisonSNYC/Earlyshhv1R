@@ -9,6 +9,7 @@ import { useAuth } from "@/lib/auth";
 import { apiRequest } from "@/lib/api";
 import { Campaign } from "@shared/schema";
 import { CheckCircle } from "lucide-react";
+import PartnershipTermsModal from "./partnership-terms-modal";
 
 interface CampaignCardProps {
   campaign: Campaign & { claimedCount?: number; availableCount?: number };
@@ -20,6 +21,7 @@ export default function CampaignCard({ campaign, onCouponClaimed }: CampaignCard
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const [alreadyClaimed, setAlreadyClaimed] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
 
   const claimMutation = useMutation({
     mutationFn: async () => {
@@ -59,6 +61,15 @@ export default function CampaignCard({ campaign, onCouponClaimed }: CampaignCard
   const maxCoupons = campaign.maxCoupons;
   const progressPercentage = (claimedCount / maxCoupons) * 100;
   const isAvailable = claimedCount < maxCoupons && !alreadyClaimed;
+
+  const handleUnlockPartnership = () => {
+    setShowTermsModal(true);
+  };
+
+  const handleAcceptTerms = () => {
+    setShowTermsModal(false);
+    claimMutation.mutate();
+  };
 
   const getStatusBadge = () => {
     if (alreadyClaimed) return <Badge variant="outline" className="glass-morphism border-green-400 text-green-400"><CheckCircle className="w-3 h-3 mr-1" />Secured</Badge>;
@@ -107,7 +118,7 @@ export default function CampaignCard({ campaign, onCouponClaimed }: CampaignCard
         </div>
 
         <Button
-          onClick={() => claimMutation.mutate()}
+          onClick={handleUnlockPartnership}
           disabled={!isAvailable || claimMutation.isPending}
           className="btn-electric w-full py-3 text-base font-bold disabled:opacity-50 disabled:cursor-not-allowed mobile-touch"
         >
@@ -125,6 +136,15 @@ export default function CampaignCard({ campaign, onCouponClaimed }: CampaignCard
           )}
         </Button>
       </CardContent>
+
+      {/* Partnership Terms Modal */}
+      {showTermsModal && (
+        <PartnershipTermsModal
+          campaign={campaign}
+          onAccept={handleAcceptTerms}
+          onClose={() => setShowTermsModal(false)}
+        />
+      )}
     </Card>
   );
 }
