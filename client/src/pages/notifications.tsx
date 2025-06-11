@@ -199,14 +199,10 @@ export default function NotificationsPage() {
 
         {/* Empty state */}
         {(!notifications || notifications.length === 0) && (
-          <div className="text-center py-12">
-            <Bell className="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
-              No notifications yet
-            </h3>
-            <p className="text-gray-500 dark:text-gray-400 max-w-sm mx-auto">
-              When brands send you deals or when you achieve milestones, they'll appear here.
-            </p>
+          <div className="text-center py-12 glass-morphism rounded-3xl border border-purple-500/30">
+            <Bell className="w-12 h-12 text-purple-300 mx-auto mb-4" />
+            <h3 className="text-lg font-semibold text-white mb-2">No updates yet</h3>
+            <p className="text-purple-200">You'll see partnership updates and activity here.</p>
           </div>
         )}
 
@@ -215,8 +211,9 @@ export default function NotificationsPage() {
           {/* Unread Notifications */}
           {unreadNotifications.length > 0 && (
             <div>
-              <h2 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-3 uppercase tracking-wide">
-                New
+              <h2 className="text-lg font-semibold text-white mb-4 flex items-center">
+                <div className="w-2 h-2 bg-yellow-400 rounded-full mr-3"></div>
+                New Updates
               </h2>
               <div className="space-y-3">
                 {unreadNotifications.map((notification: Notification) => (
@@ -233,16 +230,14 @@ export default function NotificationsPage() {
 
           {/* Separator */}
           {unreadNotifications.length > 0 && readNotifications.length > 0 && (
-            <Separator className="my-6" />
+            <Separator className="my-6 bg-purple-600" />
           )}
 
           {/* Read Notifications */}
           {readNotifications.length > 0 && (
             <div>
               {unreadNotifications.length > 0 && (
-                <h2 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-3 uppercase tracking-wide">
-                  Earlier
-                </h2>
+                <h2 className="text-lg font-semibold text-purple-300 mb-4">Earlier</h2>
               )}
               <div className="space-y-3">
                 {readNotifications.map((notification: Notification) => (
@@ -271,81 +266,69 @@ interface NotificationItemProps {
 
 function NotificationItem({ notification, onClick, isUnread }: NotificationItemProps) {
   const IconComponent = getNotificationIcon(notification.icon);
-  const iconColor = getNotificationColor(notification.type, notification.priority);
   const timeAgo = getTimeAgo(notification.createdAt);
 
+  // Get icon background color based on notification type
+  const getIconBgColor = (type: string) => {
+    switch (type) {
+      case "new_deal":
+        return "bg-blue-500";
+      case "achievement":
+        return "bg-yellow-500";
+      case "reminder":
+        return "bg-purple-500";
+      case "partnership":
+        return "bg-green-500";
+      default:
+        return "bg-gray-500";
+    }
+  };
+
   return (
-    <Card 
+    <div 
       className={cn(
-        "cursor-pointer transition-all duration-200 hover:shadow-md border-l-4",
-        isUnread 
-          ? "bg-blue-50 dark:bg-blue-950/20 border-l-blue-500 shadow-sm" 
-          : "bg-white dark:bg-gray-800 border-l-transparent hover:border-l-gray-300"
+        "glass-morphism rounded-xl p-4 border border-purple-500/30 cursor-pointer transition-all duration-200 hover:border-purple-400/50",
+        isUnread ? "bg-purple-800/20" : "bg-purple-900/10"
       )}
       onClick={onClick}
     >
-      <CardContent className="p-4">
-        <div className="flex items-start space-x-3">
-          {/* Icon */}
-          <div className={cn(
-            "flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center",
-            isUnread ? "bg-blue-100 dark:bg-blue-900/40" : "bg-gray-100 dark:bg-gray-700"
-          )}>
-            <IconComponent className={cn("w-5 h-5", iconColor)} />
-          </div>
+      <div className="flex items-start space-x-3">
+        {/* Icon */}
+        <div className={cn(
+          "flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center",
+          getIconBgColor(notification.type)
+        )}>
+          <IconComponent className="w-5 h-5 text-white" />
+        </div>
 
-          {/* Content */}
-          <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <h3 className={cn(
-                  "text-sm font-semibold",
-                  isUnread 
-                    ? "text-gray-900 dark:text-white" 
-                    : "text-gray-700 dark:text-gray-300"
-                )}>
-                  {notification.title}
-                </h3>
-                <p className={cn(
-                  "text-sm mt-1 line-clamp-2",
-                  isUnread 
-                    ? "text-gray-700 dark:text-gray-300" 
-                    : "text-gray-500 dark:text-gray-400"
-                )}>
-                  {notification.message}
-                </p>
-              </div>
-              
-              {/* Priority indicator */}
-              {notification.priority === "high" && (
-                <div className="flex-shrink-0 ml-2">
-                  <div className="w-2 h-2 bg-red-500 rounded-full" />
-                </div>
-              )}
-            </div>
-
-            {/* Footer */}
-            <div className="flex items-center justify-between mt-3">
-              <span className={cn(
-                "text-xs",
-                isUnread 
-                  ? "text-gray-600 dark:text-gray-400" 
-                  : "text-gray-400 dark:text-gray-500"
+        {/* Content */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-start justify-between">
+            <div className="flex-1">
+              <h3 className={cn(
+                "font-semibold",
+                isUnread ? "text-white" : "text-purple-200"
               )}>
-                {timeAgo}
-              </span>
-              
-              {/* Type badge */}
-              <Badge 
-                variant="secondary" 
-                className="text-xs"
-              >
-                {notification.type.replace('_', ' ')}
-              </Badge>
+                {notification.title}
+              </h3>
+              <p className={cn(
+                "text-sm mt-1 line-clamp-2",
+                isUnread ? "text-purple-100" : "text-purple-300"
+              )}>
+                {notification.message}
+              </p>
+            </div>
+            
+            {/* Time and priority */}
+            <div className="flex flex-col items-end space-y-1">
+              <span className="text-xs text-purple-400">{timeAgo}</span>
+              {notification.priority === "high" && (
+                <div className="w-2 h-2 bg-yellow-400 rounded-full" />
+              )}
             </div>
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
