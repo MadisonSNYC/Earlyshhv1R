@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earlyshh App Demo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b2e 100%);
+            color: white;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .demo-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .demo-title {
+            font-family: 'Rubik', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #FF1493, #00D4FF, #FFD700);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            margin-bottom: 10px;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .demo-subtitle {
+            font-size: 1.1rem;
+            color: #B0B0B0;
+            margin-bottom: 30px;
+        }
+        
+        .phone-showcase {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+        
+        .phone {
+            width: 320px;
+            height: 640px;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .phone::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 6px;
+            background: #666;
+            border-radius: 3px;
+        }
+        
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .screen-content {
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 0.8rem;
+            color: #B0B0B0;
+        }
+        
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .app-logo {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #FF1493, #00D4FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #FF1493, #7B2D8E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .search-bar {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 15px;
+            padding: 15px 20px;
+            color: white;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            width: 100%;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .search-bar::placeholder {
+            color: #B0B0B0;
+        }
+        
+        .section-header {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #FF1493;
+            margin-bottom: 15px;
+        }
+        
+        .deal-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .deal-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(45deg, #FF1493, #00D4FF, #FFD700);
+        }
+        
+        .deal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .deal-brand {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #00D4FF;
+        }
+        
+        .deal-discount {
+            background: linear-gradient(45deg, #FFD700, #32CD32);
+            color: #1a1a1a;
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .deal-description {
+            color: #E0E0E0;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .deal-location {
+            color: #B0B0B0;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .deal-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #FF1493, #00D4FF);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #FF1493;
+            color: #FF1493;
+        }
+        
+        .qr-section {
+            background: rgba(255, 255, 255, 0.95);
+            color: #1a1a1a;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #1a1a1a, #333);
+            border-radius: 15px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            position: relative;
+        }
+        
+        .qr-instructions {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .qr-timer {
+            background: linear-gradient(45deg, #FF1493, #7B2D8E);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            display: inline-block;
+        }
+        
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: #B0B0B0;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        
+        .nav-item.active {
+            color: #FF1493;
+        }
+        
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            background: currentColor;
+            border-radius: 4px;
+            opacity: 0.8;
+        }
+        
+        .story-template {
+            background: linear-gradient(135deg, #FF1493 0%, #7B2D8E 50%, #00D4FF 100%);
+            border-radius: 25px;
+            padding: 30px 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 9/16;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            max-width: 250px;
+        }
+        
+        .story-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .story-profile {
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .story-username {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .story-content {
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .story-deal-text {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .story-qr {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 8px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a1a1a;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        
+        .story-location {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .story-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .story-logo {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 800;
+            font-size: 0.9rem;
+        }
+        
+        .story-cta {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .demo-section {
+            margin-bottom: 50px;
+        }
+        
+        .demo-section-title {
+            font-family: 'Rubik', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #FF1493, #00D4FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #FF1493, #00D4FF);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .feature-title {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #FF1493;
+            margin-bottom: 15px;
+        }
+        
+        .feature-description {
+            color: #E0E0E0;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1 class="demo-title">EARLYSHH</h1>
+            <p class="demo-subtitle">Interactive App Interface & Social Integration</p>
+        </div>
+        
+        <div class="demo-section">
+            <h2 class="demo-section-title">Mobile App Interface</h2>
+            <div class="phone-showcase">
+                <!-- Home Screen -->
+                <div class="phone">
+                    <div class="screen">
+                        <div class="screen-content">
+                            <div class="status-bar">
+                                <span>9:41</span>
+                                <span>●●●●●</span>
+                                <span>100%</span>
+                            </div>
+                            
+                            <div class="app-header">
+                                <div class="app-logo">EARLYSHH</div>
+                                <div class="profile-icon">S</div>
+                            </div>
+                            
+                            <input type="text" class="search-bar" placeholder="Search deals near you...">
+                            
+                            <div class="section-header">🔥 Hot Deals Nearby</div>
+                            
+                            <div class="deal-card">
+                                <div class="deal-header">
+                                    <div class="deal-brand">Red Bull</div>
+                                    <div class="deal-discount">30% OFF</div>
+                                </div>
+                                <div class="deal-description">Energy drinks - All flavors</div>
+                                <div class="deal-location">📍 Tony's Deli • 0.2mi • 12 redeemed</div>
+                                <div class="deal-actions">
+                                    <button class="btn btn-primary">Scan & Save</button>
+                                    <button class="btn btn-secondary">Share</button>
+                                </div>
+                            </div>
+                            
+                            <div class="deal-card">
+                                <div class="deal-header">
+                                    <div class="deal-brand">Doritos</div>
+                                    <div class="deal-discount">Buy 1 Get 1</div>
+                                </div>
+                                <div class="deal-description">Family size bags only</div>
+                                <div class="deal-location">📍 Corner Store • 0.4mi • 8 redeemed</div>
+                                <div class="deal-actions">
+                                    <button class="btn btn-primary">Scan & Save</button>
+                                    <button class="btn btn-secondary">Share</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bottom-nav">
+                            <div class="nav-item active">
+                                <div class="nav-icon"></div>
+                                <span>Discover</span>
+                            </div>
+                            <div class="nav-item">
+                                <div class="nav-icon"></div>
+                                <span>Map</span>
+                            </div>
+                            <div class="nav-item">
+                                <div class="nav-icon"></div>
+                                <span>Saved</span>
+                            </div>
+                            <div class="nav-item">
+                                <div class="nav-icon"></div>
+                                <span>Profile</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- QR Code Screen -->
+                <div class="phone">
+                    <div class="screen">
+                        <div class="screen-content">
+                            <div class="status-bar">
+                                <span>9:41</span>
+                                <span>●●●●●</span>
+                                <span>100%</span>
+                            </div>
+                            
+                            <div class="app-header">
+                                <div class="app-logo">EARLYSHH</div>
+                                <div style="color: #B0B0B0; font-size: 0.9rem;">← Back</div>
+                            </div>
+                            
+                            <div class="qr-section">
+                                <div style="color: #FF1493; font-weight: 700; font-size: 1.2rem; margin-bottom: 20px;">Ready to Redeem!</div>
+                                
+                                <div class="qr-code">
+                                    <div style="width: 80px; height: 80px; background: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #1a1a1a;">QR</div>
+                                </div>
+                                
+                                <div class="qr-instructions">Show this QR code at checkout to redeem your Red Bull 30% off deal</div>
+                                
+                                <div class="qr-timer">⏰ Expires in 24 minutes</div>
+                            </div>
+                            
+                            <div style="margin-top: 30px; text-align: center;">
+                                <div style="color: #B0B0B0; font-size: 0.9rem; margin-bottom: 20px;">Share your experience!</div>
+                                <button class="btn btn-primary" style="width: 100%;">Post to Instagram Story</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2 class="demo-section-title">Instagram Story Integration</h2>
+            <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+                <div class="story-template">
+                    <div class="story-header">
+                        <div class="story-profile">S</div>
+                        <div class="story-username">sarah_nyc</div>
+                    </div>
+                    
+                    <div class="story-content">
+                        <div class="story-deal-text">Got 30% off Red Bull! ⚡</div>
+                        <div class="story-qr">QR</div>
+                        <div class="story-location">@ Tony's Deli</div>
+                    </div>
+                    
+                    <div class="story-footer">
+                        <div class="story-logo">EARLYSHH</div>
+                        <div class="story-cta">Get the app</div>
+                    </div>
+                </div>
+                
+                <div style="max-width: 300px; padding: 20px;">
+                    <h3 style="color: #00D4FF; margin-bottom: 20px; font-family: 'Rubik', sans-serif; font-weight: 700;">Story Features</h3>
+                    <ul style="color: #E0E0E0; line-height: 2;">
+                        <li>✨ Auto-generated branded templates</li>
+                        <li>📱 One-tap posting from app</li>
+                        <li>🏷️ Automatic brand tagging</li>
+                        <li>📍 Location integration</li>
+                        <li>🎨 Dynamic color matching</li>
+                        <li>👥 Friend discovery through stories</li>
+                    </ul>
+                    
+                    <div style="background: rgba(50, 205, 50, 0.1); border: 1px solid #32CD32; border-radius: 15px; padding: 15px; margin-top: 20px;">
+                        <div style="color: #32CD32; font-weight: 600; margin-bottom: 10px;">Engagement Boost</div>
+                        <div style="color: #32CD32; font-size: 0.9rem;">Users who share stories drive 3x more app downloads and 40% higher deal redemption rates</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2 class="demo-section-title">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">QR Code Scanning</div>
+                    <div class="feature-description">Instant deal redemption through optimized QR codes that work in any lighting condition, from bright bodega fluorescents to dim corner stores.</div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <div class="feature-title">Location Discovery</div>
+                    <div class="feature-description">Find the best deals at local bodegas, convenience stores, and independent retailers within walking distance of your location.</div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📸</div>
+                    <div class="feature-title">Story Integration</div>
+                    <div class="feature-description">Seamlessly share your discoveries with branded Instagram Story templates that feel authentic and drive community engagement.</div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <div class="feature-title">Brand Partnerships</div>
+                    <div class="feature-description">Flexible co-branding system allows partnerships with CPG brands while maintaining Earlyshh's distinctive Electric Playground aesthetic.</div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">Real-time Updates</div>
+                    <div class="feature-description">Live deal availability, redemption counters, and expiration timers create urgency and authentic scarcity for better conversion.</div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-title">Social Discovery</div>
+                    <div class="feature-description">Friend activity feeds, deal recommendations based on social connections, and community-driven discovery of new products and stores.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earlyshh × Superoot Partnership</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b2e 100%);
+            color: white;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .partnership-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .partnership-title {
+            font-family: 'Rubik', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        
+        .earlyshh-text {
+            background: linear-gradient(45deg, #FF1493, #00D4FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .superoot-text {
+            background: linear-gradient(45deg, #E87722, #D4691A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .partnership-subtitle {
+            font-size: 1.2rem;
+            color: #B0B0B0;
+            font-weight: 300;
+        }
+        
+        .experience-flow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .phone {
+            width: 320px;
+            height: 640px;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        
+        .phone::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 6px;
+            background: #666;
+            border-radius: 3px;
+        }
+        
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .screen-content {
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 0.8rem;
+            color: #B0B0B0;
+        }
+        
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .app-logo {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #FF1493, #00D4FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #FF1493, #7B2D8E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .discovery-badge {
+            background: linear-gradient(45deg, #FFD700, #32CD32);
+            color: #1a1a1a;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        .collaboration-card {
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.1) 0%, rgba(228, 119, 34, 0.1) 100%);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            border-radius: 25px;
+            padding: 25px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .collaboration-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #FF1493, #E87722);
+        }
+        
+        .collab-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .brand-logos {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .earlyshh-logo {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #FF1493, #00D4FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .plus-symbol {
+            color: #B0B0B0;
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+        
+        .superoot-logo {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, #E87722, #D4691A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .collab-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #E87722;
+            font-weight: 600;
+        }
+        
+        .product-info {
+            margin-bottom: 20px;
+        }
+        
+        .product-name {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #E87722;
+            margin-bottom: 8px;
+        }
+        
+        .product-description {
+            color: #E0E0E0;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+        
+        .deal-offer {
+            background: linear-gradient(45deg, #FFD700, #32CD32);
+            color: #1a1a1a;
+            padding: 12px 20px;
+            border-radius: 15px;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-align: center;
+            margin-bottom: 15px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        
+        .location-info {
+            color: #B0B0B0;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .btn {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 15px;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #FF1493, #00D4FF);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #E87722;
+            color: #E87722;
+        }
+        
+        .qr-section {
+            background: linear-gradient(135deg, #F8FAFC, #E0E0E0);
+            color: #1a1a1a;
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .qr-header {
+            margin-bottom: 20px;
+        }
+        
+        .qr-title {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #FF1493;
+            margin-bottom: 10px;
+        }
+        
+        .qr-subtitle {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .qr-code {
+            width: 140px;
+            height: 140px;
+            background: #1a1a1a;
+            border-radius: 15px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            position: relative;
+            border: 3px solid #E87722;
+        }
+        
+        .qr-instructions {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .qr-timer {
+            background: linear-gradient(45deg, #FF1493, #7B2D8E);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .social-prompt {
+            background: rgba(255, 20, 147, 0.1);
+            border: 1px solid #FF1493;
+            border-radius: 15px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-prompt-text {
+            color: #FF1493;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .story-template {
+            background: linear-gradient(135deg, #FF1493 0%, #E87722 50%, #FFD700 100%);
+            border-radius: 20px;
+            padding: 25px 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 9/16;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            max-width: 200px;
+            margin: 0 auto;
+        }
+        
+        .story-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .story-profile {
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .story-username {
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        
+        .story-content {
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .story-text {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .story-product {
+            background: rgba(255, 255, 255, 0.9);
+            color: #E87722;
+            padding: 8px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin: 0 auto 10px;
+            display: inline-block;
+        }
+        
+        .story-location {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+        
+        .story-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .story-earlyshh {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 800;
+            font-size: 0.7rem;
+        }
+        
+        .story-superoot {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 800;
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .flow-description {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+        }
+        
+        .flow-title {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #FFD700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .flow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(45deg, #FF1493, #00D4FF);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        
+        .step-text {
+            color: #E0E0E0;
+            font-size: 0.95rem;
+        }
+        
+        .success-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .metric-number {
+            font-family: 'Rubik', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #FFD700, #32CD32);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .metric-label {
+            color: #B0B0B0;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .metric-description {
+            color: #E0E0E0;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="partnership-header">
+            <h1 class="partnership-title">
+                <span class="earlyshh-text">EARLYSHH</span> × <span class="superoot-text">SUPEROOT</span>
+            </h1>
+            <p class="partnership-subtitle">First Market Test Partnership Experience</p>
+        </div>
+        
+        <div class="experience-flow">
+            <!-- Discovery Phase -->
+            <div style="text-align: center;">
+                <div class="phone">
+                    <div class="screen">
+                        <div class="screen-content">
+                            <div class="status-bar">
+                                <span>9:41</span>
+                                <span>●●●●●</span>
+                                <span>100%</span>
+                            </div>
+                            
+                            <div class="app-header">
+                                <div class="app-logo">EARLYSHH</div>
+                                <div class="profile-icon">A</div>
+                            </div>
+                            
+                            <div class="discovery-badge">✨ New Discovery Partnership!</div>
+                            
+                            <div class="collaboration-card">
+                                <div class="collab-header">
+                                    <div class="brand-logos">
+                                        <div class="earlyshh-logo">EARLYSHH</div>
+                                        <div class="plus-symbol">×</div>
+                                        <div class="superoot-logo">SUPEROOT</div>
+                                    </div>
+                                    <div class="collab-tag">Wellness Discovery</div>
+                                </div>
+                                
+                                <div class="product-info">
+                                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                                        <div style="flex-shrink: 0;">
+                                            <div style="width: 50px; height: 70px; background: linear-gradient(135deg, #E87722, #D4691A); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; font-size: 0.6rem; font-weight: 600; text-align: center; padding: 5px;">
+                                                <div>SUPER</div>
+                                                <div>ROOT</div>
+                                                <div style="font-size: 0.5rem; margin-top: 2px;">blend 005</div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="product-name">Daily Rootine Powder</div>
+                                            <div class="product-description">6 organic roots + 700% vitamin C. Watch it fizz, feel the natural energy boost!</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="deal-offer">Try FREE - Limited Time</div>
+                                
+                                <div class="location-info">📍 Available at 8 local spots near you</div>
+                                
+                                <div class="action-buttons">
+                                    <button class="btn btn-primary">Share & Get Free</button>
+                                    <button class="btn btn-secondary">Learn More</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-description">
+                    <div class="flow-title">Step 1: Discovery & Commitment</div>
+                    <div class="flow-steps">
+                        <div class="flow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-text">User discovers Earlyshh × Superoot collaboration</div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-text">User commits to sharing their experience</div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Free product unlocked after sharing agreement</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Redemption Phase -->
+            <div style="text-align: center;">
+                <div class="phone">
+                    <div class="screen">
+                        <div class="screen-content">
+                            <div class="status-bar">
+                                <span>9:41</span>
+                                <span>●●●●●</span>
+                                <span>100%</span>
+                            </div>
+                            
+                            <div class="app-header">
+                                <div class="app-logo">EARLYSHH</div>
+                                <div style="color: #B0B0B0; font-size: 0.9rem;">← Back</div>
+                            </div>
+                            
+                            <div class="qr-section">
+                                <div class="qr-header">
+                                    <div class="qr-title">Ready to Try Superoot!</div>
+                                    <div class="qr-subtitle">Show this at Tony's Deli</div>
+                                </div>
+                                
+                                <div class="qr-code">
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 0.8rem; margin-bottom: 5px;">QR CODE</div>
+                                        <div style="font-size: 0.7rem; color: #E87722;">SUPEROOT</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="qr-instructions">Scan at checkout for your free Superoot trial</div>
+                                
+                                <div class="qr-timer">⏰ Valid for 2 hours</div>
+                                
+                                <div class="social-prompt">
+                                    <div class="social-prompt-text">✓ Share commitment confirmed! Post your experience after trying it 📸</div>
+                                    <button class="btn btn-primary" style="width: 100%; margin-top: 10px;">Story Template Ready</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flow-description">
+                    <div class="flow-title">Step 2: Product Redemption</div>
+                    <div class="flow-steps">
+                        <div class="flow-step">
+                            <div class="step-number">4</div>
+                            <div class="step-text">QR code generated after sharing commitment</div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">5</div>
+                            <div class="step-text">User redeems free product at participating store</div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">6</div>
+                            <div class="step-text">User fulfills sharing commitment with authentic content</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Social Sharing Phase -->
+            <div style="text-align: center;">
+                <div class="story-template">
+                    <div class="story-header">
+                        <div class="story-profile">A</div>
+                        <div class="story-username">alex_brooklyn</div>
+                    </div>
+                    
+                    <div class="story-content">
+                        <div style="background: rgba(255, 255, 255, 0.9); border-radius: 15px; padding: 15px; margin-bottom: 15px;">
+                            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #FF6B35, #E87722); border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; position: relative;">
+                                <div style="width: 60px; height: 60px; background: rgba(255, 255, 255, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                    <div style="color: white; font-size: 0.7rem; text-align: center; font-weight: 600;">FIZZ<br>MOMENT</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="story-text">This actually fizzes! 🥤✨</div>
+                        <div class="story-product">SUPEROOT</div>
+                        <div class="story-location">Found at Tony's Deli</div>
+                    </div>
+                    
+                    <div class="story-footer">
+                        <div class="story-earlyshh">EARLYSHH</div>
+                        <div class="story-superoot">SUPEROOT</div>
+                    </div>
+                </div>
+                
+                <div class="flow-description">
+                    <div class="flow-title">Step 3: Authentic Content Creation</div>
+                    <div class="flow-steps">
+                        <div class="flow-step">
+                            <div class="step-number">7</div>
+                            <div class="step-text">User experiences the product and creates authentic content</div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">8</div>
+                            <div class="step-text">Genuine "discovery" story: "Found this through Earlyshh!"</div>
+                        </div>
+                        <div class="flow-step">
+                            <div class="step-number">9</div>
+                            <div class="step-text">Both brands benefit from authentic user experience</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="success-metrics">
+            <div class="metric-card">
+                <div class="metric-number">85%</div>
+                <div class="metric-label">Expected Redemption Rate</div>
+                <div class="metric-description">Higher than traditional coupons due to authentic discovery appeal</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-number">60%</div>
+                <div class="metric-label">Natural Social Sharing</div>
+                <div class="metric-description">The "fizz moment" + discovery excitement drives organic content</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-number">3x</div>
+                <div class="metric-label">Content Authenticity</div>
+                <div class="metric-description">vs. forced influencer content - real users, real experiences</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-number">24hrs</div>
+                <div class="metric-label">Real-Time Analytics</div>
+                <div class="metric-description">Instant feedback on redemption rates and social engagement</div>
+            </div>
+        </div>
+        
+        <div style="background: rgba(50, 205, 50, 0.1); border: 1px solid #32CD32; border-radius: 20px; padding: 30px; margin-top: 40px; text-align: center;">
+            <h3 style="color: #32CD32; font-family: 'Rubik', sans-serif; font-weight: 700; margin-bottom: 15px;">Why This Partnership Model Works</h3>
+            <div style="color: #32CD32; line-height: 1.8;">
+                <strong>For Superoot:</strong> Guaranteed authentic user-generated content + verified trials<br>
+                <strong>For Users:</strong> Free premium products in exchange for genuine sharing<br>
+                <strong>For Earlyshh:</strong> Quality content creation drives brand discovery<br>
+                <strong>Different from traditional influencer marketing:</strong> Real users, real experiences, authentic discovery stories
+            </div>
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #32CD32; color: #32CD32; font-size: 0.9rem;">
+                <strong>The Earlyshh Difference:</strong> Users share because they genuinely discovered something cool, not because they're paid influencers. The commitment creates accountability while maintaining authenticity.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

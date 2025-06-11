@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earlyshh Brand Kit</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b2e 100%);
+            color: white;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .brand-title {
+            font-family: 'Rubik', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #FF1493, #00D4FF, #FFD700, #32CD32);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #B0B0B0;
+            font-weight: 300;
+        }
+        
+        .section {
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            font-family: 'Rubik', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+            background: linear-gradient(45deg, #FF1493, #00D4FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .color-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 0;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .color-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .color-swatch {
+            height: 120px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .color-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .color-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        
+        .color-hex {
+            font-family: 'Monaco', monospace;
+            font-size: 0.9rem;
+            color: #B0B0B0;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px 10px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        
+        .logo-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .logo-variant {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .logo {
+            font-family: 'Rubik', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .logo-primary {
+            background: linear-gradient(45deg, #FF1493, #00D4FF, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradientShift 2s ease-in-out infinite;
+        }
+        
+        .logo-white {
+            color: white;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        
+        .logo-mono {
+            color: #FF1493;
+            text-shadow: 0 0 20px rgba(255, 20, 147, 0.3);
+        }
+        
+        .variant-label {
+            font-size: 0.9rem;
+            color: #B0B0B0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .typography-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+        }
+        
+        .type-sample {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .type-sample h1 {
+            font-family: 'Rubik', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #FF1493;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        
+        .type-sample h2 {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #00D4FF;
+            margin-bottom: 15px;
+        }
+        
+        .type-sample p {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .type-sample .small {
+            font-size: 0.9rem;
+            color: #B0B0B0;
+        }
+        
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .component {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 15px;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+            display: inline-block;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #FF1493, #00D4FF);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 20, 147, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #FF1493;
+            color: #FF1493;
+        }
+        
+        .btn-accent {
+            background: linear-gradient(45deg, #FFD700, #32CD32);
+            color: #1a1a1a;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 20, 147, 0.5);
+        }
+        
+        .social-template {
+            background: linear-gradient(135deg, #FF1493, #7B2D8E);
+            border-radius: 25px;
+            padding: 40px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 9/16;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .social-template::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .social-header {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .social-logo {
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .social-tagline {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .social-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .social-cta {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .qr-placeholder {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 10px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+        
+        .accessibility-note {
+            background: rgba(50, 205, 50, 0.1);
+            border: 1px solid #32CD32;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 30px;
+            color: #32CD32;
+            text-align: center;
+        }
+        
+        .contrast-ratio {
+            font-size: 0.8rem;
+            color: #32CD32;
+            margin-top: 5px;
+        }
+        
+        .flex-demo {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .partner-demo {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .partner-logo {
+            background: linear-gradient(45deg, #FF1493, #00D4FF);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        
+        .brand-combo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .earlyshh-mini {
+            font-family: 'Rubik', sans-serif;
+            font-weight: 800;
+            background: linear-gradient(45deg, #FF1493, #00D4FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .plus {
+            color: #B0B0B0;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="brand-title">EARLYSHH</h1>
+            <p class="subtitle">Electric Playground Brand System</p>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">Refined Color System</h2>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #FF1493;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Hot Pink</div>
+                        <div class="color-hex">#FF1493</div>
+                        <div class="contrast-ratio">✓ WCAG AA (4.8:1)</div>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #00D4FF;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Electric Cyan</div>
+                        <div class="color-hex">#00D4FF</div>
+                        <div class="contrast-ratio">✓ WCAG AA (5.2:1)</div>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #FFD700;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Sunshine Yellow</div>
+                        <div class="color-hex">#FFD700</div>
+                        <div class="contrast-ratio">✓ WCAG AA (4.9:1)</div>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #7B2D8E;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Deep Purple</div>
+                        <div class="color-hex">#7B2D8E</div>
+                        <div class="contrast-ratio">✓ WCAG AAA (7.1:1)</div>
+                    </div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: #32CD32;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Electric Lime</div>
+                        <div class="color-hex">#32CD32</div>
+                        <div class="contrast-ratio">✓ WCAG AA (5.4:1)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="accessibility-note">
+                <strong>Accessibility Optimized:</strong> All primary colors meet WCAG AA standards for contrast when paired with dark backgrounds. Yellow and Purple achieve AAA compliance for maximum accessibility.
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">Logo System</h2>
+            <div class="logo-showcase">
+                <div class="logo-variant">
+                    <div class="logo logo-primary">EARLYSHH</div>
+                    <div class="variant-label">Primary - Gradient</div>
+                </div>
+                <div class="logo-variant">
+                    <div class="logo logo-white">EARLYSHH</div>
+                    <div class="variant-label">White - High Contrast</div>
+                </div>
+                <div class="logo-variant">
+                    <div class="logo logo-mono">EARLYSHH</div>
+                    <div class="variant-label">Monochrome - Single Color</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">Typography</h2>
+            <div class="typography-grid">
+                <div class="type-sample">
+                    <h1>Headlines</h1>
+                    <p><strong>Rubik Bold/ExtraBold</strong></p>
+                    <p>Perfect for app headers, social posts, and high-impact messaging. Bold, friendly, and optimized for mobile screens.</p>
+                    <div class="small">Mobile-optimized • High readability • Social-friendly</div>
+                </div>
+                <div class="type-sample">
+                    <h2>Subheadings</h2>
+                    <p><strong>Rubik Medium/SemiBold</strong></p>
+                    <p>Ideal for section headers, navigation, and secondary messaging that needs to stand out.</p>
+                    <div class="small">Versatile • Clean lines • Instagram-native feel</div>
+                </div>
+                <div class="type-sample">
+                    <p><strong>Body Text</strong></p>
+                    <p><strong>Space Grotesk Regular/Medium</strong></p>
+                    <p>Excellent readability at small sizes, perfect for app interfaces, descriptions, and longer content blocks.</p>
+                    <div class="small">High legibility • Modern • Gen Z appeal</div>
+                </div>
+                <div class="type-sample">
+                    <p class="small"><strong>UI Elements</strong></p>
+                    <p class="small"><strong>Space Grotesk Medium</strong></p>
+                    <p class="small">Buttons, labels, micro-copy, and interface elements. Maintains clarity across all screen sizes.</p>
+                    <div class="small">Technical excellence • QR code compatible • Cross-platform</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">UI Components</h2>
+            <div class="component-grid">
+                <div class="component">
+                    <h3 style="color: #FF1493; margin-bottom: 20px;">Primary Actions</h3>
+                    <button class="btn btn-primary">Scan & Save</button>
+                    <button class="btn btn-primary">Share Story</button>
+                </div>
+                <div class="component">
+                    <h3 style="color: #00D4FF; margin-bottom: 20px;">Secondary Actions</h3>
+                    <button class="btn btn-secondary">View Details</button>
+                    <button class="btn btn-secondary">Browse More</button>
+                </div>
+                <div class="component">
+                    <h3 style="color: #FFD700; margin-bottom: 20px;">Accent Actions</h3>
+                    <button class="btn btn-accent">Claim Deal</button>
+                    <button class="btn btn-accent">Tell Friends</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">Instagram Story Template</h2>
+            <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+                <div class="social-template">
+                    <div class="social-header">
+                        <div class="social-logo">EARLYSHH</div>
+                        <div class="social-tagline">Found the coolest deal ✨</div>
+                    </div>
+                    <div class="social-content">
+                        <div class="social-cta">50% off energy drinks!</div>
+                        <div class="qr-placeholder">QR CODE</div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;">@ Corner Deli, 5th Ave</div>
+                    </div>
+                </div>
+                <div style="max-width: 300px; padding: 20px;">
+                    <h3 style="color: #FF1493; margin-bottom: 15px;">Story Specifications</h3>
+                    <ul style="color: #B0B0B0; font-size: 0.9rem; line-height: 1.8;">
+                        <li>Dimensions: 1080×1920px (9:16)</li>
+                        <li>Safe zones: 250px top/bottom</li>
+                        <li>Logo placement: Top 300px</li>
+                        <li>QR code: Minimum 80×80px</li>
+                        <li>Text: High contrast, max 2 lines</li>
+                        <li>Brand elements: Corner/edge placement</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">Co-Branding Flexibility</h2>
+            <div class="flex-demo">
+                <div class="partner-demo">
+                    <div class="partner-logo">MONSTER</div>
+                    <div class="brand-combo">
+                        <span class="earlyshh-mini">EARLYSHH</span>
+                        <span class="plus">×</span>
+                        <span style="color: #00FF00;">MONSTER</span>
+                    </div>
+                    <p style="font-size: 0.8rem; margin-top: 10px; color: #B0B0B0;">Energy drink partnership with complementary green accent</p>
+                </div>
+                <div class="partner-demo">
+                    <div class="partner-logo" style="background: linear-gradient(45deg, #FF1493, #FFD700);">DORITOS</div>
+                    <div class="brand-combo">
+                        <span class="earlyshh-mini">EARLYSHH</span>
+                        <span class="plus">×</span>
+                        <span style="color: #FF6600;">DORITOS</span>
+                    </div>
+                    <p style="font-size: 0.8rem; margin-top: 10px; color: #B0B0B0;">Snack brand integration maintaining color harmony</p>
+                </div>
+                <div class="partner-demo">
+                    <div class="partner-logo" style="background: linear-gradient(45deg, #00D4FF, #7B2D8E);">CELSIUS</div>
+                    <div class="brand-combo">
+                        <span class="earlyshh-mini">EARLYSHH</span>
+                        <span class="plus">×</span>
+                        <span style="color: #0099FF;">CELSIUS</span>
+                    </div>
+                    <p style="font-size: 0.8rem; margin-top: 10px; color: #B0B0B0;">Fitness drink collaboration with cool tone palette</p>
+                </div>
+            </div>
+            <div class="accessibility-note">
+                <strong>Flexible Brand Architecture:</strong> 85% Earlyshh brand space + 15% partner integration maintains brand strength while enabling authentic collaborations
+            </div>
+        </div>
+    </div>
+</body>
+</html>

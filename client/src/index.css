@@ -1,36 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: hsl(0, 0%, 100%);
-  --foreground: hsl(20, 14.3%, 4.1%);
-  --muted: hsl(60, 4.8%, 95.9%);
-  --muted-foreground: hsl(25, 5.3%, 44.7%);
-  --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(20, 14.3%, 4.1%);
-  --card: hsl(0, 0%, 100%);
-  --card-foreground: hsl(20, 14.3%, 4.1%);
-  --border: hsl(20, 5.9%, 90%);
-  --input: hsl(20, 5.9%, 90%);
-  --primary: hsl(246, 83%, 65%);
-  --primary-foreground: hsl(211, 100%, 99%);
-  --secondary: hsl(60, 4.8%, 95.9%);
-  --secondary-foreground: hsl(24, 9.8%, 10%);
-  --accent: hsl(60, 4.8%, 95.9%);
-  --accent-foreground: hsl(24, 9.8%, 10%);
-  --destructive: hsl(0, 84.2%, 60.2%);
-  --destructive-foreground: hsl(60, 9.1%, 97.8%);
-  --ring: hsl(20, 14.3%, 4.1%);
-  --radius: 0.5rem;
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(326, 82%, 60%);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(195, 100%, 50%);
+  --secondary-foreground: hsl(240, 10%, 3.9%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+  --radius: 1rem;
   
-  /* Earlyshh brand colors */
-  --earlyshh-purple: hsl(246, 83%, 65%);
-  --earlyshh-accent: hsl(258, 84%, 69%);
-  --instagram-pink: hsl(326, 82%, 60%);
-  --earlyshh-orange: hsl(43, 96%, 49%);
+  /* Earlyshh Electric Brand Colors */
+  --earlyshh-pink: #FF1493;
+  --earlyshh-cyan: #00D4FF;
+  --earlyshh-gold: #FFD700;
+  --earlyshh-green: #32CD32;
+  --earlyshh-purple: #7B2D8E;
+  --earlyshh-orange: #E87722;
+  --earlyshh-dark: #1a1a1a;
+  --earlyshh-darker: #0a0a0a;
 }
 
 .dark {
@@ -63,19 +67,112 @@
 
   body {
     @apply font-sans antialiased bg-background text-foreground;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, var(--earlyshh-dark) 0%, #2d1b2e 100%);
+  }
+
+  .font-rubik {
+    font-family: 'Rubik', sans-serif;
+  }
+
+  .font-space {
+    font-family: 'Space Grotesk', sans-serif;
   }
 }
 
 @layer components {
-  .gradient-bg {
-    background: linear-gradient(-45deg, hsl(246, 83%, 65%), hsl(258, 84%, 69%), hsl(326, 82%, 60%), hsl(43, 96%, 49%));
-    background-size: 400% 400%;
-    animation: gradient 3s ease infinite;
+  .earlyshh-gradient {
+    background: linear-gradient(45deg, var(--earlyshh-pink), var(--earlyshh-cyan), var(--earlyshh-gold));
+    background-size: 300% 300%;
+    animation: gradientShift 3s ease-in-out infinite;
+  }
+
+  .earlyshh-text-gradient {
+    background: linear-gradient(45deg, var(--earlyshh-pink), var(--earlyshh-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 200%;
+    animation: gradientShift 2s ease-in-out infinite;
+  }
+
+  .earlyshh-brand-title {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(45deg, var(--earlyshh-pink), var(--earlyshh-cyan), var(--earlyshh-gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 300% 300%;
+    animation: gradientShift 3s ease-in-out infinite;
+  }
+  
+  .glass-morphism {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .electric-border {
+    position: relative;
+  }
+
+  .electric-border::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(45deg, var(--earlyshh-pink), var(--earlyshh-cyan), var(--earlyshh-gold));
+    border-radius: inherit;
+  }
+
+  .btn-electric {
+    background: linear-gradient(45deg, var(--earlyshh-pink), var(--earlyshh-cyan));
+    color: white;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+    border: none;
+    border-radius: 15px;
+    padding: 15px 30px;
+    box-shadow: 0 10px 30px rgba(255, 20, 147, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .btn-electric:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(255, 20, 147, 0.5);
+  }
+
+  .campaign-card-electric {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  .campaign-card-electric:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  }
+
+  .campaign-card-electric::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(45deg, var(--earlyshh-pink), var(--earlyshh-cyan), var(--earlyshh-gold));
   }
   
   .story-progress {
-    background: linear-gradient(90deg, hsl(246, 83%, 65%) 0%, hsl(258, 84%, 69%) 100%);
+    background: linear-gradient(90deg, var(--earlyshh-pink) 0%, var(--earlyshh-cyan) 100%);
   }
   
   .map-pin {
@@ -84,11 +181,26 @@
   
   .animate-gradient {
     background-position: 0% 50%;
-    animation: gradient 3s ease infinite;
+    animation: gradientShift 3s ease infinite;
   }
   
   .animate-pulse-slow {
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .phone-mockup {
+    background: linear-gradient(145deg, #2a2a2a, var(--earlyshh-dark));
+    border-radius: 30px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
   }
 }
 

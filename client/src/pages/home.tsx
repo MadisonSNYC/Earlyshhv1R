@@ -41,60 +41,66 @@ export default function HomePage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-        <div className="text-center">
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">Failed to load campaigns</h2>
-          <p className="text-gray-600">Please check your connection and try again.</p>
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900 flex items-center justify-center p-4">
+        <div className="text-center glass-morphism p-8 rounded-2xl">
+          <h2 className="text-lg font-rubik font-semibold text-white mb-2">Failed to load campaigns</h2>
+          <p className="text-gray-400 font-space">Please check your connection and try again.</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900/20 to-gray-900 flex flex-col">
       {/* Top Navigation */}
-      <header className="bg-white shadow-sm border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+      <header className="glass-morphism border-b border-white/10 px-4 py-3 flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
-            <i className="fas fa-ticket-alt text-white text-lg"></i>
+          <div className="w-12 h-12 earlyshh-gradient rounded-2xl flex items-center justify-center shadow-lg">
+            <div className="w-6 h-6 bg-white rounded-sm flex items-center justify-center">
+              <div className="w-3 h-3 bg-gradient-to-br from-pink-500 to-cyan-400 rounded-sm"></div>
+            </div>
           </div>
           <div>
-            <h1 className="text-xl font-bold text-gray-900">Earlyshh</h1>
-            <p className="text-xs text-gray-500">Brooklyn, NY</p>
+            <h1 className="earlyshh-text-gradient text-xl font-rubik font-800">EARLYSHH</h1>
+            <p className="text-xs text-gray-400 font-space">Brooklyn, NY</p>
           </div>
         </div>
 
         <div className="flex items-center space-x-4">
-          <Button variant="ghost" size="sm" className="relative">
-            <Bell className="h-5 w-5" />
-            <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
+          <Button variant="ghost" size="sm" className="relative hover:bg-white/10 rounded-xl">
+            <Bell className="h-5 w-5 text-white" />
+            <span className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-pink-500 to-orange-400 rounded-full"></span>
           </Button>
 
           <img
             src={user?.profilePicUrl || "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=40&h=40&fit=crop&crop=face"}
             alt="Profile"
-            className="w-10 h-10 rounded-full border-2 border-primary"
+            className="w-10 h-10 rounded-full border-2 border-pink-500 shadow-lg"
           />
         </div>
       </header>
 
       {/* View Toggle */}
-      <div className="bg-white px-4 py-3 border-b border-gray-200">
+      <div className="glass-morphism px-4 py-3 border-b border-white/10">
         <div className="flex items-center justify-between">
-          <div className="bg-gray-100 rounded-xl p-1 flex">
+          <div className="glass-morphism rounded-2xl p-1 flex">
             <Button
               size="sm"
               variant={currentView === "list" ? "default" : "ghost"}
               onClick={() => setCurrentView("list")}
-              className="px-4 py-2 text-sm font-medium rounded-lg"
+              className={`px-4 py-2 text-sm font-medium rounded-xl transition-all ${
+                currentView === "list" 
+                  ? "bg-gradient-to-r from-pink-500 to-cyan-400 text-white shadow-lg" 
+                  : "text-gray-300 hover:text-white hover:bg-white/10"
+              }`}
             >
               <List className="w-4 h-4 mr-2" />
               List
@@ -103,15 +109,19 @@ export default function HomePage() {
               size="sm"
               variant={currentView === "map" ? "default" : "ghost"}
               onClick={() => setCurrentView("map")}
-              className="px-4 py-2 text-sm font-medium rounded-lg"
+              className={`px-4 py-2 text-sm font-medium rounded-xl transition-all ${
+                currentView === "map" 
+                  ? "bg-gradient-to-r from-pink-500 to-cyan-400 text-white shadow-lg" 
+                  : "text-gray-300 hover:text-white hover:bg-white/10"
+              }`}
             >
               <MapPin className="w-4 h-4 mr-2" />
               Map
             </Button>
           </div>
 
-          <Button variant="ghost" size="sm">
-            <Filter className="h-5 w-5" />
+          <Button variant="ghost" size="sm" className="hover:bg-white/10 rounded-xl">
+            <Filter className="h-5 w-5 text-white" />
           </Button>
         </div>
 

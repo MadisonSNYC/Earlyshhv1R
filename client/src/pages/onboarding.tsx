@@ -34,38 +34,38 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="fixed inset-0 z-50 bg-white flex flex-col">
+    <div className="min-h-screen">
+      <div className="fixed inset-0 z-50 flex flex-col">
         {/* Hero Section */}
-        <div className="flex-1 flex flex-col justify-center items-center px-6 gradient-bg animate-gradient">
+        <div className="flex-1 flex flex-col justify-center items-center px-6 earlyshh-gradient">
           <div className="text-center text-white space-y-6">
-            <div className="w-24 h-24 mx-auto bg-white/20 rounded-3xl flex items-center justify-center backdrop-blur-sm">
+            <div className="w-24 h-24 mx-auto glass-morphism rounded-3xl flex items-center justify-center">
               <Ticket className="h-12 w-12 text-white" />
             </div>
-            <h1 className="text-4xl font-bold">Earlyshh</h1>
-            <p className="text-xl opacity-90 max-w-sm">
-              Get exclusive coupons for your favorite brands and share your experience on Instagram
+            <h1 className="earlyshh-brand-title text-5xl">EARLYSHH</h1>
+            <p className="text-xl opacity-90 max-w-sm font-space font-light">
+              Electric playground for exclusive deals. Claim, redeem, share your story.
             </p>
           </div>
         </div>
 
         {/* Bottom Action Section */}
-        <div className="bg-white p-6 rounded-t-3xl space-y-4">
+        <div className="glass-morphism p-6 rounded-t-3xl space-y-4 border-t border-white/20">
           {/* Age Verification */}
-          <Alert className="bg-orange-50 border-orange-200">
-            <AlertTriangle className="h-4 w-4 text-orange-500" />
+          <Alert className="glass-morphism border-orange-400/30 bg-orange-500/10">
+            <AlertTriangle className="h-4 w-4 text-orange-400" />
             <div>
-              <h3 className="font-semibold text-gray-900">Age Verification Required</h3>
-              <AlertDescription className="text-gray-600 mt-1">
+              <h3 className="font-rubik font-semibold text-white">Age Verification Required</h3>
+              <AlertDescription className="text-gray-300 mt-1 font-space">
                 You must be 18+ with a public Instagram account to participate
               </AlertDescription>
             </div>
           </Alert>
 
           {error && (
-            <Alert className="bg-red-50 border-red-200">
-              <AlertTriangle className="h-4 w-4 text-red-500" />
-              <AlertDescription className="text-red-700">{error}</AlertDescription>
+            <Alert className="glass-morphism border-red-400/30 bg-red-500/10">
+              <AlertTriangle className="h-4 w-4 text-red-400" />
+              <AlertDescription className="text-red-300 font-space">{error}</AlertDescription>
             </Alert>
           )}
 
@@ -73,13 +73,13 @@ export default function OnboardingPage() {
           <Button
             onClick={handleInstagramLogin}
             disabled={isLoading}
-            className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white py-6 px-6 rounded-2xl font-semibold text-lg shadow-lg button-press"
+            className="btn-electric w-full py-6 px-6 rounded-2xl text-lg shadow-lg transform transition-all duration-300 hover:scale-105"
           >
             <Instagram className="w-6 h-6 mr-3" />
             {isLoading ? "Connecting..." : "Continue with Instagram"}
           </Button>
 
-          <p className="text-center text-sm text-gray-500">
+          <p className="text-center text-sm text-gray-400 font-space">
             By continuing, you agree to our Terms of Service and Privacy Policy
           </p>
         </div>
