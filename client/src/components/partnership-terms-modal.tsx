@@ -76,7 +76,7 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose }: P
                   <span className="text-sm font-rubik font-semibold text-white">Location</span>
                 </div>
                 <p className="text-xs text-gray-300 font-space">
-                  {campaign.location || "Brooklyn area only"}
+                  Brooklyn area only
                 </p>
               </div>
 
