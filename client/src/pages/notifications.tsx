@@ -102,9 +102,7 @@ export default function NotificationsPage() {
 
   const markAllAsReadMutation = useMutation({
     mutationFn: () =>
-      apiRequest("/api/notifications/read-all", {
-        method: "PATCH",
-      }),
+      apiRequest("/api/notifications/read-all", "PATCH"),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/notifications"] });
       queryClient.invalidateQueries({ queryKey: ["/api/notifications/count"] });
