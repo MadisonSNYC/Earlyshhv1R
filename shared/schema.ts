@@ -12,6 +12,15 @@ export const users = pgTable("users", {
   accessToken: text("access_token"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   lastLogin: timestamp("last_login"),
+  
+  // Gamification fields
+  totalFreeProducts: integer("total_free_products").notNull().default(0),
+  totalSavings: decimal("total_savings", { precision: 8, scale: 2 }).notNull().default("0.00"),
+  currentStreak: integer("current_streak").notNull().default(0),
+  longestStreak: integer("longest_streak").notNull().default(0),
+  lastActivityDate: timestamp("last_activity_date"),
+  level: text("level").notNull().default("Newbie"), // Newbie, Explorer, Captain, Campus Influencer
+  badges: text("badges").array().notNull().default([]), // Array of badge IDs
 });
 
 export const campaigns = pgTable("campaigns", {
@@ -98,6 +107,50 @@ export const favorites = pgTable("favorites", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+// Gamification tables
+export const badges = pgTable("badges", {
+  id: text("id").primaryKey(), // first_timer, streak_starter, free_product_captain, etc.
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  icon: text("icon").notNull(), // emoji or lucide icon name
+  category: text("category").notNull(), // achievement, streak, social, etc.
+  requirement: jsonb("requirement").notNull(), // conditions to earn this badge
+  isActive: boolean("is_active").notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const userBadges = pgTable("user_badges", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  badgeId: text("badge_id").notNull().references(() => badges.id),
+  earnedAt: timestamp("earned_at").notNull().defaultNow(),
+  progress: jsonb("progress"), // tracking progress towards badge completion
+});
+
+export const userActivities = pgTable("user_activities", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  activityType: text("activity_type").notNull(), // product_claimed, story_posted, badge_earned, level_up
+  metadata: jsonb("metadata").notNull(), // activity-specific data
+  points: integer("points").notNull().default(0), // points earned from this activity
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const userStats = pgTable("user_stats", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id).unique(),
+  totalProducts: integer("total_products").notNull().default(0),
+  totalSavings: decimal("total_savings", { precision: 8, scale: 2 }).notNull().default("0.00"),
+  currentStreak: integer("current_streak").notNull().default(0),
+  longestStreak: integer("longest_streak").notNull().default(0),
+  level: text("level").notNull().default("Newbie"),
+  totalPoints: integer("total_points").notNull().default(0),
+  storiesPosted: integer("stories_posted").notNull().default(0),
+  friendsReferred: integer("friends_referred").notNull().default(0),
+  lastActivityDate: timestamp("last_activity_date"),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
 // Insert schemas
 export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
@@ -136,6 +189,25 @@ export const insertFavoriteSchema = createInsertSchema(favorites).omit({
   createdAt: true,
 });
 
+export const insertBadgeSchema = createInsertSchema(badges).omit({
+  createdAt: true,
+});
+
+export const insertUserBadgeSchema = createInsertSchema(userBadges).omit({
+  id: true,
+  earnedAt: true,
+});
+
+export const insertUserActivitySchema = createInsertSchema(userActivities).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertUserStatsSchema = createInsertSchema(userStats).omit({
+  id: true,
+  updatedAt: true,
+});
+
 // Types
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
@@ -151,3 +223,11 @@ export type Notification = typeof notifications.$inferSelect;
 export type InsertNotification = z.infer<typeof insertNotificationSchema>;
 export type Favorite = typeof favorites.$inferSelect;
 export type InsertFavorite = z.infer<typeof insertFavoriteSchema>;
+export type Badge = typeof badges.$inferSelect;
+export type InsertBadge = z.infer<typeof insertBadgeSchema>;
+export type UserBadge = typeof userBadges.$inferSelect;
+export type InsertUserBadge = z.infer<typeof insertUserBadgeSchema>;
+export type UserActivity = typeof userActivities.$inferSelect;
+export type InsertUserActivity = z.infer<typeof insertUserActivitySchema>;
+export type UserStats = typeof userStats.$inferSelect;
+export type InsertUserStats = z.infer<typeof insertUserStatsSchema>;

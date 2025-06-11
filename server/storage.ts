@@ -1,4 +1,4 @@
-import { users, campaigns, coupons, stories, analytics, notifications, type User, type InsertUser, type Campaign, type InsertCampaign, type Coupon, type InsertCoupon, type Story, type InsertStory, type Analytics, type InsertAnalytics, type Notification, type InsertNotification } from "@shared/schema";
+import { users, campaigns, coupons, stories, analytics, notifications, badges, userBadges, userActivities, userStats, type User, type InsertUser, type Campaign, type InsertCampaign, type Coupon, type InsertCoupon, type Story, type InsertStory, type Analytics, type InsertAnalytics, type Notification, type InsertNotification, type Badge, type InsertBadge, type UserBadge, type InsertUserBadge, type UserActivity, type InsertUserActivity, type UserStats, type InsertUserStats } from "@shared/schema";
 
 export interface IStorage {
   // User operations
@@ -43,6 +43,24 @@ export interface IStorage {
   markAllNotificationsAsRead(userId: number): Promise<void>;
   getUnreadNotificationCount(userId: number): Promise<number>;
 
+  // Gamification operations
+  getBadge(id: string): Promise<Badge | undefined>;
+  getAllBadges(): Promise<Badge[]>;
+  createBadge(badge: InsertBadge): Promise<Badge>;
+  
+  getUserBadges(userId: number): Promise<UserBadge[]>;
+  createUserBadge(userBadge: InsertUserBadge): Promise<UserBadge>;
+  
+  getUserActivities(userId: number): Promise<UserActivity[]>;
+  getUserRecentActivities(userId: number, limit: number): Promise<UserActivity[]>;
+  createUserActivity(activity: InsertUserActivity): Promise<UserActivity>;
+  
+  getUserStats(userId: number): Promise<UserStats | undefined>;
+  createUserStats(stats: InsertUserStats): Promise<UserStats>;
+  updateUserStats(userId: number, updates: Partial<UserStats>): Promise<UserStats | undefined>;
+  
+  getUserStoriesInTimeframe(userId: number, timeframe: string): Promise<number>;
+
   // Favorite operations - commented out for now as not implemented
   // getFavorite(id: number): Promise<Favorite | undefined>;
   // getUserFavorites(userId: number): Promise<Favorite[]>;
@@ -58,12 +76,18 @@ export class MemStorage implements IStorage {
   private stories: Map<number, Story> = new Map();
   private analytics: Map<number, Analytics> = new Map();
   private notifications: Map<number, Notification> = new Map();
+  private badges: Map<string, Badge> = new Map();
+  private userBadges: Map<number, UserBadge> = new Map();
+  private userActivities: Map<number, UserActivity> = new Map();
+  private userStats: Map<number, UserStats> = new Map();
   private currentUserId = 1;
   private currentCampaignId = 1;
   private currentCouponId = 1;
   private currentStoryId = 1;
   private currentAnalyticsId = 1;
   private currentNotificationId = 1;
+  private currentUserBadgeId = 1;
+  private currentUserActivityId = 1;
 
   constructor() {
     this.seedData();
