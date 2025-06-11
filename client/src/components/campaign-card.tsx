@@ -67,31 +67,31 @@ export default function CampaignCard({ campaign, onCouponClaimed }: CampaignCard
   };
 
   return (
-    <Card className="campaign-card-electric">
-      <CardContent className="p-6">
+    <Card className="campaign-card-electric mobile-touch">
+      <CardContent className="p-5">
+        {/* Mobile-optimized header */}
         <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center space-x-3">
-            <div className="w-14 h-14 earlyshh-gradient rounded-2xl flex items-center justify-center shadow-lg">
-              <img
-                src={campaign.brandLogoUrl}
-                alt={campaign.brandName}
-                className="w-8 h-8 rounded-lg object-cover"
-              />
+          <div className="flex items-center space-x-3 flex-1">
+            <div className="w-12 h-12 earlyshh-gradient rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
+              <div className="text-2xl">{campaign.brandName[0]}</div>
             </div>
-            <div>
-              <h3 className="font-rubik font-bold text-white text-lg">{campaign.brandName}</h3>
-              <p className="text-sm text-cyan-400 font-space">
-                {campaign.latitude && campaign.longitude ? "0.3 miles away" : "Location not specified"}
+            <div className="flex-1 min-w-0">
+              <h3 className="font-rubik font-bold text-white text-base truncate">{campaign.brandName}</h3>
+              <p className="text-xs text-cyan-400 font-space">
+                {campaign.latitude && campaign.longitude ? "0.3 mi away" : "Digital offer"}
               </p>
             </div>
           </div>
-          {getStatusBadge()}
+          <div className="flex-shrink-0 ml-2">
+            {getStatusBadge()}
+          </div>
         </div>
 
+        {/* Mobile-optimized content */}
         <div className="mb-4">
-          <h4 className="font-rubik font-semibold text-white mb-2">{campaign.offerDescription}</h4>
-          <p className="text-sm text-gray-300 font-space">{campaign.productName}</p>
-          <p className="text-xl font-rubik font-bold earlyshh-text-gradient mt-2">Up to ${campaign.redeemableAmount}</p>
+          <h4 className="font-rubik font-semibold text-white mb-1 text-sm leading-tight">{campaign.offerDescription}</h4>
+          <p className="text-xs text-gray-300 font-space mb-2">{campaign.productName}</p>
+          <p className="text-lg font-rubik font-bold earlyshh-text-gradient">Up to ${campaign.redeemableAmount}</p>
         </div>
 
         {/* Progress Bar */}
@@ -109,13 +109,13 @@ export default function CampaignCard({ campaign, onCouponClaimed }: CampaignCard
         <Button
           onClick={() => claimMutation.mutate()}
           disabled={!isAvailable || claimMutation.isPending}
-          className="btn-electric w-full disabled:opacity-50 disabled:cursor-not-allowed transform transition-all duration-300 hover:scale-105"
+          className="btn-electric w-full py-3 text-base font-bold disabled:opacity-50 disabled:cursor-not-allowed mobile-touch"
         >
           {claimMutation.isPending ? (
             "Securing Access..."
           ) : alreadyClaimed ? (
             <>
-              <CheckCircle className="w-4 h-4 mr-2" />
+              <CheckCircle className="w-5 h-5 mr-2" />
               Access Secured
             </>
           ) : !isAvailable ? (
