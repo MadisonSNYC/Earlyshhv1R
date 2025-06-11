@@ -20,18 +20,25 @@ const CampaignCard = memo(({ campaign, onClaim, className = '' }: CampaignCardPr
     return distance < 1 ? `${Math.round(distance * 1000)}m` : `${distance.toFixed(1)}km`;
   }, []);
 
-  const formatTimeLeft = useCallback((expiryDate: string) => {
-    const now = new Date();
-    const expiry = new Date(expiryDate);
-    const diffMs = expiry.getTime() - now.getTime();
+  const formatTimeLeft = useCallback((expiryDate: string | Date) => {
+    try {
+      const now = new Date();
+      const expiry = new Date(expiryDate);
+      
+      if (isNaN(expiry.getTime())) return 'Invalid date';
+      
+      const diffMs = expiry.getTime() - now.getTime();
 
-    if (diffMs <= 0) return 'Expired';
+      if (diffMs <= 0) return 'Expired';
 
-    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-    const diffDays = Math.floor(diffHours / 24);
+      const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+      const diffDays = Math.floor(diffHours / 24);
 
-    if (diffDays > 0) return `${diffDays}d left`;
-    return `${diffHours}h left`;
+      if (diffDays > 0) return `${diffDays}d left`;
+      return `${diffHours}h left`;
+    } catch (error) {
+      return 'Invalid date';
+    }
   }, []);
 
   return (
@@ -70,7 +77,7 @@ const CampaignCard = memo(({ campaign, onClaim, className = '' }: CampaignCardPr
                 </div>
                 <div className="flex items-center space-x-1">
                   <Clock className="w-3 h-3" />
-                  <span>{formatTimeLeft(campaign.endDate.toISOString())}</span>
+                  <span>{formatTimeLeft(campaign.endDate)}</span>
                 </div>
                 <div className="flex items-center space-x-1">
                   <Users className="w-3 h-3" />
