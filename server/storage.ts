@@ -94,6 +94,28 @@ export class MemStorage implements IStorage {
   }
 
   private seedData() {
+    // Create sample user with gamification fields
+    const sampleUser: User = {
+      id: this.currentUserId++,
+      instagramId: "sample_user_123",
+      username: "college.explorer",
+      fullName: "Alex Johnson",
+      profilePicUrl: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop",
+      ageVerified: true,
+      accessToken: null,
+      createdAt: new Date("2024-01-01"),
+      lastLogin: new Date(),
+      totalFreeProducts: 3,
+      totalSavings: "47.97",
+      currentStreak: 2,
+      longestStreak: 5,
+      lastActivityDate: new Date(),
+      level: "Explorer",
+      badges: ["first_timer", "streak_starter"]
+    };
+    
+    this.users.set(sampleUser.id, sampleUser);
+
     // Create sample campaigns
     const sampleCampaigns: Campaign[] = [
       {
@@ -550,6 +572,121 @@ export class MemStorage implements IStorage {
   async getUnreadNotificationCount(userId: number): Promise<number> {
     return Array.from(this.notifications.values())
       .filter(notification => notification.userId === userId && !notification.isRead).length;
+  }
+
+  // Gamification methods
+  async getBadge(id: string): Promise<Badge | undefined> {
+    return this.badges.get(id);
+  }
+
+  async getAllBadges(): Promise<Badge[]> {
+    return Array.from(this.badges.values());
+  }
+
+  async createBadge(insertBadge: InsertBadge): Promise<Badge> {
+    const badge: Badge = {
+      ...insertBadge,
+      isActive: insertBadge.isActive ?? true,
+      createdAt: new Date()
+    };
+    this.badges.set(badge.id, badge);
+    return badge;
+  }
+
+  async getUserBadges(userId: number): Promise<UserBadge[]> {
+    return Array.from(this.userBadges.values())
+      .filter(userBadge => userBadge.userId === userId);
+  }
+
+  async createUserBadge(insertUserBadge: InsertUserBadge): Promise<UserBadge> {
+    const userBadge: UserBadge = {
+      id: this.currentUserBadgeId++,
+      ...insertUserBadge,
+      progress: insertUserBadge.progress || null,
+      earnedAt: new Date()
+    };
+    this.userBadges.set(userBadge.id, userBadge);
+    return userBadge;
+  }
+
+  async getUserActivities(userId: number): Promise<UserActivity[]> {
+    return Array.from(this.userActivities.values())
+      .filter(activity => activity.userId === userId)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  async getUserRecentActivities(userId: number, limit: number): Promise<UserActivity[]> {
+    const activities = await this.getUserActivities(userId);
+    return activities.slice(0, limit);
+  }
+
+  async createUserActivity(insertActivity: InsertUserActivity): Promise<UserActivity> {
+    const activity: UserActivity = {
+      id: this.currentUserActivityId++,
+      ...insertActivity,
+      points: insertActivity.points ?? 0,
+      createdAt: new Date()
+    };
+    this.userActivities.set(activity.id, activity);
+    return activity;
+  }
+
+  async getUserStats(userId: number): Promise<UserStats | undefined> {
+    return this.userStats.get(userId);
+  }
+
+  async createUserStats(insertStats: InsertUserStats): Promise<UserStats> {
+    const stats: UserStats = {
+      id: insertStats.userId,
+      ...insertStats,
+      totalSavings: insertStats.totalSavings ?? "0.00",
+      currentStreak: insertStats.currentStreak ?? 0,
+      longestStreak: insertStats.longestStreak ?? 0,
+      level: insertStats.level ?? "Newbie",
+      totalProducts: insertStats.totalProducts ?? 0,
+      totalPoints: insertStats.totalPoints ?? 0,
+      storiesPosted: insertStats.storiesPosted ?? 0,
+      friendsReferred: insertStats.friendsReferred ?? 0,
+      lastActivityDate: insertStats.lastActivityDate ?? null,
+      updatedAt: new Date()
+    };
+    this.userStats.set(insertStats.userId, stats);
+    return stats;
+  }
+
+  async updateUserStats(userId: number, updates: Partial<UserStats>): Promise<UserStats | undefined> {
+    const existingStats = this.userStats.get(userId);
+    if (!existingStats) return undefined;
+
+    const updatedStats = { 
+      ...existingStats, 
+      ...updates, 
+      updatedAt: new Date() 
+    };
+    this.userStats.set(userId, updatedStats);
+    return updatedStats;
+  }
+
+  async getUserStoriesInTimeframe(userId: number, timeframe: string): Promise<number> {
+    const now = new Date();
+    let startDate: Date;
+
+    switch (timeframe) {
+      case 'month':
+        startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+        break;
+      case 'week':
+        startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        break;
+      default:
+        return 0;
+    }
+
+    return Array.from(this.stories.values())
+      .filter(story => 
+        story.userId === userId && 
+        story.createdAt >= startDate
+      ).length;
   }
 }
 
