@@ -40,7 +40,7 @@ const CampaignCard = memo(({ campaign, onClaim, className = '' }: CampaignCardPr
         <div className="flex items-start space-x-3">
           <div className="relative">
             <img
-              src={campaign.brandLogo || '/api/placeholder/48/48'}
+              src={campaign.brandLogoUrl || '/api/placeholder/48/48'}
               alt={campaign.brandName}
               className="w-12 h-12 rounded-lg object-cover"
               loading="lazy"
@@ -54,7 +54,7 @@ const CampaignCard = memo(({ campaign, onClaim, className = '' }: CampaignCardPr
                 {campaign.brandName}
               </h3>
               <Badge variant="secondary" className="bg-cyan-400/20 text-cyan-300 text-xs">
-                {campaign.category}
+                {campaign.category || 'General'}
               </Badge>
             </div>
 
@@ -70,11 +70,11 @@ const CampaignCard = memo(({ campaign, onClaim, className = '' }: CampaignCardPr
                 </div>
                 <div className="flex items-center space-x-1">
                   <Clock className="w-3 h-3" />
-                  <span>{formatTimeLeft(campaign.expiryDate)}</span>
+                  <span>{formatTimeLeft(campaign.endDate)}</span>
                 </div>
                 <div className="flex items-center space-x-1">
                   <Users className="w-3 h-3" />
-                  <span>{campaign.spotsLeft}/{campaign.totalSpots}</span>
+                  <span>{Math.max(0, campaign.maxCoupons - (campaign.claimedCount || 0))}/{campaign.maxCoupons}</span>
                 </div>
               </div>
 

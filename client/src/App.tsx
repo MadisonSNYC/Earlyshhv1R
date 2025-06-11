@@ -25,13 +25,12 @@ const NotFoundPage = React.lazy(() => import(/* webpackChunkName: "not-found" */
 
 function App() {
   useEffect(() => {
-    // Mark core modules as used
+    // Bundle analysis setup
     markModuleAsUsed('react');
-    markModuleAsUsed('react-dom');
-    markModuleAsUsed('wouter');
     markModuleAsUsed('@tanstack/react-query');
-
-    // Report bundle info after app loads
+    markModuleAsUsed('wouter');
+    
+    // Log bundle analysis after app loads
     setTimeout(() => {
       const report = BundleAnalyzer.getBundleReport();
       console.log('Bundle Report:', report);
@@ -45,61 +44,17 @@ function App() {
           <GlobalErrorHandler />
           <div className="min-h-screen electric-bg">
             <Suspense fallback={<LoadingScreen />}>
-              <Route path="/">
-                <ErrorBoundary>
-                  <HomePage />
-                </ErrorBoundary>
-              </Route>
-              <Route path="/onboarding">
-                <ErrorBoundary>
-                  <OnboardingPage />
-                </ErrorBoundary>
-              </Route>
-              <Route path="/coupon/:id">
-                <ErrorBoundary>
-                  <CouponRedeemPage />
-                </ErrorBoundary>
-              </Route>
-              <Route path="/partnership/:id">
-                <ErrorBoundary>
-                  <PartnershipConfirmationPage />
-                </ErrorBoundary>
-              </Route>
-              <Route path="/profile">
-                <ErrorBoundary>
-                  <ProfilePage />
-                </ErrorBoundary>
-              </Route>
-              <Route path="/my-coupons">
-                <ErrorBoundary>
-                  <MyCouponsPage />
-                </ErrorBoundary>
-              </Route>
-              <Route path="/notifications">
-                <ErrorBoundary>
-                  <NotificationsPage />
-                </ErrorBoundary>
-              </Route>
-              <Route path="/analytics">
-                <ErrorBoundary>
-                  <AnalyticsPage />
-                </ErrorBoundary>
-              </Route>
-              <Route path="/settings">
-                <ErrorBoundary>
-                  <SettingsPage />
-                </ErrorBoundary>
-              </Route>
-              <Route path="/activity/:id">
-                <ErrorBoundary>
-                  <ActivityDetailPage />
-                </ErrorBoundary>
-              </Route>
-              <Route>
-                <ErrorBoundary>
-                  <NotFoundPage />
-                </ErrorBoundary>
-              </Route>
+              <Route path="/" component={HomePage} />
+              <Route path="/onboarding" component={OnboardingPage} />
+              <Route path="/coupon/:id" component={CouponRedeemPage} />
+              <Route path="/partnership/:id" component={PartnershipConfirmationPage} />
+              <Route path="/profile" component={ProfilePage} />
+              <Route path="/my-coupons" component={MyCouponsPage} />
+              <Route path="/notifications" component={NotificationsPage} />
+              <Route path="/analytics" component={AnalyticsPage} />
+              <Route path="/settings" component={SettingsPage} />
+              <Route path="/activity/:id" component={ActivityDetailPage} />
+              <Route component={NotFoundPage} />
             </Suspense>
             <Toaster />
           </div>

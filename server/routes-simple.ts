@@ -98,7 +98,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         legalDisclaimer: "Terms and conditions apply. See store for details.",
         qrData: `coupon-${campaignId}-${userId}`,
         fetchCode: generateFetchCode(),
-        dateFetched: new Date(),
         claimedAt: new Date(),
         redeemedAt: null,
       });

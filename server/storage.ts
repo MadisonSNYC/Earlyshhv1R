@@ -43,12 +43,12 @@ export interface IStorage {
   markAllNotificationsAsRead(userId: number): Promise<void>;
   getUnreadNotificationCount(userId: number): Promise<number>;
 
-  // Favorite operations
-  getFavorite(id: number): Promise<Favorite | undefined>;
-  getUserFavorites(userId: number): Promise<Favorite[]>;
-  createFavorite(favorite: InsertFavorite): Promise<Favorite>;
-  deleteFavorite(id: number): Promise<void>;
-  isUserFavoriteCampaign(userId: number, campaignId: number): Promise<boolean>;
+  // Favorite operations - commented out for now as not implemented
+  // getFavorite(id: number): Promise<Favorite | undefined>;
+  // getUserFavorites(userId: number): Promise<Favorite[]>;
+  // createFavorite(favorite: InsertFavorite): Promise<Favorite>;
+  // deleteFavorite(id: number): Promise<void>;
+  // isUserFavoriteCampaign(userId: number, campaignId: number): Promise<boolean>;
 }
 
 export class MemStorage implements IStorage {
