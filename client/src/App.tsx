@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Toaster } from 'sonner';
@@ -8,6 +8,7 @@ import { AuthProvider } from './lib/auth';
 import { ErrorBoundary } from './components/error-boundary';
 import { GlobalErrorHandler } from './components/global-error-handler';
 import { LoadingScreen } from './components/loading-screen';
+import { BundleAnalyzer, markModuleAsUsed } from './lib/bundle-analyzer';
 
 // Lazy load pages with better chunk names
 const HomePage = React.lazy(() => import(/* webpackChunkName: "home" */ './pages/home'));
@@ -23,6 +24,20 @@ const ActivityDetailPage = React.lazy(() => import(/* webpackChunkName: "activit
 const NotFoundPage = React.lazy(() => import(/* webpackChunkName: "not-found" */ './pages/not-found'));
 
 function App() {
+  useEffect(() => {
+    // Mark core modules as used
+    markModuleAsUsed('react');
+    markModuleAsUsed('react-dom');
+    markModuleAsUsed('wouter');
+    markModuleAsUsed('@tanstack/react-query');
+
+    // Report bundle info after app loads
+    setTimeout(() => {
+      const report = BundleAnalyzer.getBundleReport();
+      console.log('Bundle Report:', report);
+    }, 2000);
+  }, []);
+
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>

@@ -2,6 +2,19 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { queryClient, warmCache } from "./lib/queryClient";
+import { PerformanceMonitor, preloadCriticalResources, cleanupUnusedData } from "./lib/performance";
+
+// Initialize performance monitoring
+PerformanceMonitor.trackPageLoad();
+PerformanceMonitor.reportWebVitals();
+
+// Preload critical resources
+preloadCriticalResources();
+
+// Clean up old data
+cleanupUnusedData();
 
 // Register service worker
 if ('serviceWorker' in navigator) {
@@ -15,3 +28,8 @@ if ('serviceWorker' in navigator) {
       });
   });
 }
+
+// Warm cache after initial load
+setTimeout(() => {
+  warmCache();
+}, 1000);
