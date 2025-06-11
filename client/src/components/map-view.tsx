@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Minus, Navigation } from "lucide-react";
+import { Plus, Minus, Navigation, MapPin } from "lucide-react";
 import { Campaign } from "@shared/schema";
 
 interface MapViewProps {
@@ -187,25 +187,11 @@ export default function MapView({ campaigns, onCouponClaimed }: MapViewProps) {
     </div>
   );
 }
-import { useState, useEffect, useRef } from 'react';
-import { MapPin, Navigation } from 'lucide-react';
-import { Button } from './ui/button';
-import { Badge } from './ui/badge';
-import type { Campaign } from '../types';
-
-interface MapViewProps {
+function MapViewAlternative({ campaigns, userLocation, onCampaignClick }: {
   campaigns: Campaign[];
   userLocation: { lat: number; lng: number } | null;
   onCampaignClick: (campaign: Campaign) => void;
-}
-
-interface MapViewProps {
-  campaigns: any[];
-  userLocation: { lat: number; lng: number } | null;
-  onCampaignClick: (campaign: any) => void;
-}
-
-function MapViewDuplicate({ campaigns, userLocation, onCampaignClick }: MapViewProps) {
+}) {
   const mapRef = useRef<HTMLDivElement>(null);
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
 
