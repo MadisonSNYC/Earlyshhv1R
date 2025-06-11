@@ -1,4 +1,4 @@
-import { users, campaigns, coupons, stories, analytics, type User, type InsertUser, type Campaign, type InsertCampaign, type Coupon, type InsertCoupon, type Story, type InsertStory, type Analytics, type InsertAnalytics } from "@shared/schema";
+import { users, campaigns, coupons, stories, analytics, notifications, type User, type InsertUser, type Campaign, type InsertCampaign, type Coupon, type InsertCoupon, type Story, type InsertStory, type Analytics, type InsertAnalytics, type Notification, type InsertNotification } from "@shared/schema";
 
 export interface IStorage {
   // User operations
@@ -33,6 +33,15 @@ export interface IStorage {
   getCampaignAnalytics(campaignId: number): Promise<Analytics[]>;
   createAnalytics(analytics: InsertAnalytics): Promise<Analytics>;
   updateAnalytics(campaignId: number, updates: Partial<Analytics>): Promise<void>;
+
+  // Notification operations
+  getNotification(id: number): Promise<Notification | undefined>;
+  getUserNotifications(userId: number): Promise<Notification[]>;
+  getUnreadNotifications(userId: number): Promise<Notification[]>;
+  createNotification(notification: InsertNotification): Promise<Notification>;
+  markNotificationAsRead(id: number): Promise<Notification | undefined>;
+  markAllNotificationsAsRead(userId: number): Promise<void>;
+  getUnreadNotificationCount(userId: number): Promise<number>;
 }
 
 export class MemStorage implements IStorage {
@@ -41,11 +50,13 @@ export class MemStorage implements IStorage {
   private coupons: Map<number, Coupon> = new Map();
   private stories: Map<number, Story> = new Map();
   private analytics: Map<number, Analytics> = new Map();
+  private notifications: Map<number, Notification> = new Map();
   private currentUserId = 1;
   private currentCampaignId = 1;
   private currentCouponId = 1;
   private currentStoryId = 1;
   private currentAnalyticsId = 1;
+  private currentNotificationId = 1;
 
   constructor() {
     this.seedData();

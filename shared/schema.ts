@@ -76,6 +76,21 @@ export const analytics = pgTable("analytics", {
   metadata: jsonb("metadata"),
 });
 
+export const notifications = pgTable("notifications", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  type: text("type").notNull(), // new_deal, redemption_confirmed, achievement, story_verified, deal_expiring
+  title: text("title").notNull(),
+  message: text("message").notNull(),
+  icon: text("icon").notNull(), // lucide icon name
+  actionUrl: text("action_url"), // optional deep link
+  isRead: boolean("is_read").notNull().default(false),
+  priority: text("priority").notNull().default("normal"), // high, normal, low
+  metadata: jsonb("metadata"), // additional context data
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  readAt: timestamp("read_at"),
+});
+
 // Insert schemas
 export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
@@ -103,6 +118,12 @@ export const insertAnalyticsSchema = createInsertSchema(analytics).omit({
   date: true,
 });
 
+export const insertNotificationSchema = createInsertSchema(notifications).omit({
+  id: true,
+  createdAt: true,
+  readAt: true,
+});
+
 // Types
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
@@ -114,3 +135,5 @@ export type Story = typeof stories.$inferSelect;
 export type InsertStory = z.infer<typeof insertStorySchema>;
 export type Analytics = typeof analytics.$inferSelect;
 export type InsertAnalytics = z.infer<typeof insertAnalyticsSchema>;
+export type Notification = typeof notifications.$inferSelect;
+export type InsertNotification = z.infer<typeof insertNotificationSchema>;
