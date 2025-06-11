@@ -40,12 +40,13 @@ export default function AnalyticsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <div className="flex-1 p-4 space-y-6">
+      <div className="flex-1 p-4 pb-20 space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-gray-900">Analytics</h1>
-          <div className="text-sm text-gray-500">
-            Updated {new Date().toLocaleTimeString()}
+        <div className="flex flex-col space-y-2 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
+          <h1 className="text-2xl font-bold text-gray-900">Analytics Dashboard</h1>
+          <div className="flex items-center space-x-2 text-sm text-gray-500">
+            <RefreshCw className="w-4 h-4" />
+            <span>Updated {new Date().toLocaleTimeString()}</span>
           </div>
         </div>
 
@@ -157,37 +158,43 @@ export default function AnalyticsPage() {
             ) : (
               <div className="space-y-4">
                 {analyticsData.map((item: any) => (
-                  <div key={item.campaign.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-xl">
-                    <div className="flex items-center space-x-4">
-                      <img
-                        src={item.campaign.brandLogoUrl}
-                        alt={item.campaign.brandName}
-                        className="w-12 h-12 rounded-xl"
-                      />
-                      <div>
-                        <h4 className="font-semibold text-gray-900">{item.campaign.brandName}</h4>
-                        <p className="text-sm text-gray-500">{item.campaign.offerDescription}</p>
+                  <div key={item.campaign.id} className="p-4 border border-gray-200 rounded-xl bg-white">
+                    {/* Mobile-first layout */}
+                    <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
+                      {/* Campaign Info */}
+                      <div className="flex items-center space-x-4 min-w-0 flex-1">
+                        <img
+                          src={item.campaign.brandLogoUrl}
+                          alt={item.campaign.brandName}
+                          className="w-12 h-12 rounded-xl flex-shrink-0"
+                        />
+                        <div className="min-w-0 flex-1">
+                          <h4 className="font-semibold text-gray-900 truncate">{item.campaign.brandName}</h4>
+                          <p className="text-sm text-gray-500 truncate">{item.campaign.offerDescription}</p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex space-x-8 text-right">
-                      <div>
-                        <p className="font-semibold text-gray-900">
-                          {item.stats.claimsIssued} / {item.campaign.maxCoupons}
-                        </p>
-                        <p className="text-sm text-gray-500">Claims</p>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-green-600">{item.stats.redemptionRate}%</p>
-                        <p className="text-sm text-gray-500">Redemption</p>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-pink-600">
-                          {item.stats.totalReach > 1000 
-                            ? `${(item.stats.totalReach / 1000).toFixed(1)}K`
-                            : item.stats.totalReach
-                          }
-                        </p>
-                        <p className="text-sm text-gray-500">Story Reach</p>
+                      
+                      {/* Stats Grid */}
+                      <div className="grid grid-cols-3 gap-4 sm:gap-6 sm:flex sm:space-x-6 text-center sm:text-right">
+                        <div className="min-w-0">
+                          <p className="font-semibold text-gray-900 text-sm sm:text-base">
+                            {item.stats.claimsIssued} / {item.campaign.maxCoupons}
+                          </p>
+                          <p className="text-xs sm:text-sm text-gray-500">Claims</p>
+                        </div>
+                        <div className="min-w-0">
+                          <p className="font-semibold text-green-600 text-sm sm:text-base">{item.stats.redemptionRate}%</p>
+                          <p className="text-xs sm:text-sm text-gray-500">Redemption</p>
+                        </div>
+                        <div className="min-w-0">
+                          <p className="font-semibold text-pink-600 text-sm sm:text-base">
+                            {item.stats.totalReach > 1000 
+                              ? `${(item.stats.totalReach / 1000).toFixed(1)}K`
+                              : item.stats.totalReach
+                            }
+                          </p>
+                          <p className="text-xs sm:text-sm text-gray-500">Story Reach</p>
+                        </div>
                       </div>
                     </div>
                   </div>
