@@ -35,11 +35,12 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose, onV
   };
   return (
     <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className="max-w-md w-full p-0 glass-morphism border-white/20 overflow-hidden max-h-[90vh] flex flex-col"
+      <DialogContent className="max-w-md w-full p-0 glass-morphism border-white/20 max-h-[90vh] flex flex-col"
         style={{
           maxHeight: '90vh',
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
+          overflow: 'hidden'
         }}
       >
         <DialogTitle className="sr-only">Partnership Terms and Conditions</DialogTitle>
@@ -105,7 +106,7 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose, onV
         <Separator className="bg-white/10" />
 
         {/* Main Content */}
-        <div className="flex-1 overflow-y-auto mobile-scroll">
+        <div className="flex-1 overflow-y-auto mobile-scroll" style={{ minHeight: 0 }}>
           {/* Featured Partnership Card */}
           <div className="p-6 pt-4">
             <div className="bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-2xl p-6 border border-yellow-400/30 backdrop-blur-sm">
@@ -194,7 +195,7 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose, onV
                 <span className="text-white font-rubik font-medium text-sm">
                   Free {campaign.productName}
                 </span>
-                <Badge variant="outline" className="text-xs border-green-400/30 text-green-300 ml-auto">
+                <Badge variant="outline" className="text-xs border-green-400/30 text-green-300 ml-[5px] mr-[5px] text-center">
                   ${campaign.redeemableAmount} value
                 </Badge>
               </div>

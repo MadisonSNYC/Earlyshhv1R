@@ -126,7 +126,12 @@ export default function NotificationsPage() {
       markAsReadMutation.mutate(notification.id);
     }
     
-    if (notification.actionUrl) {
+    // Check if this is an activity-related notification
+    if (notification.type === 'activity' || notification.type === 'partnership' || notification.type === 'new_deal') {
+      // Extract activity ID from notification data or use notification ID as fallback
+      const activityId = notification.data?.activityId || notification.id;
+      window.location.href = `/activity/${activityId}`;
+    } else if (notification.actionUrl) {
       window.location.href = notification.actionUrl;
     }
   };
