@@ -82,10 +82,7 @@ export default function MapView({ campaigns, onCouponClaimed }: MapViewProps) {
           <div 
             className="absolute inset-0 opacity-10" 
             style={{
-              backgroundImage: `
-                repeating-linear-gradient(15deg, transparent, transparent 30px, rgba(255,255,255,0.1) 30px, rgba(255,255,255,0.1) 32px),
-                repeating-linear-gradient(105deg, transparent, transparent 25px, rgba(255,255,255,0.1) 25px, rgba(255,255,255,0.1) 27px)
-              `
+              backgroundImage: `repeating-linear-gradient(15deg, transparent, transparent 30px, rgba(255,255,255,0.1) 30px, rgba(255,255,255,0.1) 32px), repeating-linear-gradient(105deg, transparent, transparent 25px, rgba(255,255,255,0.1) 25px, rgba(255,255,255,0.1) 27px)`
             }}
           />
           

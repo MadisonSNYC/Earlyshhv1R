@@ -46,7 +46,7 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose }: P
         <div className="flex-1 overflow-y-auto mobile-scroll">
           {/* Partnership Requirements */}
           <div className="p-6 py-4">
-          <h3 className="text-lg font-rubik font-bold text-white mb-4 flex items-center">
+            <h3 className="text-lg font-rubik font-bold text-white mb-4 flex items-center">
             <AlertCircle className="w-5 h-5 mr-2 text-yellow-400" />
             Partnership Requirements
           </h3>
@@ -99,6 +99,7 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose }: P
                 </div>
               </div>
             </div>
+          </div>
           </div>
         </div>
 
