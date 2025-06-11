@@ -30,6 +30,11 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose, onV
     navigate(`/partnership-confirmation?campaign=${campaignData}`);
   };
 
+  const handleViewBrandProfile = () => {
+    navigate(`/brand/${campaign.id}`);
+    onClose();
+  };
+
   return (
     <Dialog open={true} onOpenChange={onClose}>
       <DialogContent className="max-w-md w-[95vw] max-h-[90vh] p-0 bg-gray-900/95 backdrop-blur-xl border-gray-700/30 flex flex-col overflow-hidden rounded-3xl">
@@ -121,13 +126,20 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose, onV
           </div>
         </div>
 
-        {/* Action Button */}
-        <div className="p-6 flex-shrink-0">
+        {/* Action Buttons */}
+        <div className="p-6 flex-shrink-0 space-y-3">
           <Button
             onClick={handleAcceptPartnership}
             className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-bold py-4 rounded-2xl text-lg shadow-lg transform hover:scale-105 transition-all duration-200"
           >
             Unlock Partnership 🎯
+          </Button>
+          <Button
+            onClick={handleViewBrandProfile}
+            variant="outline"
+            className="w-full border-gray-600 text-gray-300 hover:bg-gray-800 py-3 rounded-2xl"
+          >
+            View Brand Profile
           </Button>
           <p className="text-gray-400 text-center text-sm mt-3">
             Partnership valid up to ${campaign.redeemableAmount}. One per community member.
