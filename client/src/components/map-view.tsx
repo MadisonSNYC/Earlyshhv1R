@@ -187,3 +187,154 @@ export default function MapView({ campaigns, onCouponClaimed }: MapViewProps) {
     </div>
   );
 }
+import { useState, useEffect, useRef } from 'react';
+import { MapPin, Navigation } from 'lucide-react';
+import { Button } from './ui/button';
+import { Badge } from './ui/badge';
+import type { Campaign } from '../types';
+
+interface MapViewProps {
+  campaigns: Campaign[];
+  userLocation: { lat: number; lng: number } | null;
+  onCampaignClick: (campaign: Campaign) => void;
+}
+
+export default function MapView({ campaigns, userLocation, onCampaignClick }: MapViewProps) {
+  const mapRef = useRef<HTMLDivElement>(null);
+  const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
+
+  // For now, we'll create a simple grid-based "map" view
+  // In a real implementation, this would integrate with Google Maps or similar
+  return (
+    <div className="relative w-full h-full bg-gray-900 rounded-2xl overflow-hidden">
+      {/* Map Container */}
+      <div 
+        ref={mapRef}
+        className="w-full h-full relative bg-gradient-to-br from-gray-800 via-gray-900 to-black"
+      >
+        {/* User Location Indicator */}
+        {userLocation && (
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+            <div className="relative">
+              <div className="w-4 h-4 bg-blue-500 rounded-full border-2 border-white shadow-lg"></div>
+              <div className="absolute inset-0 w-4 h-4 bg-blue-500/30 rounded-full animate-ping"></div>
+            </div>
+          </div>
+        )}
+
+        {/* Campaign Markers */}
+        {campaigns.map((campaign, index) => {
+          // Simulate random positions around the center for demo
+          const angle = (index / campaigns.length) * 2 * Math.PI;
+          const radius = 80 + Math.random() * 100;
+          const x = 50 + (Math.cos(angle) * radius / 3);
+          const y = 50 + (Math.sin(angle) * radius / 3);
+
+          return (
+            <div
+              key={campaign.id}
+              className="absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer z-20"
+              style={{ left: `${x}%`, top: `${y}%` }}
+              onClick={() => setSelectedCampaign(campaign)}
+            >
+              <div className="relative">
+                <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-cyan-500 rounded-full border-2 border-white shadow-lg flex items-center justify-center">
+                  <span className="text-white text-xs font-bold">
+                    {campaign.brandName.charAt(0)}
+                  </span>
+                </div>
+                {campaign.spotsRemaining && campaign.spotsRemaining < 5 && (
+                  <Badge className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 py-0 h-4">
+                    {campaign.spotsRemaining}
+                  </Badge>
+                )}
+              </div>
+            </div>
+          );
+        })}
+
+        {/* Campaign Details Popup */}
+        {selectedCampaign && (
+          <div className="absolute bottom-4 left-4 right-4 z-30">
+            <div className="glass-morphism p-4 rounded-2xl border border-white/20">
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex-1">
+                  <h3 className="font-semibold text-white">
+                    {selectedCampaign.brandName}
+                  </h3>
+                  <p className="text-sm text-gray-300">
+                    {selectedCampaign.productName}
+                  </p>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setSelectedCampaign(null)}
+                  className="text-gray-400 hover:text-white p-1"
+                >
+                  ×
+                </Button>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div className="space-y-1">
+                  <p className="text-xs text-gray-400">Partnership Value</p>
+                  <p className="text-cyan-400 font-semibold">
+                    {selectedCampaign.redeemableAmount}
+                  </p>
+                </div>
+
+                <div className="flex space-x-2">
+                  {selectedCampaign.distance && (
+                    <Badge variant="outline" className="border-white/30">
+                      <MapPin className="w-3 h-3 mr-1" />
+                      {selectedCampaign.distance < 1 
+                        ? `${Math.round(selectedCampaign.distance * 1000)}m`
+                        : `${selectedCampaign.distance.toFixed(1)}km`
+                      }
+                    </Badge>
+                  )}
+                  
+                  <Button
+                    size="sm"
+                    onClick={() => onCampaignClick(selectedCampaign)}
+                    className="bg-gradient-to-r from-pink-500 to-cyan-500"
+                  >
+                    Claim
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Map Controls */}
+        <div className="absolute top-4 right-4 z-30 space-y-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="bg-white/10 backdrop-blur-lg border border-white/20 text-white hover:bg-white/20"
+            onClick={() => {
+              // In a real implementation, this would recenter the map
+              console.log('Recenter map to user location');
+            }}
+          >
+            <Navigation className="w-4 h-4" />
+          </Button>
+        </div>
+
+        {/* No Location Fallback */}
+        {!userLocation && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center space-y-2">
+              <MapPin className="w-8 h-8 text-gray-400 mx-auto" />
+              <p className="text-gray-400 text-sm">
+                Location required to show map
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

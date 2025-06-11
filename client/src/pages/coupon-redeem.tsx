@@ -92,7 +92,7 @@ export default function CouponRedeemPage() {
         />
 
         {/* Story Sharing Instructions */}
-          <Card className="glass-morphism p-6 border-0">
+        <div className="glass-morphism p-6 border-0 rounded-2xl border border-white/10">
             <div className="text-center space-y-4">
               {!storyShared ? (
                 <>
@@ -132,7 +132,7 @@ export default function CouponRedeemPage() {
                 </>
               )}
             </div>
-          </Card>
+        </div>
 </div>
     </div>
   );

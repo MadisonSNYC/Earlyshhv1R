@@ -148,3 +148,116 @@ export default function CouponModal({ coupon, onClose, onRedeemed }: CouponModal
     </Dialog>
   );
 }
+import { AlertTriangle, X, Loader2 } from 'lucide-react';
+import { Button } from './ui/button';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
+import type { Campaign } from '../types';
+
+interface CouponModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  isLoading: boolean;
+  campaign: Campaign | null;
+  error: any;
+}
+
+export default function CouponModal({
+  isOpen,
+  onClose,
+  onConfirm,
+  isLoading,
+  campaign,
+  error
+}: CouponModalProps) {
+  if (!campaign) return null;
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="glass-morphism border-white/20 text-white max-w-sm">
+        <DialogHeader>
+          <DialogTitle className="text-center text-xl">
+            Claim Partnership
+          </DialogTitle>
+        </DialogHeader>
+
+        <div className="space-y-4">
+          {/* Campaign Info */}
+          <div className="text-center space-y-2">
+            <div className="w-16 h-16 mx-auto bg-gradient-to-br from-pink-500 to-cyan-500 rounded-full flex items-center justify-center">
+              <span className="text-white font-bold text-2xl">
+                {campaign.brandName.charAt(0)}
+              </span>
+            </div>
+            <div>
+              <h3 className="font-semibold text-lg">{campaign.brandName}</h3>
+              <p className="text-sm text-gray-300">{campaign.productName}</p>
+            </div>
+          </div>
+
+          {/* Partnership Details */}
+          <div className="bg-white/5 rounded-lg p-4 space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="text-gray-400">Partnership Value:</span>
+              <span className="text-cyan-400 font-semibold">
+                {campaign.redeemableAmount}
+              </span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-gray-400">Expires:</span>
+              <span className="text-white">
+                {new Date(campaign.endDate).toLocaleDateString()}
+              </span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-gray-400">Spots Remaining:</span>
+              <span className="text-white">{campaign.spotsRemaining}</span>
+            </div>
+          </div>
+
+          {/* Terms */}
+          <div className="text-xs text-gray-400 text-center">
+            By claiming this partnership, you agree to visit the location and share
+            an Instagram Story to complete the partnership.
+          </div>
+
+          {/* Error Message */}
+          {error && (
+            <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 flex items-center space-x-2">
+              <AlertTriangle className="w-4 h-4 text-red-400 flex-shrink-0" />
+              <p className="text-red-400 text-sm">
+                {error.message || 'Failed to claim partnership. Please try again.'}
+              </p>
+            </div>
+          )}
+
+          {/* Action Buttons */}
+          <div className="flex space-x-3">
+            <Button
+              variant="outline"
+              onClick={onClose}
+              disabled={isLoading}
+              className="flex-1 border-white/30 text-gray-300 hover:bg-white/10"
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={onConfirm}
+              disabled={isLoading}
+              className="flex-1 bg-gradient-to-r from-pink-500 to-cyan-500 hover:from-pink-600 hover:to-cyan-600"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Claiming...
+                </>
+              ) : (
+                'Claim Partnership'
+              )}
+            </Button>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}

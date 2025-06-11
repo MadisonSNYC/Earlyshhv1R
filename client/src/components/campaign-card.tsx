@@ -148,3 +148,128 @@ export default function CampaignCard({ campaign, onCouponClaimed }: CampaignCard
     </Card>
   );
 }
+import { useState } from 'react';
+import { MapPin, Clock, Users, Star, ExternalLink } from 'lucide-react';
+import { Button } from './ui/button';
+import { Badge } from './ui/badge';
+import { Card } from './ui/card';
+import type { Campaign } from '../types';
+
+interface CampaignCardProps {
+  campaign: Campaign;
+  onClaim: () => void;
+}
+
+export default function CampaignCard({ campaign, onClaim }: CampaignCardProps) {
+  const [imageError, setImageError] = useState(false);
+
+  const formatDistance = (distance?: number) => {
+    if (!distance) return '';
+    return distance < 1 ? `${Math.round(distance * 1000)}m` : `${distance.toFixed(1)}km`;
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'active': return 'bg-green-500';
+      case 'ending_soon': return 'bg-orange-500';
+      case 'almost_full': return 'bg-red-500';
+      default: return 'bg-gray-500';
+    }
+  };
+
+  return (
+    <Card className="glass-morphism p-4 border-0 hover:bg-white/5 transition-all duration-300">
+      <div className="space-y-4">
+        {/* Header */}
+        <div className="flex items-start space-x-3">
+          <div className="relative">
+            {campaign.brandLogoUrl && !imageError ? (
+              <img
+                src={campaign.brandLogoUrl}
+                alt={`${campaign.brandName} logo`}
+                className="w-12 h-12 rounded-lg object-cover"
+                onError={() => setImageError(true)}
+              />
+            ) : (
+              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-pink-500 to-cyan-500 flex items-center justify-center">
+                <span className="text-white font-bold text-lg">
+                  {campaign.brandName.charAt(0)}
+                </span>
+              </div>
+            )}
+            <div className={`absolute -top-1 -right-1 w-3 h-3 rounded-full ${getStatusColor(campaign.status)}`} />
+          </div>
+
+          <div className="flex-1 min-w-0">
+            <div className="flex items-start justify-between">
+              <div>
+                <h3 className="font-semibold text-white truncate">
+                  {campaign.brandName}
+                </h3>
+                <p className="text-xs text-gray-400">
+                  @{campaign.brandIgHandle}
+                </p>
+              </div>
+              {campaign.distance && (
+                <Badge variant="outline" className="border-white/30 text-xs">
+                  <MapPin className="w-3 h-3 mr-1" />
+                  {formatDistance(campaign.distance)}
+                </Badge>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Offer Description */}
+        <div>
+          <p className="text-white font-medium mb-1">
+            {campaign.productName}
+          </p>
+          <p className="text-sm text-gray-300 line-clamp-2">
+            {campaign.offerDescription}
+          </p>
+        </div>
+
+        {/* Offer Value */}
+        <div className="flex items-center justify-between">
+          <div className="space-y-1">
+            <p className="text-xs text-gray-400">Redeemable up to</p>
+            <p className="text-cyan-400 font-bold text-lg">
+              {campaign.redeemableAmount}
+            </p>
+          </div>
+
+          <div className="text-right space-y-1">
+            <div className="flex items-center text-xs text-gray-400">
+              <Users className="w-3 h-3 mr-1" />
+              {campaign.spotsRemaining || 0} spots left
+            </div>
+            <div className="flex items-center text-xs text-gray-400">
+              <Clock className="w-3 h-3 mr-1" />
+              {new Date(campaign.endDate).toLocaleDateString()}
+            </div>
+          </div>
+        </div>
+
+        {/* Action Button */}
+        <Button
+          onClick={onClaim}
+          disabled={campaign.claimed || campaign.spotsRemaining === 0}
+          className={`w-full ${
+            campaign.claimed
+              ? 'bg-green-500/20 text-green-400 cursor-not-allowed'
+              : campaign.spotsRemaining === 0
+              ? 'bg-gray-500/20 text-gray-400 cursor-not-allowed'
+              : 'bg-gradient-to-r from-pink-500 to-cyan-500 hover:from-pink-600 hover:to-cyan-600'
+          }`}
+        >
+          {campaign.claimed
+            ? 'Partnership Claimed ✓'
+            : campaign.spotsRemaining === 0
+            ? 'No Spots Available'
+            : 'Claim Partnership'}
+        </Button>
+      </div>
+    </Card>
+  );
+}
