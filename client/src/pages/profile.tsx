@@ -5,7 +5,8 @@ import { Progress } from "@/components/ui/progress";
 import { useAuth } from "@/lib/auth";
 import { useQuery } from "@tanstack/react-query";
 import BottomNavigation from "@/components/bottom-navigation";
-import { LogOut, Settings, HelpCircle, Shield, Bell, Trophy, TrendingUp, MapPin, Users } from "lucide-react";
+import { LogOut, Settings, HelpCircle, Shield, Bell, Trophy, TrendingUp, MapPin, Users, BarChart3 } from "lucide-react";
+import { Link } from "wouter";
 
 export default function ProfilePage() {
   const { user, logout } = useAuth();
@@ -91,6 +92,39 @@ export default function ProfilePage() {
             </Button>
           </CardContent>
         </Card>
+
+        {/* Analytics */}
+        <Link href="/analytics">
+          <Card className="glass-morphism border-blue-500/20 cursor-pointer hover:scale-[1.02] transition-all duration-300">
+            <CardContent className="p-4">
+              <div className="flex items-center space-x-2 mb-4">
+                <BarChart3 className="w-5 h-5 text-blue-400" />
+                <h3 className="text-white font-rubik font-bold text-lg">Analytics Dashboard</h3>
+              </div>
+              
+              <div className="grid grid-cols-3 gap-4">
+                <div className="text-center">
+                  <div className="text-2xl font-rubik font-bold text-green-400">{completedDiscoveries}</div>
+                  <div className="text-xs font-space text-gray-400">Claimed</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-rubik font-bold text-blue-400">{userStats?.redeemed || 0}</div>
+                  <div className="text-xs font-space text-gray-400">Redeemed</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-rubik font-bold text-purple-400">{userStats?.shared || 0}</div>
+                  <div className="text-xs font-space text-gray-400">Shared</div>
+                </div>
+              </div>
+
+              <div className="mt-4 text-center">
+                <Button variant="ghost" className="text-blue-400 hover:text-blue-300 text-sm">
+                  View Full Analytics →
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
 
         {/* Creator Demographics */}
         <Card className="glass-morphism border-purple-500/20">
