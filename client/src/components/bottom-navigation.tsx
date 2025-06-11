@@ -21,40 +21,42 @@ export default function BottomNavigation() {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 glass-morphism border-t border-white/10 px-4 py-2 mobile-safe-area z-50">
-      <div className="flex justify-around">
-        {navItems.map((item) => {
-          const isActive = location === item.path;
-          const Icon = item.icon;
-          const showBadge = item.hasBadge && (unreadCount?.count || 0) > 0;
-          
-          return (
-            <Button
-              key={item.path}
-              variant="ghost"
-              size="sm"
-              onClick={() => setLocation(item.path)}
-              className={`relative flex flex-col items-center py-3 px-3 h-auto mobile-touch transition-all ${
-                isActive 
-                  ? "text-pink-500" 
-                  : "text-gray-400 hover:text-white"
-              }`}
-            >
-              <div className="relative">
-                <Icon className={`h-5 w-5 mb-1 ${isActive ? "scale-110" : ""}`} />
-                {showBadge && (
-                  <Badge 
-                    variant="destructive" 
-                    className="absolute -top-2 -right-2 h-4 w-4 p-0 text-xs flex items-center justify-center min-w-4"
-                  >
-                    {(unreadCount?.count || 0) > 99 ? "99+" : unreadCount?.count}
-                  </Badge>
-                )}
-              </div>
-              <span className="text-xs font-space font-medium">{item.label}</span>
-            </Button>
-          );
-        })}
+    <nav className="fixed bottom-0 left-0 right-0 glass-morphism border-t border-white/10 px-2 py-2 mobile-safe-area z-50">
+      <div className="flex justify-center">
+        <div className="flex justify-between max-w-sm w-full">
+          {navItems.map((item) => {
+            const isActive = location === item.path;
+            const Icon = item.icon;
+            const showBadge = item.hasBadge && (unreadCount?.count || 0) > 0;
+            
+            return (
+              <Button
+                key={item.path}
+                variant="ghost"
+                size="sm"
+                onClick={() => setLocation(item.path)}
+                className={`relative flex flex-col items-center py-2 px-2 h-auto mobile-touch transition-all min-w-0 flex-1 ${
+                  isActive 
+                    ? "text-pink-500" 
+                    : "text-gray-400 hover:text-white"
+                }`}
+              >
+                <div className="relative">
+                  <Icon className={`h-4 w-4 mb-1 ${isActive ? "scale-110" : ""}`} />
+                  {showBadge && (
+                    <Badge 
+                      variant="destructive" 
+                      className="absolute -top-1 -right-1 h-3 w-3 p-0 text-xs flex items-center justify-center min-w-3"
+                    >
+                      {(unreadCount?.count || 0) > 9 ? "9+" : unreadCount?.count}
+                    </Badge>
+                  )}
+                </div>
+                <span className="text-xs font-space font-medium truncate">{item.label}</span>
+              </Button>
+            );
+          })}
+        </div>
       </div>
     </nav>
   );
