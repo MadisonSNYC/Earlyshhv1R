@@ -9,11 +9,33 @@ export default function QRCodePage() {
   const [, params] = useRoute('/qr/:couponId');
   const [timeLeft, setTimeLeft] = useState('24 minutes');
 
-  // Fetch coupon data
-  const { data: coupon, isLoading } = useQuery({
+  // Create mock coupon for demo purposes
+  const mockCoupon = {
+    id: params?.couponId || '1',
+    code: 'DEMO-EARLY-2024',
+    qrData: `https://earlyshh.com/redeem/${params?.couponId || '1'}`,
+    fetchCode: '1234-5678-9012-3456',
+    productName: 'SuperRoot Premium Energy Formula',
+    brandName: 'SuperRoot Energy',
+    brandLogo: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=100&h=100&fit=crop',
+    redeemableAmount: '3.99',
+    expirationDate: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // 24 hours from now
+    legalDisclaimer: 'Valid at participating locations. One per customer. Terms apply.',
+    dateFetched: new Date().toISOString(),
+    offerDescription: 'Free Sample Energy Drink',
+    campaign: {
+      brandName: 'SuperRoot Energy',
+      brandIgHandle: '@superrootenergy'
+    }
+  };
+
+  // Fetch coupon data, fallback to mock for demo
+  const { data: fetchedCoupon, isLoading } = useQuery({
     queryKey: ['/api/coupons', params?.couponId],
     enabled: !!params?.couponId,
   });
+
+  const coupon = fetchedCoupon || mockCoupon;
 
   // Update countdown timer
   useEffect(() => {
