@@ -338,10 +338,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Notification routes
   app.get("/api/notifications", async (req, res) => {
     try {
-      // Use hardcoded user ID 1 for MVP (same as other endpoints)
-      const userId = 1;
+      const { userId } = req.query;
+      
+      if (!userId) {
+        return res.status(400).json({ message: "User ID required" });
+      }
 
-      const notifications = await storage.getUserNotifications(userId);
+      const notifications = await storage.getUserNotifications(parseInt(userId as string));
       res.json(notifications);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch notifications", error: error instanceof Error ? error.message : "Unknown error" });
@@ -350,10 +353,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/notifications/unread", async (req, res) => {
     try {
-      // Use hardcoded user ID 1 for MVP (same as other endpoints)
-      const userId = 1;
+      const { userId } = req.query;
+      
+      if (!userId) {
+        return res.status(400).json({ message: "User ID required" });
+      }
 
-      const unreadNotifications = await storage.getUnreadNotifications(userId);
+      const unreadNotifications = await storage.getUnreadNotifications(parseInt(userId as string));
       res.json(unreadNotifications);
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch unread notifications", error: error instanceof Error ? error.message : "Unknown error" });
@@ -362,10 +368,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/notifications/count", async (req, res) => {
     try {
-      // Use hardcoded user ID 1 for MVP (same as other endpoints)
-      const userId = 1;
+      const { userId } = req.query;
+      
+      if (!userId) {
+        return res.status(400).json({ message: "User ID required" });
+      }
 
-      const count = await storage.getUnreadNotificationCount(userId);
+      const count = await storage.getUnreadNotificationCount(parseInt(userId as string));
       res.json({ count });
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch notification count", error: error instanceof Error ? error.message : "Unknown error" });
@@ -375,8 +384,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.patch("/api/notifications/:id/read", async (req, res) => {
     try {
       const notificationId = parseInt(req.params.id);
-      // Use hardcoded user ID 1 for MVP (same as other endpoints)
-      const userId = 1;
+      const { userId } = req.body;
+      
+      if (!userId) {
+        return res.status(400).json({ message: "User ID required" });
+      }
 
       const notification = await storage.getNotification(notificationId);
       if (!notification || notification.userId !== userId) {
@@ -392,8 +404,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.patch("/api/notifications/read-all", async (req, res) => {
     try {
-      // Use hardcoded user ID 1 for MVP (same as other endpoints)
-      const userId = 1;
+      const { userId } = req.body;
+      
+      if (!userId) {
+        return res.status(400).json({ message: "User ID required" });
+      }
 
       await storage.markAllNotificationsAsRead(userId);
       res.json({ message: "All notifications marked as read" });
@@ -404,8 +419,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/notifications", async (req, res) => {
     try {
-      // Use hardcoded user ID 1 for MVP (same as other endpoints)
-      const userId = 1;
+      const { userId } = req.body;
+      
+      if (!userId) {
+        return res.status(400).json({ message: "User ID required" });
+      }
 
       const validatedData = insertNotificationSchema.parse({
         ...req.body,

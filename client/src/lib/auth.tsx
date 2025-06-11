@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User } from '@shared/schema';
-import { apiRequest } from './api';
+import { apiClient } from './api-client';
 
 interface AuthContextType {
   user: User | null;
@@ -27,7 +27,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const storedUser = localStorage.getItem('earlyshh_user');
     if (storedUser) {
       try {
-        setUser(JSON.parse(storedUser));
+        const userData = JSON.parse(storedUser);
+        setUser(userData);
+        apiClient.setUser(userData);
       } catch (error) {
         console.error('Failed to parse stored user:', error);
         localStorage.removeItem('earlyshh_user');
@@ -38,10 +40,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (instagramData: InstagramLoginData) => {
     try {
-      const response = await apiRequest('POST', '/api/auth/instagram', instagramData);
-      const data = await response.json();
+      const data = await apiClient.login(instagramData);
+      
+      if (!data.user || !data.user.id) {
+        throw new Error('Invalid user data received from server');
+      }
       
       setUser(data.user);
+      apiClient.setUser(data.user);
       localStorage.setItem('earlyshh_user', JSON.stringify(data.user));
     } catch (error) {
       console.error('Login failed:', error);
@@ -51,6 +57,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     setUser(null);
+    apiClient.setUser(null);
     localStorage.removeItem('earlyshh_user');
   };
 
