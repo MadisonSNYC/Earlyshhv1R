@@ -4,6 +4,7 @@ import { Bell, Filter, List, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/lib/auth";
+import { useLocation } from "wouter";
 import CampaignCard from "@/components/campaign-card";
 import MapView from "@/components/map-view";
 import BottomNavigation from "@/components/bottom-navigation";
@@ -16,6 +17,7 @@ type FilterType = "all" | "food" | "premium" | "nightlife";
 
 export default function HomePage() {
   const { user } = useAuth();
+  const [, setLocation] = useLocation();
   const [currentView, setCurrentView] = useState<ViewType>("list");
   const [selectedFilter, setSelectedFilter] = useState<FilterType>("all");
   const [selectedCoupon, setSelectedCoupon] = useState<any>(null);
