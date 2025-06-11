@@ -30,8 +30,8 @@ export default function CampaignCard({ campaign, onCouponClaimed }: CampaignCard
     },
     onSuccess: (coupon) => {
       toast({
-        title: "Early Access Secured!",
-        description: "You're in! Your exclusive access is ready.",
+        title: "Partnership Secured!",
+        description: "You're in! Your exclusive partnership is ready.",
       });
       setAlreadyClaimed(true);
       onCouponClaimed?.(coupon);
@@ -41,13 +41,13 @@ export default function CampaignCard({ campaign, onCouponClaimed }: CampaignCard
       if (error.message.includes('already claimed')) {
         setAlreadyClaimed(true);
         toast({
-          title: "Already Secured",
-          description: "You already have early access to this offer.",
+          title: "Partnership Active",
+          description: "You already have access to this partnership.",
           variant: "destructive",
         });
       } else {
         toast({
-          title: "Access Unavailable",
+          title: "Partnership Unavailable",
           description: error.message || "Please try again.",
           variant: "destructive",
         });
@@ -121,7 +121,7 @@ export default function CampaignCard({ campaign, onCouponClaimed }: CampaignCard
           ) : !isAvailable ? (
             "Fully Booked"
           ) : (
-            "Get Early Access"
+            "Unlock Partnership"
           )}
         </Button>
       </CardContent>

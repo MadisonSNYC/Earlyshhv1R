@@ -70,7 +70,7 @@ export default function HomePage() {
           </div>
           <div>
             <h1 className="earlyshh-text-gradient text-lg font-rubik font-800">EARLYSHH</h1>
-            <p className="text-xs text-gray-400 font-space">Brooklyn, NY</p>
+            <p className="text-xs text-gray-400 font-space">Your neighborhood partnership awaits</p>
           </div>
         </div>
 
@@ -136,7 +136,7 @@ export default function HomePage() {
             }`}
             onClick={() => setSelectedFilter("all")}
           >
-            All Offers
+            All Partnerships
           </Badge>
           <Badge
             variant={selectedFilter === "food" ? "default" : "secondary"}

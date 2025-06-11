@@ -47,7 +47,7 @@ export default function MyCouponsPage() {
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
                 <p className="text-2xl font-bold text-primary">{userStats?.claimed || 0}</p>
-                <p className="text-sm text-gray-500">Claimed</p>
+                <p className="text-sm text-gray-500">Partnerships</p>
               </div>
               <div>
                 <p className="text-2xl font-bold text-green-600">{userStats?.redeemed || 0}</p>

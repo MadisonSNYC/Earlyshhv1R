@@ -26,13 +26,13 @@ export default function StoryPromptModal({ onClose }: StoryPromptModalProps) {
             <Check className="text-white text-2xl w-8 h-8" />
           </div>
 
-          <h2 className="text-xl font-rubik font-bold text-white mb-2">Experience Unlocked!</h2>
-          <p className="text-gray-300 mb-6 font-space">Share your story to secure priority access to future drops</p>
+          <h2 className="text-xl font-rubik font-bold text-white mb-2">Partnership Confirmed!</h2>
+          <p className="text-gray-300 mb-6 font-space">Share your Story to complete your partnership</p>
 
           <div className="electric-border glass-morphism rounded-xl p-4 mb-6">
-            <h3 className="font-rubik font-semibold text-white mb-2">Share Your Story</h3>
+            <h3 className="font-rubik font-semibold text-white mb-2">Confirm Your Partnership</h3>
             <p className="text-sm text-gray-300 mb-3 font-space">
-              Tag <span className="font-semibold earlyshh-text-gradient">@Earlyshh</span> and the brand in your story
+              Share an Instagram Story tagging <span className="font-semibold earlyshh-text-gradient">@Earlyshh</span> and the brand
             </p>
 
             <div className="flex items-center justify-center space-x-4 text-xs text-gray-400 font-space">
