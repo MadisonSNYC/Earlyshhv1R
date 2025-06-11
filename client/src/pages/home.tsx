@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { MapPin, List, Search, Filter, Bell, Plus } from 'lucide-react';
@@ -95,7 +94,7 @@ export default function HomePage() {
               {campaigns.length} partnerships nearby
             </p>
           </div>
-          
+
           <div className="flex items-center space-x-2">
             <Button 
               variant="ghost" 

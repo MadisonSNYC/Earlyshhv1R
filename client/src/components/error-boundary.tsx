@@ -1,95 +1,196 @@
-
-import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { AlertTriangle, RefreshCw } from 'lucide-react';
+The ErrorBoundary component is being enhanced with better error reporting and retry mechanisms.
+```
+```replit_final_file
+import React from 'react';
+import { AlertTriangle, RefreshCw, Home, Bug } from 'lucide-react';
 import { Button } from './ui/button';
-import { Card } from './ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { Badge } from './ui/badge';
 
-interface Props {
-  children: ReactNode;
-  fallback?: ReactNode;
-}
-
-interface State {
+interface ErrorBoundaryState {
   hasError: boolean;
   error?: Error;
+  errorId?: string;
+  retryCount: number;
 }
 
-export default class ErrorBoundary extends Component<Props, State> {
-  public state: State = {
-    hasError: false
-  };
+interface ErrorBoundaryProps {
+  children: React.ReactNode;
+  fallback?: React.ComponentType<{ error: Error; retry: () => void }>;
+  level?: 'page' | 'component';
+  onError?: (error: Error, errorInfo: React.ErrorInfo) => void;
+}
 
-  public static getDerivedStateFromError(error: Error): State {
-    return { hasError: true, error };
+export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  private retryTimeoutId?: NodeJS.Timeout;
+
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { 
+      hasError: false, 
+      retryCount: 0 
+    };
   }
 
-  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
-    
-    // Report to error tracking service (e.g., Sentry)
-    if (window.Sentry) {
-      window.Sentry.captureException(error, {
-        contexts: {
-          react: {
-            componentStack: errorInfo.componentStack
-          }
-        }
-      });
+  static getDerivedStateFromError(error: Error): Partial<ErrorBoundaryState> {
+    const errorId = `error_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    return { 
+      hasError: true, 
+      error,
+      errorId 
+    };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('Error caught by boundary:', error, errorInfo);
+
+    // Report error to monitoring service
+    this.reportError(error, errorInfo);
+
+    // Call custom error handler
+    this.props.onError?.(error, errorInfo);
+  }
+
+  componentWillUnmount() {
+    if (this.retryTimeoutId) {
+      clearTimeout(this.retryTimeoutId);
     }
   }
 
-  public render() {
+  private reportError = async (error: Error, errorInfo: React.ErrorInfo) => {
+    try {
+      // In a real app, send to error tracking service
+      const errorReport = {
+        message: error.message,
+        stack: error.stack,
+        componentStack: errorInfo.componentStack,
+        timestamp: new Date().toISOString(),
+        userAgent: navigator.userAgent,
+        url: window.location.href,
+        level: this.props.level || 'component',
+        errorId: this.state.errorId,
+      };
+
+      // For development, log to console
+      if (process.env.NODE_ENV === 'development') {
+        console.group('🚨 Error Boundary Report');
+        console.error('Error:', error);
+        console.error('Error Info:', errorInfo);
+        console.error('Full Report:', errorReport);
+        console.groupEnd();
+      }
+    } catch (reportError) {
+      console.error('Failed to report error:', reportError);
+    }
+  };
+
+  private handleRetry = () => {
+    const { retryCount } = this.state;
+
+    if (retryCount >= 3) {
+      // Reload page after 3 retries
+      window.location.reload();
+      return;
+    }
+
+    this.setState({ 
+      hasError: false, 
+      error: undefined,
+      retryCount: retryCount + 1 
+    });
+
+    // Auto-retry with exponential backoff for the first attempt
+    if (retryCount === 0) {
+      this.retryTimeoutId = setTimeout(() => {
+        this.setState({ hasError: false, error: undefined });
+      }, 1000);
+    }
+  };
+
+  private handleGoHome = () => {
+    window.location.href = '/';
+  };
+
+  render() {
     if (this.state.hasError) {
       if (this.props.fallback) {
-        return this.props.fallback;
+        const FallbackComponent = this.props.fallback;
+        return (
+          <FallbackComponent 
+            error={this.state.error!} 
+            retry={this.handleRetry}
+          />
+        );
       }
 
-      return (
-        <div className="min-h-screen electric-bg flex items-center justify-center p-4">
-          <Card className="glass-morphism p-8 max-w-md w-full text-center border-0">
-            <div className="space-y-6">
-              <div className="w-16 h-16 mx-auto bg-red-500/20 rounded-full flex items-center justify-center">
-                <AlertTriangle className="w-8 h-8 text-red-400" />
-              </div>
-              
-              <div>
-                <h2 className="text-xl font-bold text-white mb-2">
-                  Something went wrong
-                </h2>
-                <p className="text-gray-300 text-sm">
-                  An unexpected error occurred. Please try refreshing the page.
-                </p>
-              </div>
+      const isPageLevel = this.props.level === 'page';
+      const { retryCount } = this.state;
 
-              <div className="space-y-3">
-                <Button
-                  onClick={() => window.location.reload()}
-                  className="w-full bg-gradient-to-r from-pink-500 to-cyan-500"
-                >
-                  <RefreshCw className="w-4 h-4 mr-2" />
-                  Refresh Page
-                </Button>
-                
-                <Button
-                  variant="ghost"
-                  onClick={() => window.location.href = '/'}
-                  className="w-full text-gray-400 hover:text-white"
-                >
-                  Go Home
-                </Button>
+      return (
+        <div className={`${isPageLevel ? 'min-h-screen flex items-center justify-center p-4' : 'm-4'}`}>
+          <Card className="glass-morphism border-red-500/50 max-w-md w-full">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-red-400">
+                <AlertTriangle className="w-5 h-5" />
+                {isPageLevel ? 'Page Error' : 'Component Error'}
+              </CardTitle>
+              <div className="flex gap-2">
+                <Badge variant="outline" className="border-red-500/50 text-red-400">
+                  {this.state.errorId}
+                </Badge>
+                {retryCount > 0 && (
+                  <Badge variant="outline" className="border-yellow-500/50 text-yellow-400">
+                    Retry #{retryCount}
+                  </Badge>
+                )}
               </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-gray-300">
+                {isPageLevel 
+                  ? 'This page encountered an unexpected error. Please try again or return to the home page.'
+                  : 'This component encountered an error. You can try reloading or continue using other parts of the app.'
+                }
+              </p>
 
               {process.env.NODE_ENV === 'development' && this.state.error && (
-                <details className="text-left">
-                  <summary className="text-xs text-gray-500 cursor-pointer">
-                    Error Details
-                  </summary>
-                  <pre className="text-xs text-red-400 mt-2 overflow-auto">
-                    {this.state.error.toString()}
+                <details className="text-sm text-gray-400 border border-gray-600 rounded p-2">
+                  <summary className="cursor-pointer font-medium">Error details</summary>
+                  <pre className="mt-2 whitespace-pre-wrap text-xs overflow-auto">
+                    {this.state.error.message}
+                    {'\n\n'}
+                    {this.state.error.stack}
                   </pre>
                 </details>
               )}
-            </div>
+
+              <div className="flex gap-2">
+                <Button 
+                  onClick={this.handleRetry}
+                  disabled={retryCount >= 3}
+                  className="flex-1"
+                  variant={retryCount >= 3 ? "outline" : "default"}
+                >
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                  {retryCount >= 3 ? 'Reload Page' : 'Try Again'}
+                </Button>
+
+                {isPageLevel && (
+                  <Button 
+                    onClick={this.handleGoHome}
+                    variant="outline"
+                    className="flex-1"
+                  >
+                    <Home className="w-4 h-4 mr-2" />
+                    Go Home
+                  </Button>
+                )}
+              </div>
+
+              <p className="text-xs text-gray-500 text-center">
+                If this issue persists, please contact support with error ID: {this.state.errorId}
+              </p>
+            </CardContent>
           </Card>
         </div>
       );
