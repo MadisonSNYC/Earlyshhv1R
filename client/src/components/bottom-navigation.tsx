@@ -4,63 +4,64 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Home, Ticket, BarChart3, User, Bell } from "lucide-react";
 
-import { Home, Search, User, Bell, Settings } from 'lucide-react';
-import { useLocation as useRouterLocation } from 'wouter';
-import { Badge } from './ui/badge';
-import { useQuery } from '@tanstack/react-query';
-import { notificationService } from '../services/notification-service';
-import { useAuth } from '../lib/auth';
-
 const NAV_ITEMS = [
   { href: '/', icon: Home, label: 'Home' },
-  { href: '/search', icon: Search, label: 'Search' },
-  { href: '/notifications', icon: Bell, label: 'Notifications', showBadge: true },
+  { href: '/my-coupons', icon: Ticket, label: 'Coupons' },
+  { href: '/analytics', icon: BarChart3, label: 'Analytics' },
+  { href: '/notifications', icon: Bell, label: 'Notifications' },
   { href: '/profile', icon: User, label: 'Profile' }
 ];
 
 export default function BottomNavigation() {
-  const [location] = useRouterLocation();
-  const { user } = useAuth();
+  const [location] = useLocation();
 
+  // Get notification count
   const { data: notificationCount = 0 } = useQuery({
-    queryKey: ['notification-count'],
-    queryFn: () => notificationService.getUnreadCount(),
-    enabled: !!user,
-    refetchInterval: 30000 // Refetch every 30 seconds
+    queryKey: ['/api/notifications/count'],
+    queryFn: async () => {
+      const response = await fetch('/api/notifications/count');
+      if (!response.ok) return 0;
+      return response.json();
+    }
   });
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50">
-      <div className="glass-morphism border-t border-white/10">
-        <div className="flex items-center justify-around py-2 px-4">
+    <nav className="fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-md border-t border-gray-800/50 z-50">
+      <div className="max-w-md mx-auto px-4 py-2">
+        <div className="flex items-center justify-around">
           {NAV_ITEMS.map((item) => {
             const isActive = location === item.href;
             const Icon = item.icon;
-
+            
             return (
-              <a
+              <Button
                 key={item.href}
-                href={item.href}
-                className={`flex flex-col items-center space-y-1 py-2 px-3 rounded-lg transition-all duration-200 ${
-                  isActive
-                    ? 'text-cyan-400 bg-white/10'
-                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+                variant="ghost"
+                size="sm"
+                className={`flex flex-col items-center space-y-1 h-auto py-2 px-3 ${
+                  isActive 
+                    ? 'text-cyan-400 bg-cyan-400/10' 
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
                 }`}
+                onClick={() => window.location.href = item.href}
               >
                 <div className="relative">
                   <Icon className="w-5 h-5" />
-                  {item.showBadge && notificationCount > 0 && (
-                    <Badge className="absolute -top-2 -right-2 h-4 w-4 p-0 bg-red-500 text-xs flex items-center justify-center">
+                  {item.label === 'Notifications' && notificationCount > 0 && (
+                    <Badge 
+                      variant="destructive" 
+                      className="absolute -top-2 -right-2 w-5 h-5 p-0 text-xs flex items-center justify-center min-w-0"
+                    >
                       {notificationCount > 9 ? '9+' : notificationCount}
                     </Badge>
                   )}
                 </div>
                 <span className="text-xs font-medium">{item.label}</span>
-              </a>
+              </Button>
             );
           })}
         </div>
       </div>
-    </div>
+    </nav>
   );
 }
