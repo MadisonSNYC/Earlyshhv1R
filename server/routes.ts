@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertUserSchema, insertCouponSchema, insertStorySchema } from "@shared/schema";
+import { insertUserSchema, insertCouponSchema, insertStorySchema, insertNotificationSchema } from "@shared/schema";
 import { z } from "zod";
 
 // Instagram OAuth simulation for MVP
