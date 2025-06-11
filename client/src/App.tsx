@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect } from 'react';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { Route } from 'wouter';
+import { Route, Switch } from 'wouter';
 import { Toaster } from '@/components/ui/toaster';
 
 import { queryClient } from './lib/queryClient';
@@ -44,17 +44,19 @@ function App() {
           <GlobalErrorHandler />
           <div className="min-h-screen electric-bg">
             <Suspense fallback={<LoadingScreen />}>
-              <Route path="/" component={HomePage} />
-              <Route path="/onboarding" component={OnboardingPage} />
-              <Route path="/coupon/:id" component={CouponRedeemPage} />
-              <Route path="/partnership/:id" component={PartnershipConfirmationPage} />
-              <Route path="/profile" component={ProfilePage} />
-              <Route path="/my-coupons" component={MyCouponsPage} />
-              <Route path="/notifications" component={NotificationsPage} />
-              <Route path="/analytics" component={AnalyticsPage} />
-              <Route path="/settings" component={SettingsPage} />
-              <Route path="/activity/:id" component={ActivityDetailPage} />
-              <Route component={NotFoundPage} />
+              <Switch>
+                <Route path="/" component={HomePage} />
+                <Route path="/onboarding" component={OnboardingPage} />
+                <Route path="/coupon/:id" component={CouponRedeemPage} />
+                <Route path="/partnership/:id" component={PartnershipConfirmationPage} />
+                <Route path="/profile" component={ProfilePage} />
+                <Route path="/my-coupons" component={MyCouponsPage} />
+                <Route path="/notifications" component={NotificationsPage} />
+                <Route path="/analytics" component={AnalyticsPage} />
+                <Route path="/settings" component={SettingsPage} />
+                <Route path="/activity/:id" component={ActivityDetailPage} />
+                <Route component={NotFoundPage} />
+              </Switch>
             </Suspense>
             <Toaster />
           </div>
