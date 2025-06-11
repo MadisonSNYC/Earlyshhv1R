@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Check, Instagram, AlertCircle, MapPin, Clock, Users, Navigation } from "lucide-react";
 import { Campaign } from "@shared/schema";
+import { useLocation } from "wouter";
 
 interface PartnershipTermsModalProps {
   campaign: Campaign & { claimedCount?: number };
