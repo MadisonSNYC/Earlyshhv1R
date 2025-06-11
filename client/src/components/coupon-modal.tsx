@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { X, Check, Instagram } from "lucide-react";
@@ -46,36 +46,39 @@ export default function CouponModal({ coupon, onClose, onRedeemed }: CouponModal
 
   return (
     <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className="max-w-sm w-full max-h-[90vh] overflow-y-auto p-0">
+      <DialogContent className="max-w-sm w-full max-h-[90vh] overflow-y-auto p-0 glass-morphism border-white/20">
+        <DialogTitle className="sr-only">Coupon Details and QR Code</DialogTitle>
         {/* Modal Header */}
-        <div className="p-6 border-b border-gray-200">
+        <div className="p-6 border-b border-white/10">
           <div className="flex justify-between items-start mb-4">
             <div className="flex items-center space-x-3">
-              <img
-                src={coupon.brandLogo}
-                alt="Brand logo"
-                className="w-12 h-12 rounded-xl"
-              />
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-                <i className="fas fa-ticket-alt text-white text-sm"></i>
+              <div className="w-12 h-12 earlyshh-gradient rounded-2xl flex items-center justify-center shadow-lg">
+                <img
+                  src={coupon.brandLogo}
+                  alt="Brand logo"
+                  className="w-8 h-8 rounded-lg object-cover"
+                />
+              </div>
+              <div className="w-8 h-8 glass-morphism rounded-lg flex items-center justify-center">
+                <div className="w-4 h-4 bg-gradient-to-br from-pink-500 to-cyan-400 rounded-sm"></div>
               </div>
             </div>
-            <Button variant="ghost" size="icon" onClick={onClose}>
-              <X className="h-5 w-5" />
+            <Button variant="ghost" size="icon" onClick={onClose} className="hover:bg-white/10 rounded-xl">
+              <X className="h-5 w-5 text-white" />
             </Button>
           </div>
 
-          <h2 className="text-xl font-bold text-gray-900 mb-2">{coupon.productName}</h2>
-          <p className="text-2xl font-bold text-primary mb-1">{coupon.redeemableAmount}</p>
-          <p className="text-sm text-gray-500">
+          <h2 className="text-xl font-rubik font-bold text-white mb-2">{coupon.productName}</h2>
+          <p className="text-2xl font-rubik font-bold earlyshh-text-gradient mb-1">{coupon.redeemableAmount}</p>
+          <p className="text-sm text-gray-400 font-space">
             Expires {new Date(coupon.expirationDate).toLocaleDateString()}
           </p>
         </div>
 
         {/* QR Code Section */}
-        <div className="p-6 bg-gray-50">
-          <div className="bg-white p-6 rounded-2xl text-center shadow-sm">
-            <h3 className="text-lg font-semibold mb-4">Show at Checkout</h3>
+        <div className="p-6 glass-morphism">
+          <div className="bg-gradient-to-br from-white to-gray-100 p-6 rounded-2xl text-center shadow-lg">
+            <h3 className="text-lg font-rubik font-semibold mb-4 text-gray-900">Show at Checkout</h3>
 
             {/* High-contrast QR Code */}
             <div className="w-48 h-48 mx-auto bg-white border-4 border-gray-200 rounded-xl flex items-center justify-center mb-4">
