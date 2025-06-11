@@ -28,7 +28,7 @@ export default function MapView({ campaigns, onCouponClaimed }: MapViewProps) {
 
   const handleLocationClick = (location: any) => {
     if (campaigns.length === 0) return;
-    
+
     // Create a campaign for the location
     const locationCampaign = {
       ...campaigns[0],
@@ -85,13 +85,13 @@ export default function MapView({ campaigns, onCouponClaimed }: MapViewProps) {
               backgroundImage: `repeating-linear-gradient(15deg, transparent, transparent 30px, rgba(255,255,255,0.1) 30px, rgba(255,255,255,0.1) 32px), repeating-linear-gradient(105deg, transparent, transparent 25px, rgba(255,255,255,0.1) 25px, rgba(255,255,255,0.1) 27px)`
             }}
           />
-          
+
           {/* East River representation */}
           <div className="absolute right-0 top-0 w-16 h-full bg-gradient-to-l from-blue-900/30 to-transparent"></div>
-          
+
           {/* Bedford Ave street line */}
           <div className="absolute left-1/3 top-0 w-1 h-full bg-white/10"></div>
-          
+
           {/* Metropolitan Ave street line */}
           <div className="absolute top-1/2 left-0 w-full h-1 bg-white/10"></div>
         </div>
@@ -144,7 +144,7 @@ export default function MapView({ campaigns, onCouponClaimed }: MapViewProps) {
               {getIconForType(location.type)}
             </div>
             <div className="w-0 h-0 border-l-4 border-r-4 border-t-8 border-l-transparent border-r-transparent border-t-white absolute top-full left-1/2 transform -translate-x-1/2"></div>
-            
+
             {/* Hover tooltip */}
             <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
               <div className="bg-black/90 text-white text-xs px-3 py-2 rounded-lg font-space">
@@ -160,7 +160,7 @@ export default function MapView({ campaigns, onCouponClaimed }: MapViewProps) {
       {selectedCampaign && (
         <div className="absolute bottom-0 left-0 right-0 glass-morphism border-t border-white/20 rounded-t-3xl p-5 shadow-2xl mobile-safe-area">
           <div className="w-12 h-1 bg-white/30 rounded-full mx-auto mb-4"></div>
-          
+
           <div className="flex items-center space-x-3 mb-4">
             <div className="w-12 h-12 earlyshh-gradient rounded-xl flex items-center justify-center">
               <span className="text-white text-2xl">{selectedCampaign.brandName[0]}</span>
@@ -170,12 +170,12 @@ export default function MapView({ campaigns, onCouponClaimed }: MapViewProps) {
               <p className="font-space text-gray-300 text-sm">{selectedCampaign.productName}</p>
             </div>
           </div>
-          
+
           <div className="mb-4">
             <h4 className="font-rubik font-semibold text-white mb-2">{selectedCampaign.offerDescription}</h4>
             <p className="text-xl font-rubik font-bold earlyshh-text-gradient">Up to ${selectedCampaign.redeemableAmount}</p>
           </div>
-          
+
           <Button 
             className="w-full btn-electric mobile-touch"
             onClick={() => setSelectedCampaign(null)}
@@ -205,7 +205,7 @@ interface MapViewProps {
   onCampaignClick: (campaign: any) => void;
 }
 
-export default function MapView({ campaigns, userLocation, onCampaignClick }: MapViewProps) {
+function MapViewDuplicate({ campaigns, userLocation, onCampaignClick }: MapViewProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
 
@@ -300,7 +300,7 @@ export default function MapView({ campaigns, userLocation, onCampaignClick }: Ma
                       }
                     </Badge>
                   )}
-                  
+
                   <Button
                     size="sm"
                     onClick={() => onCampaignClick(selectedCampaign)}

@@ -41,30 +41,24 @@ export const getQueryFn: <T>(options: {
     return await res.json();
   };
 
-export const queryClient = new QueryClient({
+const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      cacheTime: 1000 * 60 * 30, // 30 minutes
       refetchOnWindowFocus: false,
+      refetchOnMount: false,
       retry: (failureCount, error: any) => {
-        // Don't retry on 4xx errors (client errors)
         if (error?.status >= 400 && error?.status < 500) {
           return false;
         }
-        // Retry up to 3 times for other errors
         return failureCount < 3;
       },
       retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
     },
     mutations: {
-      retry: (failureCount, error: any) => {
-        // Don't retry mutations on client errors
-        if (error?.status >= 400 && error?.status < 500) {
-          return false;
-        }
-        // Only retry once for mutations
-        return failureCount < 1;
-      },
+      retry: 1,
+      retryDelay: 1000,
     },
   },
 });
@@ -124,4 +118,41 @@ export function invalidateUserData(userId: string) {
 
 export function invalidateCampaigns() {
   queryClient.invalidateQueries({ queryKey: CACHE_KEYS.campaigns });
+}
+
+// Prefetch commonly used queries
+export function prefetchCommonQueries() {
+  // Prefetch user data
+  queryClient.prefetchQuery({
+    queryKey: ['user'],
+    queryFn: () => fetch('/api/user').then(res => res.json()),
+    staleTime: 1000 * 60 * 10, // 10 minutes
+  });
+
+  // Prefetch campaigns
+  queryClient.prefetchQuery({
+    queryKey: ['campaigns'],
+    queryFn: () => fetch('/api/campaigns').then(res => res.json()),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+}
+
+// Background cache warming
+export function warmCache() {
+  // Warm frequently accessed data in the background
+  const warmQueries = [
+    ['notifications'],
+    ['user', 'stats'],
+    ['campaigns', 'categories'],
+  ];
+
+  warmQueries.forEach(queryKey => {
+    if (!queryClient.getQueryData(queryKey)) {
+      queryClient.prefetchQuery({
+        queryKey,
+        queryFn: () => fetch(`/api/${queryKey.join('/')}`).then(res => res.json()),
+        staleTime: 1000 * 60 * 15, // 15 minutes
+      });
+    }
+  });
 }

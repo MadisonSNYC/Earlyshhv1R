@@ -14,7 +14,7 @@ interface CouponModalProps {
   onRedeemed: () => void;
 }
 
-export default function CouponModal({ coupon, onClose, onRedeemed }: CouponModalProps) {
+function CouponModalDuplicate({ coupon, onClose, onRedeemed }: CouponModalProps) {
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const [showFullTerms, setShowFullTerms] = useState(false);

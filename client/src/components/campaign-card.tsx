@@ -1,151 +1,99 @@
-import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { useToast } from "@/hooks/use-toast";
-import { useAuth } from "@/lib/auth";
-import { apiRequest } from "@/lib/api";
-import { Campaign } from "@shared/schema";
-import { CheckCircle } from "lucide-react";
-import PartnershipTermsModal from "./partnership-terms-modal";
-import React from 'react';
+import React, { memo, useCallback } from 'react';
+import { Card, CardContent } from './ui/card';
+import { Badge } from './ui/badge';
+import { Button } from './ui/button';
+import { MapPin, Clock, Users, ExternalLink } from 'lucide-react';
+import { Campaign } from '../types';
 
 interface CampaignCardProps {
-  campaign: Campaign & { claimedCount?: number; availableCount?: number };
-  onCouponClaimed?: (coupon: any) => void;
+  campaign: Campaign;
+  onClaim?: (campaignId: string) => void;
+  className?: string;
 }
 
-export const CampaignCard = React.memo(function CampaignCard({ campaign, onCouponClaimed }: CampaignCardProps) {
-  const { user } = useAuth();
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
-  const [alreadyClaimed, setAlreadyClaimed] = useState(false);
-  const [showTermsModal, setShowTermsModal] = useState(false);
+const CampaignCard = memo(({ campaign, onClaim, className = '' }: CampaignCardProps) => {
+  const handleClaim = useCallback(() => {
+    onClaim?.(campaign.id);
+  }, [onClaim, campaign.id]);
 
-  const claimMutation = useMutation({
-    mutationFn: async () => {
-      const response = await apiRequest('POST', `/api/campaigns/${campaign.id}/claim`, {
-        userId: user?.id,
-      });
-      return response.json();
-    },
-    onSuccess: (coupon) => {
-      toast({
-        title: "Partnership Secured!",
-        description: "You're in! Your exclusive partnership is ready.",
-      });
-      setAlreadyClaimed(true);
-      onCouponClaimed?.(coupon);
-      queryClient.invalidateQueries({ queryKey: ['/api/campaigns'] });
-    },
-    onError: (error: Error) => {
-      if (error.message.includes('already claimed')) {
-        setAlreadyClaimed(true);
-        toast({
-          title: "Partnership Active",
-          description: "You already have access to this partnership.",
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Partnership Unavailable",
-          description: error.message || "Please try again.",
-          variant: "destructive",
-        });
-      }
-    },
-  });
+  const formatDistance = useCallback((distance: number) => {
+    return distance < 1 ? `${Math.round(distance * 1000)}m` : `${distance.toFixed(1)}km`;
+  }, []);
 
-  const claimedCount = campaign.claimedCount || 0;
-  const maxCoupons = campaign.maxCoupons;
-  const progressPercentage = (claimedCount / maxCoupons) * 100;
-  const isAvailable = claimedCount < maxCoupons && !alreadyClaimed;
+  const formatTimeLeft = useCallback((expiryDate: string) => {
+    const now = new Date();
+    const expiry = new Date(expiryDate);
+    const diffMs = expiry.getTime() - now.getTime();
 
-  const handleUnlockPartnership = () => {
-    setShowTermsModal(true);
-  };
+    if (diffMs <= 0) return 'Expired';
 
-  const handleAcceptTerms = () => {
-    setShowTermsModal(false);
-    claimMutation.mutate();
-  };
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffHours / 24);
 
-  const getStatusBadge = () => {
-    if (alreadyClaimed) return <Badge variant="outline" className="glass-morphism border-green-400 text-green-400"><CheckCircle className="w-3 h-3 mr-1" />Secured</Badge>;
-    if (progressPercentage >= 90) return <Badge variant="secondary" className="bg-gradient-to-r from-orange-400 to-red-400 text-white border-0">Almost Full</Badge>;
-    return <Badge variant="default" className="bg-gradient-to-r from-green-400 to-cyan-400 text-gray-900 border-0 font-rubik font-600">Open</Badge>;
-  };
+    if (diffDays > 0) return `${diffDays}d left`;
+    return `${diffHours}h left`;
+  }, []);
 
   return (
-    <Card className="campaign-card-electric mobile-touch">
-      <CardContent className="p-5">
-        {/* Mobile-optimized header */}
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center space-x-3 flex-1">
-            <div className="w-12 h-12 earlyshh-gradient rounded-2xl flex items-center justify-center shadow-lg flex-shrink-0">
-              <div className="text-2xl">{campaign.brandName[0]}</div>
+    <Card className={`glass-morphism border-0 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl ${className}`}>
+      <CardContent className="p-4">
+        <div className="flex items-start space-x-3">
+          <div className="relative">
+            <img
+              src={campaign.brandLogo || '/api/placeholder/48/48'}
+              alt={campaign.brandName}
+              className="w-12 h-12 rounded-lg object-cover"
+              loading="lazy"
+            />
+            <div className="absolute -top-1 -right-1 w-4 h-4 bg-cyan-400 rounded-full border-2 border-white"></div>
+          </div>
+
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center justify-between mb-1">
+              <h3 className="font-semibold text-white text-sm truncate">
+                {campaign.brandName}
+              </h3>
+              <Badge variant="secondary" className="bg-cyan-400/20 text-cyan-300 text-xs">
+                {campaign.category}
+              </Badge>
             </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="font-rubik font-bold text-white text-base truncate">{campaign.brandName}</h3>
-              <p className="text-xs text-cyan-400 font-space">
-                {campaign.latitude && campaign.longitude ? "0.3 mi away" : "Digital offer"}
-              </p>
+
+            <p className="text-gray-300 text-xs mb-2 line-clamp-2">
+              {campaign.offerDescription}
+            </p>
+
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4 text-xs text-gray-400">
+                <div className="flex items-center space-x-1">
+                  <MapPin className="w-3 h-3" />
+                  <span>{formatDistance(campaign.distance || 0)}</span>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <Clock className="w-3 h-3" />
+                  <span>{formatTimeLeft(campaign.expiryDate)}</span>
+                </div>
+                <div className="flex items-center space-x-1">
+                  <Users className="w-3 h-3" />
+                  <span>{campaign.spotsLeft}/{campaign.totalSpots}</span>
+                </div>
+              </div>
+
+              <Button
+                onClick={handleClaim}
+                size="sm"
+                className="bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white text-xs px-3 py-1 h-7"
+              >
+                Claim
+                <ExternalLink className="w-3 h-3 ml-1" />
+              </Button>
             </div>
           </div>
-          <div className="flex-shrink-0 ml-2">
-            {getStatusBadge()}
-          </div>
         </div>
-
-        {/* Mobile-optimized content */}
-        <div className="mb-4">
-          <h4 className="font-rubik font-semibold text-white mb-1 text-sm leading-tight">{campaign.offerDescription}</h4>
-          <p className="text-xs text-gray-300 font-space mb-2">{campaign.productName}</p>
-          <p className="text-lg font-rubik font-bold earlyshh-text-gradient">Up to ${campaign.redeemableAmount}</p>
-        </div>
-
-        {/* Progress Bar */}
-        <div className="mb-5">
-          <div className="flex justify-between text-xs text-gray-400 mb-2 font-space">
-            <span>Early Access Spots</span>
-            <span>{maxCoupons - claimedCount} remaining</span>
-          </div>
-          <Progress value={progressPercentage} className="h-3 bg-gray-700" />
-          {progressPercentage >= 75 && (
-            <p className="text-xs text-orange-400 mt-1 font-space">Filling up fast! 🔥</p>
-          )}
-        </div>
-
-        <Button
-          onClick={handleUnlockPartnership}
-          disabled={!isAvailable || claimMutation.isPending}
-          className="btn-electric w-full py-3 text-base font-bold disabled:opacity-50 disabled:cursor-not-allowed mobile-touch"
-        >
-          {claimMutation.isPending ? (
-            "Securing Access..."
-          ) : alreadyClaimed ? (
-            <>
-              <CheckCircle className="w-5 h-5 mr-2" />
-              Access Secured
-            </>
-          ) : !isAvailable ? (
-            "Fully Booked"
-          ) : (
-            "Unlock Partnership"
-          )}
-        </Button>
       </CardContent>
-
-      {/* Partnership Terms Modal */}
-      {showTermsModal && (
-        <PartnershipTermsModal
-          campaign={campaign}
-          onAccept={handleAcceptTerms}
-          onClose={() => setShowTermsModal(false)}
-        />
-      )}
     </Card>
   );
-})
+});
+
+CampaignCard.displayName = 'CampaignCard';
+
+export default CampaignCard;

@@ -1,9 +1,10 @@
 
+import React, { memo } from 'react';
 import { Loader2 } from 'lucide-react';
 import { Card } from './ui/card';
 import { Skeleton } from './ui/skeleton';
 
-export function PageLoading({ message = "Loading..." }: { message?: string }) {
+export const PageLoading = memo(({ message = "Loading..." }: { message?: string }) => {
   return (
     <div className="min-h-screen electric-bg flex items-center justify-center">
       <div className="text-center space-y-4">
@@ -12,9 +13,9 @@ export function PageLoading({ message = "Loading..." }: { message?: string }) {
       </div>
     </div>
   );
-}
+});
 
-export function CampaignCardSkeleton() {
+export const CampaignCardSkeleton = memo(() => {
   return (
     <Card className="glass-morphism p-4 border-0">
       <div className="space-y-3">
@@ -33,9 +34,9 @@ export function CampaignCardSkeleton() {
       </div>
     </Card>
   );
-}
+});
 
-export function CampaignListSkeleton({ count = 3 }: { count?: number }) {
+export const CampaignListSkeleton = memo(({ count = 3 }: { count?: number }) => {
   return (
     <div className="space-y-4">
       {Array.from({ length: count }).map((_, i) => (
@@ -43,41 +44,11 @@ export function CampaignListSkeleton({ count = 3 }: { count?: number }) {
       ))}
     </div>
   );
-}
+});
 
-export function CouponSkeleton() {
+export const CouponDetailSkeleton = memo(() => {
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-3">
-          <Skeleton className="w-12 h-12 rounded-lg" />
-          <div className="space-y-2">
-            <Skeleton className="h-5 w-32" />
-            <Skeleton className="h-4 w-24" />
-          </div>
-        </div>
-        <Skeleton className="w-8 h-8 rounded" />
-      </div>
-
-      <Card className="glass-morphism p-6 border-0">
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <Skeleton className="h-5 w-48" />
-            <Skeleton className="h-4 w-32" />
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-1">
-              <Skeleton className="h-3 w-20" />
-              <Skeleton className="h-4 w-16" />
-            </div>
-            <div className="space-y-1">
-              <Skeleton className="h-3 w-16" />
-              <Skeleton className="h-4 w-24" />
-            </div>
-          </div>
-        </div>
-      </Card>
-
+    <div className="min-h-screen electric-bg p-4 flex items-center justify-center">
       <Card className="glass-morphism p-8 border-0 text-center">
         <div className="space-y-4">
           <Skeleton className="w-48 h-48 mx-auto rounded-2xl" />
@@ -90,9 +61,9 @@ export function CouponSkeleton() {
       </Card>
     </div>
   );
-}
+});
 
-export function InlineLoading({ size = "sm" }: { size?: "sm" | "md" | "lg" }) {
+export const InlineLoading = memo(({ size = "sm" }: { size?: "sm" | "md" | "lg" }) => {
   const sizeClasses = {
     sm: "w-4 h-4",
     md: "w-6 h-6", 
@@ -102,4 +73,30 @@ export function InlineLoading({ size = "sm" }: { size?: "sm" | "md" | "lg" }) {
   return (
     <Loader2 className={`animate-spin text-cyan-400 ${sizeClasses[size]}`} />
   );
-}
+});
+
+// Virtualized list skeleton for large datasets
+export const VirtualizedListSkeleton = memo(({ 
+  itemHeight = 120, 
+  visibleItems = 5 
+}: { 
+  itemHeight?: number; 
+  visibleItems?: number; 
+}) => {
+  return (
+    <div className="space-y-4">
+      {Array.from({ length: visibleItems }).map((_, i) => (
+        <div key={i} style={{ height: itemHeight }}>
+          <CampaignCardSkeleton />
+        </div>
+      ))}
+    </div>
+  );
+});
+
+PageLoading.displayName = 'PageLoading';
+CampaignCardSkeleton.displayName = 'CampaignCardSkeleton';
+CampaignListSkeleton.displayName = 'CampaignListSkeleton';
+CouponDetailSkeleton.displayName = 'CouponDetailSkeleton';
+InlineLoading.displayName = 'InlineLoading';
+VirtualizedListSkeleton.displayName = 'VirtualizedListSkeleton';
