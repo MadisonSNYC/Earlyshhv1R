@@ -131,7 +131,7 @@ export default function HomePage() {
             variant={selectedFilter === "all" ? "default" : "secondary"}
             className={`cursor-pointer whitespace-nowrap transition-all font-rubik font-600 px-4 py-2 rounded-xl ${
               selectedFilter === "all" 
-                ? "bg-gradient-to-r from-pink-500 to-gold-400 text-white shadow-lg border-0" 
+                ? "bg-gradient-to-r from-pink-500 to-yellow-400 text-white shadow-lg border-0" 
                 : "glass-morphism text-gray-300 hover:text-white border-white/20"
             }`}
             onClick={() => setSelectedFilter("all")}
@@ -142,7 +142,7 @@ export default function HomePage() {
             variant={selectedFilter === "food" ? "default" : "secondary"}
             className={`cursor-pointer whitespace-nowrap transition-all font-rubik font-600 px-4 py-2 rounded-xl ${
               selectedFilter === "food" 
-                ? "bg-gradient-to-r from-pink-500 to-gold-400 text-white shadow-lg border-0" 
+                ? "bg-gradient-to-r from-pink-500 to-yellow-400 text-white shadow-lg border-0" 
                 : "glass-morphism text-gray-300 hover:text-white border-white/20"
             }`}
             onClick={() => setSelectedFilter("food")}
@@ -153,7 +153,7 @@ export default function HomePage() {
             variant={selectedFilter === "premium" ? "default" : "secondary"}
             className={`cursor-pointer whitespace-nowrap transition-all font-rubik font-600 px-4 py-2 rounded-xl ${
               selectedFilter === "premium" 
-                ? "bg-gradient-to-r from-pink-500 to-gold-400 text-white shadow-lg border-0" 
+                ? "bg-gradient-to-r from-pink-500 to-yellow-400 text-white shadow-lg border-0" 
                 : "glass-morphism text-gray-300 hover:text-white border-white/20"
             }`}
             onClick={() => setSelectedFilter("premium")}
@@ -164,7 +164,7 @@ export default function HomePage() {
             variant={selectedFilter === "nightlife" ? "default" : "secondary"}
             className={`cursor-pointer whitespace-nowrap transition-all font-rubik font-600 px-4 py-2 rounded-xl ${
               selectedFilter === "nightlife" 
-                ? "bg-gradient-to-r from-pink-500 to-gold-400 text-white shadow-lg border-0" 
+                ? "bg-gradient-to-r from-pink-500 to-yellow-400 text-white shadow-lg border-0" 
                 : "glass-morphism text-gray-300 hover:text-white border-white/20"
             }`}
             onClick={() => setSelectedFilter("nightlife")}
