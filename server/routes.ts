@@ -1,10 +1,20 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { storage } from "./storage";
-import { insertUserSchema, insertCouponSchema, insertStorySchema, insertNotificationSchema } from "@shared/schema";
+import { insertNotificationSchema } from "@shared/schema";
 import { z } from "zod";
 
-// Instagram OAuth simulation for MVP
+// Business logic imports
+import { campaignBusiness } from "./business/campaign-business";
+import { couponBusiness } from "./business/coupon-business";
+import { userBusiness } from "./business/user-business";
+import { notificationBusiness } from "./business/notification-business";
+import { storyBusiness } from "./business/story-business";
+
+// Middleware imports
+import { validateBody, validateParams, validateQuery, idParamSchema, userIdQuerySchema } from "./middleware/validation-middleware";
+import { errorHandler, asyncHandler, createApiError } from "./middleware/error-middleware";
+
+// Request validation schemas
 const instagramLoginSchema = z.object({
   instagramId: z.string(),
   username: z.string(),
@@ -12,13 +22,12 @@ const instagramLoginSchema = z.object({
   profilePicUrl: z.string().optional(),
 });
 
-// Coupon claim schema
 const claimCouponSchema = z.object({
-  campaignId: z.number(),
+  userId: z.number(),
 });
 
-// Story creation schema
 const createStorySchema = z.object({
+  userId: z.number(),
   campaignId: z.number(),
   couponId: z.number().optional(),
   instagramStoryId: z.string().optional(),
@@ -26,231 +35,75 @@ const createStorySchema = z.object({
   reach: z.number().optional(),
 });
 
-function generateStubCouponCode(): string {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let result = 'STUB-';
-  for (let i = 0; i < 6; i++) {
-    result += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
-  return result;
-}
+const markNotificationReadSchema = z.object({
+  userId: z.number(),
+});
 
-function generateFetchCode(): string {
-  const segments = [];
-  for (let i = 0; i < 4; i++) {
-    let segment = '';
-    for (let j = 0; j < 4; j++) {
-      segment += Math.floor(Math.random() * 10).toString();
-    }
-    segments.push(segment);
-  }
-  return segments.join('-');
-}
+const markAllNotificationsReadSchema = z.object({
+  userId: z.number(),
+});
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Authentication routes
-  app.post("/api/auth/instagram", async (req, res) => {
-    try {
-      const data = instagramLoginSchema.parse(req.body);
-      
-      // Check if user already exists
-      let user = await storage.getUserByInstagramId(data.instagramId);
-      
-      if (!user) {
-        // Create new user
-        user = await storage.createUser({
-          instagramId: data.instagramId,
-          username: data.username,
-          fullName: data.fullName,
-          profilePicUrl: data.profilePicUrl || null,
-          ageVerified: true, // Assume verified for MVP
-          accessToken: null,
-        });
-      } else {
-        // Update last login
-        user = await storage.updateUser(user.id, { lastLogin: new Date() });
-      }
-
-      res.json({ user, message: "Login successful" });
-    } catch (error) {
-      res.status(400).json({ message: "Invalid login data", error: error instanceof Error ? error.message : "Unknown error" });
-    }
-  });
+  app.post("/api/auth/instagram", validateBody(instagramLoginSchema), asyncHandler(async (req: any, res: any) => {
+    const user = await userBusiness.authenticateOrCreateUser(req.body);
+    res.json({ user, message: "Login successful" });
+  }));
 
   // Campaign routes
-  app.get("/api/campaigns", async (req, res) => {
-    try {
-      const campaigns = await storage.getActiveCampaigns();
-      
-      // Add claim counts for each campaign
-      const campaignsWithStats = await Promise.all(
-        campaigns.map(async (campaign) => {
-          const coupons = await storage.getCampaignCoupons(campaign.id);
-          const claimedCount = coupons.length;
-          const redeemedCount = coupons.filter(c => c.status === 'redeemed').length;
-          
-          return {
-            ...campaign,
-            claimedCount,
-            redeemedCount,
-            availableCount: campaign.maxCoupons - claimedCount,
-          };
-        })
-      );
-      
-      res.json(campaignsWithStats);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch campaigns", error: error instanceof Error ? error.message : "Unknown error" });
-    }
-  });
+  app.get("/api/campaigns", asyncHandler(async (req: any, res: any) => {
+    const campaigns = await campaignBusiness.getAllCampaignsWithStats();
+    res.json(campaigns);
+  }));
 
-  app.get("/api/campaigns/:id", async (req, res) => {
-    try {
-      const campaignId = parseInt(req.params.id);
-      const campaign = await storage.getCampaign(campaignId);
-      
-      if (!campaign) {
-        return res.status(404).json({ message: "Campaign not found" });
-      }
-      
-      res.json(campaign);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch campaign", error: error instanceof Error ? error.message : "Unknown error" });
+  app.get("/api/campaigns/:id", validateParams(idParamSchema), asyncHandler(async (req: any, res: any) => {
+    const campaign = await campaignBusiness.getCampaignById(req.params.id);
+    
+    if (!campaign) {
+      throw createApiError(404, "Campaign not found");
     }
-  });
+    
+    res.json(campaign);
+  }));
 
   // Coupon routes
-  app.post("/api/campaigns/:id/claim", async (req, res) => {
-    try {
-      const campaignId = parseInt(req.params.id);
+  app.post("/api/campaigns/:id/claim", 
+    validateParams(idParamSchema), 
+    validateBody(claimCouponSchema), 
+    asyncHandler(async (req: any, res: any) => {
+      const campaignId = req.params.id;
       const { userId } = req.body;
-      
-      if (!userId) {
-        return res.status(400).json({ message: "User ID required" });
+
+      // Validate campaign and user eligibility
+      const validation = await campaignBusiness.validateCampaignForClaim(campaignId, userId);
+      if (!validation.valid) {
+        throw createApiError(400, validation.error!);
       }
 
-      // Check if campaign exists
-      const campaign = await storage.getCampaign(campaignId);
-      if (!campaign) {
-        return res.status(404).json({ message: "Campaign not found" });
-      }
+      const couponResponse = await couponBusiness.claimCouponForCampaign(campaignId, userId);
+      res.json(couponResponse);
+    })
+  );
 
-      // Check if user already claimed this campaign
-      const alreadyClaimed = await storage.hasUserClaimedCampaign(userId, campaignId);
-      if (alreadyClaimed) {
-        return res.status(400).json({ message: "You have already claimed this coupon" });
-      }
+  app.get("/api/users/:userId/coupons", validateParams(z.object({ userId: z.string().transform(val => parseInt(val, 10)) })), asyncHandler(async (req: any, res: any) => {
+    const coupons = await couponBusiness.getUserCouponsWithCampaigns(req.params.userId);
+    res.json(coupons);
+  }));
 
-      // Check if campaign has available coupons
-      const existingCoupons = await storage.getCampaignCoupons(campaignId);
-      if (existingCoupons.length >= campaign.maxCoupons) {
-        return res.status(400).json({ message: "No more coupons available for this campaign" });
-      }
-
-      // Generate stub coupon
-      const couponCode = generateStubCouponCode();
-      const fetchCode = generateFetchCode();
-      const expirationDate = new Date();
-      expirationDate.setMonth(expirationDate.getMonth() + 1); // 1 month expiry
-
-      const coupon = await storage.createCoupon({
-        campaignId,
-        userId,
-        code: couponCode,
-        productName: campaign.productName,
-        redeemableAmount: campaign.redeemableAmount,
-        expirationDate,
-        legalDisclaimer: "Terms apply. See details.",
-        qrData: `https://earlyshh.com/coupon/${couponCode}`,
-        fetchCode,
-        redeemedAt: null,
-        status: "claimed",
-      });
-
-      // Return enhanced coupon response
-      res.json({
-        couponId: coupon.id,
-        campaignId: coupon.campaignId,
-        code: coupon.code,
-        qrData: coupon.qrData,
-        fetchCode: coupon.fetchCode,
-        productName: coupon.productName,
-        brandLogo: campaign.brandLogoUrl,
-        earlyshLogo: "https://earlyshh.com/logo-small.png",
-        redeemableAmount: `$${coupon.redeemableAmount}`,
-        expirationDate: coupon.expirationDate.toISOString(),
-        legalDisclaimer: coupon.legalDisclaimer,
-        dateFetched: coupon.dateFetched.toISOString(),
-        status: coupon.status,
-      });
-    } catch (error) {
-      res.status(500).json({ message: "Failed to claim coupon", error: error instanceof Error ? error.message : "Unknown error" });
+  app.get("/api/coupons/:id", validateParams(idParamSchema), asyncHandler(async (req: any, res: any) => {
+    const coupon = await couponBusiness.getCouponWithCampaign(req.params.id);
+    
+    if (!coupon) {
+      throw createApiError(404, "Coupon not found");
     }
-  });
+    
+    res.json(coupon);
+  }));
 
-  app.get("/api/users/:userId/coupons", async (req, res) => {
-    try {
-      const userId = parseInt(req.params.userId);
-      const coupons = await storage.getUserCoupons(userId);
-      
-      // Enhance coupons with campaign data
-      const enhancedCoupons = await Promise.all(
-        coupons.map(async (coupon) => {
-          const campaign = await storage.getCampaign(coupon.campaignId);
-          return {
-            ...coupon,
-            campaign,
-          };
-        })
-      );
-      
-      res.json(enhancedCoupons);
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch user coupons", error: error instanceof Error ? error.message : "Unknown error" });
-    }
-  });
-
-  app.get("/api/coupons/:id", async (req, res) => {
-    try {
-      const couponId = parseInt(req.params.id);
-      const coupon = await storage.getCoupon(couponId);
-      
-      if (!coupon) {
-        return res.status(404).json({ message: "Coupon not found" });
-      }
-
-      const campaign = await storage.getCampaign(coupon.campaignId);
-      
-      res.json({
-        ...coupon,
-        campaign,
-        brandName: campaign?.brandName || "Unknown Brand",
-        productName: campaign?.productName || "Product",
-        offerDescription: campaign?.offerDescription || "Special Offer"
-      });
-    } catch (error) {
-      res.status(500).json({ message: "Failed to fetch coupon", error: error instanceof Error ? error.message : "Unknown error" });
-    }
-  });
-
-  app.patch("/api/coupons/:id/redeem", async (req, res) => {
-    try {
-      const couponId = parseInt(req.params.id);
-      
-      const updatedCoupon = await storage.updateCoupon(couponId, {
-        status: "redeemed",
-        redeemedAt: new Date(),
-      });
-      
-      if (!updatedCoupon) {
-        return res.status(404).json({ message: "Coupon not found" });
-      }
-      
-      res.json({ message: "Coupon redeemed successfully", coupon: updatedCoupon });
-    } catch (error) {
-      res.status(500).json({ message: "Failed to redeem coupon", error: error instanceof Error ? error.message : "Unknown error" });
-    }
-  });
+  app.patch("/api/coupons/:id/redeem", validateParams(idParamSchema), asyncHandler(async (req: any, res: any) => {
+    const updatedCoupon = await couponBusiness.redeemCoupon(req.params.id);
+    res.json({ message: "Coupon redeemed successfully", coupon: updatedCoupon });
+  }));
 
   // Story routes
   app.post("/api/stories", async (req, res) => {
@@ -436,6 +289,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to create notification", error: error instanceof Error ? error.message : "Unknown error" });
     }
   });
+
+  // Add error handling middleware
+  app.use(errorHandler);
 
   const httpServer = createServer(app);
   return httpServer;
