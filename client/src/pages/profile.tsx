@@ -31,15 +31,22 @@ export default function ProfilePage() {
     <div className="min-h-screen electric-bg flex flex-col">
       <div className="flex-1 px-4 pt-12 pb-20 space-y-6">
         {/* Profile Header */}
-        <div className="flex items-center space-x-3 mb-6">
-          <div className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center">
-            <div className="w-10 h-10 bg-gray-600 rounded-full"></div>
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-3">
+            <div className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-gray-600 rounded-full"></div>
+            </div>
+            <div>
+              <h2 className="text-white font-rubik font-bold text-lg">@maya_discovers</h2>
+              <p className="text-gray-300 font-space text-sm">Maya Chen</p>
+              <p className="text-gray-400 font-space text-xs">1247 followers · 892 following</p>
+            </div>
           </div>
-          <div>
-            <h2 className="text-white font-rubik font-bold text-lg">@maya_discovers</h2>
-            <p className="text-gray-300 font-space text-sm">Maya Chen</p>
-            <p className="text-gray-400 font-space text-xs">1247 followers · 892 following</p>
-          </div>
+          <Link href="/settings">
+            <Button variant="ghost" size="sm" className="text-gray-300 hover:text-white">
+              <Settings className="w-5 h-5" />
+            </Button>
+          </Link>
         </div>
 
         {/* Premium Discoverer Badge */}
