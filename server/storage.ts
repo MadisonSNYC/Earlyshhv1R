@@ -131,6 +131,9 @@ export class MemStorage implements IStorage {
     const user: User = {
       ...insertUser,
       id: this.currentUserId++,
+      profilePicUrl: insertUser.profilePicUrl || null,
+      ageVerified: insertUser.ageVerified || false,
+      accessToken: insertUser.accessToken || null,
       createdAt: new Date(),
       lastLogin: new Date(),
     };
@@ -168,6 +171,13 @@ export class MemStorage implements IStorage {
     const campaign: Campaign = {
       ...insertCampaign,
       id: this.currentCampaignId++,
+      offerId: insertCampaign.offerId || null,
+      status: insertCampaign.status || "active",
+      category: insertCampaign.category || "general",
+      radius: insertCampaign.radius || "1.0",
+      latitude: insertCampaign.latitude || null,
+      longitude: insertCampaign.longitude || null,
+      perUserLimit: insertCampaign.perUserLimit || 1,
     };
     this.campaigns.set(campaign.id, campaign);
     return campaign;
@@ -203,6 +213,8 @@ export class MemStorage implements IStorage {
     const coupon: Coupon = {
       ...insertCoupon,
       id: this.currentCouponId++,
+      status: insertCoupon.status || "claimed",
+      redeemedAt: insertCoupon.redeemedAt || null,
       dateFetched: new Date(),
       claimedAt: new Date(),
     };
@@ -242,6 +254,12 @@ export class MemStorage implements IStorage {
     const story: Story = {
       ...insertStory,
       id: this.currentStoryId++,
+      couponId: insertStory.couponId || null,
+      instagramStoryId: insertStory.instagramStoryId || null,
+      impressions: insertStory.impressions || 0,
+      reach: insertStory.reach || 0,
+      storyUrl: insertStory.storyUrl || null,
+      metadata: insertStory.metadata || null,
       detectedAt: new Date(),
     };
     this.stories.set(story.id, story);
@@ -257,6 +275,11 @@ export class MemStorage implements IStorage {
     const analytics: Analytics = {
       ...insertAnalytics,
       id: this.currentAnalyticsId++,
+      claimsIssued: insertAnalytics.claimsIssued || 0,
+      couponsRedeemed: insertAnalytics.couponsRedeemed || 0,
+      storiesVerified: insertAnalytics.storiesVerified || 0,
+      totalReach: insertAnalytics.totalReach || 0,
+      metadata: insertAnalytics.metadata || null,
       date: new Date(),
     };
     this.analytics.set(analytics.id, analytics);
