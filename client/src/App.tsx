@@ -13,7 +13,6 @@ import { BundleAnalyzer, markModuleAsUsed } from './lib/bundle-analyzer';
 // Lazy load pages with better chunk names
 const HomePage = React.lazy(() => import(/* webpackChunkName: "home" */ './pages/home'));
 const OnboardingPage = React.lazy(() => import(/* webpackChunkName: "onboarding" */ './pages/onboarding'));
-const CouponRedeemPage = React.lazy(() => import(/* webpackChunkName: "coupon" */ './pages/coupon-redeem'));
 const PartnershipConfirmationPage = React.lazy(() => import(/* webpackChunkName: "partnership" */ './pages/partnership-confirmation'));
 const ProfilePage = React.lazy(() => import(/* webpackChunkName: "profile" */ './pages/profile'));
 const MyCouponsPage = React.lazy(() => import(/* webpackChunkName: "my-coupons" */ './pages/my-coupons'));
@@ -48,7 +47,6 @@ function App() {
               <Switch>
                 <Route path="/" component={HomePage} />
                 <Route path="/onboarding" component={OnboardingPage} />
-                <Route path="/coupon/:id" component={CouponRedeemPage} />
                 <Route path="/partnership/:id" component={PartnershipConfirmationPage} />
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/my-coupons" component={MyCouponsPage} />
