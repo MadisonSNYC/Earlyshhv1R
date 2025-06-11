@@ -35,7 +35,13 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose, onV
   };
   return (
     <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className="max-w-md w-full p-0 glass-morphism border-white/20 overflow-hidden max-h-[90vh] flex flex-col">
+      <DialogContent className="max-w-md w-full p-0 glass-morphism border-white/20 overflow-hidden max-h-[90vh] flex flex-col"
+        style={{
+          maxHeight: '90vh',
+          display: 'flex',
+          flexDirection: 'column'
+        }}
+      >
         <DialogTitle className="sr-only">Partnership Terms and Conditions</DialogTitle>
         
         {/* Fixed Header */}
