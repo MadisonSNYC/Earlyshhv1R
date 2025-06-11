@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider, useAuth } from "@/lib/auth";
 
+import LoadingScreen from "@/components/loading-screen";
 import OnboardingPage from "@/pages/onboarding";
 import HomePage from "@/pages/home";
 import MyCouponsPage from "@/pages/my-coupons";
@@ -28,11 +29,7 @@ function Router() {
   const { user, isLoading } = useAuth();
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   if (!user) {
