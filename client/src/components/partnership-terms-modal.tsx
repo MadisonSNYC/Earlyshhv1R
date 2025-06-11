@@ -34,13 +34,20 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose, onV
     navigate(`/partnership-confirmation?campaign=${campaignData}`);
   };
   return (
-    <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className="max-w-md w-full p-0 glass-morphism border-white/20 max-h-[90vh] flex flex-col"
+    <Dialog open={true} onOpenChange={onClose} modal={true}>
+      <DialogContent className="max-w-md w-full p-0 glass-morphism border-white/20 max-h-[95vh] flex flex-col fixed inset-4 m-auto"
         style={{
-          maxHeight: '90vh',
+          maxHeight: 'calc(100vh - 2rem)',
+          height: 'auto',
           display: 'flex',
           flexDirection: 'column',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          position: 'fixed',
+          top: '1rem',
+          left: '1rem',
+          right: '1rem',
+          bottom: '1rem',
+          margin: 'auto'
         }}
       >
         <DialogTitle className="sr-only">Partnership Terms and Conditions</DialogTitle>
@@ -106,7 +113,15 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose, onV
         <Separator className="bg-white/10" />
 
         {/* Main Content */}
-        <div className="flex-1 overflow-y-auto mobile-scroll" style={{ minHeight: 0 }}>
+        <div 
+          className="flex-1 overflow-y-auto mobile-scroll" 
+          style={{ 
+            minHeight: 0,
+            WebkitOverflowScrolling: 'touch',
+            overscrollBehavior: 'contain',
+            touchAction: 'pan-y'
+          }}
+        >
           {/* Featured Partnership Card */}
           <div className="p-6 pt-4">
             <div className="bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-2xl p-6 border border-yellow-400/30 backdrop-blur-sm">
