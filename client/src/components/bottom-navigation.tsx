@@ -7,7 +7,6 @@ import { Home, Ticket, BarChart3, User, Bell } from "lucide-react";
 const NAV_ITEMS = [
   { href: '/', icon: Home, label: 'Home' },
   { href: '/my-coupons', icon: Ticket, label: 'Coupons' },
-  { href: '/analytics', icon: BarChart3, label: 'Analytics' },
   { href: '/notifications', icon: Bell, label: 'Notifications' },
   { href: '/profile', icon: User, label: 'Profile' }
 ];
