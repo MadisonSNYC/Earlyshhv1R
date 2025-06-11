@@ -1,13 +1,13 @@
 import React, { Suspense, useEffect } from 'react';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Toaster } from 'sonner';
+import { Route } from 'wouter';
+import { Toaster } from '@/components/ui/toaster';
 
 import { queryClient } from './lib/queryClient';
 import { AuthProvider } from './lib/auth';
 import { ErrorBoundary } from './components/error-boundary';
-import { GlobalErrorHandler } from './components/global-error-handler';
-import { LoadingScreen } from './components/loading-screen';
+import GlobalErrorHandler from './components/global-error-handler';
+import LoadingScreen from './components/loading-screen';
 import { BundleAnalyzer, markModuleAsUsed } from './lib/bundle-analyzer';
 
 // Lazy load pages with better chunk names
@@ -44,67 +44,63 @@ function App() {
         <AuthProvider>
           <GlobalErrorHandler />
           <div className="min-h-screen electric-bg">
-            <Router>
-              <Suspense fallback={<LoadingScreen />}>
-                <Switch>
-                  <Route path="/" component={() => (
-                    <ErrorBoundary>
-                      <HomePage />
-                    </ErrorBoundary>
-                  )} />
-                  <Route path="/onboarding" component={() => (
-                    <ErrorBoundary>
-                      <OnboardingPage />
-                    </ErrorBoundary>
-                  )} />
-                  <Route path="/coupon/:id" component={() => (
-                    <ErrorBoundary>
-                      <CouponRedeemPage />
-                    </ErrorBoundary>
-                  )} />
-                  <Route path="/partnership/:id" component={() => (
-                    <ErrorBoundary>
-                      <PartnershipConfirmationPage />
-                    </ErrorBoundary>
-                  )} />
-                  <Route path="/profile" component={() => (
-                    <ErrorBoundary>
-                      <ProfilePage />
-                    </ErrorBoundary>
-                  )} />
-                  <Route path="/my-coupons" component={() => (
-                    <ErrorBoundary>
-                      <MyCouponsPage />
-                    </ErrorBoundary>
-                  )} />
-                  <Route path="/notifications" component={() => (
-                    <ErrorBoundary>
-                      <NotificationsPage />
-                    </ErrorBoundary>
-                  )} />
-                  <Route path="/analytics" component={() => (
-                    <ErrorBoundary>
-                      <AnalyticsPage />
-                    </ErrorBoundary>
-                  )} />
-                  <Route path="/settings" component={() => (
-                    <ErrorBoundary>
-                      <SettingsPage />
-                    </ErrorBoundary>
-                  )} />
-                  <Route path="/activity/:id" component={() => (
-                    <ErrorBoundary>
-                      <ActivityDetailPage />
-                    </ErrorBoundary>
-                  )} />
-                  <Route component={() => (
-                    <ErrorBoundary>
-                      <NotFoundPage />
-                    </ErrorBoundary>
-                  )} />
-                </Switch>
-              </Suspense>
-            </Router>
+            <Suspense fallback={<LoadingScreen />}>
+              <Route path="/">
+                <ErrorBoundary>
+                  <HomePage />
+                </ErrorBoundary>
+              </Route>
+              <Route path="/onboarding">
+                <ErrorBoundary>
+                  <OnboardingPage />
+                </ErrorBoundary>
+              </Route>
+              <Route path="/coupon/:id">
+                <ErrorBoundary>
+                  <CouponRedeemPage />
+                </ErrorBoundary>
+              </Route>
+              <Route path="/partnership/:id">
+                <ErrorBoundary>
+                  <PartnershipConfirmationPage />
+                </ErrorBoundary>
+              </Route>
+              <Route path="/profile">
+                <ErrorBoundary>
+                  <ProfilePage />
+                </ErrorBoundary>
+              </Route>
+              <Route path="/my-coupons">
+                <ErrorBoundary>
+                  <MyCouponsPage />
+                </ErrorBoundary>
+              </Route>
+              <Route path="/notifications">
+                <ErrorBoundary>
+                  <NotificationsPage />
+                </ErrorBoundary>
+              </Route>
+              <Route path="/analytics">
+                <ErrorBoundary>
+                  <AnalyticsPage />
+                </ErrorBoundary>
+              </Route>
+              <Route path="/settings">
+                <ErrorBoundary>
+                  <SettingsPage />
+                </ErrorBoundary>
+              </Route>
+              <Route path="/activity/:id">
+                <ErrorBoundary>
+                  <ActivityDetailPage />
+                </ErrorBoundary>
+              </Route>
+              <Route>
+                <ErrorBoundary>
+                  <NotFoundPage />
+                </ErrorBoundary>
+              </Route>
+            </Suspense>
             <Toaster />
           </div>
         </AuthProvider>
