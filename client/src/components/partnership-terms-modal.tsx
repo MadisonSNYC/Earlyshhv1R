@@ -39,15 +39,50 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose, onV
               <h2 className="text-xl font-rubik font-bold text-white mb-1">
                 {campaign.brandName} Partnership
               </h2>
-              <p className="text-gray-300 text-sm font-space">
+              <p className="text-gray-300 text-sm font-space mb-2">
                 {campaign.offerDescription}
               </p>
+              <a
+                href={`https://instagram.com/${campaign.brandIgHandle || campaign.brandName.toLowerCase().replace(/\s+/g, '')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center text-xs text-pink-400 hover:text-pink-300 font-space transition-colors"
+              >
+                <Instagram className="w-3 h-3 mr-1" />
+                @{campaign.brandIgHandle || campaign.brandName.toLowerCase().replace(/\s+/g, '')}
+              </a>
             </div>
           </div>
 
-          <Badge className="bg-gradient-to-r from-pink-500 to-yellow-400 text-white border-0 font-rubik font-600">
-            Limited Access • {campaign.maxCoupons - (campaign.claimedCount || 0)} slots remaining
-          </Badge>
+          <div className="flex items-center justify-between">
+            <Badge className="bg-gradient-to-r from-pink-500 to-yellow-400 text-white border-0 font-rubik font-600">
+              Limited Access • {campaign.maxCoupons - (campaign.claimedCount || 0)} slots remaining
+            </Badge>
+          </div>
+
+          {/* Location Section */}
+          <div className="mt-4 glass-morphism rounded-xl p-4 border border-white/10">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <MapPin className="w-5 h-5 text-cyan-400" />
+                <div>
+                  <p className="text-white font-rubik font-semibold text-sm">{campaign.location || "Downtown District"}</p>
+                  <p className="text-gray-400 font-space text-xs">{distance}</p>
+                </div>
+              </div>
+              {onViewOnMap && (
+                <Button
+                  onClick={handleViewOnMap}
+                  variant="outline"
+                  size="sm"
+                  className="border-cyan-400/30 text-cyan-400 hover:bg-cyan-400/10 hover:text-cyan-300 font-rubik font-medium"
+                >
+                  <Navigation className="w-4 h-4 mr-1" />
+                  View on Map
+                </Button>
+              )}
+            </div>
+          </div>
         </div>
 
         <Separator className="bg-white/10" />
@@ -119,26 +154,35 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose, onV
         <div className="p-6 pt-4">
           <h3 className="text-lg font-rubik font-bold text-white mb-4 flex items-center">
             <Check className="w-5 h-5 mr-2 text-green-400" />
-            What You Get
+            Partnership Benefits
           </h3>
-          <div className="space-y-3">
-            <div className="flex items-start space-x-3">
-              <div className="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0"></div>
-              <span className="text-sm text-gray-300 font-space">
-                Free {campaign.productName} (up to ${campaign.redeemableAmount})
-              </span>
+          <div className="space-y-4">
+            <div className="glass-morphism rounded-lg p-3 border border-green-400/20">
+              <div className="flex items-center space-x-3">
+                <div className="w-3 h-3 bg-green-400 rounded-full flex-shrink-0"></div>
+                <span className="text-white font-rubik font-medium text-sm">
+                  Free {campaign.productName}
+                </span>
+                <Badge variant="outline" className="text-xs border-green-400/30 text-green-300 ml-auto">
+                  ${campaign.redeemableAmount} value
+                </Badge>
+              </div>
             </div>
-            <div className="flex items-start space-x-3">
-              <div className="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0"></div>
-              <span className="text-sm text-gray-300 font-space">
-                Early access to future {campaign.brandName} partnerships
-              </span>
+            <div className="glass-morphism rounded-lg p-3 border border-purple-400/20">
+              <div className="flex items-center space-x-3">
+                <div className="w-3 h-3 bg-purple-400 rounded-full flex-shrink-0"></div>
+                <span className="text-white font-rubik font-medium text-sm">
+                  Early access to future {campaign.brandName} deals
+                </span>
+              </div>
             </div>
-            <div className="flex items-start space-x-3">
-              <div className="w-2 h-2 bg-green-400 rounded-full mt-2 flex-shrink-0"></div>
-              <span className="text-sm text-gray-300 font-space">
-                VIP status in Earlyshh community
-              </span>
+            <div className="glass-morphism rounded-lg p-3 border border-pink-400/20">
+              <div className="flex items-center space-x-3">
+                <div className="w-3 h-3 bg-pink-400 rounded-full flex-shrink-0"></div>
+                <span className="text-white font-rubik font-medium text-sm">
+                  VIP community status & exclusive perks
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -147,16 +191,16 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose, onV
         <div className="p-6 pt-4 flex-shrink-0 space-y-3">
           <Button 
             onClick={onAccept}
-            className="w-full earlyshh-gradient hover:opacity-90 font-rubik font-semibold py-3 h-12 text-base"
+            className="w-full bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white font-rubik font-bold py-4 h-14 text-lg shadow-lg rounded-xl border-0"
           >
-            Accept Partnership Terms
+            Accept Partnership
           </Button>
           <Button 
             onClick={onClose}
             variant="outline" 
-            className="w-full border-white/20 text-gray-300 hover:text-white hover:bg-white/10 font-rubik font-medium h-10"
+            className="w-full border-white/30 text-gray-300 hover:text-white hover:bg-white/10 font-rubik font-medium h-12 rounded-xl"
           >
-            Maybe Later
+            Review Later
           </Button>
         </div>
       </DialogContent>
