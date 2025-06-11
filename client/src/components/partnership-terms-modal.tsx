@@ -14,14 +14,24 @@ interface PartnershipTermsModalProps {
 }
 
 export default function PartnershipTermsModal({ campaign, onAccept, onClose, onViewOnMap }: PartnershipTermsModalProps) {
+  const [location, navigate] = useLocation();
   // Calculate approximate distance (using mock data for now)
-  const distance = campaign.location || "0.3 miles away";
+  const distance = "0.3 miles away";
 
   const handleViewOnMap = () => {
     if (onViewOnMap) {
       onViewOnMap();
       onClose(); // Close modal when viewing on map
     }
+  };
+
+  const handleAcceptPartnership = () => {
+    // Execute the original onAccept callback
+    onAccept();
+    
+    // Navigate to partnership confirmation page with campaign data
+    const campaignData = encodeURIComponent(JSON.stringify(campaign));
+    navigate(`/partnership-confirmation?campaign=${campaignData}`);
   };
   return (
     <Dialog open={true} onOpenChange={onClose}>
