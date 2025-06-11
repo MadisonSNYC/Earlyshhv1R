@@ -55,13 +55,15 @@ export default function CouponRedeemPage() {
   };
 
   const handleCopyCode = () => {
-    navigator.clipboard.writeText(coupon.code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (coupon?.code) {
+      navigator.clipboard.writeText(coupon.code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   const handleShare = () => {
-    if (navigator.share) {
+    if (navigator.share && coupon) {
       navigator.share({
         title: `${coupon.brandName} Early Access`,
         text: `I got early access to ${coupon.offerDescription} at ${coupon.brandName}!`,
@@ -92,10 +94,10 @@ export default function CouponRedeemPage() {
             {/* Brand Name & Offer */}
             <div className="mb-6">
               <h2 className="text-4xl font-rubik font-black text-pink-400 mb-2">
-                {displayCoupon.brandName}
+                {coupon.brandName}
               </h2>
               <div className="text-5xl font-rubik font-black earlyshh-text-gradient">
-                {displayCoupon.offerDescription}
+                {coupon.offerDescription}
               </div>
             </div>
 
@@ -125,7 +127,7 @@ export default function CouponRedeemPage() {
               <p className="text-gray-300 font-space text-sm mb-2">Or use Fetch Code:</p>
               <div className="flex items-center justify-center space-x-2">
                 <div className="text-2xl font-mono font-bold text-white bg-black/50 px-4 py-2 rounded-lg">
-                  {displayCoupon.code}
+                  {coupon.code}
                 </div>
                 <Button 
                   variant="ghost" 
@@ -148,31 +150,30 @@ export default function CouponRedeemPage() {
             <div className="space-y-4 text-white font-space">
               <div>
                 <p className="font-semibold mb-2">You'll get:</p>
-                <p className="text-gray-300">• {displayCoupon.offerDescription} on {displayCoupon.productName}</p>
+                <p className="text-gray-300">• {coupon.offerDescription} on {coupon.productName}</p>
               </div>
 
               <div>
-                <p className="text-yellow-400 font-semibold mb-2">💰 {displayCoupon.requirements.compensation}</p>
+                <p className="text-yellow-400 font-semibold mb-2">💰 Mandatory 20% tip of total value of collab will be paid at the expense of the influencer</p>
               </div>
 
               <div>
-                <p className="text-gray-300 mb-2">{displayCoupon.requirements.restrictions}</p>
+                <p className="text-gray-300 mb-2">In house dining only 😊</p>
               </div>
 
               <div>
                 <p className="font-semibold mb-2">For at least one video Instagram story:</p>
                 <div className="bg-black/30 rounded-lg p-3 mb-3">
                   <p className="text-red-400 font-bold mb-2">! Must Haves:</p>
-                  {displayCoupon.requirements.mustHaves.map((item, index) => (
-                    <p key={index} className="text-gray-300 text-sm">• {item}</p>
-                  ))}
+                  <p className="text-gray-300 text-sm">• Video story 📱 (10+ sec)</p>
+                  <p className="text-gray-300 text-sm">• Talk 🎤 or add music 🎵</p>
+                  <p className="text-gray-300 text-sm">• Show the product</p>
                 </div>
 
                 <div className="bg-black/30 rounded-lg p-3">
                   <p className="font-bold mb-2">📱 Required Tags:</p>
-                  {displayCoupon.requirements.requiredTags.map((tag, index) => (
-                    <p key={index} className="text-gray-300 text-sm">• {tag}</p>
-                  ))}
+                  <p className="text-gray-300 text-sm">• @{coupon.brandName?.toLowerCase()}</p>
+                  <p className="text-gray-300 text-sm">• @inplace.usa (🔗 hidden)</p>
                 </div>
               </div>
             </div>
@@ -188,7 +189,7 @@ export default function CouponRedeemPage() {
           
           <div className="text-center">
             <p className="text-gray-400 font-space text-sm">
-              🏷️ Product: {displayCoupon.productName}
+              🏷️ Product: {coupon.productName}
             </p>
           </div>
         </div>
