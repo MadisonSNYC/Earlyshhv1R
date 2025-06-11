@@ -68,26 +68,18 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose }: P
               </div>
             </div>
 
-            {/* Location & Time Restrictions */}
-            <div className="grid grid-cols-2 gap-3">
-              <div className="glass-morphism rounded-xl p-3">
-                <div className="flex items-center space-x-2 mb-1">
-                  <MapPin className="w-4 h-4 text-blue-400" />
-                  <span className="text-sm font-rubik font-semibold text-white">Location</span>
+            {/* Time Restrictions */}
+            <div className="glass-morphism rounded-xl p-4">
+              <div className="flex items-start space-x-3">
+                <Clock className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                <div>
+                  <h4 className="font-rubik font-semibold text-white mb-1">
+                    Valid Until
+                  </h4>
+                  <p className="text-sm text-gray-300 font-space">
+                    Partnership expires {new Date(campaign.endDate).toLocaleDateString()}
+                  </p>
                 </div>
-                <p className="text-xs text-gray-300 font-space">
-                  Brooklyn area only
-                </p>
-              </div>
-
-              <div className="glass-morphism rounded-xl p-3">
-                <div className="flex items-center space-x-2 mb-1">
-                  <Clock className="w-4 h-4 text-green-400" />
-                  <span className="text-sm font-rubik font-semibold text-white">Valid Until</span>
-                </div>
-                <p className="text-xs text-gray-300 font-space">
-                  {new Date(campaign.endDate).toLocaleDateString()}
-                </p>
               </div>
             </div>
 
