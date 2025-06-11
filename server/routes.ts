@@ -86,6 +86,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
     })
   );
 
+  // Alternative endpoint for frontend compatibility
+  app.post("/api/coupons/claim/:id", 
+    validateParams(idParamSchema), 
+    validateBody(claimCouponSchema), 
+    asyncHandler(async (req: any, res: any) => {
+      const campaignId = req.params.id;
+      const { userId } = req.body;
+
+      // Validate campaign and user eligibility
+      const validation = await campaignBusiness.validateCampaignForClaim(campaignId, userId);
+      if (!validation.valid) {
+        throw createApiError(400, validation.error!);
+      }
+
+      const couponResponse = await couponBusiness.claimCouponForCampaign(campaignId, userId);
+      res.json(couponResponse);
+    })
+  );
+
   app.get("/api/users/:userId/coupons", validateParams(z.object({ userId: z.string().transform(val => parseInt(val, 10)) })), asyncHandler(async (req: any, res: any) => {
     const coupons = await couponBusiness.getUserCouponsWithCampaigns(req.params.userId);
     res.json(coupons);
