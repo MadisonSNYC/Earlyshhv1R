@@ -127,6 +127,84 @@ export class MemStorage implements IStorage {
     sampleCampaigns.forEach(campaign => {
       this.campaigns.set(campaign.id, campaign);
     });
+
+    // Create sample notifications
+    const sampleNotifications: Notification[] = [
+      {
+        id: this.currentNotificationId++,
+        userId: 1,
+        type: "new_deal",
+        title: "New Deal Alert!",
+        message: "SuperRoot Energy just dropped a free sample offer near you",
+        icon: "gift",
+        actionUrl: "/",
+        isRead: false,
+        priority: "high",
+        metadata: { campaignId: 1 },
+        createdAt: new Date(Date.now() - 5 * 60 * 1000), // 5 minutes ago
+        readAt: null,
+      },
+      {
+        id: this.currentNotificationId++,
+        userId: 1,
+        type: "achievement",
+        title: "First Coupon Claimed!",
+        message: "You've claimed your first early access deal. Keep exploring!",
+        icon: "trophy",
+        actionUrl: "/my-coupons",
+        isRead: false,
+        priority: "normal",
+        metadata: { achievement: "first_claim" },
+        createdAt: new Date(Date.now() - 30 * 60 * 1000), // 30 minutes ago
+        readAt: null,
+      },
+      {
+        id: this.currentNotificationId++,
+        userId: 1,
+        type: "redemption_confirmed",
+        title: "Deal Redeemed Successfully!",
+        message: "Your SuperRoot Energy coupon was redeemed at Brooklyn Store",
+        icon: "check-circle",
+        actionUrl: "/my-coupons",
+        isRead: true,
+        priority: "normal",
+        metadata: { couponId: 1, location: "Brooklyn Store" },
+        createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+        readAt: new Date(Date.now() - 60 * 60 * 1000), // 1 hour ago
+      },
+      {
+        id: this.currentNotificationId++,
+        userId: 1,
+        type: "deal_expiring",
+        title: "Deal Expires Soon",
+        message: "Your Glow Beauty face mask coupon expires in 2 hours",
+        icon: "clock",
+        actionUrl: "/redeem/2",
+        isRead: false,
+        priority: "high",
+        metadata: { couponId: 2, expiresIn: "2 hours" },
+        createdAt: new Date(Date.now() - 10 * 60 * 1000), // 10 minutes ago
+        readAt: null,
+      },
+      {
+        id: this.currentNotificationId++,
+        userId: 1,
+        type: "story_verified",
+        title: "Story Verified!",
+        message: "Your Instagram story was verified. Bonus points earned!",
+        icon: "instagram",
+        actionUrl: "/profile",
+        isRead: true,
+        priority: "normal",
+        metadata: { storyId: 1, bonusPoints: 50 },
+        createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago
+        readAt: new Date(Date.now() - 20 * 60 * 60 * 1000), // 20 hours ago
+      },
+    ];
+
+    sampleNotifications.forEach(notification => {
+      this.notifications.set(notification.id, notification);
+    });
   }
 
   // User operations
@@ -307,6 +385,64 @@ export class MemStorage implements IStorage {
       totalReach: updates.totalReach || 0,
       metadata: updates.metadata || null,
     });
+  }
+
+  async getNotification(id: number): Promise<Notification | undefined> {
+    return this.notifications.get(id);
+  }
+
+  async getUserNotifications(userId: number): Promise<Notification[]> {
+    return Array.from(this.notifications.values())
+      .filter(notification => notification.userId === userId)
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  }
+
+  async getUnreadNotifications(userId: number): Promise<Notification[]> {
+    return Array.from(this.notifications.values())
+      .filter(notification => notification.userId === userId && !notification.isRead)
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  }
+
+  async createNotification(insertNotification: InsertNotification): Promise<Notification> {
+    const notification: Notification = {
+      id: this.currentNotificationId++,
+      userId: insertNotification.userId,
+      type: insertNotification.type,
+      title: insertNotification.title,
+      message: insertNotification.message,
+      icon: insertNotification.icon,
+      actionUrl: insertNotification.actionUrl || null,
+      isRead: insertNotification.isRead || false,
+      priority: insertNotification.priority || "normal",
+      metadata: insertNotification.metadata || null,
+      createdAt: new Date(),
+      readAt: null,
+    };
+    this.notifications.set(notification.id, notification);
+    return notification;
+  }
+
+  async markNotificationAsRead(id: number): Promise<Notification | undefined> {
+    const notification = this.notifications.get(id);
+    if (notification) {
+      const updatedNotification = { ...notification, isRead: true, readAt: new Date() };
+      this.notifications.set(id, updatedNotification);
+      return updatedNotification;
+    }
+    return undefined;
+  }
+
+  async markAllNotificationsAsRead(userId: number): Promise<void> {
+    Array.from(this.notifications.entries()).forEach(([id, notification]) => {
+      if (notification.userId === userId && !notification.isRead) {
+        this.notifications.set(id, { ...notification, isRead: true, readAt: new Date() });
+      }
+    });
+  }
+
+  async getUnreadNotificationCount(userId: number): Promise<number> {
+    return Array.from(this.notifications.values())
+      .filter(notification => notification.userId === userId && !notification.isRead).length;
   }
 }
 

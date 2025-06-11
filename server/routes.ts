@@ -335,6 +335,103 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Notification routes
+  app.get("/api/notifications", async (req, res) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ message: "Authentication required" });
+      }
+
+      const notifications = await storage.getUserNotifications(userId);
+      res.json(notifications);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch notifications", error: error instanceof Error ? error.message : "Unknown error" });
+    }
+  });
+
+  app.get("/api/notifications/unread", async (req, res) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ message: "Authentication required" });
+      }
+
+      const unreadNotifications = await storage.getUnreadNotifications(userId);
+      res.json(unreadNotifications);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch unread notifications", error: error instanceof Error ? error.message : "Unknown error" });
+    }
+  });
+
+  app.get("/api/notifications/count", async (req, res) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ message: "Authentication required" });
+      }
+
+      const count = await storage.getUnreadNotificationCount(userId);
+      res.json({ count });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch notification count", error: error instanceof Error ? error.message : "Unknown error" });
+    }
+  });
+
+  app.patch("/api/notifications/:id/read", async (req, res) => {
+    try {
+      const notificationId = parseInt(req.params.id);
+      const userId = req.user?.id;
+
+      if (!userId) {
+        return res.status(401).json({ message: "Authentication required" });
+      }
+
+      const notification = await storage.getNotification(notificationId);
+      if (!notification || notification.userId !== userId) {
+        return res.status(404).json({ message: "Notification not found" });
+      }
+
+      const updatedNotification = await storage.markNotificationAsRead(notificationId);
+      res.json(updatedNotification);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to mark notification as read", error: error instanceof Error ? error.message : "Unknown error" });
+    }
+  });
+
+  app.patch("/api/notifications/read-all", async (req, res) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ message: "Authentication required" });
+      }
+
+      await storage.markAllNotificationsAsRead(userId);
+      res.json({ message: "All notifications marked as read" });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to mark notifications as read", error: error instanceof Error ? error.message : "Unknown error" });
+    }
+  });
+
+  app.post("/api/notifications", async (req, res) => {
+    try {
+      const userId = req.user?.id;
+      if (!userId) {
+        return res.status(401).json({ message: "Authentication required" });
+      }
+
+      const validatedData = insertNotificationSchema.parse({
+        ...req.body,
+        userId,
+      });
+
+      const notification = await storage.createNotification(validatedData);
+      res.status(201).json(notification);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create notification", error: error instanceof Error ? error.message : "Unknown error" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
