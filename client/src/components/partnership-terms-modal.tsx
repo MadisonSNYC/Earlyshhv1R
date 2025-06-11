@@ -215,7 +215,7 @@ export default function PartnershipTermsModal({ campaign, onAccept, onClose, onV
         {/* Action Buttons */}
         <div className="p-6 pt-4 flex-shrink-0 space-y-3">
           <Button 
-            onClick={onAccept}
+            onClick={handleAcceptPartnership}
             className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-rubik font-bold py-4 h-16 text-xl shadow-2xl rounded-2xl border-0 transform transition-all hover:scale-[1.02]"
           >
             Unlock Partnership 🎯

@@ -14,6 +14,7 @@ import ProfilePage from "@/pages/profile";
 import CouponRedeemPage from "@/pages/coupon-redeem";
 import NotificationsPage from "@/pages/notifications";
 import PartnershipConfirmationPage from "@/pages/partnership-confirmation";
+import SettingsPage from "@/pages/settings";
 import NotFound from "@/pages/not-found";
 
 function AuthenticatedApp() {
@@ -24,6 +25,7 @@ function AuthenticatedApp() {
       <Route path="/notifications" component={NotificationsPage} />
       <Route path="/analytics" component={AnalyticsPage} />
       <Route path="/profile" component={ProfilePage} />
+      <Route path="/settings" component={SettingsPage} />
       <Route path="/redeem/:couponId" component={CouponRedeemPage} />
       <Route path="/partnership-confirmation" component={PartnershipConfirmationPage} />
       <Route component={NotFound} />
