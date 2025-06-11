@@ -103,15 +103,17 @@ export class CouponBusiness {
 
   private formatCouponResponse(coupon: any, campaign: any) {
     return {
+      id: coupon.id,
       couponId: coupon.id,
       campaignId: coupon.campaignId,
       code: coupon.code,
       qrData: coupon.qrData,
       fetchCode: coupon.fetchCode,
       productName: coupon.productName,
+      brandName: campaign.brandName,
       brandLogo: campaign.brandLogoUrl,
       earlyshLogo: "https://earlyshh.com/logo-small.png",
-      redeemableAmount: `$${coupon.redeemableAmount}`,
+      redeemableAmount: coupon.redeemableAmount,
       expirationDate: coupon.expirationDate.toISOString(),
       legalDisclaimer: coupon.legalDisclaimer,
       dateFetched: coupon.dateFetched.toISOString(),

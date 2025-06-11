@@ -145,7 +145,7 @@ export default function QRCodePage() {
           {/* QR Code */}
           <div className="flex justify-center mb-8">
             <div className="bg-white p-4 rounded-2xl border-4 border-pink-400 shadow-lg">
-              <QRCode
+              <QRCodeSVG
                 value={coupon.qrData || `${coupon.fetchCode}-${coupon.id}`}
                 size={200}
                 level="M"
