@@ -42,17 +42,18 @@ const CampaignCard = memo(({ campaign, onClaim, className = '' }: CampaignCardPr
   }, []);
 
   return (
-    <Card className={`campaign-card border-0 transition-all duration-300 hover:scale-[1.02] hover:shadow-xl ${className}`}>
+    <Card className={`campaign-card bg-gray-900/90 border border-gray-700/50 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:border-cyan-400/30 ${className}`}>
       <CardContent className="p-4">
         <div className="flex items-start space-x-3">
           <div className="relative">
-            <img
-              src={campaign.brandLogoUrl || '/api/placeholder/48/48'}
-              alt={campaign.brandName}
-              className="w-12 h-12 rounded-lg object-cover"
-              loading="lazy"
-            />
-            <div className="absolute -top-1 -right-1 w-4 h-4 bg-cyan-400 rounded-full border-2 border-white"></div>
+            <div className="w-12 h-12 bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg flex items-center justify-center border border-gray-600">
+              <span className="text-white font-bold text-lg">
+                {campaign.brandName.charAt(0)}
+              </span>
+            </div>
+            <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-gray-900 flex items-center justify-center">
+              <span className="text-xs text-gray-900 font-bold">✓</span>
+            </div>
           </div>
 
           <div className="flex-1 min-w-0">
@@ -65,9 +66,24 @@ const CampaignCard = memo(({ campaign, onClaim, className = '' }: CampaignCardPr
               </Badge>
             </div>
 
-            <p className="text-gray-300 text-xs mb-2 line-clamp-2">
+            <p className="text-gray-300 text-xs mb-3 line-clamp-2">
               {campaign.offerDescription}
             </p>
+
+            <div className="mb-3">
+              <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
+                <span>Early Access Spots</span>
+                <span>{Math.max(0, campaign.maxCoupons - (campaign.claimedCount || 0))} remaining</span>
+              </div>
+              <div className="w-full bg-gray-700 rounded-full h-1.5">
+                <div 
+                  className="bg-gradient-to-r from-cyan-400 to-green-400 h-1.5 rounded-full transition-all duration-300"
+                  style={{ 
+                    width: `${Math.max(10, ((campaign.maxCoupons - (campaign.claimedCount || 0)) / campaign.maxCoupons) * 100)}%` 
+                  }}
+                ></div>
+              </div>
+            </div>
 
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-4 text-xs text-gray-400">
@@ -79,18 +95,14 @@ const CampaignCard = memo(({ campaign, onClaim, className = '' }: CampaignCardPr
                   <Clock className="w-3 h-3" />
                   <span>{formatTimeLeft(campaign.endDate)}</span>
                 </div>
-                <div className="flex items-center space-x-1">
-                  <Users className="w-3 h-3" />
-                  <span>{Math.max(0, campaign.maxCoupons - (campaign.claimedCount || 0))}/{campaign.maxCoupons}</span>
-                </div>
               </div>
 
               <Button
                 onClick={handleClaim}
                 size="sm"
-                className="bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white text-xs px-3 py-1 h-7"
+                className="bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white text-xs px-4 py-2 h-8 font-semibold rounded-full shadow-lg"
               >
-                Claim
+                Unlock Partnership
                 <ExternalLink className="w-3 h-3 ml-1" />
               </Button>
             </div>
