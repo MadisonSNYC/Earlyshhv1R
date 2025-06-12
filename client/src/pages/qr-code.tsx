@@ -1,13 +1,18 @@
 import { useState, useEffect } from 'react';
-import { useRoute } from 'wouter';
-import { ArrowLeft, Share2, Clock } from 'lucide-react';
+import { useRoute, useLocation } from 'wouter';
+import { ArrowLeft, Share2, Clock, CheckCircle, Instagram } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { QRCodeSVG } from 'qrcode.react';
+import { useToast } from '@/hooks/use-toast';
 
 export default function QRCodePage() {
   const [, params] = useRoute('/qr/:couponId');
+  const [, setLocation] = useLocation();
   const [timeLeft, setTimeLeft] = useState('24 minutes');
+  const [isRedeemed, setIsRedeemed] = useState(false);
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   // Create mock coupon for demo purposes
   const mockCoupon = {
@@ -36,6 +41,43 @@ export default function QRCodePage() {
   });
 
   const coupon = fetchedCoupon || mockCoupon;
+
+  // Mark coupon as redeemed mutation
+  const markRedeemedMutation = useMutation({
+    mutationFn: async (couponId: string) => {
+      const response = await fetch(`/api/coupons/${couponId}/redeem`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: 1 }), // Using hardcoded userId for MVP
+      });
+      if (!response.ok) throw new Error('Failed to mark as redeemed');
+      return response.json();
+    },
+    onSuccess: () => {
+      setIsRedeemed(true);
+      toast({
+        title: "Coupon Redeemed!",
+        description: "Now share your experience on Instagram and complete the survey.",
+      });
+      // Navigate to Instagram story posting flow
+      setTimeout(() => {
+        setLocation(`/instagram-story/${params?.couponId}`);
+      }, 2000);
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to mark coupon as redeemed",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleMarkRedeemed = () => {
+    if (params?.couponId) {
+      markRedeemedMutation.mutate(params.couponId);
+    }
+  };
 
   // Update countdown timer
   useEffect(() => {
@@ -193,14 +235,33 @@ export default function QRCodePage() {
           </div>
         </div>
 
-        {/* Post to Instagram Button */}
-        <div className="mt-6 px-2">
-          <Button
-            onClick={handlePostToInstagram}
-            className="w-full bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white py-4 rounded-2xl text-lg font-semibold shadow-lg"
-          >
-            Post to Instagram Story
-          </Button>
+        {/* Mark as Redeemed Button */}
+        <div className="mt-6 px-2 space-y-3">
+          {!isRedeemed ? (
+            <Button
+              onClick={handleMarkRedeemed}
+              disabled={markRedeemedMutation.isPending}
+              className="w-full bg-gradient-to-r from-green-500 to-emerald-400 hover:from-green-600 hover:to-emerald-500 text-white py-4 rounded-2xl text-lg font-semibold shadow-lg disabled:opacity-50"
+            >
+              {markRedeemedMutation.isPending ? (
+                <div className="flex items-center space-x-2">
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <span>Processing...</span>
+                </div>
+              ) : (
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="w-5 h-5" />
+                  <span>Mark as Redeemed</span>
+                </div>
+              )}
+            </Button>
+          ) : (
+            <div className="bg-green-100 border border-green-400 rounded-2xl p-4 text-center">
+              <CheckCircle className="w-8 h-8 text-green-600 mx-auto mb-2" />
+              <p className="text-green-800 font-semibold">Coupon Redeemed Successfully!</p>
+              <p className="text-green-600 text-sm mt-1">Redirecting to share your experience...</p>
+            </div>
+          )}
         </div>
 
         {/* Product Info */}

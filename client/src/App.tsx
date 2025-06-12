@@ -22,6 +22,8 @@ const SettingsPage = React.lazy(() => import(/* webpackChunkName: "settings" */ 
 const GamificationPage = React.lazy(() => import(/* webpackChunkName: "gamification" */ './pages/gamification'));
 const ActivityDetailPage = React.lazy(() => import(/* webpackChunkName: "activity" */ './pages/activity-detail'));
 const QRCodePage = React.lazy(() => import(/* webpackChunkName: "qr-code" */ './pages/qr-code'));
+const InstagramStoryPage = React.lazy(() => import(/* webpackChunkName: "instagram-story" */ './pages/instagram-story'));
+const SurveyPage = React.lazy(() => import(/* webpackChunkName: "survey" */ './pages/survey'));
 const BrandProfilePage = React.lazy(() => import(/* webpackChunkName: "brand-profile" */ './pages/brand-profile'));
 const BrandAboutPage = React.lazy(() => import(/* webpackChunkName: "brand-about" */ './pages/brand-about'));
 const NotFoundPage = React.lazy(() => import(/* webpackChunkName: "not-found" */ './pages/not-found'));
@@ -58,6 +60,8 @@ function App() {
                 <Route path="/settings" component={SettingsPage} />
                 <Route path="/activity/:id" component={ActivityDetailPage} />
                 <Route path="/qr/:couponId" component={QRCodePage} />
+                <Route path="/instagram-story/:couponId" component={InstagramStoryPage} />
+                <Route path="/survey/:couponId" component={SurveyPage} />
                 <Route path="/brand/:brandId" component={BrandProfilePage} />
                 <Route path="/brand/:id" component={BrandAboutPage} />
                 <Route path="/gamification" component={GamificationPage} />
