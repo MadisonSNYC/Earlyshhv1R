@@ -128,20 +128,17 @@ export default function StartupPage() {
         <div className="text-center z-10 space-y-8">
           {/* Logo and brand with animated gradients */}
           <div className="space-y-6">
-            <div className="flex items-center justify-center space-x-4">
+            <div className="flex items-center justify-center space-x-3">
               <div className="relative">
                 {/* Animated glow layers */}
-                <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 via-orange-400 to-red-400 rounded-full blur-lg opacity-60 animate-pulse" />
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 rounded-full blur-md opacity-40 animate-ping" style={{ animationDuration: '3s' }} />
-                <div className="absolute inset-0 bg-gradient-to-r from-pink-300 via-purple-400 to-indigo-400 rounded-full blur-sm opacity-30" style={{ 
-                  animation: 'spin 8s linear infinite' 
-                }} />
-                <Zap className="relative w-16 h-16 text-yellow-300 animate-bounce filter drop-shadow-lg" style={{ animationDuration: '2s' }} />
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 via-orange-400 to-red-400 rounded-full blur-md opacity-50 animate-pulse" />
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 rounded-full blur-sm opacity-30 animate-ping" style={{ animationDuration: '3s' }} />
+                <Zap className="relative w-12 h-12 text-yellow-300 animate-bounce filter drop-shadow-lg" style={{ animationDuration: '2s' }} />
               </div>
               
               {/* Animated gradient text */}
               <div className="relative">
-                <h1 className="text-7xl font-bold tracking-wide relative">
+                <h1 className="text-5xl font-bold tracking-wide relative">
                   <span 
                     className="absolute inset-0 bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-pulse"
                     style={{ animationDuration: '2s' }}
@@ -174,9 +171,11 @@ export default function StartupPage() {
                 />
               </div>
             </div>
-            <p className="text-2xl text-white/90 font-light tracking-wide animate-pulse">
-              Social-First Partnership Platform
-            </p>
+            <div className="bg-black/20 backdrop-blur-sm rounded-lg px-4 py-2 border border-white/20">
+              <p className="text-xl text-white font-medium tracking-wide">
+                Social-First Partnership Platform
+              </p>
+            </div>
           </div>
 
           {/* Enhanced loading status with icons */}
