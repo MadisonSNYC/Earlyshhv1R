@@ -163,26 +163,24 @@ export default function MapView({ campaigns, onCouponClaimed, onCampaignClick }:
   };
 
   return (
-    <div className="relative h-full electric-bg overflow-hidden">
-      {/* Brooklyn Map Background */}
+    <div className="relative h-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden rounded-2xl border border-gray-700">
+      {/* Map Background */}
       <div className="absolute inset-0">
         <div className="w-full h-full relative">
-          {/* Street grid pattern for Williamsburg */}
+          {/* Street grid pattern */}
           <div 
-            className="absolute inset-0 opacity-10" 
+            className="absolute inset-0 opacity-20" 
             style={{
-              backgroundImage: `repeating-linear-gradient(15deg, transparent, transparent 30px, rgba(255,255,255,0.1) 30px, rgba(255,255,255,0.1) 32px), repeating-linear-gradient(105deg, transparent, transparent 25px, rgba(255,255,255,0.1) 25px, rgba(255,255,255,0.1) 27px)`
+              backgroundImage: `repeating-linear-gradient(15deg, transparent, transparent 30px, rgba(168, 85, 247, 0.1) 30px, rgba(168, 85, 247, 0.1) 32px), repeating-linear-gradient(105deg, transparent, transparent 25px, rgba(236, 72, 153, 0.1) 25px, rgba(236, 72, 153, 0.1) 27px)`
             }}
           />
 
-          {/* East River representation */}
-          <div className="absolute right-0 top-0 w-16 h-full bg-gradient-to-l from-blue-900/30 to-transparent"></div>
+          {/* River representation */}
+          <div className="absolute right-0 top-0 w-16 h-full bg-gradient-to-l from-cyan-500/20 to-transparent"></div>
 
-          {/* Bedford Ave street line */}
-          <div className="absolute left-1/3 top-0 w-1 h-full bg-white/10"></div>
-
-          {/* Metropolitan Ave street line */}
-          <div className="absolute top-1/2 left-0 w-full h-1 bg-white/10"></div>
+          {/* Street lines */}
+          <div className="absolute left-1/3 top-0 w-1 h-full bg-purple-400/20"></div>
+          <div className="absolute top-1/2 left-0 w-full h-1 bg-pink-400/20"></div>
         </div>
       </div>
 
