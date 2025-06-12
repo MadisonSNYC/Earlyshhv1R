@@ -270,15 +270,15 @@ export default function HomePage() {
 
       {/* Partnership Listings */}
       <main className="relative z-10 max-w-md mx-auto px-6 py-6 pb-32">
-        {viewMode === 'map' ? (
-          <MapView 
-            campaigns={filteredCampaigns}
-            onCampaignClick={(campaign) => {
-              setSelectedCampaign(campaign);
-              setShowPartnershipModal(true);
-            }}
-            onCouponClaimed={handleCampaignClaim}
-          />
+{viewMode === 'map' ? (
+          <div className="text-center py-16">
+            <button 
+              onClick={() => setLocation('/map')}
+              className="bg-gradient-to-r from-orange-400 via-pink-500 to-purple-400 text-white px-6 py-3 rounded-2xl font-bold hover:scale-105 transition-all duration-300"
+            >
+              View Map
+            </button>
+          </div>
         ) : (
           <>
             {Object.entries(groupedCampaigns).map(([category, categoryCampaigns]) => (
@@ -402,7 +402,7 @@ export default function HomePage() {
       {/* Partnership Terms Modal */}
       {showPartnershipModal && selectedCampaign && (
         <PartnershipTermsModal
-          campaign={selectedCampaign}
+          campaign={selectedCampaign as any}
           onAccept={handlePartnershipAccept}
           onClose={() => setShowPartnershipModal(false)}
         />
