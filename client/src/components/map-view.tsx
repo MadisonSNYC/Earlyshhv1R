@@ -220,8 +220,12 @@ export default function MapView({ campaigns, onCouponClaimed, onCampaignClick }:
         </div>
       </div>
 
-      {/* Brooklyn Business Pins */}
-      {brooklynLocations.map((location, index) => (
+      {/* Additional Location Pins */}
+      {[
+        { name: "Local Café", address: "123 Main St", distance: "0.2 mi", type: "coffee", position: { top: "25%", left: "30%" } },
+        { name: "Food Market", address: "456 Broadway", distance: "0.4 mi", type: "food", position: { top: "40%", right: "25%" } },
+        { name: "Fashion Store", address: "789 5th Ave", distance: "0.3 mi", type: "retail", position: { top: "60%", left: "40%" } }
+      ].map((location, index) => (
         <div
           key={index}
           className="absolute cursor-pointer"

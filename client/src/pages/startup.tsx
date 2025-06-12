@@ -240,18 +240,18 @@ export default function StartupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-cyan-400 flex items-center justify-center px-4">
-      <Card className="w-full max-w-md bg-white/10 backdrop-blur-lg border-white/20">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 flex items-center justify-center px-4">
+      <Card className="w-full max-w-md bg-gray-800/60 backdrop-blur-xl border-gray-700/50 shadow-2xl">
         <CardContent className="p-8">
           {/* Logo */}
           <div className="text-center mb-8">
             <div className="flex items-center justify-center space-x-3 mb-4">
-              <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm border border-white/30">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg border border-purple-400/50">
                 <Zap className="w-6 h-6 text-white" />
               </div>
-              <h1 className="text-3xl font-bold text-white">EARLYSHH</h1>
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">EARLYSHH</h1>
             </div>
-            <p className="text-white/80 text-sm">
+            <p className="text-gray-300 text-sm">
               Discover exclusive partnerships near you
             </p>
           </div>

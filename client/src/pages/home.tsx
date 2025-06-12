@@ -225,41 +225,54 @@ export default function HomePage() {
 
       {/* Content */}
       <main className="max-w-md mx-auto px-4 py-6 pb-24">
-        {Object.entries(groupedCampaigns).map(([category, categoryCampaigns]) => (
-          <div key={category} className="mb-8">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-white">{category}</h2>
-              <span className="text-sm text-gray-400">
-                {categoryCampaigns.length} available
-              </span>
-            </div>
-            
-            <div className="space-y-4">
-              {categoryCampaigns.map((campaign) => (
-                <CampaignCard
-                  key={campaign.id}
-                  campaign={campaign}
-                  onClaim={() => handleCampaignClaim(campaign)}
-                  onCardClick={() => {
-                    setSelectedCampaign(campaign);
-                    setShowPartnershipModal(true);
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-        ))}
+        {viewMode === 'map' ? (
+          <MapView 
+            campaigns={filteredCampaigns}
+            onCampaignClick={(campaign) => {
+              setSelectedCampaign(campaign);
+              setShowPartnershipModal(true);
+            }}
+            onCouponClaimed={handleCampaignClaim}
+          />
+        ) : (
+          <>
+            {Object.entries(groupedCampaigns).map(([category, categoryCampaigns]) => (
+              <div key={category} className="mb-8">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-lg font-semibold text-white">{category}</h2>
+                  <span className="text-sm text-gray-400">
+                    {(categoryCampaigns as any[]).length} available
+                  </span>
+                </div>
+                
+                <div className="space-y-4">
+                  {(categoryCampaigns as any[]).map((campaign) => (
+                    <CampaignCard
+                      key={campaign.id}
+                      campaign={campaign}
+                      onClaim={() => handleCampaignClaim(campaign)}
+                      onCardClick={() => {
+                        setSelectedCampaign(campaign);
+                        setShowPartnershipModal(true);
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
 
-        {filteredCampaigns.length === 0 && (
-          <div className="text-center py-12">
-            <div className="mb-4">
-              <Filter className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-              <h3 className="text-lg font-medium text-white mb-2">No offers found</h3>
-              <p className="text-gray-400">
-                Try adjusting your search or category filter
-              </p>
-            </div>
-          </div>
+            {filteredCampaigns.length === 0 && (
+              <div className="text-center py-12">
+                <div className="mb-4">
+                  <Filter className="w-12 h-12 text-gray-400 mx-auto mb-2" />
+                  <h3 className="text-lg font-medium text-white mb-2">No offers found</h3>
+                  <p className="text-gray-400">
+                    Try adjusting your search or category filter
+                  </p>
+                </div>
+              </div>
+            )}
+          </>
         )}
       </main>
 
