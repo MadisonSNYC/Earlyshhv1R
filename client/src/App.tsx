@@ -11,6 +11,7 @@ import LoadingScreen from './components/loading-screen';
 import { BundleAnalyzer, markModuleAsUsed } from './lib/bundle-analyzer';
 
 // Lazy load pages with better chunk names
+const StartupPage = React.lazy(() => import(/* webpackChunkName: "startup" */ './pages/startup'));
 const HomePage = React.lazy(() => import(/* webpackChunkName: "home" */ './pages/home'));
 const OnboardingPage = React.lazy(() => import(/* webpackChunkName: "onboarding" */ './pages/onboarding'));
 const PartnershipConfirmationPage = React.lazy(() => import(/* webpackChunkName: "partnership" */ './pages/partnership-confirmation'));
@@ -50,8 +51,10 @@ function App() {
           <div className="min-h-screen earlyshh-bg">
             <Suspense fallback={<div className="flex items-center justify-center min-h-screen"><div className="loading-skeleton w-8 h-8 rounded-full"></div></div>}>
               <Switch>
-                <Route path="/" component={HomePage} />
+                <Route path="/startup" component={StartupPage} />
                 <Route path="/onboarding" component={OnboardingPage} />
+                <Route path="/home" component={HomePage} />
+                <Route path="/" component={StartupPage} />
                 <Route path="/partnership/:id" component={PartnershipConfirmationPage} />
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/my-coupons" component={MyCouponsPage} />

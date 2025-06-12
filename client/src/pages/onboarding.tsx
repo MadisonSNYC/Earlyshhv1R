@@ -1,199 +1,294 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { useAuth } from "@/lib/auth";
-import { 
-  ShoppingBag, 
-  MapPin, 
-  Smartphone, 
-  Building2, 
-  Camera,
-  Target,
-  Instagram,
-  ArrowRight,
-  ArrowLeft,
-  Sparkles
-} from "lucide-react";
 import { useLocation } from "wouter";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { 
+  Zap, 
+  MapPin, 
+  Gift, 
+  Users, 
+  ArrowRight, 
+  ChevronLeft,
+  Instagram,
+  Bell,
+  Shield
+} from "lucide-react";
 
-const ONBOARDING_STEPS = [
+const onboardingSteps = [
   {
     id: 1,
-    icon: ShoppingBag,
-    title: "Welcome to Earlyshh 🎯",
-    description: "Your neighborhood partnership awaits. Get first access to the brands everyone will discover.",
-    action: "Join the Community",
-    colors: ["#FF6B9D", "#4ECDC4"]
+    title: "Welcome to EARLYSHH",
+    subtitle: "Connect your Instagram to get started",
+    content: "instagram-connect"
   },
   {
     id: 2,
-    icon: MapPin,
-    title: "Discover Exclusive Partnerships 📍",
-    description: "Handpicked brands offer limited partnership slots to community members in your area.",
-    action: "Explore Partnerships",
-    colors: ["#A855F7", "#EC4899"]
+    title: "Enable Location",
+    subtitle: "Find exclusive partnerships near you",
+    content: "location-permission"
   },
   {
     id: 3,
-    icon: Smartphone,
-    title: "Unlock Your Partnership Pass 🎫",
-    description: "Each partnership gives you exclusive access - show your digital pass at participating locations.",
-    action: "Get Access",
-    colors: ["#8B5CF6", "#06B6D4"]
+    title: "Notification Preferences",
+    subtitle: "Stay updated on new deals and partnerships",
+    content: "notifications"
   },
   {
     id: 4,
-    icon: Building2,
-    title: "Experience First-Hand ✨",
-    description: "Try the product, experience the brand, become part of their authentic story.",
-    action: "Experience It",
-    colors: ["#6366F1", "#10B981"]
-  },
-  {
-    id: 5,
-    icon: Camera,
-    title: "Confirm Your Partnership 📸",
-    description: "Share an Instagram Story tagging the brand and @earlyshh to complete your partnership.",
-    action: "Start Discovering!",
-    colors: ["#3B82F6", "#F59E0B"]
+    title: "Set Your Interests",
+    subtitle: "Get personalized partnership recommendations",
+    content: "interests"
   }
 ];
 
+const interests = [
+  { id: "health", label: "Health & Wellness", icon: "💪" },
+  { id: "food", label: "Food & Beverages", icon: "🍕" },
+  { id: "tech", label: "Technology", icon: "📱" },
+  { id: "fashion", label: "Fashion & Beauty", icon: "👗" },
+  { id: "fitness", label: "Fitness & Sports", icon: "🏃" },
+  { id: "entertainment", label: "Entertainment", icon: "🎬" }
+];
+
 export default function OnboardingPage() {
-  const { login } = useAuth();
   const [, setLocation] = useLocation();
-  const [currentStep, setCurrentStep] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1);
+  const [formData, setFormData] = useState({
+    instagramUsername: "",
+    locationEnabled: false,
+    notificationsEnabled: false,
+    selectedInterests: [] as string[]
+  });
 
   const handleNext = () => {
-    if (currentStep < ONBOARDING_STEPS.length - 1) {
+    if (currentStep < onboardingSteps.length) {
       setCurrentStep(currentStep + 1);
     } else {
-      handleGetStarted();
+      // Complete onboarding
+      setLocation("/home");
     }
   };
 
   const handleBack = () => {
-    if (currentStep > 0) {
+    if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
     }
   };
 
-  const handleSkip = () => {
-    handleGetStarted();
+  const handleInstagramConnect = () => {
+    // Simulate Instagram connection
+    setFormData(prev => ({ ...prev, instagramUsername: "@user123" }));
+    setTimeout(handleNext, 1000);
   };
 
-  const handleGetStarted = async () => {
-    setIsLoading(true);
-    
-    try {
-      // In a real implementation, this would redirect to Instagram OAuth
-      const mockInstagramData = {
-        instagramId: "user_" + Date.now(),
-        username: "earlyshh_user",
-        fullName: "Earlyshh User",
-        profilePicUrl: "/api/placeholder/100/100",
-      };
-
-      await login(mockInstagramData);
-      setLocation("/");
-    } catch (error) {
-      console.error("Login failed:", error);
-    } finally {
-      setIsLoading(false);
+  const handleLocationEnable = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        () => {
+          setFormData(prev => ({ ...prev, locationEnabled: true }));
+          setTimeout(handleNext, 500);
+        },
+        () => {
+          // Handle error - still proceed
+          setFormData(prev => ({ ...prev, locationEnabled: false }));
+          setTimeout(handleNext, 500);
+        }
+      );
     }
   };
 
-  const currentStepData = ONBOARDING_STEPS[currentStep];
-  const IconComponent = currentStepData.icon;
+  const handleNotificationEnable = () => {
+    if ("Notification" in window) {
+      Notification.requestPermission().then(permission => {
+        setFormData(prev => ({ 
+          ...prev, 
+          notificationsEnabled: permission === "granted" 
+        }));
+        setTimeout(handleNext, 500);
+      });
+    } else {
+      setTimeout(handleNext, 500);
+    }
+  };
+
+  const toggleInterest = (interestId: string) => {
+    setFormData(prev => ({
+      ...prev,
+      selectedInterests: prev.selectedInterests.includes(interestId)
+        ? prev.selectedInterests.filter(id => id !== interestId)
+        : [...prev.selectedInterests, interestId]
+    }));
+  };
+
+  const currentStepData = onboardingSteps.find(step => step.id === currentStep);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900">
-      <div className="min-h-screen flex flex-col">
-        {/* Progress Bar */}
-        <div className="flex items-center justify-between p-6 pt-12">
-          <div className="flex items-center space-x-2 text-white">
-            <span className="text-sm font-medium">{currentStep + 1} of {ONBOARDING_STEPS.length}</span>
-          </div>
-          <Button
-            variant="ghost"
-            onClick={handleSkip}
-            className="text-white hover:bg-white/10"
-            size="sm"
-          >
-            Skip
-          </Button>
-        </div>
-        
-        {/* Progress Indicator */}
-        <div className="px-6 mb-8">
-          <div className="w-full bg-purple-700/50 rounded-full h-1">
-            <div 
-              className="bg-gradient-to-r from-yellow-400 to-orange-400 h-1 rounded-full transition-all duration-300"
-              style={{ width: `${((currentStep + 1) / ONBOARDING_STEPS.length) * 100}%` }}
-            />
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
-          {/* Icon */}
-          <div className="mb-8">
-            <div className="w-24 h-24 mx-auto glass-morphism rounded-3xl flex items-center justify-center border border-white/20">
-              <IconComponent className="w-12 h-12 text-white" />
-            </div>
-          </div>
-
-          {/* Title */}
-          <h1 className="text-3xl font-bold text-white mb-6 leading-tight max-w-sm">
-            {currentStepData.title}
-          </h1>
-
-          {/* Description */}
-          <p className="text-lg text-purple-100 mb-12 max-w-md leading-relaxed">
-            {currentStepData.description}
-          </p>
-
-          {/* Action Button */}
-          <div className="space-y-4 w-full max-w-sm">
-            <Button
-              onClick={handleNext}
-              disabled={isLoading}
-              className="w-full h-14 text-lg font-semibold bg-gradient-to-r from-pink-500 to-cyan-400 hover:from-pink-600 hover:to-cyan-500 text-white border-0 rounded-2xl shadow-lg transition-all duration-200"
-            >
-              {currentStep === ONBOARDING_STEPS.length - 1 ? (
-                <div className="flex items-center justify-center space-x-2">
-                  <Instagram className="w-5 h-5" />
-                  <span>Get Partnership Access</span>
-                </div>
-              ) : (
-                <div className="flex items-center justify-center space-x-2">
-                  <span>{currentStepData.action}</span>
-                  <ArrowRight className="w-5 h-5" />
-                </div>
-              )}
-            </Button>
-
-            {/* Back Button */}
-            {currentStep > 0 && (
+    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-cyan-400 flex items-center justify-center px-4">
+      <Card className="w-full max-w-md bg-white/10 backdrop-blur-lg border-white/20">
+        <CardContent className="p-8">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-6">
+            {currentStep > 1 && (
               <Button
                 onClick={handleBack}
                 variant="ghost"
-                className="w-full text-purple-200 hover:bg-white/10 flex items-center justify-center space-x-2"
+                size="sm"
+                className="text-white hover:bg-white/20"
               >
-                <ArrowLeft className="w-4 h-4" />
-                <span>Back</span>
+                <ChevronLeft className="w-4 h-4" />
               </Button>
+            )}
+            <div className="flex items-center space-x-2">
+              <Zap className="w-5 h-5 text-white" />
+              <span className="text-white font-semibold">EARLYSHH</span>
+            </div>
+            <div className="text-white/70 text-sm">
+              {currentStep}/{onboardingSteps.length}
+            </div>
+          </div>
+
+          {/* Progress Bar */}
+          <div className="mb-8">
+            <div className="w-full bg-white/20 rounded-full h-2">
+              <div 
+                className="bg-white rounded-full h-2 transition-all duration-500"
+                style={{ width: `${(currentStep / onboardingSteps.length) * 100}%` }}
+              />
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-white mb-2">
+              {currentStepData?.title}
+            </h2>
+            <p className="text-white/80 text-sm">
+              {currentStepData?.subtitle}
+            </p>
+          </div>
+
+          {/* Step Content */}
+          <div className="space-y-6">
+            {currentStepData?.content === "instagram-connect" && (
+              <div className="space-y-4">
+                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto">
+                  <Instagram className="w-8 h-8 text-white" />
+                </div>
+                <p className="text-white/80 text-sm text-center">
+                  Connect your Instagram to discover partnerships and share your experiences
+                </p>
+                <Button
+                  onClick={handleInstagramConnect}
+                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 h-12"
+                >
+                  <Instagram className="w-5 h-5 mr-2" />
+                  Connect Instagram
+                </Button>
+              </div>
+            )}
+
+            {currentStepData?.content === "location-permission" && (
+              <div className="space-y-4">
+                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto">
+                  <MapPin className="w-8 h-8 text-white" />
+                </div>
+                <p className="text-white/80 text-sm text-center">
+                  Enable location to find exclusive partnerships and deals near you
+                </p>
+                <Button
+                  onClick={handleLocationEnable}
+                  className="w-full bg-white/20 hover:bg-white/30 text-white border-white/30 h-12"
+                >
+                  <MapPin className="w-5 h-5 mr-2" />
+                  Enable Location
+                </Button>
+                <Button
+                  onClick={handleNext}
+                  variant="ghost"
+                  className="w-full text-white/70 hover:text-white hover:bg-white/10"
+                >
+                  Skip for now
+                </Button>
+              </div>
+            )}
+
+            {currentStepData?.content === "notifications" && (
+              <div className="space-y-4">
+                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto">
+                  <Bell className="w-8 h-8 text-white" />
+                </div>
+                <p className="text-white/80 text-sm text-center">
+                  Get notified about new deals, exclusive partnerships, and limited-time offers
+                </p>
+                <Button
+                  onClick={handleNotificationEnable}
+                  className="w-full bg-white/20 hover:bg-white/30 text-white border-white/30 h-12"
+                >
+                  <Bell className="w-5 h-5 mr-2" />
+                  Enable Notifications
+                </Button>
+                <Button
+                  onClick={handleNext}
+                  variant="ghost"
+                  className="w-full text-white/70 hover:text-white hover:bg-white/10"
+                >
+                  Skip for now
+                </Button>
+              </div>
+            )}
+
+            {currentStepData?.content === "interests" && (
+              <div className="space-y-4">
+                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto">
+                  <Users className="w-8 h-8 text-white" />
+                </div>
+                <p className="text-white/80 text-sm text-center">
+                  Select your interests to get personalized partnership recommendations
+                </p>
+                <div className="grid grid-cols-2 gap-3">
+                  {interests.map(interest => (
+                    <div
+                      key={interest.id}
+                      onClick={() => toggleInterest(interest.id)}
+                      className={`p-3 rounded-xl border cursor-pointer transition-all ${
+                        formData.selectedInterests.includes(interest.id)
+                          ? "bg-white/30 border-white/50"
+                          : "bg-white/10 border-white/20"
+                      }`}
+                    >
+                      <div className="text-center">
+                        <div className="text-2xl mb-1">{interest.icon}</div>
+                        <div className="text-white text-xs font-medium">
+                          {interest.label}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <Button
+                  onClick={handleNext}
+                  disabled={formData.selectedInterests.length === 0}
+                  className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 h-12"
+                >
+                  Complete Setup
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </div>
             )}
           </div>
 
-          {/* Terms Text */}
-          {currentStep === ONBOARDING_STEPS.length - 1 && (
-            <p className="text-sm text-purple-300 mt-6 max-w-xs">
-              By continuing, you agree to authentic partnership sharing
-            </p>
-          )}
-        </div>
-      </div>
+          {/* Privacy Note */}
+          <div className="mt-8 text-center">
+            <div className="flex items-center justify-center space-x-2 text-white/60 text-xs">
+              <Shield className="w-3 h-3" />
+              <span>Your privacy is protected</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
