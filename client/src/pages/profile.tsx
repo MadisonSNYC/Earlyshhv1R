@@ -167,23 +167,47 @@ export default function ProfilePage() {
                 </div>
               </div>
               
-              {/* Enhanced user info with gradient text */}
-              <div>
-                <h2 className="text-3xl font-black drop-shadow-lg tracking-tight mb-1">
-                  <span 
-                    className="bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text text-transparent"
-                    style={{
-                      backgroundSize: '200% 100%',
-                      animation: 'shimmer 3s ease-in-out infinite'
-                    }}
-                  >
-                    {profileData.instagramHandle}
-                  </span>
-                </h2>
-                <p className="text-white text-lg font-bold drop-shadow-md">{profileData.fullName}</p>
-                <p className="text-orange-200 text-sm font-medium drop-shadow-sm">
-                  {profileData.followerCount.toLocaleString()} followers · {profileData.followingCount.toLocaleString()} following
-                </p>
+              {/* Compartmentalized user info with social links */}
+              <div className="flex-1 min-w-0">
+                <div className="bg-gray-800/40 backdrop-blur-sm rounded-2xl p-3 border border-white/10">
+                  <h2 className="text-xl font-black drop-shadow-lg tracking-tight mb-2 truncate">
+                    <span 
+                      className="bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text text-transparent"
+                      style={{
+                        backgroundSize: '200% 100%',
+                        animation: 'shimmer 3s ease-in-out infinite'
+                      }}
+                    >
+                      {profileData.instagramHandle}
+                    </span>
+                  </h2>
+                  <p className="text-white text-base font-bold drop-shadow-md mb-2 truncate">{profileData.fullName}</p>
+                  <p className="text-orange-200 text-xs font-medium drop-shadow-sm mb-3">
+                    {profileData.followerCount.toLocaleString()} followers · {profileData.followingCount.toLocaleString()} following
+                  </p>
+                  
+                  {/* Social Handle Links */}
+                  <div className="flex items-center gap-3">
+                    <a 
+                      href={`https://instagram.com/${profileData.instagramHandle.replace('@', '')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 bg-gradient-to-r from-pink-500/20 to-purple-500/20 hover:from-pink-500/30 hover:to-purple-500/30 border border-pink-400/30 rounded-xl px-2 py-1 transition-all duration-300 hover:scale-105"
+                    >
+                      <span className="text-pink-300 text-xs">📷</span>
+                      <span className="text-pink-200 text-xs font-medium">Instagram</span>
+                    </a>
+                    <a 
+                      href={`https://tiktok.com/@${profileData.instagramHandle.replace('@', '')}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 hover:from-cyan-500/30 hover:to-blue-500/30 border border-cyan-400/30 rounded-xl px-2 py-1 transition-all duration-300 hover:scale-105"
+                    >
+                      <span className="text-cyan-300 text-xs">🎵</span>
+                      <span className="text-cyan-200 text-xs font-medium">TikTok</span>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
             
