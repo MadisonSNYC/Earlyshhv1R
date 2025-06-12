@@ -9,6 +9,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useToast } from '@/hooks/use-toast';
+import { apiRequest } from '@/lib/queryClient';
 import { 
   ChevronLeft, 
   User, 
@@ -113,6 +116,42 @@ export default function SettingsPage() {
 
   const updatePreferences = (field: string, value: any) => {
     setPreferences(prev => ({ ...prev, [field]: value }));
+  };
+
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
+
+  const updateProfileMutation = useMutation({
+    mutationFn: async (updates: { gender?: string; fullName?: string }) => {
+      return apiRequest(`/api/users/1`, {
+        method: 'PATCH',
+        body: JSON.stringify(updates),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/user'] });
+      toast({
+        title: "Profile updated",
+        description: "Your profile has been successfully updated.",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Update failed",
+        description: error.message || "Failed to update profile. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleSaveProfile = () => {
+    updateProfileMutation.mutate({
+      gender: profileData.gender,
+      fullName: profileData.fullName,
+    });
   };
 
   return (
@@ -226,6 +265,16 @@ export default function SettingsPage() {
                   </SelectContent>
                 </Select>
               </div>
+            </div>
+            
+            <div className="pt-4">
+              <Button 
+                onClick={handleSaveProfile}
+                disabled={updateProfileMutation.isPending}
+                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-medium"
+              >
+                {updateProfileMutation.isPending ? 'Saving...' : 'Save Profile'}
+              </Button>
             </div>
           </CardContent>
         </Card>

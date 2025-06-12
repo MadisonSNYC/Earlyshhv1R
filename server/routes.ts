@@ -45,6 +45,12 @@ const markAllNotificationsReadSchema = z.object({
   userId: z.number(),
 });
 
+const updateUserProfileSchema = z.object({
+  fullName: z.string().optional(),
+  gender: z.enum(['male', 'female', 'non-binary', 'prefer-not-to-say']).optional(),
+  profilePicUrl: z.string().optional(),
+});
+
 export async function registerRoutes(app: Express): Promise<Server> {
   // Authentication routes
   app.post("/api/auth/instagram", validateBody(instagramLoginSchema), asyncHandler(async (req: any, res: any) => {
@@ -359,6 +365,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     await gamificationBusiness.initializeBadges();
     res.json({ message: "Gamification system initialized successfully" });
   }));
+
+  // User profile update
+  app.patch("/api/users/:userId", 
+    validateParams(idParamSchema), 
+    validateBody(updateUserProfileSchema), 
+    asyncHandler(async (req: any, res: any) => {
+      const userId = parseInt(req.params.userId);
+      const updates = req.body;
+      
+      const updatedUser = await storage.updateUser(userId, updates);
+      
+      if (!updatedUser) {
+        throw createApiError(404, "User not found");
+      }
+      
+      res.json(updatedUser);
+    })
+  );
 
   // Add error handling middleware
   app.use(errorHandler);
