@@ -1,13 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
-import { useRoute, useLocation } from 'wouter';
 import { ArrowLeft, Instagram, Camera, Upload, CheckCircle, Share2, X, RotateCcw, Zap, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { useToast } from '@/hooks/use-toast';
+
+// Mock coupon data
+const mockCoupon = {
+  id: '1',
+  brandName: 'SuperRoot Energy',
+  productName: 'SuperRoot Premium Energy Formula',
+  brandIgHandle: '@superrootenergy',
+  redeemableAmount: '$3.99',
+  campaign: {
+    brandName: 'SuperRoot Energy',
+    brandIgHandle: '@superrootenergy'
+  }
+};
 
 export default function InstagramStoryPage() {
-  const [, params] = useRoute('/instagram-story/:couponId');
-  const [, setLocation] = useLocation();
   const [storyPosted, setStoryPosted] = useState(false);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [showCamera, setShowCamera] = useState(false);
@@ -19,30 +27,8 @@ export default function InstagramStoryPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
 
-  // Fetch coupon data for context
-  const { data: coupon, isLoading } = useQuery({
-    queryKey: ['/api/coupons', params?.couponId],
-    enabled: !!params?.couponId,
-  });
-
-  // Mock coupon data for demo
-  const mockCoupon = {
-    id: params?.couponId || '1',
-    brandName: 'SuperRoot Energy',
-    productName: 'SuperRoot Premium Energy Formula',
-    brandIgHandle: '@superrootenergy',
-    redeemableAmount: '$3.99',
-    campaign: {
-      brandName: 'SuperRoot Energy',
-      brandIgHandle: '@superrootenergy'
-    }
-  };
-
-  const activeCoupon = coupon || mockCoupon;
+  const activeCoupon = mockCoupon;
 
   // Camera functions
   const startCamera = async () => {
@@ -61,11 +47,7 @@ export default function InstagramStoryPage() {
       setShowCamera(true);
     } catch (error) {
       console.error('Error accessing camera:', error);
-      toast({
-        title: "Camera Error",
-        description: "Could not access camera. Please check permissions.",
-        variant: "destructive",
-      });
+      alert('Could not access camera. Please check permissions.');
     }
   };
 
@@ -145,55 +127,19 @@ export default function InstagramStoryPage() {
     }
   };
 
-  // Submit Instagram story mutation
-  const submitStoryMutation = useMutation({
-    mutationFn: async (data: { couponId: string; storyUrl?: string; storyImage?: string }) => {
-      const response = await fetch('/api/stories', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userId: 1, // Hardcoded for MVP
-          campaignId: 1, // Will get from coupon data
-          couponId: parseInt(data.couponId),
-          instagramStoryId: 'mock_story_' + Date.now(),
-          storyUrl: data.storyUrl || 'https://instagram.com/stories/mock',
-          metadata: { image: data.storyImage }
-        }),
-      });
-      if (!response.ok) throw new Error('Failed to submit story');
-      return response.json();
-    },
-    onSuccess: () => {
-      setStoryPosted(true);
-      toast({
-        title: "Story Submitted!",
-        description: "Thank you for sharing! Now complete the product survey.",
-      });
-      // Navigate to survey after 2 seconds
-      setTimeout(() => {
-        setLocation(`/survey/${params?.couponId}`);
-      }, 2000);
-    },
-    onError: (error: any) => {
-      toast({
-        title: "Error",
-        description: error.message || "Failed to submit story",
-        variant: "destructive",
-      });
-    },
-  });
-
   const handleSubmitStory = async () => {
     setIsSubmitting(true);
     
-    if (params?.couponId) {
-      submitStoryMutation.mutate({
-        couponId: params.couponId,
-        storyImage: capturedPhoto || uploadedImage || undefined,
-      });
-    }
-    
-    setIsSubmitting(false);
+    // Simulate API call
+    setTimeout(() => {
+      setStoryPosted(true);
+      setIsSubmitting(false);
+      
+      // Navigate to survey after 2 seconds
+      setTimeout(() => {
+        console.log('Navigate to survey');
+      }, 2000);
+    }, 1500);
   };
 
   const retakePhoto = () => {
@@ -209,14 +155,6 @@ export default function InstagramStoryPage() {
       }
     };
   }, [cameraStream]);
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-pink-500 via-purple-600 via-blue-500 to-cyan-500 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
-  }
 
   // Camera View
   if (showCamera) {
@@ -297,7 +235,7 @@ export default function InstagramStoryPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <Button
-            onClick={() => setLocation(`/qr/${params?.couponId}`)}
+            onClick={() => console.log('Go back')}
             className="bg-gray-900/80 backdrop-blur-md text-white rounded-full w-12 h-12 p-0 border border-white/20 hover:bg-gray-800/90 transition-all duration-300"
           >
             <ArrowLeft className="w-6 h-6" />
@@ -377,10 +315,10 @@ export default function InstagramStoryPage() {
                             setUploadedImage(null);
                             fileInputRef.current?.click();
                           }}
-                          className="bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white font-medium py-2 px-4 rounded-xl transition-all duration-300"
+                          className="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-500 hover:to-gray-600 text-white font-semibold rounded-xl transition-all duration-300"
                           size="sm"
                         >
-                          {capturedPhoto ? 'Retake Photo' : 'Choose Different Photo'}
+                          {capturedPhoto ? 'Retake Photo' : 'Change Photo'}
                         </Button>
                       </div>
                     </div>
@@ -389,20 +327,34 @@ export default function InstagramStoryPage() {
               )}
 
               {/* Instructions */}
-              <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-6 mb-6 border border-white/10">
-                <h3 className="text-white font-black text-lg mb-4 drop-shadow-md">Quick Instructions:</h3>
+              <div className="bg-gradient-to-r from-purple-900/60 to-pink-900/60 backdrop-blur-sm rounded-2xl p-5 mb-6 border border-purple-400/20">
+                <h3 className="font-black text-white mb-4 drop-shadow-md flex items-center">
+                  <Zap className="w-5 h-5 mr-2 text-yellow-400" />
+                  How to share:
+                </h3>
                 <div className="space-y-3 text-sm">
                   <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-lg">1</div>
-                    <p className="text-white font-medium drop-shadow-sm">Post a photo/video of the product on your Instagram Story</p>
+                    <div className="w-7 h-7 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-lg">1</div>
+                    <p className="text-white drop-shadow-sm">Post your photo on Instagram Story</p>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-lg">2</div>
-                    <p className="text-white font-medium drop-shadow-sm">Tag <span className="text-pink-300 font-bold">{activeCoupon.brandIgHandle}</span> and include <span className="text-gray-300 font-bold">@earlyshh</span> as hidden tag</p>
+                    <div className="w-7 h-7 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-lg">2</div>
+                    <div className="text-white drop-shadow-sm">
+                      {capturedPhoto ? (
+                        <span className="text-green-300 font-bold">✨ Brand tag + @earlyshh added automatically!</span>
+                      ) : (
+                        <div>
+                          <p>Tag {activeCoupon.brandIgHandle}</p>
+                          <p className="text-gray-400 text-xs mt-1">+ include @earlyshh as hidden tag</p>
+                        </div>
+                      )}
+                    </div>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-lg">3</div>
-                    <p className="text-white font-medium drop-shadow-sm">Take a screenshot and upload it here</p>
+                    <div className="w-7 h-7 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-lg">3</div>
+                    <p className="text-white drop-shadow-sm">
+                      {capturedPhoto || uploadedImage ? 'Submit below to complete your partnership' : 'Take photo or upload to continue'}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -411,7 +363,7 @@ export default function InstagramStoryPage() {
               <Button
                 onClick={handleSubmitStory}
                 disabled={(!capturedPhoto && !uploadedImage) || isSubmitting}
-                className="w-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 text-white font-black py-4 rounded-2xl text-lg shadow-xl shadow-yellow-500/40 transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:transform-none"
+                className="w-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 text-white font-black py-4 rounded-2xl text-lg shadow-xl shadow-yellow-500/40 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 transition-all duration-300"
               >
                 {isSubmitting ? (
                   <div className="flex items-center space-x-2">
@@ -422,21 +374,25 @@ export default function InstagramStoryPage() {
                   <div className="flex items-center space-x-2">
                     <Share2 className="w-5 h-5" />
                     <span>Submit Story</span>
-                    <Zap className="w-5 h-5" />
+                    <Sparkles className="w-5 h-5" />
                   </div>
                 )}
               </Button>
             </>
           ) : (
             <div className="text-center py-8">
-              <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
-              <h2 className="text-2xl font-black text-white mb-2 drop-shadow-lg">Story Submitted!</h2>
-              <p className="text-orange-200 mb-4 drop-shadow-md">
+              <div className="w-20 h-20 bg-gradient-to-r from-green-400 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-xl">
+                <CheckCircle className="w-10 h-10 text-white" />
+              </div>
+              <h2 className="text-3xl font-black text-white mb-3 drop-shadow-lg">Story Submitted!</h2>
+              <p className="text-orange-200 mb-6 drop-shadow-md">
                 Thank you for sharing your experience with {activeCoupon.brandName}
               </p>
-              <p className="text-purple-300 font-bold drop-shadow-md">
-                Redirecting to product survey...
-              </p>
+              <div className="bg-purple-500/20 rounded-2xl p-4 border border-purple-400/30">
+                <p className="text-purple-300 font-bold drop-shadow-md">
+                  Redirecting to product survey...
+                </p>
+              </div>
             </div>
           )}
         </div>
@@ -444,12 +400,12 @@ export default function InstagramStoryPage() {
         {/* Skip Option */}
         {!storyPosted && (
           <div className="text-center mt-6">
-            <button
-              onClick={() => setLocation(`/survey/${params?.couponId}`)}
-              className="text-white/80 hover:text-white underline font-medium"
+            <Button
+              onClick={() => console.log('Skip to survey')}
+              className="text-white/80 hover:text-white underline bg-transparent border-0 font-medium drop-shadow-md"
             >
               Skip for now and go to survey
-            </button>
+            </Button>
           </div>
         )}
       </div>
