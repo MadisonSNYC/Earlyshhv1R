@@ -786,6 +786,9 @@ export class MemStorage implements IStorage {
     const log: CampaignAccessLog = {
       ...insertLog,
       id: this.currentCampaignAccessLogId++,
+      blocked: insertLog.blocked || false,
+      blockReason: insertLog.blockReason || null,
+      pendingFeedbackCount: insertLog.pendingFeedbackCount || null,
       accessAttemptedAt: new Date(),
     };
     this.campaignAccessLogs.set(log.id, log);

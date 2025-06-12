@@ -82,6 +82,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const campaignId = req.params.id;
       const { userId } = req.body;
 
+      // Check feedback gating - block access if pending feedback exists
+      const accessCheck = await storage.canUserAccessCampaign(userId, campaignId);
+      if (!accessCheck.canAccess) {
+        // Log the blocked access attempt
+        await storage.logCampaignAccess({
+          userId,
+          campaignId,
+          blocked: true,
+          blockReason: accessCheck.reason,
+          pendingFeedbackCount: accessCheck.pendingCount || 0,
+        });
+
+        let errorMessage = "Complete your pending product reviews to unlock new campaigns";
+        if (accessCheck.reason === 'overdue_feedback') {
+          errorMessage = `You have ${accessCheck.pendingCount} overdue reviews. Complete them to access new campaigns.`;
+        } else if (accessCheck.reason === 'pending_feedback') {
+          errorMessage = `Complete your ${accessCheck.pendingCount} pending reviews to unlock new campaigns.`;
+        }
+        
+        throw createApiError(403, errorMessage, { 
+          code: 'FEEDBACK_REQUIRED',
+          pendingCount: accessCheck.pendingCount,
+          reason: accessCheck.reason 
+        });
+      }
+
       // Validate campaign and user eligibility
       const validation = await campaignBusiness.validateCampaignForClaim(campaignId, userId);
       if (!validation.valid) {
@@ -89,6 +115,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       const couponResponse = await couponBusiness.claimCouponForCampaign(campaignId, userId);
+      
+      // Create feedback request when coupon is claimed
+      const deadline = new Date();
+      deadline.setDate(deadline.getDate() + 3); // 72 hours deadline
+      
+      await storage.createFeedbackRequest({
+        userId,
+        couponId: couponResponse.coupon.id,
+        campaignId,
+        deadline,
+      });
+      
       res.json(couponResponse);
     })
   );
