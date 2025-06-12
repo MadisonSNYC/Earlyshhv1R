@@ -74,14 +74,14 @@ export default function StartupPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-cyan-400 flex items-center justify-center relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-violet-900 flex items-center justify-center relative overflow-hidden">
         {/* Complex particle system */}
         <div className="absolute inset-0">
           {/* Large floating particles */}
           {[...Array(20)].map((_, i) => (
             <div
               key={`large-${i}`}
-              className="absolute w-4 h-4 bg-white/30 rounded-full animate-pulse"
+              className="absolute w-4 h-4 bg-purple-400/40 rounded-full animate-pulse"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -96,7 +96,7 @@ export default function StartupPage() {
           {[...Array(40)].map((_, i) => (
             <div
               key={`medium-${i}`}
-              className="absolute w-2 h-2 bg-white/20 rounded-full animate-bounce"
+              className="absolute w-2 h-2 bg-pink-400/30 rounded-full animate-bounce"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -110,7 +110,7 @@ export default function StartupPage() {
           {[...Array(60)].map((_, i) => (
             <div
               key={`small-${i}`}
-              className="absolute w-1 h-1 bg-white/40 rounded-full animate-ping"
+              className="absolute w-1 h-1 bg-cyan-400/50 rounded-full animate-ping"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
