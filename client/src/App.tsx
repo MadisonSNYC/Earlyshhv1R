@@ -4,7 +4,7 @@ import { Route, Switch } from 'wouter';
 import { Toaster } from '@/components/ui/toaster';
 
 import { queryClient } from './lib/queryClient';
-import { AuthProvider } from './lib/auth';
+import { AuthProvider, useAuth } from './lib/auth';
 import { ErrorBoundary } from './components/error-boundary';
 import GlobalErrorHandler from './components/global-error-handler';
 import LoadingScreen from './components/loading-screen';
@@ -29,6 +29,40 @@ const SurveyPage = React.lazy(() => import(/* webpackChunkName: "survey" */ './p
 const BrandProfilePage = React.lazy(() => import(/* webpackChunkName: "brand-profile" */ './pages/brand-profile'));
 const BrandAboutPage = React.lazy(() => import(/* webpackChunkName: "brand-about" */ './pages/brand-about'));
 const NotFoundPage = React.lazy(() => import(/* webpackChunkName: "not-found" */ './pages/not-found'));
+
+// Authenticated app wrapper
+function AuthenticatedApp() {
+  const { user, isLoading } = useAuth();
+
+  if (isLoading) {
+    return <div className="flex items-center justify-center min-h-screen"><div className="loading-skeleton w-8 h-8 rounded-full"></div></div>;
+  }
+
+  return (
+    <Switch>
+      <Route path="/startup" component={StartupPage} />
+      <Route path="/onboarding" component={OnboardingPage} />
+      <Route path="/home" component={HomePage} />
+      <Route path="/" component={user ? HomePage : StartupPage} />
+      <Route path="/partnership/:id" component={PartnershipConfirmationPage} />
+      <Route path="/profile" component={ProfilePage} />
+      <Route path="/my-coupons" component={MyCouponsPage} />
+      <Route path="/partnerships" component={PartnershipsPage} />
+      <Route path="/coupon/:couponId" component={PartnershipsPage} />
+      <Route path="/notifications" component={NotificationsPage} />
+      <Route path="/analytics" component={AnalyticsPage} />
+      <Route path="/settings" component={SettingsPage} />
+      <Route path="/activity/:id" component={ActivityDetailPage} />
+      <Route path="/qr/:couponId" component={QRCodePage} />
+      <Route path="/instagram-story/:couponId" component={InstagramStoryPage} />
+      <Route path="/survey/:couponId" component={SurveyPage} />
+      <Route path="/brand/:brandId" component={BrandProfilePage} />
+      <Route path="/brand/:id" component={BrandAboutPage} />
+      <Route path="/gamification" component={GamificationPage} />
+      <Route component={NotFoundPage} />
+    </Switch>
+  );
+}
 
 function App() {
   useEffect(() => {

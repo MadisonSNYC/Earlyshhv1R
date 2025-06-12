@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useLocation } from 'wouter';
 import { campaignService } from '../services/campaign-service';
 import { useAuth } from '../lib/auth';
 
@@ -9,6 +10,7 @@ export function useCouponClaim() {
   const [selectedCampaign, setSelectedCampaign] = useState<any>(null);
   const { user } = useAuth();
   const queryClient = useQueryClient();
+  const [, setLocation] = useLocation();
 
   const claimMutation = useMutation({
     mutationFn: (campaignId: string) => campaignService.claimCoupon(campaignId),
@@ -16,8 +18,10 @@ export function useCouponClaim() {
       // Invalidate campaigns query to refresh the list
       queryClient.invalidateQueries({ queryKey: ['campaigns'] });
       
-      // Navigate to partnerships page to show all partnerships
-      window.location.href = `/partnerships`;
+      // Ensure navigation happens after state updates
+      setTimeout(() => {
+        setLocation('/partnerships');
+      }, 100);
     },
     onError: (error: any) => {
       console.error('Failed to claim coupon:', error);
@@ -27,8 +31,8 @@ export function useCouponClaim() {
 
   const handleClaimClick = (campaign: any) => {
     if (!user) {
-      // Redirect to login
-      window.location.href = '/onboarding';
+      // Redirect to login using wouter
+      setLocation('/onboarding');
       return;
     }
 
