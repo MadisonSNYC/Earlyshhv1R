@@ -7,7 +7,7 @@ import PartnershipTermsModal from '@/components/partnership-terms-modal';
 import MapView from '@/components/map-view';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Search, Filter, Map, Grid3X3 } from 'lucide-react';
+import { Search, Filter, Map, Grid3X3, MapPin, Clock, Users, ExternalLink, Sparkles } from 'lucide-react';
 import { Campaign } from '@/types';
 
 const formatTimeLeft = (date: Date): string => {
@@ -118,113 +118,160 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen earlyshh-bg">
+    <div className="min-h-screen bg-gradient-to-br from-pink-500 via-purple-600 via-blue-500 to-cyan-500 relative overflow-hidden">
+      {/* Colorful overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-400/30 via-pink-500/20 to-cyan-400/30" />
+      
+      {/* Additional depth layer for text readability */}
+      <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 via-transparent to-gray-900/20" />
+      
       {/* Header */}
-      <header className="glass-card border-0 border-b border-white/10 sticky top-0 z-40">
-        <div className="max-w-md mx-auto px-4 py-4">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h1 className="text-xl font-bold text-white">
-                Hey {user?.fullName || 'there'}! 👋
+      <header className="relative z-10 bg-gradient-to-r from-gray-900/80 via-purple-900/70 to-gray-900/80 backdrop-blur-md border-b border-pink-400/30 sticky top-0 shadow-lg">
+        <div className="max-w-md mx-auto px-6 py-6">
+          <div className="flex items-start justify-between mb-6">
+            <div className="bg-gradient-to-r from-gray-900/60 to-purple-900/60 backdrop-blur-sm rounded-2xl px-5 py-4 border border-pink-300/20 flex-1 mr-4">
+              <h1 className="text-2xl font-black text-white mb-1 drop-shadow-lg">
+                Hey {user?.fullName || 'there'}! 
+                <span className="ml-2">👋</span>
               </h1>
-              <p className="text-sm text-gray-300">Discover exclusive deals near you</p>
+              <p className="text-pink-200 font-medium drop-shadow-md">
+                Discover exclusive partnerships near you
+              </p>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex flex-col space-y-2">
               <Button
                 variant={viewMode === 'grid' ? 'default' : 'ghost'}
                 size="sm"
                 onClick={() => setViewMode('grid')}
-                className="text-gray-300"
+                className={`${viewMode === 'grid' 
+                  ? 'bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 text-white border-0 shadow-lg shadow-pink-400/30' 
+                  : 'text-pink-200 hover:text-white bg-gray-800/50 hover:bg-gradient-to-r hover:from-pink-400/20 hover:to-cyan-400/20'
+                } rounded-2xl transition-all duration-300 w-12 h-12 p-0`}
               >
-                <Grid3X3 className="w-4 h-4" />
+                <Grid3X3 className="w-5 h-5" />
               </Button>
               <Button
                 variant={viewMode === 'map' ? 'default' : 'ghost'}
                 size="sm"
                 onClick={() => setViewMode('map')}
-                className="text-gray-300"
+                className={`${viewMode === 'map' 
+                  ? 'bg-gradient-to-r from-orange-400 via-pink-500 to-purple-400 text-white border-0 shadow-lg shadow-orange-400/30' 
+                  : 'text-pink-200 hover:text-white bg-gray-800/50 hover:bg-gradient-to-r hover:from-orange-400/20 hover:to-purple-400/20'
+                } rounded-2xl transition-all duration-300 w-12 h-12 p-0`}
               >
-                <Map className="w-4 h-4" />
+                <Map className="w-5 h-5" />
               </Button>
             </div>
           </div>
 
           {/* Search Bar */}
-          <div className="relative mb-4">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+          <div className="relative mb-6">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-pink-300 w-5 h-5 drop-shadow-md" />
             <input
               type="text"
-              placeholder="Search brands or offers..."
+              placeholder="Search brands or partnerships..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+              className="w-full pl-12 pr-4 py-4 bg-gradient-to-r from-gray-900/70 via-purple-900/60 to-gray-900/70 backdrop-blur-md border border-pink-300/30 rounded-3xl text-white placeholder-pink-200 focus:outline-none focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-400/30 transition-all duration-300 text-lg shadow-xl"
             />
           </div>
 
           {/* Category Filter */}
-          <div className="flex space-x-2 overflow-x-auto pb-2">
-            {['All', ...categories].map((category: string) => (
-              <Badge
-                key={category}
-                variant={selectedCategory === category ? 'default' : 'secondary'}
-                className={`whitespace-nowrap cursor-pointer ${
-                  selectedCategory === category
-                    ? 'bg-cyan-400 text-black'
-                    : 'bg-gray-700/50 text-gray-300 hover:bg-gray-600/50'
-                }`}
-                onClick={() => setSelectedCategory(category)}
-              >
-                {category}
-              </Badge>
-            ))}
+          <div className="flex space-x-3 overflow-x-auto pb-2 scrollbar-hide">
+            {['All', ...categories].map((category: string, index) => {
+              const gradients = [
+                'from-pink-400 to-purple-500',
+                'from-orange-400 to-pink-500', 
+                'from-purple-400 to-blue-500',
+                'from-cyan-400 to-teal-500',
+                'from-green-400 to-blue-500'
+              ];
+              const gradient = gradients[index % gradients.length];
+              
+              return (
+                <Badge
+                  key={category}
+                  className={`whitespace-nowrap cursor-pointer px-4 py-2 rounded-2xl font-medium transition-all duration-300 ${
+                    selectedCategory === category
+                      ? `bg-gradient-to-r ${gradient} text-white shadow-lg shadow-pink-400/30`
+                      : 'bg-gray-800/60 text-pink-200 hover:bg-gray-700/60 border border-pink-300/20 hover:border-pink-300/40'
+                  }`}
+                  onClick={() => setSelectedCategory(category)}
+                >
+                  {category}
+                </Badge>
+              );
+            })}
           </div>
         </div>
       </header>
 
       {/* Featured Brands Section */}
-      <section className="max-w-md mx-auto px-4 mb-6">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold text-white">Featured Brands</h2>
-          <button className="text-purple-400 text-sm font-medium">View All</button>
+      <section className="relative z-10 max-w-md mx-auto px-6 py-6">
+        <div className="bg-gradient-to-r from-gray-900/60 via-purple-900/50 to-gray-900/60 backdrop-blur-sm rounded-2xl p-4 mb-6 border border-orange-300/20">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-black text-white drop-shadow-lg">Featured Brands</h2>
+            <button className="text-transparent bg-gradient-to-r from-orange-400 via-pink-400 to-cyan-400 bg-clip-text font-semibold hover:scale-105 transition-transform duration-300 drop-shadow-lg">
+              View All
+            </button>
+          </div>
         </div>
         
-        <div className="flex space-x-4 overflow-x-auto pb-2 scrollbar-hide smooth-scroll">
-          {campaigns.slice(0, 6).map((campaign: Campaign) => (
-            <div
-              key={campaign.id}
-              className="flex-shrink-0 bg-gray-900/60 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-4 min-w-[120px] cursor-pointer hover:border-purple-400/50 brand-card"
-              onClick={() => {
-                setSelectedCampaign(campaign);
-                setShowPartnershipModal(true);
-              }}
-            >
-              <div className="flex flex-col items-center text-center">
-                <img
-                  src={campaign.brandLogoUrl}
-                  alt={campaign.brandName}
-                  className="w-16 h-16 rounded-xl object-cover mb-3 shadow-lg"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" fill="%23374151"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="24" font-weight="bold">${campaign.brandName.charAt(0)}</text></svg>`;
-                  }}
-                />
-                <h3 className="text-white font-medium text-sm mb-1 truncate w-full">
-                  {campaign.brandName}
-                </h3>
-                <p className="text-gray-400 text-xs leading-tight line-clamp-2">
-                  {campaign.category}
-                </p>
-                <div className="mt-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs px-2 py-1 rounded-full">
-                  Active
+        <div className="flex space-x-4 overflow-x-auto pb-4 scrollbar-hide">
+          {campaigns.slice(0, 6).map((campaign: Campaign, index: number) => {
+            const cardGradients = [
+              'from-pink-500/20 to-purple-500/20',
+              'from-orange-500/20 to-pink-500/20',
+              'from-purple-500/20 to-blue-500/20'
+            ];
+            const borderGradients = [
+              'border-pink-300/30',
+              'border-orange-300/30', 
+              'border-purple-300/30'
+            ];
+            const cardGradient = cardGradients[index % cardGradients.length];
+            const borderGradient = borderGradients[index % borderGradients.length];
+            
+            return (
+              <div
+                key={campaign.id}
+                className={`flex-shrink-0 bg-gradient-to-br ${cardGradient} backdrop-blur-md border ${borderGradient} rounded-3xl p-6 min-w-[140px] cursor-pointer hover:border-purple-400/70 hover:bg-gradient-to-br hover:from-purple-500/30 hover:to-cyan-500/30 hover:scale-105 transition-all duration-300 group shadow-xl`}
+                onClick={() => {
+                  setSelectedCampaign(campaign);
+                  setShowPartnershipModal(true);
+                }}
+              >
+                <div className="flex flex-col items-center text-center">
+                  <div className="relative mb-4">
+                    <div className="absolute inset-0 bg-gradient-to-r from-orange-400/30 to-cyan-400/30 rounded-2xl blur-lg group-hover:from-pink-400/50 group-hover:to-cyan-400/50 transition-all duration-300" />
+                    <img
+                      src={campaign.brandLogoUrl}
+                      alt={campaign.brandName}
+                      className="relative w-16 h-16 rounded-2xl object-cover shadow-xl"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" fill="%23374151" rx="16"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="24" font-weight="bold">${campaign.brandName.charAt(0)}</text></svg>`;
+                      }}
+                    />
+                  </div>
+                  <h3 className="text-white font-bold text-sm mb-2 truncate w-full">
+                    {campaign.brandName}
+                  </h3>
+                  <p className="text-pink-200 text-xs mb-3 line-clamp-2">
+                    {campaign.category}
+                  </p>
+                  <div className="bg-gradient-to-r from-green-400 to-cyan-400 text-white text-xs px-3 py-1.5 rounded-full font-medium shadow-lg">
+                    Active
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
-      {/* Content */}
-      <main className="max-w-md mx-auto px-4 py-6 pb-24">
+      {/* Partnership Listings */}
+      <main className="relative z-10 max-w-md mx-auto px-6 py-6 pb-32">
         {viewMode === 'map' ? (
           <MapView 
             campaigns={filteredCampaigns}
@@ -238,36 +285,114 @@ export default function HomePage() {
           <>
             {Object.entries(groupedCampaigns).map(([category, categoryCampaigns]) => (
               <div key={category} className="mb-8">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg font-semibold text-white">{category}</h2>
-                  <span className="text-sm text-gray-400">
-                    {(categoryCampaigns as any[]).length} available
-                  </span>
+                <div className="bg-gradient-to-r from-gray-900/60 via-blue-900/50 to-gray-900/60 backdrop-blur-sm rounded-2xl p-4 mb-6 border border-cyan-300/20">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-xl font-black text-white capitalize drop-shadow-lg">{category}</h2>
+                    <span className="text-sm text-cyan-200 font-medium drop-shadow-md">
+                      {(categoryCampaigns as any[]).length} available
+                    </span>
+                  </div>
                 </div>
                 
-                <div className="space-y-4">
-                  {(categoryCampaigns as any[]).map((campaign) => (
-                    <CampaignCard
-                      key={campaign.id}
-                      campaign={campaign}
-                      onClaim={() => handleCampaignClaim(campaign)}
-                      onCardClick={() => {
-                        setSelectedCampaign(campaign);
-                        setShowPartnershipModal(true);
-                      }}
-                    />
-                  ))}
+                <div className="space-y-6">
+                  {(categoryCampaigns as any[]).map((campaign, index) => {
+                    const cardGradients = [
+                      'from-gray-900/80 via-purple-900/60 to-gray-900/80',
+                      'from-gray-900/80 via-blue-900/60 to-gray-900/80',
+                      'from-gray-900/80 via-pink-900/60 to-gray-900/80'
+                    ];
+                    const borderGradients = [
+                      'border-purple-300/30',
+                      'border-blue-300/30',
+                      'border-pink-300/30'
+                    ];
+                    const cardGradient = cardGradients[index % cardGradients.length];
+                    const borderGradient = borderGradients[index % borderGradients.length];
+                    
+                    return (
+                      <div
+                        key={campaign.id}
+                        className={`bg-gradient-to-r ${cardGradient} backdrop-blur-md border ${borderGradient} rounded-3xl p-6 cursor-pointer hover:border-cyan-400/60 hover:bg-gradient-to-r hover:from-purple-500/30 hover:to-cyan-500/30 hover:scale-105 transition-all duration-300 group shadow-xl`}
+                        onClick={() => {
+                          setSelectedCampaign(campaign);
+                          setShowPartnershipModal(true);
+                        }}
+                      >
+                        <div className="flex items-start space-x-4">
+                          <div className="relative flex-shrink-0">
+                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 to-purple-400/30 rounded-2xl blur-lg group-hover:from-pink-400/50 group-hover:to-cyan-400/50 transition-all duration-300" />
+                            <img
+                              src={campaign.brandLogoUrl}
+                              alt={campaign.brandName}
+                              className="relative w-16 h-16 rounded-2xl object-cover shadow-xl"
+                              onError={(e) => {
+                                const target = e.target as HTMLImageElement;
+                                target.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" fill="%23374151" rx="16"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="24" font-weight="bold">${campaign.brandName.charAt(0)}</text></svg>`;
+                              }}
+                            />
+                          </div>
+                          
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-start justify-between mb-2">
+                              <h3 className="text-white font-black text-lg leading-tight drop-shadow-lg">
+                                {campaign.brandName}
+                              </h3>
+                              <div className="flex items-center space-x-2 ml-2">
+                                <div className="bg-gradient-to-r from-green-400 to-cyan-400 text-white text-xs px-3 py-1.5 rounded-full font-bold shadow-lg">
+                                  Live
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <p className="text-pink-200 font-medium mb-3 drop-shadow-md">
+                              {campaign.offerDescription}
+                            </p>
+                            
+                            <div className="flex items-center space-x-4 text-sm">
+                              <div className="flex items-center text-cyan-200 drop-shadow-md">
+                                <Users className="w-4 h-4 mr-1" />
+                                <span>{campaign.slotsRemaining || 0} slots left</span>
+                              </div>
+                              
+                              <div className="flex items-center text-orange-200 drop-shadow-md">
+                                <Clock className="w-4 h-4 mr-1" />
+                                <span>{formatTimeLeft(new Date(campaign.expiresAt))}</span>
+                              </div>
+                              
+                              <div className="flex items-center text-pink-200 drop-shadow-md">
+                                <MapPin className="w-4 h-4 mr-1" />
+                                <span>{formatDistance(150)}</span>
+                              </div>
+                            </div>
+                            
+                            <div className="mt-4 flex items-center justify-between">
+                              <div className="bg-gradient-to-r from-orange-400/20 to-pink-400/20 rounded-2xl px-4 py-2 border border-orange-300/30">
+                                <span className="text-orange-200 text-sm font-medium drop-shadow-md">
+                                  Partnership Opportunity
+                                </span>
+                              </div>
+                              
+                              <button className="bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 text-white px-6 py-2.5 rounded-2xl font-bold text-sm hover:scale-105 transition-all duration-300 shadow-lg shadow-pink-400/30 hover:shadow-cyan-400/30">
+                                <ExternalLink className="w-4 h-4 inline mr-2" />
+                                Partner Up
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             ))}
 
             {filteredCampaigns.length === 0 && (
               <div className="text-center py-12">
-                <div className="mb-4">
-                  <Filter className="w-12 h-12 text-gray-400 mx-auto mb-2" />
-                  <h3 className="text-lg font-medium text-white mb-2">No offers found</h3>
-                  <p className="text-gray-400">
-                    Try adjusting your search or category filter
+                <div className="bg-gradient-to-r from-gray-900/60 to-purple-900/60 backdrop-blur-sm rounded-3xl p-8 border border-purple-300/30">
+                  <Sparkles className="w-16 h-16 text-purple-400 mx-auto mb-4 drop-shadow-lg" />
+                  <h3 className="text-2xl font-black text-white mb-4 drop-shadow-lg">No partnerships found</h3>
+                  <p className="text-purple-200 font-medium drop-shadow-md">
+                    Try adjusting your search or category filter to discover amazing brand collaborations
                   </p>
                 </div>
               </div>
