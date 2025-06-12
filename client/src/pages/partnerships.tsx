@@ -41,34 +41,33 @@ export default function PartnershipsPage() {
   }
 
   const PartnershipCard = ({ coupon, showActions = true }: { coupon: CouponWithCampaign; showActions?: boolean }) => (
-    <Card key={coupon.id} className="glass-morphism border-white/20 bg-black/20 backdrop-blur-sm">
-      <CardContent className="p-4">
-        <div className="flex items-start justify-between mb-3">
-          <div className="flex items-center space-x-3">
+    <Card key={coupon.id} className="glass-morphism border-white/20 shadow-xl shadow-purple-500/10 hover:shadow-purple-500/20 transition-all duration-300 hover:scale-[1.02] rounded-3xl">
+      <CardContent className="p-6">
+        <div className="flex items-start justify-between mb-4">
+          <div className="flex items-center space-x-4">
             <img
               src={coupon.campaign?.brandLogoUrl || "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=40&h=40&fit=crop"}
               alt="Brand"
-              className="w-12 h-12 rounded-xl border border-white/20"
+              className="w-16 h-16 rounded-2xl border-2 border-white/30 shadow-lg"
             />
             <div>
-              <h4 className="font-rubik font-bold text-white text-lg">{coupon.campaign?.brandName || "Brand"}</h4>
-              <p className="text-gray-300 text-sm font-space">{coupon.productName}</p>
+              <h4 className="font-black text-white text-xl tracking-tight">{coupon.campaign?.brandName || "Brand"}</h4>
+              <p className="text-gray-300 text-base font-medium">{coupon.productName}</p>
             </div>
           </div>
           
-          <div className="text-right">
-            <div className="text-green-400 font-bold text-lg font-rubik">
+          <div className="text-right space-y-2">
+            <div className="text-2xl font-black gradient-text">
               ${coupon.redeemableAmount}
             </div>
             <Badge 
-              variant={coupon.status === 'active' ? 'default' : coupon.status === 'redeemed' ? 'secondary' : 'destructive'}
               className={`${
                 coupon.status === 'active' 
-                  ? 'bg-green-500/20 text-green-300 border-green-400/30' 
+                  ? 'bg-gradient-to-r from-green-400/20 to-cyan-400/20 text-cyan-300 border-cyan-400/40 shadow-lg shadow-cyan-400/20' 
                   : coupon.status === 'redeemed'
-                  ? 'bg-blue-500/20 text-blue-300 border-blue-400/30'
-                  : 'bg-red-500/20 text-red-300 border-red-400/30'
-              }`}
+                  ? 'bg-gradient-to-r from-purple-400/20 to-pink-400/20 text-pink-300 border-pink-400/40 shadow-lg shadow-pink-400/20'
+                  : 'bg-gradient-to-r from-gray-500/20 to-gray-600/20 text-gray-300 border-gray-400/40'
+              } px-3 py-1 rounded-2xl font-semibold`}
             >
               {coupon.status === 'active' && <Clock className="w-3 h-3 mr-1" />}
               {coupon.status === 'redeemed' && <CheckCircle className="w-3 h-3 mr-1" />}
@@ -96,23 +95,22 @@ export default function PartnershipsPage() {
         </div>
 
         {showActions && coupon.status === 'active' && (
-          <div className="flex space-x-2">
+          <div className="flex space-x-3">
             <Button 
               asChild
-              className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-rubik font-semibold"
+              className="flex-1 h-12 bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 hover:from-pink-500 hover:via-purple-600 hover:to-cyan-500 text-white font-semibold rounded-2xl border-0 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-purple-500/30"
             >
               <Link href={`/qr/${coupon.id}`}>
-                <QrCode className="w-4 h-4 mr-2" />
+                <QrCode className="w-5 h-5 mr-2" />
                 Show QR Code
               </Link>
             </Button>
             
             <Button 
-              variant="outline"
               size="sm"
-              className="border-white/20 text-white hover:bg-white/10"
+              className="h-12 w-12 bg-transparent border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-gray-900 rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-cyan-400/30"
             >
-              <Share2 className="w-4 h-4" />
+              <Share2 className="w-5 h-5" />
             </Button>
           </div>
         )}
@@ -163,22 +161,22 @@ export default function PartnershipsPage() {
 
         {/* Partnerships Tabs */}
         <Tabs defaultValue="active" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 bg-black/20 border border-white/20">
+          <TabsList className="grid w-full grid-cols-3 glass-morphism border-white/20 p-2 rounded-3xl">
             <TabsTrigger 
               value="active" 
-              className="data-[state=active]:bg-purple-600 data-[state=active]:text-white text-gray-400 font-rubik"
+              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-400 data-[state=active]:via-purple-500 data-[state=active]:to-cyan-400 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-purple-500/30 text-gray-300 font-semibold transition-all duration-300 rounded-2xl hover:scale-105"
             >
               Active ({activeCoupons.length})
             </TabsTrigger>
             <TabsTrigger 
               value="redeemed"
-              className="data-[state=active]:bg-purple-600 data-[state=active]:text-white text-gray-400 font-rubik"
+              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-400 data-[state=active]:via-purple-500 data-[state=active]:to-cyan-400 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-purple-500/30 text-gray-300 font-semibold transition-all duration-300 rounded-2xl hover:scale-105"
             >
-              Past ({redeemedCoupons.length})
+              Completed ({redeemedCoupons.length})
             </TabsTrigger>
             <TabsTrigger 
               value="expired"
-              className="data-[state=active]:bg-purple-600 data-[state=active]:text-white text-gray-400 font-rubik"
+              className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-400 data-[state=active]:via-purple-500 data-[state=active]:to-cyan-400 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-purple-500/30 text-gray-300 font-semibold transition-all duration-300 rounded-2xl hover:scale-105"
             >
               Expired ({expiredCoupons.length})
             </TabsTrigger>
