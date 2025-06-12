@@ -16,8 +16,8 @@ export function useCouponClaim() {
       // Invalidate campaigns query to refresh the list
       queryClient.invalidateQueries({ queryKey: ['campaigns'] });
       
-      // Navigate to coupon redeem page
-      window.location.href = `/coupon/${coupon.id}`;
+      // Navigate to partnerships page to show all partnerships
+      window.location.href = `/partnerships`;
     },
     onError: (error: any) => {
       console.error('Failed to claim coupon:', error);

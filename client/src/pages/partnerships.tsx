@@ -51,14 +51,14 @@ export default function PartnershipsPage() {
               className="w-12 h-12 rounded-xl border border-white/20"
             />
             <div>
-              <h4 className="font-rubik font-bold text-white text-lg">{coupon.campaign?.brandName}</h4>
-              <p className="text-gray-300 text-sm font-space">{coupon.campaign?.productName}</p>
+              <h4 className="font-rubik font-bold text-white text-lg">{coupon.campaign?.brandName || "Brand"}</h4>
+              <p className="text-gray-300 text-sm font-space">{coupon.productName}</p>
             </div>
           </div>
           
           <div className="text-right">
             <div className="text-green-400 font-bold text-lg font-rubik">
-              ${coupon.campaign?.redeemableAmount}
+              ${coupon.redeemableAmount}
             </div>
             <Badge 
               variant={coupon.status === 'active' ? 'default' : coupon.status === 'redeemed' ? 'secondary' : 'destructive'}
@@ -89,12 +89,10 @@ export default function PartnershipsPage() {
             </span>
           </div>
           
-          {coupon.campaign?.location && (
-            <div className="flex items-center text-gray-400 text-sm font-space">
-              <MapPin className="w-4 h-4 mr-2" />
-              <span>{coupon.campaign.location}</span>
-            </div>
-          )}
+          <div className="flex items-center text-gray-400 text-sm font-space">
+            <MapPin className="w-4 h-4 mr-2" />
+            <span>Available at participating locations</span>
+          </div>
         </div>
 
         {showActions && coupon.status === 'active' && (
