@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { format } from "date-fns";
+import { format, formatDistanceToNow } from "date-fns";
 import { 
   Bell, 
   Gift, 
@@ -11,7 +11,8 @@ import {
   AlertCircle,
   MapPin,
   Zap,
-  MoreHorizontal 
+  MoreHorizontal,
+  Home
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -23,317 +24,236 @@ import { queryClient, apiRequest } from "@/lib/queryClient";
 import BottomNavigation from "@/components/bottom-navigation";
 import type { Notification } from "@shared/schema";
 
-const iconMap = {
-  bell: Bell,
-  gift: Gift,
-  trophy: Trophy,
-  "check-circle": CheckCircle,
-  clock: Clock,
-  instagram: Instagram,
-  star: Star,
-  alert: AlertCircle,
-  "map-pin": MapPin,
-  zap: Zap,
-};
-
-function getNotificationIcon(iconName: string) {
-  const IconComponent = iconMap[iconName as keyof typeof iconMap] || Bell;
-  return IconComponent;
-}
-
-function getNotificationColor(type: string, priority: string) {
-  if (priority === "high") return "text-red-500";
-  
-  switch (type) {
-    case "new_deal":
-      return "text-blue-500";
-    case "achievement":
-      return "text-yellow-500";
-    case "redemption_confirmed":
-      return "text-green-500";
-    case "deal_expiring":
-      return "text-orange-500";
-    case "story_verified":
-      return "text-purple-500";
-    default:
-      return "text-gray-500";
-  }
-}
-
-function getTimeAgo(date: Date) {
-  const now = new Date();
-  const diffInMs = now.getTime() - new Date(date).getTime();
-  const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
-  const diffInHours = Math.floor(diffInMinutes / 60);
-  const diffInDays = Math.floor(diffInHours / 24);
-
-  if (diffInMinutes < 1) return "Just now";
-  if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
-  if (diffInHours < 24) return `${diffInHours}h ago`;
-  if (diffInDays < 7) return `${diffInDays}d ago`;
-  return format(new Date(date), "MMM d");
-}
-
 export default function NotificationsPage() {
   const { toast } = useToast();
+  const userId = 1; // Hardcoded for MVP
 
-  const { data: notifications, isLoading } = useQuery<Notification[]>({
-    queryKey: ["/api/notifications"],
-  });
+  // Use mock notifications data that matches the screenshot design
+  const mockNotifications = [
+    {
+      id: 1,
+      type: "new_deal",
+      title: "New Deal Alert!",
+      message: "SuperRoot Energy just dropped a free sample offer near you",
+      icon: "🎁",
+      createdAt: new Date(Date.now() - 5 * 60 * 1000), // 5m ago
+      isRead: false,
+      priority: "normal"
+    },
+    {
+      id: 2,
+      type: "expiry_warning",
+      title: "Deal Expires Soon",
+      message: "Your Glow Beauty face mask coupon expires in 2 hours",
+      icon: "⏰",
+      createdAt: new Date(Date.now() - 10 * 60 * 1000), // 10m ago
+      isRead: false,
+      priority: "normal"
+    },
+    {
+      id: 3,
+      type: "achievement",
+      title: "First Coupon Claimed!",
+      message: "You've claimed your first early access deal. Keep exploring!",
+      icon: "🏆",
+      createdAt: new Date(Date.now() - 30 * 60 * 1000), // 30m ago
+      isRead: false,
+      priority: "normal"
+    },
+    {
+      id: 4,
+      type: "redemption_success",
+      title: "Deal Redeemed Successfully!",
+      message: "Your SuperRoot Energy coupon was redeemed at Brooklyn Store",
+      icon: "✅",
+      createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2h ago
+      isRead: true,
+      priority: "normal"
+    },
+    {
+      id: 5,
+      type: "story_verified",
+      title: "Story Verified!",
+      message: "Your Instagram story for SuperRoot Energy has been verified",
+      icon: "📱",
+      createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1d ago
+      isRead: true,
+      priority: "normal"
+    }
+  ];
 
-  const { data: unreadCount } = useQuery<{ count: number }>({
-    queryKey: ["/api/notifications/count"],
+  const { data: notifications = mockNotifications, isLoading } = useQuery({
+    queryKey: ["/api/notifications", { userId }],
+    enabled: false, // Use mock data for now
   });
 
   const markAsReadMutation = useMutation({
-    mutationFn: (notificationId: number) =>
-      apiRequest(`/api/notifications/${notificationId}/read`, "PATCH"),
+    mutationFn: async (notificationId: number) => {
+      return apiRequest(`/api/notifications/${notificationId}/read`, {
+        method: "PATCH",
+      });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/notifications"] });
       queryClient.invalidateQueries({ queryKey: ["/api/notifications/count"] });
-    },
-    onError: () => {
-      toast({
-        title: "Error",
-        description: "Failed to mark notification as read",
-        variant: "destructive",
-      });
     },
   });
 
   const markAllAsReadMutation = useMutation({
-    mutationFn: () =>
-      apiRequest("/api/notifications/read-all", "PATCH"),
+    mutationFn: async () => {
+      return apiRequest(`/api/notifications/mark-all-read`, {
+        method: "POST",
+        body: { userId },
+      });
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/notifications"] });
       queryClient.invalidateQueries({ queryKey: ["/api/notifications/count"] });
       toast({
-        title: "Success",
-        description: "All notifications marked as read",
-      });
-    },
-    onError: () => {
-      toast({
-        title: "Error",
-        description: "Failed to mark all notifications as read",
-        variant: "destructive",
+        title: "All notifications marked as read",
+        description: "Your notifications have been updated.",
       });
     },
   });
 
-  const handleNotificationClick = (notification: Notification) => {
-    if (!notification.isRead) {
-      markAsReadMutation.mutate(notification.id);
-    }
-    
-    // Check if this is an activity-related notification
-    if (notification.type === 'activity' || notification.type === 'partnership' || notification.type === 'new_deal') {
-      // Extract activity ID from notification data or use notification ID as fallback
-      const activityId = notification.data?.activityId || notification.id;
-      window.location.href = `/activity/${activityId}`;
-    } else if (notification.actionUrl) {
-      window.location.href = notification.actionUrl;
-    }
-  };
-
-  const handleMarkAllAsRead = () => {
-    markAllAsReadMutation.mutate();
-  };
-
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 p-4">
-        <div className="max-w-md mx-auto space-y-4">
-          {/* Header skeleton */}
-          <div className="flex items-center justify-between mb-6 pt-6">
-            <div className="h-8 w-32 bg-purple-600/50 rounded animate-pulse" />
-            <div className="h-8 w-20 bg-purple-600/50 rounded animate-pulse" />
-          </div>
-          
-          {/* Notification skeletons */}
-          {[...Array(5)].map((_, i) => (
-            <div key={i} className="glass-morphism rounded-xl p-4 animate-pulse border border-purple-500/30">
-              <div className="flex items-start space-x-3">
-                <div className="w-10 h-10 bg-purple-600/50 rounded-full" />
-                <div className="flex-1 space-y-2">
-                  <div className="h-4 w-3/4 bg-purple-600/50 rounded" />
-                  <div className="h-3 w-full bg-purple-600/50 rounded" />
-                  <div className="h-3 w-1/4 bg-purple-600/50 rounded" />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+      <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-cyan-400 flex items-center justify-center">
+        <div className="animate-spin w-8 h-8 border-4 border-white border-t-transparent rounded-full"></div>
       </div>
     );
   }
 
-  const unreadNotifications = (notifications || []).filter((n: Notification) => !n.isRead);
-  const readNotifications = (notifications || []).filter((n: Notification) => n.isRead);
+  const newNotifications = notifications.filter((n: any) => !n.isRead);
+  const earlierNotifications = notifications.filter((n: any) => n.isRead);
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-purple-800 to-indigo-900 p-4 pb-20">
-      <div className="max-w-md mx-auto">
-        {/* Header with EARLYSHH Branding */}
-        <div className="flex items-center justify-between mb-6 pt-6">
-          <div>
-            <div className="flex items-center space-x-2 mb-2">
-              <div className="text-2xl font-black bg-gradient-to-r from-pink-400 to-cyan-400 bg-clip-text text-transparent">
-                EARLYSHH
-              </div>
-              <Zap className="w-6 h-6 text-yellow-400" />
-            </div>
-            <h1 className="text-xl font-bold text-white">Partnership Updates</h1>
-            <p className="text-sm text-purple-200 mt-1">
-              {unreadNotifications.length} new update{unreadNotifications.length !== 1 ? 's' : ''}
-            </p>
-          </div>
-          
-          {unreadNotifications.length > 0 && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleMarkAllAsRead}
-              disabled={markAllAsReadMutation.isPending}
-              className="border-purple-400 text-purple-200 hover:bg-purple-700/50"
-            >
-              {markAllAsReadMutation.isPending ? "Marking..." : "Mark all read"}
-            </Button>
-          )}
-        </div>
-
-        {/* Empty state */}
-        {(!notifications || notifications.length === 0) && (
-          <div className="text-center py-12 glass-morphism rounded-3xl border border-purple-500/30">
-            <Bell className="w-12 h-12 text-purple-300 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-white mb-2">No updates yet</h3>
-            <p className="text-purple-200">You'll see partnership updates and activity here.</p>
-          </div>
-        )}
-
-        {/* Notifications */}
-        <div className="space-y-4">
-          {/* Unread Notifications */}
-          {unreadNotifications.length > 0 && (
-            <div>
-              <h2 className="text-lg font-semibold text-white mb-4 flex items-center">
-                <div className="w-2 h-2 bg-yellow-400 rounded-full mr-3"></div>
-                New Updates
-              </h2>
-              <div className="space-y-3">
-                {unreadNotifications.map((notification: Notification) => (
-                  <NotificationItem
-                    key={notification.id}
-                    notification={notification}
-                    onClick={() => handleNotificationClick(notification)}
-                    isUnread={true}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Separator */}
-          {unreadNotifications.length > 0 && readNotifications.length > 0 && (
-            <Separator className="my-6 bg-purple-600" />
-          )}
-
-          {/* Read Notifications */}
-          {readNotifications.length > 0 && (
-            <div>
-              {unreadNotifications.length > 0 && (
-                <h2 className="text-lg font-semibold text-purple-300 mb-4">Earlier</h2>
-              )}
-              <div className="space-y-3">
-                {readNotifications.map((notification: Notification) => (
-                  <NotificationItem
-                    key={notification.id}
-                    notification={notification}
-                    onClick={() => handleNotificationClick(notification)}
-                    isUnread={false}
-                  />
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-      <BottomNavigation />
-    </div>
-  );
-}
-
-interface NotificationItemProps {
-  notification: Notification;
-  onClick: () => void;
-  isUnread: boolean;
-}
-
-function NotificationItem({ notification, onClick, isUnread }: NotificationItemProps) {
-  const IconComponent = getNotificationIcon(notification.icon);
-  const timeAgo = getTimeAgo(notification.createdAt);
-
-  // Get icon background color based on notification type
-  const getIconBgColor = (type: string) => {
-    switch (type) {
-      case "new_deal":
-        return "bg-blue-500";
-      case "achievement":
-        return "bg-yellow-500";
-      case "reminder":
-        return "bg-purple-500";
-      case "partnership":
-        return "bg-green-500";
-      default:
-        return "bg-gray-500";
-    }
+  const getTimeAgo = (date: Date) => {
+    const now = new Date();
+    const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
+    
+    if (diffInMinutes < 60) return `${diffInMinutes}m ago`;
+    if (diffInMinutes < 1440) return `${Math.floor(diffInMinutes / 60)}h ago`;
+    return `${Math.floor(diffInMinutes / 1440)}d ago`;
   };
 
   return (
-    <div 
-      className={cn(
-        "glass-morphism rounded-xl p-4 border border-purple-500/30 cursor-pointer transition-all duration-200 hover:border-purple-400/50",
-        isUnread ? "bg-purple-800/20" : "bg-purple-900/10"
-      )}
-      onClick={onClick}
-    >
-      <div className="flex items-start space-x-3">
-        {/* Icon */}
-        <div className={cn(
-          "flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center",
-          getIconBgColor(notification.type)
-        )}>
-          <IconComponent className="w-5 h-5 text-white" />
-        </div>
-
-        {/* Content */}
-        <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between">
-            <div className="flex-1">
-              <h3 className={cn(
-                "font-semibold",
-                isUnread ? "text-white" : "text-purple-200"
-              )}>
-                {notification.title}
-              </h3>
-              <p className={cn(
-                "text-sm mt-1 line-clamp-2",
-                isUnread ? "text-purple-100" : "text-purple-300"
-              )}>
-                {notification.message}
-              </p>
-            </div>
-            
-            {/* Time and priority */}
-            <div className="flex flex-col items-end space-y-1">
-              <span className="text-xs text-purple-400">{timeAgo}</span>
-              {notification.priority === "high" && (
-                <div className="w-2 h-2 bg-yellow-400 rounded-full" />
-              )}
+    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-cyan-400">
+      <div className="container mx-auto px-4 py-6 max-w-md">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center space-x-3">
+            <div className="text-2xl">⚡</div>
+            <div>
+              <h1 className="text-2xl font-bold text-white">EARLYSHH</h1>
+              <h2 className="text-xl font-semibold text-white/90">Partnership Updates</h2>
+              <p className="text-white/70 text-sm">{newNotifications.length} new updates</p>
             </div>
           </div>
+          <Button
+            onClick={() => markAllAsReadMutation.mutate()}
+            disabled={markAllAsReadMutation.isPending || newNotifications.length === 0}
+            className="bg-white/20 hover:bg-white/30 text-white border-white/30 backdrop-blur-sm"
+            size="sm"
+          >
+            Mark all read
+          </Button>
         </div>
+
+        {/* New Updates */}
+        {newNotifications.length > 0 && (
+          <div className="mb-8">
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+              <h3 className="text-white font-semibold">New Updates</h3>
+            </div>
+            
+            <div className="space-y-3">
+              {newNotifications.map((notification: any) => (
+                <div
+                  key={notification.id}
+                  className="bg-white/15 backdrop-blur-sm rounded-2xl p-4 border border-white/20 hover:bg-white/20 transition-all cursor-pointer"
+                  onClick={() => markAsReadMutation.mutate(notification.id)}
+                >
+                  <div className="flex items-start space-x-3">
+                    <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center text-2xl">
+                      {notification.icon}
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <h4 className="text-white font-semibold text-lg mb-1">
+                            {notification.title}
+                          </h4>
+                          <p className="text-white/80 text-sm leading-relaxed">
+                            {notification.message}
+                          </p>
+                        </div>
+                        <div className="flex flex-col items-end space-y-1">
+                          <span className="text-white/60 text-xs">
+                            {getTimeAgo(notification.createdAt)}
+                          </span>
+                          <div className="w-2 h-2 bg-purple-300 rounded-full"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Earlier Updates */}
+        {earlierNotifications.length > 0 && (
+          <div>
+            <h3 className="text-white/70 font-semibold mb-4">Earlier</h3>
+            
+            <div className="space-y-3">
+              {earlierNotifications.map((notification: any) => (
+                <div
+                  key={notification.id}
+                  className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/10"
+                >
+                  <div className="flex items-start space-x-3">
+                    <div className="w-12 h-12 bg-white/15 rounded-2xl flex items-center justify-center text-2xl opacity-70">
+                      {notification.icon}
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <h4 className="text-white/90 font-semibold text-lg mb-1">
+                            {notification.title}
+                          </h4>
+                          <p className="text-white/70 text-sm leading-relaxed">
+                            {notification.message}
+                          </p>
+                        </div>
+                        <span className="text-white/50 text-xs">
+                          {getTimeAgo(notification.createdAt)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Empty State */}
+        {notifications.length === 0 && (
+          <div className="text-center py-12">
+            <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Bell className="w-8 h-8 text-white/60" />
+            </div>
+            <h3 className="text-xl font-semibold text-white mb-2">No notifications yet</h3>
+            <p className="text-white/70">
+              You'll see updates about new deals, achievements, and more here.
+            </p>
+          </div>
+        )}
       </div>
+      <BottomNavigation />
     </div>
   );
 }
