@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -26,6 +27,7 @@ import {
 import BottomNavigation from "@/components/bottom-navigation";
 
 export default function ProfilePage() {
+  const [, setLocation] = useLocation();
   const [notifications, setNotifications] = useState(3);
 
   // Mock user profile data
@@ -127,7 +129,7 @@ export default function ProfilePage() {
   };
 
   const handleEditProfile = () => {
-    console.log('Edit profile clicked');
+    setLocation('/profile/edit');
   };
 
   const handlePhotoUpload = () => {
@@ -234,7 +236,7 @@ export default function ProfilePage() {
                 Edit Profile
               </Button>
               <Button 
-                onClick={() => console.log('Navigate to settings')}
+                onClick={() => setLocation('/settings')}
                 className="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-500 hover:to-gray-600 text-white border-0 rounded-2xl shadow-lg transition-all duration-300 hover:scale-105"
                 size="sm"
               >
@@ -414,7 +416,7 @@ export default function ProfilePage() {
             Premium discoverers get first access to exclusive brand partnerships.
           </p>
           <Button 
-            onClick={() => console.log('Navigate to home')}
+            onClick={() => setLocation('/')}
             className="w-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 text-white font-black py-4 rounded-2xl border-0 transition-all duration-300 transform hover:scale-105 shadow-xl shadow-yellow-500/40"
           >
             <Gift className="w-5 h-5 mr-2" />
