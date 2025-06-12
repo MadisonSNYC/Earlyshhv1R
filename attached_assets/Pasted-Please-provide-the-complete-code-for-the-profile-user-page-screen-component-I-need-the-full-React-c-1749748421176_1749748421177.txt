@@ -1,0 +1,46 @@
+Please provide the complete code for the profile/user page screen component. I need the full React component code including:
+
+**COMPLETE COMPONENT STRUCTURE:**
+1. The main profile page component file and its location
+2. All imports and dependencies used (React Query, hooks, UI components, icons, etc.)
+3. Complete JSX structure including:
+   - Header/navigation section
+   - User profile information (avatar, name, stats, etc.)
+   - User statistics/metrics (partnerships claimed, savings, streaks, etc.)
+   - Achievement/badge sections if present
+   - Settings or account management sections
+   - Any gamification elements (levels, progress bars, etc.)
+   - Action buttons (edit profile, settings, logout, etc.)
+   - Bottom navigation if included
+
+**TECHNICAL DETAILS:**
+4. All styling (Tailwind classes and any custom CSS)
+5. State management (useState, useEffect, React Query, etc.)
+6. User data structures and mock data if present
+7. Any profile editing functionality
+8. Authentication/logout logic
+9. Navigation/routing logic
+10. API integration points
+
+**FUNCTIONALITY:**
+11. Profile image upload/editing
+12. User preference settings
+13. Partnership history access
+14. Achievement display logic
+15. Statistics calculation and display
+16. Social features (if any)
+17. Account management features
+
+Please format it as a complete, copyable code block so I can share it with a designer for a complete redesign using our new elegant, colorful design system.
+
+I want to update this profile page to match our premium partnership platform aesthetic with:
+- Bright, vibrant background gradients (like our other pages)
+- Prominent colorful UI elements and cards
+- Partnership-focused language and terminology
+- Modern card designs with backdrop blur effects
+- Sophisticated animations and interactions
+- Better visual hierarchy and contrast
+- Gamification elements that feel premium
+- Clean, spacious layout with proper depth layers
+
+Show me everything currently implemented so I can plan the redesign strategy.
