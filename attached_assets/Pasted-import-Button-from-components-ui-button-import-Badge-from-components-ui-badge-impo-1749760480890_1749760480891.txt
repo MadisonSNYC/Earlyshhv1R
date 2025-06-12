@@ -1,23 +1,33 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check, Instagram, MapPin, X, Sparkles, Crown, Gift } from "lucide-react";
-import { Campaign } from "@shared/schema";
-import { useLocation } from "wouter";
+
+// Mock campaign data for demonstration
+const mockCampaign = {
+  id: 1,
+  brandName: "SuperRoot Energy",
+  brandLogoUrl: "/api/placeholder/64/64",
+  offerDescription: "Free Sample Energy Drink",
+  productName: "SuperRoot Premium Energy Formula",
+  brandIgHandle: "@superrootenergy",
+  redeemableAmount: 3.99,
+  maxCoupons: 250,
+  claimedCount: 50
+};
 
 interface PartnershipTermsModalProps {
-  campaign: Campaign & { claimedCount?: number };
+  campaign?: typeof mockCampaign;
   onAccept: () => void;
   onClose: () => void;
   onViewOnMap?: () => void;
 }
 
 export default function PartnershipTermsModal({ 
-  campaign, 
+  campaign = mockCampaign, 
   onAccept, 
   onClose, 
   onViewOnMap 
 }: PartnershipTermsModalProps) {
-  const [location, navigate] = useLocation();
   const distance = "0.3 miles away";
   const slotsRemaining = campaign.maxCoupons - (campaign.claimedCount || 0);
 
@@ -30,12 +40,11 @@ export default function PartnershipTermsModal({
 
   const handleAcceptPartnership = () => {
     onAccept();
-    const campaignData = encodeURIComponent(JSON.stringify(campaign));
-    navigate(`/partnership-confirmation?campaign=${campaignData}`);
+    console.log('Navigate to partnership confirmation');
   };
 
   const handleViewBrandProfile = () => {
-    navigate(`/brand/${campaign.id}`);
+    console.log(`Navigate to brand profile: ${campaign.id}`);
     onClose();
   };
 
