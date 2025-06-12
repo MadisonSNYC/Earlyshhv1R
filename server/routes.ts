@@ -10,6 +10,7 @@ import { couponBusiness } from "./business/coupon-business";
 import { userBusiness } from "./business/user-business";
 import { notificationBusiness } from "./business/notification-business";
 import { storyBusiness } from "./business/story-business";
+import { gamificationBusiness } from "./business/gamification-business";
 
 // Middleware imports
 import { validateBody, validateParams, validateQuery, idParamSchema, userIdQuerySchema } from "./middleware/validation-middleware";
@@ -306,6 +307,58 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to create notification", error: error instanceof Error ? error.message : "Unknown error" });
     }
   });
+
+  // Gamification routes
+  app.get("/api/gamification/summary/:userId", validateParams(idParamSchema), asyncHandler(async (req: any, res: any) => {
+    const userId = parseInt(req.params.userId);
+    const summary = await gamificationBusiness.getUserGamificationSummary(userId);
+    
+    if (!summary) {
+      throw createApiError(404, "User gamification data not found");
+    }
+    
+    res.json(summary);
+  }));
+
+  app.get("/api/badges", asyncHandler(async (req: any, res: any) => {
+    const badges = await storage.getAllBadges();
+    res.json(badges);
+  }));
+
+  app.get("/api/users/:userId/badges", validateParams(idParamSchema), asyncHandler(async (req: any, res: any) => {
+    const userId = parseInt(req.params.userId);
+    const userBadges = await storage.getUserBadges(userId);
+    res.json(userBadges);
+  }));
+
+  app.get("/api/users/:userId/activities", validateParams(idParamSchema), asyncHandler(async (req: any, res: any) => {
+    const userId = parseInt(req.params.userId);
+    const { limit } = req.query;
+    
+    if (limit) {
+      const activities = await storage.getUserRecentActivities(userId, parseInt(limit as string));
+      res.json(activities);
+    } else {
+      const activities = await storage.getUserActivities(userId);
+      res.json(activities);
+    }
+  }));
+
+  app.post("/api/gamification/track", asyncHandler(async (req: any, res: any) => {
+    const { userId, activityType, metadata } = req.body;
+    
+    if (!userId || !activityType) {
+      throw createApiError(400, "userId and activityType are required");
+    }
+    
+    const activity = await gamificationBusiness.trackActivity(userId, activityType, metadata);
+    res.status(201).json(activity);
+  }));
+
+  app.post("/api/gamification/initialize", asyncHandler(async (req: any, res: any) => {
+    await gamificationBusiness.initializeBadges();
+    res.json({ message: "Gamification system initialized successfully" });
+  }));
 
   // Add error handling middleware
   app.use(errorHandler);
