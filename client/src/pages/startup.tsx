@@ -86,7 +86,32 @@ export default function StartupPage() {
             Join with Instagram
           </Button>
 
-
+          {/* Dev Mode Section */}
+          <div className="space-y-4 pt-8">
+            <div className="flex items-center justify-center space-x-2">
+              <div className="h-px bg-cyan-400 flex-1" />
+              <span className="text-cyan-400 text-sm font-medium px-3">Dev Mode Bypass</span>
+              <div className="h-px bg-cyan-400 flex-1" />
+            </div>
+            
+            <div className="space-y-3">
+              <input
+                type="text"
+                placeholder="Username (test)"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="w-full h-12 bg-gray-800/50 border border-gray-600 rounded-2xl px-4 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 focus:bg-gray-800 transition-all"
+              />
+              
+              <Button 
+                onClick={handleDevBypass}
+                disabled={!username.trim()}
+                className="w-full h-12 bg-transparent border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-gray-900 font-semibold rounded-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-cyan-400/30"
+              >
+                Bypass Login
+              </Button>
+            </div>
+          </div>
 
           {/* Partnership Terms */}
           <p className="text-gray-400 text-sm leading-relaxed pt-4">
