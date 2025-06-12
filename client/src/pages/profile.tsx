@@ -151,12 +151,17 @@ export default function ProfilePage() {
                 <div className="text-xs font-space text-gray-400">Location</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-rubik font-bold text-cyan-400">12.4%</div>
-                <div className="text-xs font-space text-gray-400">Engagement</div>
+                <div className="text-xl font-rubik font-bold text-emerald-400">
+                  {user?.gender === 'male' ? 'Male' : 
+                   user?.gender === 'female' ? 'Female' : 
+                   user?.gender === 'non-binary' ? 'Non-binary' : 
+                   user?.gender === 'prefer-not-to-say' ? 'Private' : 'Not set'}
+                </div>
+                <div className="text-xs font-space text-gray-400">Gender</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-rubik font-bold text-yellow-400">8.2K</div>
-                <div className="text-xs font-space text-gray-400">Avg Views</div>
+                <div className="text-2xl font-rubik font-bold text-cyan-400">12.4%</div>
+                <div className="text-xs font-space text-gray-400">Engagement</div>
               </div>
             </div>
           </CardContent>

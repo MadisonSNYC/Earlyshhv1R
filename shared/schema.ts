@@ -8,6 +8,7 @@ export const users = pgTable("users", {
   username: text("username").notNull(),
   fullName: text("full_name").notNull(),
   profilePicUrl: text("profile_pic_url"),
+  gender: text("gender"), // male, female, non-binary, prefer-not-to-say
   ageVerified: boolean("age_verified").notNull().default(false),
   accessToken: text("access_token"),
   createdAt: timestamp("created_at").notNull().defaultNow(),

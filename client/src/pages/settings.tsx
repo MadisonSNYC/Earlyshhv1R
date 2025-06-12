@@ -43,7 +43,8 @@ export default function SettingsPage() {
     graduationYear: '2025',
     accountType: 'personal' as 'personal' | 'creator' | 'business',
     email: 'alex.chen@nyu.edu',
-    phone: '+1 (555) 123-4567'
+    phone: '+1 (555) 123-4567',
+    gender: user?.gender || 'prefer-not-to-say'
   });
 
   // Social Influence Metrics (user can see their own data)
@@ -197,6 +198,20 @@ export default function SettingsPage() {
                   onChange={(e) => updateProfileData('graduationYear', e.target.value)}
                   className="bg-gray-800 border-gray-600 text-white"
                 />
+              </div>
+              <div>
+                <Label htmlFor="gender" className="text-gray-300">Gender</Label>
+                <Select value={profileData.gender} onValueChange={(value) => updateProfileData('gender', value)}>
+                  <SelectTrigger className="bg-gray-800 border-gray-600 text-white">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="male">Male</SelectItem>
+                    <SelectItem value="female">Female</SelectItem>
+                    <SelectItem value="non-binary">Non-binary</SelectItem>
+                    <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <div>
                 <Label htmlFor="accountType" className="text-gray-300">Account Type</Label>
