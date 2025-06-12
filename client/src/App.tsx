@@ -28,6 +28,7 @@ const InstagramStoryPage = React.lazy(() => import(/* webpackChunkName: "instagr
 const SurveyPage = React.lazy(() => import(/* webpackChunkName: "survey" */ './pages/survey'));
 const BrandProfilePage = React.lazy(() => import(/* webpackChunkName: "brand-profile" */ './pages/brand-profile'));
 const BrandAboutPage = React.lazy(() => import(/* webpackChunkName: "brand-about" */ './pages/brand-about'));
+const MapPage = React.lazy(() => import(/* webpackChunkName: "map" */ './pages/map'));
 const NotFoundPage = React.lazy(() => import(/* webpackChunkName: "not-found" */ './pages/not-found'));
 
 // Authenticated app wrapper
@@ -49,6 +50,7 @@ function AuthenticatedApp() {
       <Route path="/my-coupons" component={MyCouponsPage} />
       <Route path="/partnerships" component={PartnershipsPage} />
       <Route path="/coupon/:couponId" component={PartnershipsPage} />
+      <Route path="/map" component={MapPage} />
       <Route path="/notifications" component={NotificationsPage} />
       <Route path="/analytics" component={AnalyticsPage} />
       <Route path="/settings" component={SettingsPage} />
