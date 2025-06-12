@@ -170,6 +170,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ message: "Coupon redeemed successfully", coupon: updatedCoupon });
   }));
 
+  // Alternative POST endpoint for frontend compatibility
+  app.post("/api/coupons/:id/redeem", 
+    validateParams(idParamSchema), 
+    validateBody(z.object({ userId: z.number() })), 
+    asyncHandler(async (req: any, res: any) => {
+      const updatedCoupon = await couponBusiness.redeemCoupon(req.params.id);
+      res.json({ message: "Coupon redeemed successfully", coupon: updatedCoupon });
+    })
+  );
+
   // Story routes
   app.post("/api/stories", async (req, res) => {
     try {
@@ -186,10 +196,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         couponId: data.couponId || null,
         instagramStoryId: data.instagramStoryId || null,
         postedAt: new Date(),
+        detectedAt: new Date(),
         impressions: data.impressions || 0,
         reach: data.reach || 0,
-        storyUrl: null,
-        metadata: null,
+        storyUrl: req.body.storyUrl || null,
+        metadata: req.body.metadata || null,
       });
 
       res.json({ message: "Story created successfully", story });
@@ -197,6 +208,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to create story", error: error instanceof Error ? error.message : "Unknown error" });
     }
   });
+
+  // Feedback routes
+  app.post("/api/feedback", 
+    validateBody(z.object({
+      userId: z.number(),
+      campaignId: z.number(),
+      feedbackRequestId: z.number(),
+      overallRating: z.number().min(1).max(5),
+      productQuality: z.number().min(0).max(5).optional(),
+      value: z.number().min(0).max(5).optional(),
+      packaging: z.number().min(0).max(5).optional(),
+      brandHelpfulness: z.number().min(0).max(5).optional(),
+      purchaseIntent: z.string(),
+      wouldRecommend: z.boolean(),
+      experience: z.string().optional(),
+      improvements: z.string().optional(),
+    })),
+    asyncHandler(async (req: any, res: any) => {
+      const feedback = await storage.createProductFeedback(req.body);
+      res.json({ message: "Feedback submitted successfully", feedback });
+    })
+  );
+
+  // Get pending feedback requests for user
+  app.get("/api/users/:userId/feedback/pending", 
+    validateParams(z.object({ userId: z.string().transform(val => parseInt(val, 10)) })),
+    asyncHandler(async (req: any, res: any) => {
+      const pendingFeedback = await storage.getUserPendingFeedback(req.params.userId);
+      res.json(pendingFeedback);
+    })
+  );
 
   // Analytics routes
   app.get("/api/analytics/campaigns", async (req, res) => {
