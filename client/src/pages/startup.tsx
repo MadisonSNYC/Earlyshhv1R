@@ -171,8 +171,8 @@ export default function StartupPage() {
                 />
               </div>
             </div>
-            <div className="bg-black/20 backdrop-blur-sm rounded-lg px-4 py-2 border border-white/20">
-              <p className="text-xl text-white font-medium tracking-wide">
+            <div className="bg-black/70 backdrop-blur-md rounded-lg px-6 py-3 border border-white/40 shadow-2xl">
+              <p className="text-xl text-white font-semibold tracking-wide drop-shadow-lg">
                 Social-First Partnership Platform
               </p>
             </div>
@@ -180,12 +180,12 @@ export default function StartupPage() {
 
           {/* Enhanced loading status with icons */}
           <div className="space-y-6">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+            <div className="bg-black/60 backdrop-blur-md rounded-2xl p-6 border border-white/30 shadow-2xl">
               <div className="flex items-center justify-center space-x-3 mb-4">
                 {loadingText.includes("location") && <MapPin className="w-6 h-6 text-cyan-300 animate-pulse" />}
                 {loadingText.includes("partnerships") && <Users className="w-6 h-6 text-pink-300 animate-spin" />}
                 {loadingText.includes("offers") && <Sparkles className="w-6 h-6 text-yellow-300 animate-bounce" />}
-                <p className="text-lg text-white/90 font-medium">
+                <p className="text-lg text-white font-semibold drop-shadow-lg">
                   {loadingText}
                 </p>
               </div>
@@ -261,7 +261,11 @@ export default function StartupPage() {
             {/* Instagram Login */}
             <Button
               onClick={handleInstagramLogin}
-              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 h-12 text-lg font-semibold"
+              className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 h-12 text-lg font-bold shadow-2xl"
+              style={{ 
+                textShadow: '0 2px 4px rgba(0,0,0,0.5)',
+                boxShadow: '0 8px 32px rgba(168, 85, 247, 0.4)'
+              }}
             >
               <Instagram className="w-5 h-5 mr-3" />
               Continue with Instagram
@@ -275,11 +279,15 @@ export default function StartupPage() {
             </div>
 
             {/* Dev Bypass */}
-            <div className="pt-4 border-t border-white/20">
+            <div className="pt-4 border-t border-white/30">
               <Button
                 onClick={handleDevBypass}
                 variant="outline"
-                className="w-full bg-white/10 border-white/30 text-white hover:bg-white/20 hover:text-white"
+                className="w-full bg-black/40 border-white/40 text-white hover:bg-black/60 hover:text-white font-semibold shadow-lg"
+                style={{ 
+                  textShadow: '0 1px 2px rgba(0,0,0,0.5)',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)'
+                }}
               >
                 Dev Bypass - Enter App
               </Button>
