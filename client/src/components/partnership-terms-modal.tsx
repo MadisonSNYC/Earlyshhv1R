@@ -41,22 +41,22 @@ export default function PartnershipTermsModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-      <div className="relative w-full max-w-md max-h-[90vh] bg-gradient-to-br from-indigo-600 via-purple-700 via-pink-600 to-orange-500 rounded-3xl shadow-2xl overflow-hidden">
+      <div className="relative w-full max-w-md max-h-[90vh] bg-gradient-to-br from-indigo-600 via-purple-700 via-pink-600 to-orange-500 rounded-3xl shadow-2xl overflow-hidden flex flex-col">
         {/* Enhanced background overlays */}
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/40 via-purple-600/30 to-pink-500/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-gray-900/60" />
         
+        {/* Close Button - Fixed Position */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-gray-900/80 backdrop-blur-md flex items-center justify-center text-gray-300 hover:text-white hover:bg-gray-800/90 transition-all duration-300 border border-white/10 shadow-lg"
+        >
+          <X className="w-5 h-5" />
+        </button>
+        
         {/* Scrollable Content Container */}
-        <div className="relative z-10 h-full overflow-y-auto overflow-x-hidden modal-scroll">
-          <div className="p-6 space-y-6">
-            {/* Close Button */}
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-gray-900/80 backdrop-blur-md flex items-center justify-center text-gray-300 hover:text-white hover:bg-gray-800/90 transition-all duration-300 border border-white/10 shadow-lg"
-            >
-              <X className="w-5 h-5" />
-            </button>
-            
+        <div className="relative z-10 flex-1 overflow-y-auto overflow-x-hidden modal-scroll">
+          <div className="p-6 space-y-6 pt-16">
             {/* Header Section */}
             <div className="bg-gray-900/70 backdrop-blur-md rounded-3xl p-6 border border-white/20 shadow-xl">
               <div className="flex items-center space-x-4 mb-4">
