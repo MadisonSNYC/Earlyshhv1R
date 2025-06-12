@@ -2,21 +2,63 @@ import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Instagram, Zap, ArrowRight, Shield } from "lucide-react";
+import { Instagram, Zap, ArrowRight, Shield, MapPin, Users, Sparkles } from "lucide-react";
 
 export default function StartupPage() {
   const [, setLocation] = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const [showAuth, setShowAuth] = useState(false);
+  const [loadingText, setLoadingText] = useState("Initializing...");
+  const [nearbyCount, setNearbyCount] = useState(0);
+  const [locationDetected, setLocationDetected] = useState(false);
 
   useEffect(() => {
-    // Show loading screen for 2 seconds, then show auth options
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-      setShowAuth(true);
-    }, 2000);
+    // Complex loading sequence with multiple steps
+    const loadingSequence = [
+      { text: "Initializing Earlyshh platform...", duration: 800 },
+      { text: "Detecting your location...", duration: 1000 },
+      { text: "Scanning for nearby partnerships...", duration: 1200 },
+      { text: "Loading exclusive offers...", duration: 800 },
+      { text: "Almost ready...", duration: 600 }
+    ];
 
-    return () => clearTimeout(timer);
+    let currentIndex = 0;
+    let totalTime = 0;
+
+    const runSequence = () => {
+      if (currentIndex < loadingSequence.length) {
+        const current = loadingSequence[currentIndex];
+        setLoadingText(current.text);
+        
+        // Simulate location detection
+        if (current.text.includes("location")) {
+          navigator.geolocation?.getCurrentPosition(
+            () => setLocationDetected(true),
+            () => setLocationDetected(false)
+          );
+        }
+        
+        // Simulate finding partnerships
+        if (current.text.includes("partnerships")) {
+          const count = Math.floor(Math.random() * 15) + 8;
+          setNearbyCount(count);
+        }
+        
+        totalTime += current.duration;
+        setTimeout(() => {
+          currentIndex++;
+          runSequence();
+        }, current.duration);
+      } else {
+        // Final transition to auth screen
+        setTimeout(() => {
+          setIsLoading(false);
+          setShowAuth(true);
+        }, 500);
+      }
+    };
+
+    runSequence();
   }, []);
 
   const handleInstagramLogin = () => {
@@ -33,34 +75,165 @@ export default function StartupPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-cyan-400 flex items-center justify-center relative overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-10 w-32 h-32 bg-white rounded-full animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-24 h-24 bg-white rounded-full animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-white rounded-full animate-pulse delay-500"></div>
+        {/* Complex particle system */}
+        <div className="absolute inset-0">
+          {/* Large floating particles */}
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={`large-${i}`}
+              className="absolute w-4 h-4 bg-white/30 rounded-full animate-pulse"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 4}s`,
+                animationDuration: `${3 + Math.random() * 3}s`,
+                transform: `translate(${Math.sin(i) * 50}px, ${Math.cos(i) * 50}px)`
+              }}
+            />
+          ))}
+          
+          {/* Medium particles */}
+          {[...Array(40)].map((_, i) => (
+            <div
+              key={`medium-${i}`}
+              className="absolute w-2 h-2 bg-white/20 rounded-full animate-bounce"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+                animationDuration: `${2 + Math.random() * 2}s`
+              }}
+            />
+          ))}
+          
+          {/* Small sparkles */}
+          {[...Array(60)].map((_, i) => (
+            <div
+              key={`small-${i}`}
+              className="absolute w-1 h-1 bg-white/40 rounded-full animate-ping"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 2}s`,
+                animationDuration: `${1 + Math.random() * 1}s`
+              }}
+            />
+          ))}
         </div>
 
-        <div className="text-center z-10">
-          {/* Logo */}
-          <div className="mb-8">
-            <div className="flex items-center justify-center space-x-3 mb-4">
-              <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-white/30">
-                <Zap className="w-8 h-8 text-white" />
+        {/* Gradient overlay for depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+
+        {/* Main loading content */}
+        <div className="text-center z-10 space-y-8">
+          {/* Logo and brand with animated gradients */}
+          <div className="space-y-6">
+            <div className="flex items-center justify-center space-x-4">
+              <div className="relative">
+                {/* Animated glow layers */}
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 via-orange-400 to-red-400 rounded-full blur-lg opacity-60 animate-pulse" />
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 rounded-full blur-md opacity-40 animate-ping" style={{ animationDuration: '3s' }} />
+                <div className="absolute inset-0 bg-gradient-to-r from-pink-300 via-purple-400 to-indigo-400 rounded-full blur-sm opacity-30" style={{ 
+                  animation: 'spin 8s linear infinite' 
+                }} />
+                <Zap className="relative w-16 h-16 text-yellow-300 animate-bounce filter drop-shadow-lg" style={{ animationDuration: '2s' }} />
               </div>
-              <h1 className="text-4xl font-bold text-white">EARLYSHH</h1>
+              
+              {/* Animated gradient text */}
+              <div className="relative">
+                <h1 className="text-7xl font-bold tracking-wide relative">
+                  <span 
+                    className="absolute inset-0 bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent animate-pulse"
+                    style={{ animationDuration: '2s' }}
+                  >
+                    EARLYSHH
+                  </span>
+                  <span 
+                    className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-pink-400 to-yellow-400 bg-clip-text text-transparent"
+                    style={{ 
+                      animation: 'gradient-shift 4s ease-in-out infinite',
+                      opacity: '0.8'
+                    }}
+                  >
+                    EARLYSHH
+                  </span>
+                  <span 
+                    className="bg-gradient-to-r from-purple-300 via-pink-300 to-cyan-300 bg-clip-text text-transparent"
+                  >
+                    EARLYSHH
+                  </span>
+                </h1>
+                
+                {/* Shimmer effect */}
+                <div 
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12 opacity-0"
+                  style={{ 
+                    animation: 'shimmer 3s ease-in-out infinite',
+                    animationDelay: '1s'
+                  }}
+                />
+              </div>
             </div>
+            <p className="text-2xl text-white/90 font-light tracking-wide animate-pulse">
+              Social-First Partnership Platform
+            </p>
           </div>
 
-          {/* Loading message */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-center space-x-2">
-              <div className="w-2 h-2 bg-white rounded-full animate-bounce"></div>
-              <div className="w-2 h-2 bg-white rounded-full animate-bounce delay-100"></div>
-              <div className="w-2 h-2 bg-white rounded-full animate-bounce delay-200"></div>
+          {/* Enhanced loading status with icons */}
+          <div className="space-y-6">
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+              <div className="flex items-center justify-center space-x-3 mb-4">
+                {loadingText.includes("location") && <MapPin className="w-6 h-6 text-cyan-300 animate-pulse" />}
+                {loadingText.includes("partnerships") && <Users className="w-6 h-6 text-pink-300 animate-spin" />}
+                {loadingText.includes("offers") && <Sparkles className="w-6 h-6 text-yellow-300 animate-bounce" />}
+                <p className="text-lg text-white/90 font-medium">
+                  {loadingText}
+                </p>
+              </div>
+              
+              {/* Status indicators */}
+              <div className="space-y-3">
+                {locationDetected && (
+                  <div className="flex items-center justify-center space-x-2 text-green-300">
+                    <MapPin className="w-4 h-4" />
+                    <span className="text-sm">Location detected</span>
+                  </div>
+                )}
+                
+                {nearbyCount > 0 && (
+                  <div className="flex items-center justify-center space-x-2 text-cyan-300">
+                    <Users className="w-4 h-4" />
+                    <span className="text-sm">{nearbyCount} partnerships found nearby</span>
+                  </div>
+                )}
+              </div>
             </div>
-            <p className="text-white/90 text-lg font-medium">
-              Loading exclusive partnerships near you...
-            </p>
+            
+            {/* Enhanced loading animation */}
+            <div className="flex justify-center space-x-3">
+              {[...Array(5)].map((_, i) => (
+                <div
+                  key={i}
+                  className="w-3 h-3 bg-gradient-to-r from-pink-400 to-cyan-400 rounded-full animate-bounce"
+                  style={{
+                    animationDelay: `${i * 0.15}s`,
+                    animationDuration: '1.2s'
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Progress bar */}
+            <div className="w-64 mx-auto">
+              <div className="bg-white/20 rounded-full h-2 overflow-hidden">
+                <div 
+                  className="bg-gradient-to-r from-pink-400 to-cyan-400 h-full rounded-full transition-all duration-1000 ease-out"
+                  style={{ 
+                    width: `${Math.min(100, (loadingText.includes("Almost") ? 90 : loadingText.includes("offers") ? 70 : loadingText.includes("partnerships") ? 50 : loadingText.includes("location") ? 30 : 10))}%` 
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
