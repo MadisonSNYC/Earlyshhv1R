@@ -14,14 +14,102 @@ interface MapViewProps {
 export default function MapView({ campaigns, onCouponClaimed, onCampaignClick }: MapViewProps) {
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
 
-  // Brooklyn locations near 120 Bedford Ave
-  const brooklynLocations = [
-    { name: "Café Grumpy", address: "193 Meserole Ave", distance: "0.2 mi", type: "coffee", position: { top: "25%", left: "30%" } },
-    { name: "Smorgasburg", address: "East River State Park", distance: "0.4 mi", type: "food", position: { top: "40%", right: "25%" } },
-    { name: "Desert Island Comics", address: "540 Metropolitan Ave", distance: "0.3 mi", type: "retail", position: { top: "60%", left: "40%" } },
-    { name: "Spuyten Duyvil", address: "359 Metropolitan Ave", distance: "0.1 mi", type: "bar", position: { bottom: "30%", right: "35%" } },
-    { name: "Bagel Store", address: "754 Metropolitan Ave", distance: "0.5 mi", type: "food", position: { top: "35%", left: "60%" } }
+  // Create dummy campaign data if no campaigns provided
+  const dummyCampaigns = [
+    {
+      id: 1,
+      brandName: "SuperRoot Energy",
+      brandIgHandle: "@superroot",
+      brandBio: "Premium energy drinks for active lifestyles",
+      offerDescription: "20% off your first energy drink purchase",
+      productName: "SuperRoot Original",
+      brandLogoUrl: "https://via.placeholder.com/64",
+      offerId: "SR001",
+      redeemableAmount: "$5 OFF",
+      latitude: "40.7128",
+      longitude: "-73.9578",
+      radius: "1km",
+      status: "active",
+      perUserLimit: 3,
+      category: "Food & Beverage",
+      position: { top: "30%", left: "40%" }
+    },
+    {
+      id: 2,
+      brandName: "Urban Threads",
+      brandIgHandle: "@urbanthreads",
+      brandBio: "Sustainable streetwear for the conscious consumer",
+      offerDescription: "Free shipping on orders over $75",
+      productName: "Organic Cotton Tee",
+      brandLogoUrl: "https://via.placeholder.com/64",
+      offerId: "UT002",
+      redeemableAmount: "FREE SHIPPING",
+      latitude: "40.7150",
+      longitude: "-73.9600",
+      radius: "2km",
+      status: "active",
+      perUserLimit: 1,
+      category: "Fashion",
+      position: { top: "20%", right: "30%" }
+    },
+    {
+      id: 3,
+      brandName: "Bloom Beauty",
+      brandIgHandle: "@bloombeauty",
+      brandBio: "Clean beauty products made with natural ingredients",
+      offerDescription: "Buy one get one 50% off on all serums",
+      productName: "Vitamin C Serum",
+      brandLogoUrl: "https://via.placeholder.com/64",
+      offerId: "BB003",
+      redeemableAmount: "BOGO 50%",
+      latitude: "40.7100",
+      longitude: "-73.9550",
+      radius: "1.5km",
+      status: "active",
+      perUserLimit: 2,
+      category: "Beauty",
+      position: { bottom: "25%", left: "30%" }
+    },
+    {
+      id: 4,
+      brandName: "TechFlow",
+      brandIgHandle: "@techflow",
+      brandBio: "Smart home devices and accessories",
+      offerDescription: "30% off wireless charging pads",
+      productName: "Wireless Charging Pad Pro",
+      brandLogoUrl: "https://via.placeholder.com/64",
+      offerId: "TF004",
+      redeemableAmount: "$15 OFF",
+      latitude: "40.7180",
+      longitude: "-73.9620",
+      radius: "3km",
+      status: "active",
+      perUserLimit: 1,
+      category: "Electronics",
+      position: { top: "60%", right: "20%" }
+    },
+    {
+      id: 5,
+      brandName: "Artisan Eats",
+      brandIgHandle: "@artisaneats",
+      brandBio: "Locally sourced gourmet food experiences",
+      offerDescription: "Complimentary appetizer with dinner",
+      productName: "Chef's Special Tasting",
+      brandLogoUrl: "https://via.placeholder.com/64",
+      offerId: "AE005",
+      redeemableAmount: "FREE APPETIZER",
+      latitude: "40.7090",
+      longitude: "-73.9590",
+      radius: "0.5km",
+      status: "active",
+      perUserLimit: 4,
+      category: "Food & Beverage",
+      position: { bottom: "40%", right: "40%" }
+    }
   ];
+
+  // Use provided campaigns or fallback to dummy data
+  const displayCampaigns = campaigns.length > 0 ? campaigns : dummyCampaigns;
 
   const handlePinClick = (campaign: Campaign) => {
     setSelectedCampaign(campaign);
