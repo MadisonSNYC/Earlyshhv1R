@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { 
@@ -19,10 +18,8 @@ import {
   Timer,
   Sparkles
 } from "lucide-react";
-import BottomNavigation from "@/components/bottom-navigation";
 
 export default function NotificationsPage() {
-  const [, setLocation] = useLocation();
   const [notifications, setNotifications] = useState([
     {
       id: 1,
@@ -135,42 +132,8 @@ export default function NotificationsPage() {
 
   const handleNotificationClick = (notification: any) => {
     markAsRead(notification.id);
-    
-    // Navigation routing logic based on notification type
-    switch (notification.type) {
-      case "new_deal":
-      case "expiry_warning":
-        setLocation(`/partnership/${notification.relatedId}`);
-        break;
-      case "achievement":
-        setLocation('/dashboard');
-        break;
-      case "redemption_success":
-        setLocation('/history');
-        break;
-      case "story_verified":
-        setLocation(`/stories/${notification.relatedId}`);
-        break;
-      default:
-        console.log(`Unknown notification type: ${notification.type}`);
-    }
-  };
-
-  const handlePartnershipClick = (partnership: any) => {
-    // Live partnership routing logic
-    switch (partnership.status) {
-      case "active":
-        setLocation(`/partnership/${partnership.id}`);
-        break;
-      case "pending_story":
-        setLocation(`/instagram-story/${partnership.id}`);
-        break;
-      case "claimed":
-        setLocation(`/partnerships`);
-        break;
-      default:
-        setLocation(`/partnership/${partnership.id}`);
-    }
+    // TODO: Add routing logic here based on notification.type and notification.relatedId
+    console.log(`Navigate to: ${notification.type} - ${notification.relatedId}`);
   };
 
   return (
@@ -180,10 +143,9 @@ export default function NotificationsPage() {
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/20 to-gray-900/40" />
       
       <div className="relative z-10 container mx-auto px-6 py-8 max-w-md">
-        {/* Enhanced Header with compartmentalized logo section */}
+        {/* Enhanced Header with more prominent logo */}
         <div className="bg-gray-900/60 backdrop-blur-md rounded-3xl p-6 mb-6 border border-white/20 shadow-xl">
-          {/* Separate Earlyshh Logo Container */}
-          <div className="bg-gray-800/40 backdrop-blur-sm rounded-2xl p-4 mb-4 border border-white/10">
+          <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-4">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl blur-lg opacity-60 animate-pulse" />
@@ -192,32 +154,28 @@ export default function NotificationsPage() {
                 </div>
               </div>
               <div>
-                <h1 className="text-2xl font-black text-white drop-shadow-lg tracking-tight">
+                <h1 className="text-3xl font-black text-white drop-shadow-lg tracking-tight">
                   <span 
                     className="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent"
+                    style={{
+                      backgroundSize: '200% 100%',
+                      animation: 'shimmer 3s ease-in-out infinite'
+                    }}
                   >
                     EARLYSHH
                   </span>
                 </h1>
+                <h2 className="text-lg font-bold text-white/95 drop-shadow-md">Partnership Updates</h2>
                 <p className="text-orange-200 text-sm font-medium drop-shadow-sm">
-                  Partnership Platform
+                  {newNotifications.length} new updates
                 </p>
               </div>
-            </div>
-          </div>
-
-          {/* Updates Section */}
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-lg font-bold text-white/95 drop-shadow-md">Partnership Updates</h2>
-              <p className="text-orange-200 text-sm font-medium drop-shadow-sm">
-                {newNotifications.length} new updates
-              </p>
             </div>
             <Button
               onClick={markAllAsRead}
               disabled={newNotifications.length === 0}
-              className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white border-0 font-semibold rounded-xl shadow-lg shadow-orange-400/30 transition-all duration-300 hover:scale-105 px-3 py-2 h-8 text-xs"
+              className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white border-0 font-semibold rounded-2xl shadow-lg shadow-orange-400/30 transition-all duration-300 hover:scale-105"
+              size="sm"
             >
               Mark all read
             </Button>
@@ -243,7 +201,7 @@ export default function NotificationsPage() {
               <div
                 key={partnership.id}
                 className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-4 border border-white/10 hover:border-white/20 transition-all duration-300 cursor-pointer group"
-                onClick={() => handlePartnershipClick(partnership)}
+                onClick={() => console.log(`Navigate to partnership: ${partnership.id}`)}
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-3">
@@ -380,10 +338,40 @@ export default function NotificationsPage() {
             </p>
           </div>
         )}
+
+        {/* CSS for shimmer animation */}
+        <style jsx>{`
+          @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+        `}</style>
       </div>
 
-      {/* Bottom Navigation */}
-      <BottomNavigation />
+      {/* Bottom Navigation Placeholder */}
+      <div className="fixed bottom-0 left-0 right-0 bg-gray-900/90 backdrop-blur-md border-t border-white/20 shadow-xl">
+        <div className="max-w-md mx-auto px-6 py-4">
+          <div className="flex items-center justify-around">
+            <div className="flex flex-col items-center space-y-1">
+              <div className="w-6 h-6 bg-gray-500 rounded-lg shadow-lg" />
+              <span className="text-xs text-gray-300 drop-shadow-md">Home</span>
+            </div>
+            <div className="flex flex-col items-center space-y-1">
+              <div className="w-6 h-6 bg-gradient-to-r from-orange-400 to-pink-400 rounded-lg shadow-lg" />
+              <span className="text-xs text-orange-400 font-medium drop-shadow-md">Map</span>
+            </div>
+            <div className="flex flex-col items-center space-y-1">
+              <div className="w-6 h-6 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-lg shadow-lg" />
+              <span className="text-xs text-cyan-400 font-medium drop-shadow-md">Notifications</span>
+            </div>
+            <div className="flex flex-col items-center space-y-1">
+              <div className="w-6 h-6 bg-gray-500 rounded-lg shadow-lg" />
+              <span className="text-xs text-gray-300 drop-shadow-md">Profile</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
