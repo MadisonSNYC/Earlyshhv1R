@@ -19,6 +19,7 @@ const MyCouponsPage = React.lazy(() => import(/* webpackChunkName: "my-coupons" 
 const NotificationsPage = React.lazy(() => import(/* webpackChunkName: "notifications" */ './pages/notifications'));
 const AnalyticsPage = React.lazy(() => import(/* webpackChunkName: "analytics" */ './pages/analytics'));
 const SettingsPage = React.lazy(() => import(/* webpackChunkName: "settings" */ './pages/settings'));
+const GamificationPage = React.lazy(() => import(/* webpackChunkName: "gamification" */ './pages/gamification'));
 const ActivityDetailPage = React.lazy(() => import(/* webpackChunkName: "activity" */ './pages/activity-detail'));
 const QRCodePage = React.lazy(() => import(/* webpackChunkName: "qr-code" */ './pages/qr-code'));
 const BrandProfilePage = React.lazy(() => import(/* webpackChunkName: "brand-profile" */ './pages/brand-profile'));
