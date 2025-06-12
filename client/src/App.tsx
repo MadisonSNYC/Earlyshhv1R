@@ -85,28 +85,7 @@ function App() {
           <GlobalErrorHandler />
           <div className="min-h-screen earlyshh-bg">
             <Suspense fallback={<div className="flex items-center justify-center min-h-screen"><div className="loading-skeleton w-8 h-8 rounded-full"></div></div>}>
-              <Switch>
-                <Route path="/startup" component={StartupPage} />
-                <Route path="/onboarding" component={OnboardingPage} />
-                <Route path="/home" component={HomePage} />
-                <Route path="/" component={StartupPage} />
-                <Route path="/partnership/:id" component={PartnershipConfirmationPage} />
-                <Route path="/profile" component={ProfilePage} />
-                <Route path="/my-coupons" component={MyCouponsPage} />
-                <Route path="/partnerships" component={PartnershipsPage} />
-                <Route path="/coupon/:couponId" component={PartnershipsPage} />
-                <Route path="/notifications" component={NotificationsPage} />
-                <Route path="/analytics" component={AnalyticsPage} />
-                <Route path="/settings" component={SettingsPage} />
-                <Route path="/activity/:id" component={ActivityDetailPage} />
-                <Route path="/qr/:couponId" component={QRCodePage} />
-                <Route path="/instagram-story/:couponId" component={InstagramStoryPage} />
-                <Route path="/survey/:couponId" component={SurveyPage} />
-                <Route path="/brand/:brandId" component={BrandProfilePage} />
-                <Route path="/brand/:id" component={BrandAboutPage} />
-                <Route path="/gamification" component={GamificationPage} />
-                <Route component={NotFoundPage} />
-              </Switch>
+              <AuthenticatedApp />
             </Suspense>
             <Toaster />
           </div>

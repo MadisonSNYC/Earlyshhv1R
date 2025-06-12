@@ -18,6 +18,9 @@ export function useCouponClaim() {
       // Invalidate campaigns query to refresh the list
       queryClient.invalidateQueries({ queryKey: ['campaigns'] });
       
+      // Log success for debugging
+      console.log('Coupon claimed successfully, navigating to partnerships page');
+      
       // Ensure navigation happens after state updates
       setTimeout(() => {
         setLocation('/partnerships');
