@@ -17,6 +17,7 @@ const OnboardingPage = React.lazy(() => import(/* webpackChunkName: "onboarding"
 const PartnershipConfirmationPage = React.lazy(() => import(/* webpackChunkName: "partnership" */ './pages/partnership-confirmation'));
 const ProfilePage = React.lazy(() => import(/* webpackChunkName: "profile" */ './pages/profile'));
 const MyCouponsPage = React.lazy(() => import(/* webpackChunkName: "my-coupons" */ './pages/my-coupons'));
+const PartnershipsPage = React.lazy(() => import(/* webpackChunkName: "partnerships" */ './pages/partnerships'));
 const NotificationsPage = React.lazy(() => import(/* webpackChunkName: "notifications" */ './pages/notifications'));
 const AnalyticsPage = React.lazy(() => import(/* webpackChunkName: "analytics" */ './pages/analytics'));
 const SettingsPage = React.lazy(() => import(/* webpackChunkName: "settings" */ './pages/settings'));
@@ -58,6 +59,8 @@ function App() {
                 <Route path="/partnership/:id" component={PartnershipConfirmationPage} />
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/my-coupons" component={MyCouponsPage} />
+                <Route path="/partnerships" component={PartnershipsPage} />
+                <Route path="/coupon/:couponId" component={PartnershipsPage} />
                 <Route path="/notifications" component={NotificationsPage} />
                 <Route path="/analytics" component={AnalyticsPage} />
                 <Route path="/settings" component={SettingsPage} />
