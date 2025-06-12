@@ -28,6 +28,7 @@ export const campaigns = pgTable("campaigns", {
   id: serial("id").primaryKey(),
   brandName: text("brand_name").notNull(),
   brandIgHandle: text("brand_ig_handle").notNull(),
+  brandBio: text("brand_bio"), // Brand description/about section
   offerDescription: text("offer_description").notNull(),
   productName: text("product_name").notNull(),
   brandLogoUrl: text("brand_logo_url").notNull(),
