@@ -24,7 +24,7 @@ const formatDistance = (distance: number): string => {
   return `${miles} mi`;
 };
 
-export default function HomePage() {
+function HomePage() {
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
   const [showPartnershipModal, setShowPartnershipModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -267,13 +267,13 @@ export default function HomePage() {
               <div className="flex items-center justify-between">
                 <h2 className="text-xl font-black text-white capitalize drop-shadow-lg">{category}</h2>
                 <span className="text-sm text-cyan-200 font-medium drop-shadow-md">
-                  {categoryCampaigns.length} available
+                  {(categoryCampaigns as Campaign[]).length} available
                 </span>
               </div>
             </div>
             
             <div className="space-y-6">
-              {categoryCampaigns.map((campaign: Campaign, index: number) => {
+              {(categoryCampaigns as Campaign[]).map((campaign: Campaign, index: number) => {
                 const slotsRemaining = Math.floor(campaign.maxCoupons * 0.7);
                 const totalSlots = campaign.maxCoupons;
                 const distance = 150 + (index * 130);
@@ -381,7 +381,7 @@ export default function HomePage() {
       {/* Partnership Terms Modal */}
       {showPartnershipModal && selectedCampaign && (
         <PartnershipTermsModal
-          campaign={selectedCampaign}
+          campaign={selectedCampaign as any}
           onAccept={handlePartnershipAccept}
           onClose={() => setShowPartnershipModal(false)}
         />
@@ -392,3 +392,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+export default HomePage;

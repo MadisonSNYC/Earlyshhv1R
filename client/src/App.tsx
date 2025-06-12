@@ -12,7 +12,7 @@ import { BundleAnalyzer, markModuleAsUsed } from './lib/bundle-analyzer';
 
 // Lazy load pages with better chunk names
 const StartupPage = React.lazy(() => import(/* webpackChunkName: "startup" */ './pages/startup'));
-const HomePage = React.lazy(() => import(/* webpackChunkName: "home" */ './pages/home-enhanced'));
+const HomePage = React.lazy(() => import(/* webpackChunkName: "home" */ './pages/home'));
 const OnboardingPage = React.lazy(() => import(/* webpackChunkName: "onboarding" */ './pages/onboarding'));
 const PartnershipConfirmationPage = React.lazy(() => import(/* webpackChunkName: "partnership" */ './pages/partnership-confirmation'));
 const ProfilePage = React.lazy(() => import(/* webpackChunkName: "profile" */ './pages/profile'));
