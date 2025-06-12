@@ -123,13 +123,19 @@ export default function SettingsPage() {
 
   const updateProfileMutation = useMutation({
     mutationFn: async (updates: { gender?: string; fullName?: string }) => {
-      return apiRequest(`/api/users/1`, {
+      const response = await fetch(`/api/users/1`, {
         method: 'PATCH',
         body: JSON.stringify(updates),
         headers: {
           'Content-Type': 'application/json',
         },
       });
+      
+      if (!response.ok) {
+        throw new Error('Failed to update profile');
+      }
+      
+      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/user'] });
