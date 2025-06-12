@@ -39,6 +39,37 @@
   }
 }
 
+/* Prominent Gradient Animation */
+@keyframes prominentGradient {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 100% 0%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 0% 100%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-text {
+  background: linear-gradient(-45deg, #f472b6, #a855f7, #06b6d4, #eab308);
+  background-size: 300% 300%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: prominentGradient 4s ease-in-out infinite;
+}
+
+.gradient-bg {
+  background: linear-gradient(-45deg, #f472b6, #a855f7, #06b6d4, #eab308);
+  background-size: 300% 300%;
+  animation: prominentGradient 4s ease-in-out infinite;
+}
+
+/* Glass morphism effects */
+.glass-morphism {
+  background: rgba(31, 41, 55, 0.2);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 /* Custom Scrollbar */
 .scrollbar-hide {
   -ms-overflow-style: none;

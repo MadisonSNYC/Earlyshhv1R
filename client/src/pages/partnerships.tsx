@@ -121,39 +121,41 @@ export default function PartnershipsPage() {
   );
 
   return (
-    <div className="min-h-screen earlyshh-bg flex flex-col">
-      <div className="flex-1 p-4 space-y-6 pb-24">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-gray-900 to-indigo-900 flex flex-col relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-800/20 via-transparent to-cyan-800/20" />
+      
+      <div className="relative z-10 flex-1 p-6 space-y-8 pb-24">
         {/* Header */}
-        <div className="text-center pt-8 pb-4">
-          <h1 className="text-3xl font-rubik font-bold text-white mb-2">
-            My Partnerships
+        <div className="text-center pt-8 pb-6">
+          <h1 className="text-5xl font-black tracking-tight text-white mb-4">
+            <span className="gradient-text">My Partnerships</span>
           </h1>
-          <p className="text-gray-400 font-space">
-            Track your brand collaborations and rewards
+          <p className="text-gray-300 text-xl font-medium tracking-wide">
+            Track your exclusive brand collaborations
           </p>
         </div>
 
         {/* Stats Overview */}
-        <Card className="glass-morphism border-white/20 bg-black/20 backdrop-blur-sm">
-          <CardContent className="p-6">
-            <div className="grid grid-cols-3 gap-4 text-center">
-              <div className="space-y-1">
-                <div className="text-2xl font-bold text-green-400 font-rubik">
+        <Card className="glass-morphism border-white/20 shadow-xl shadow-purple-500/20">
+          <CardContent className="p-8">
+            <div className="grid grid-cols-3 gap-6 text-center">
+              <div className="space-y-3">
+                <div className="text-4xl font-black text-white tracking-tight">
                   {userStats?.claimed || coupons.length}
                 </div>
-                <div className="text-xs text-gray-400 font-space">Total</div>
+                <div className="text-sm text-gray-300 font-medium">Total Partnerships</div>
               </div>
-              <div className="space-y-1">
-                <div className="text-2xl font-bold text-purple-400 font-rubik">
+              <div className="space-y-3">
+                <div className="text-4xl font-black gradient-text">
                   {activeCoupons.length}
                 </div>
-                <div className="text-xs text-gray-400 font-space">Active</div>
+                <div className="text-sm text-gray-300 font-medium">Active</div>
               </div>
-              <div className="space-y-1">
-                <div className="text-2xl font-bold text-blue-400 font-rubik">
+              <div className="space-y-3">
+                <div className="text-4xl font-black text-cyan-400">
                   {redeemedCoupons.length}
                 </div>
-                <div className="text-xs text-gray-400 font-space">Redeemed</div>
+                <div className="text-sm text-gray-300 font-medium">Completed</div>
               </div>
             </div>
           </CardContent>
