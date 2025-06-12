@@ -23,6 +23,7 @@ const GamificationPage = React.lazy(() => import(/* webpackChunkName: "gamificat
 const ActivityDetailPage = React.lazy(() => import(/* webpackChunkName: "activity" */ './pages/activity-detail'));
 const QRCodePage = React.lazy(() => import(/* webpackChunkName: "qr-code" */ './pages/qr-code'));
 const BrandProfilePage = React.lazy(() => import(/* webpackChunkName: "brand-profile" */ './pages/brand-profile'));
+const BrandAboutPage = React.lazy(() => import(/* webpackChunkName: "brand-about" */ './pages/brand-about'));
 const NotFoundPage = React.lazy(() => import(/* webpackChunkName: "not-found" */ './pages/not-found'));
 
 function App() {
@@ -58,6 +59,8 @@ function App() {
                 <Route path="/activity/:id" component={ActivityDetailPage} />
                 <Route path="/qr/:couponId" component={QRCodePage} />
                 <Route path="/brand/:brandId" component={BrandProfilePage} />
+                <Route path="/brand/:id" component={BrandAboutPage} />
+                <Route path="/gamification" component={GamificationPage} />
                 <Route component={NotFoundPage} />
               </Switch>
             </Suspense>

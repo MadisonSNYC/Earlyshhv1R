@@ -209,6 +209,62 @@ export const insertUserStatsSchema = createInsertSchema(userStats).omit({
   updatedAt: true,
 });
 
+// Feedback tracking tables
+export const feedbackRequests = pgTable("feedback_requests", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  couponId: integer("coupon_id").notNull().references(() => coupons.id),
+  campaignId: integer("campaign_id").notNull().references(() => campaigns.id),
+  status: text("status").notNull().default("pending"), // pending, completed, bypassed, expired
+  deadline: timestamp("deadline").notNull(),
+  remindersSent: integer("reminders_sent").default(0).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  completedAt: timestamp("completed_at"),
+  bypassReason: text("bypass_reason"),
+});
+
+export const productFeedback = pgTable("product_feedback", {
+  id: serial("id").primaryKey(),
+  feedbackRequestId: integer("feedback_request_id").notNull().references(() => feedbackRequests.id),
+  userId: integer("user_id").notNull().references(() => users.id),
+  campaignId: integer("campaign_id").notNull().references(() => campaigns.id),
+  overallRating: integer("overall_rating").notNull(), // 1-5 stars
+  purchaseIntent: text("purchase_intent").notNull(), // definitely, probably, maybe, unlikely, never
+  experience: text("experience"), // detailed feedback text
+  improvements: text("improvements"), // suggested improvements
+  wouldRecommend: boolean("would_recommend").notNull(),
+  productQuality: integer("product_quality"), // 1-5 stars
+  packaging: integer("packaging"), // 1-5 stars
+  value: integer("value"), // 1-5 stars
+  brandHelpfulness: integer("brand_helpfulness"), // Brand rates this feedback 1-5
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const campaignAccessLog = pgTable("campaign_access_log", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id),
+  campaignId: integer("campaign_id").notNull().references(() => campaigns.id),
+  accessAttemptedAt: timestamp("access_attempted_at").defaultNow().notNull(),
+  blocked: boolean("blocked").notNull().default(false),
+  blockReason: text("block_reason"), // pending_feedback, deadline_passed, etc
+  pendingFeedbackCount: integer("pending_feedback_count").default(0),
+});
+
+export const insertFeedbackRequestSchema = createInsertSchema(feedbackRequests).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertProductFeedbackSchema = createInsertSchema(productFeedback).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertCampaignAccessLogSchema = createInsertSchema(campaignAccessLog).omit({
+  id: true,
+  accessAttemptedAt: true,
+});
+
 // Types
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
@@ -232,3 +288,9 @@ export type UserActivity = typeof userActivities.$inferSelect;
 export type InsertUserActivity = z.infer<typeof insertUserActivitySchema>;
 export type UserStats = typeof userStats.$inferSelect;
 export type InsertUserStats = z.infer<typeof insertUserStatsSchema>;
+export type FeedbackRequest = typeof feedbackRequests.$inferSelect;
+export type InsertFeedbackRequest = z.infer<typeof insertFeedbackRequestSchema>;
+export type ProductFeedback = typeof productFeedback.$inferSelect;
+export type InsertProductFeedback = z.infer<typeof insertProductFeedbackSchema>;
+export type CampaignAccessLog = typeof campaignAccessLog.$inferSelect;
+export type InsertCampaignAccessLog = z.infer<typeof insertCampaignAccessLogSchema>;
