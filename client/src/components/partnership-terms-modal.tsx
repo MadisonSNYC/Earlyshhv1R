@@ -172,24 +172,70 @@ export default function PartnershipTermsModal({
             {/* Partnership Requirements */}
             <div className="bg-gray-900/70 backdrop-blur-md rounded-3xl p-6 border border-white/20 shadow-xl">
               <div className="flex items-center space-x-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-r from-blue-400 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg">
+                <div className="w-10 h-10 bg-gradient-to-r from-red-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
                   <Sparkles className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-white font-black text-xl drop-shadow-lg">Simple Requirements</h3>
+                <h3 className="text-white font-black text-xl drop-shadow-lg">Partnership Requirements</h3>
               </div>
               
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
-                  <p className="text-white font-medium drop-shadow-sm">Visit participating location within 7 days</p>
+              <div className="space-y-4">
+                {/* Location Requirement */}
+                <div className="bg-red-900/40 backdrop-blur-sm rounded-2xl p-4 border border-red-400/30">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-3 h-3 bg-gradient-to-r from-red-400 to-orange-400 rounded-full mt-1 flex-shrink-0"></div>
+                    <div>
+                      <p className="text-white font-bold drop-shadow-sm">Must be within 500 feet of store location</p>
+                      <p className="text-red-200 text-sm drop-shadow-sm mt-1">Location verification required to unlock offer</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></div>
-                  <p className="text-white font-medium drop-shadow-sm">Share authentic Instagram Story (optional)</p>
+
+                {/* Time Limit */}
+                <div className="bg-orange-900/40 backdrop-blur-sm rounded-2xl p-4 border border-orange-400/30">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-3 h-3 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-full mt-1 flex-shrink-0"></div>
+                    <div>
+                      <p className="text-white font-bold drop-shadow-sm">Complete within 1 hour of unlocking</p>
+                      <p className="text-orange-200 text-sm drop-shadow-sm mt-1">Offer expires 60 minutes after activation</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-3">
-                  <div className="w-2 h-2 bg-gradient-to-r from-pink-400 to-orange-400 rounded-full"></div>
-                  <p className="text-white font-medium drop-shadow-sm">Provide brief feedback to help brands improve</p>
+
+                {/* Instagram Story Requirement */}
+                <div className="bg-purple-900/40 backdrop-blur-sm rounded-2xl p-4 border border-purple-400/30">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-3 h-3 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full mt-1 flex-shrink-0"></div>
+                    <div>
+                      <p className="text-white font-bold drop-shadow-sm">Share Instagram Story (Required)</p>
+                      <p className="text-purple-200 text-sm drop-shadow-sm mt-1">Tag @{campaign.brandIgHandle} and use #EarlyshhPartner</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Feedback Requirement */}
+                <div className="bg-pink-900/40 backdrop-blur-sm rounded-2xl p-4 border border-pink-400/30">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-3 h-3 bg-gradient-to-r from-pink-400 to-red-400 rounded-full mt-1 flex-shrink-0"></div>
+                    <div>
+                      <p className="text-white font-bold drop-shadow-sm">Complete brand feedback survey (Required)</p>
+                      <p className="text-pink-200 text-sm drop-shadow-sm mt-1">Share your authentic experience within 24 hours</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Important Notice */}
+              <div className="mt-6 bg-gradient-to-r from-red-900/60 to-orange-900/60 backdrop-blur-sm rounded-2xl p-4 border border-red-400/40">
+                <div className="flex items-start space-x-3">
+                  <div className="w-5 h-5 bg-gradient-to-r from-red-400 to-orange-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-white text-xs font-bold">!</span>
+                  </div>
+                  <div>
+                    <p className="text-white font-bold text-sm drop-shadow-sm">All requirements must be completed</p>
+                    <p className="text-red-200 text-xs drop-shadow-sm mt-1">
+                      Failure to complete any requirement may result in partnership restrictions
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -200,8 +246,8 @@ export default function PartnershipTermsModal({
                 onClick={handleAcceptPartnership}
                 className="w-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 text-white font-black py-4 rounded-2xl text-lg shadow-xl shadow-yellow-500/40 transform hover:scale-105 transition-all duration-300"
               >
-                <Gift className="w-5 h-5 mr-2" />
-                Unlock Partnership
+                <MapPin className="w-5 h-5 mr-2" />
+                Verify Location & Unlock
                 <Sparkles className="w-5 h-5 ml-2" />
               </Button>
               
@@ -215,6 +261,7 @@ export default function PartnershipTermsModal({
               <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
                 <p className="text-orange-200 text-center text-sm drop-shadow-sm">
                   Partnership valid up to <span className="font-bold text-yellow-300">${campaign.redeemableAmount}</span>. 
+                  Must be within 500ft of store location. Instagram story & feedback required.
                   One per community member. No purchase required.
                 </p>
               </div>
