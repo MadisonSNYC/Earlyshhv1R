@@ -346,7 +346,7 @@ export default function HomePage() {
                               {campaign.offerDescription}
                             </p>
                             
-                            <div className="flex items-center space-x-4 text-sm">
+                            <div className="flex items-center space-x-6 text-sm mb-5">
                               <div className="flex items-center text-cyan-200 drop-shadow-md">
                                 <Users className="w-4 h-4 mr-1" />
                                 <span>{campaign.slotsRemaining || 0} slots left</span>
@@ -363,15 +363,15 @@ export default function HomePage() {
                               </div>
                             </div>
                             
-                            <div className="mt-4 flex items-center justify-between">
-                              <div className="bg-gradient-to-r from-orange-400/20 to-pink-400/20 rounded-2xl px-4 py-2 border border-orange-300/30">
-                                <span className="text-orange-200 text-sm font-medium drop-shadow-md">
+                            <div className="flex items-center justify-between gap-4">
+                              <div className="bg-gradient-to-r from-orange-400/20 to-pink-400/20 rounded-xl px-3 py-1.5 border border-orange-300/30 flex-shrink-0">
+                                <span className="text-orange-200 text-xs font-medium drop-shadow-md">
                                   Partnership Opportunity
                                 </span>
                               </div>
                               
-                              <button className="bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 text-white px-6 py-2.5 rounded-2xl font-bold text-sm hover:scale-105 transition-all duration-300 shadow-lg shadow-pink-400/30 hover:shadow-cyan-400/30">
-                                <ExternalLink className="w-4 h-4 inline mr-2" />
+                              <button className="bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 text-white px-4 py-1.5 rounded-xl font-semibold text-xs hover:scale-105 transition-all duration-300 shadow-lg shadow-pink-400/30 hover:shadow-cyan-400/30 flex items-center gap-1.5">
+                                <ExternalLink className="w-3 h-3" />
                                 Partner Up
                               </button>
                             </div>
