@@ -14,122 +14,138 @@ interface MapViewProps {
 export default function MapView({ campaigns, onCouponClaimed, onCampaignClick }: MapViewProps) {
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
 
-  // Create dummy campaign data if no campaigns provided
-  const dummyCampaigns = [
+  // Brooklyn area campaign locations with realistic coordinates
+  const brooklynCampaigns = [
     {
       id: 1,
-      brandName: "SuperRoot Energy",
-      brandIgHandle: "@superroot",
-      brandBio: "Premium energy drinks for active lifestyles",
-      offerDescription: "20% off your first energy drink purchase",
-      productName: "SuperRoot Original",
-      brandLogoUrl: "https://via.placeholder.com/64",
-      offerId: "SR001",
-      redeemableAmount: "$5 OFF",
-      latitude: "40.7128",
-      longitude: "-73.9578",
-      radius: "1km",
+      brandName: "The Roost",
+      brandIgHandle: "@theroostcafe",
+      brandBio: "Artisanal coffee roasters in Williamsburg",
+      offerDescription: "Buy 2 coffees, get 1 free pastry",
+      productName: "House Blend Coffee",
+      brandLogoUrl: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=64&h=64&fit=crop",
+      offerId: "ROOST001",
+      redeemableAmount: "FREE PASTRY",
+      latitude: "40.7081",
+      longitude: "-73.9571",
+      radius: "0.5km",
       status: "active",
-      perUserLimit: 3,
+      perUserLimit: 1,
       category: "Food & Beverage",
-      position: { top: "30%", left: "40%" }
+      position: { top: "25%", left: "35%" },
+      legalDisclaimer: "Valid with purchase of 2 beverages. One per customer.",
+      createdAt: new Date("2024-06-01")
     },
     {
       id: 2,
-      brandName: "Urban Threads",
-      brandIgHandle: "@urbanthreads",
-      brandBio: "Sustainable streetwear for the conscious consumer",
-      offerDescription: "Free shipping on orders over $75",
-      productName: "Organic Cotton Tee",
-      brandLogoUrl: "https://via.placeholder.com/64",
-      offerId: "UT002",
-      redeemableAmount: "FREE SHIPPING",
-      latitude: "40.7150",
-      longitude: "-73.9600",
-      radius: "2km",
+      brandName: "Brooklyn Botanicals",
+      brandIgHandle: "@bkbotanicals",
+      brandBio: "Plant-based skincare made in Brooklyn",
+      offerDescription: "20% off first purchase + free consultation",
+      productName: "Organic Face Serum",
+      brandLogoUrl: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=64&h=64&fit=crop",
+      offerId: "BBT002",
+      redeemableAmount: "20% OFF",
+      latitude: "40.7051",
+      longitude: "-73.9250",
+      radius: "1km",
       status: "active",
-      perUserLimit: 1,
-      category: "Fashion",
-      position: { top: "20%", right: "30%" }
+      perUserLimit: 2,
+      category: "Beauty & Health",
+      position: { top: "20%", right: "30%" },
+      legalDisclaimer: "Valid for new customers only. Cannot be combined with other offers.",
+      createdAt: new Date("2024-06-02")
     },
     {
       id: 3,
-      brandName: "Bloom Beauty",
-      brandIgHandle: "@bloombeauty",
-      brandBio: "Clean beauty products made with natural ingredients",
-      offerDescription: "Buy one get one 50% off on all serums",
-      productName: "Vitamin C Serum",
-      brandLogoUrl: "https://via.placeholder.com/64",
-      offerId: "BB003",
-      redeemableAmount: "BOGO 50%",
-      latitude: "40.7100",
-      longitude: "-73.9550",
-      radius: "1.5km",
+      brandName: "Greenpoint Fitness",
+      brandIgHandle: "@greenpointfit",
+      brandBio: "Community-focused fitness studio in Greenpoint",
+      offerDescription: "Free trial class + 20% off first month",
+      productName: "Unlimited Monthly Pass",
+      brandLogoUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=64&h=64&fit=crop",
+      offerId: "GPF003",
+      redeemableAmount: "FREE TRIAL",
+      latitude: "40.7308",
+      longitude: "-73.9500",
+      radius: "1km",
       status: "active",
-      perUserLimit: 2,
-      category: "Beauty",
-      position: { bottom: "25%", left: "30%" }
+      perUserLimit: 1,
+      category: "Fitness & Wellness",
+      position: { top: "15%", left: "45%" },
+      legalDisclaimer: "New members only. Valid ID required. One trial per person.",
+      createdAt: new Date("2024-06-03")
     },
     {
       id: 4,
-      brandName: "TechFlow",
-      brandIgHandle: "@techflow",
-      brandBio: "Smart home devices and accessories",
-      offerDescription: "30% off wireless charging pads",
-      productName: "Wireless Charging Pad Pro",
-      brandLogoUrl: "https://via.placeholder.com/64",
-      offerId: "TF004",
-      redeemableAmount: "$15 OFF",
-      latitude: "40.7180",
-      longitude: "-73.9620",
-      radius: "3km",
+      brandName: "DUMBO Design Co",
+      brandIgHandle: "@dumbodesignco",
+      brandBio: "Handcrafted furniture and home decor",
+      offerDescription: "15% off custom furniture orders",
+      productName: "Custom Dining Table",
+      brandLogoUrl: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=64&h=64&fit=crop",
+      offerId: "DDC004",
+      redeemableAmount: "15% OFF",
+      latitude: "40.7033",
+      longitude: "-73.9890",
+      radius: "2km",
       status: "active",
       perUserLimit: 1,
-      category: "Electronics",
-      position: { top: "60%", right: "20%" }
+      category: "Home & Garden",
+      position: { bottom: "35%", right: "15%" },
+      legalDisclaimer: "Minimum order $500. Custom orders only. 6-8 week delivery.",
+      createdAt: new Date("2024-06-04")
     },
     {
       id: 5,
-      brandName: "Artisan Eats",
-      brandIgHandle: "@artisaneats",
-      brandBio: "Locally sourced gourmet food experiences",
-      offerDescription: "Complimentary appetizer with dinner",
-      productName: "Chef's Special Tasting",
-      brandLogoUrl: "https://via.placeholder.com/64",
-      offerId: "AE005",
-      redeemableAmount: "FREE APPETIZER",
-      latitude: "40.7090",
-      longitude: "-73.9590",
-      radius: "0.5km",
+      brandName: "Bushwick Bites",
+      brandIgHandle: "@bushwickbites",
+      brandBio: "Farm-to-table restaurant featuring local ingredients",
+      offerDescription: "Complimentary dessert with entree purchase",
+      productName: "Seasonal Tasting Menu",
+      brandLogoUrl: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=64&h=64&fit=crop",
+      offerId: "BB005",
+      redeemableAmount: "FREE DESSERT",
+      latitude: "40.6944",
+      longitude: "-73.9213",
+      radius: "1.5km",
       status: "active",
-      perUserLimit: 4,
+      perUserLimit: 1,
       category: "Food & Beverage",
-      position: { bottom: "40%", right: "40%" }
+      position: { bottom: "20%", left: "60%" },
+      legalDisclaimer: "Valid Sunday-Thursday only. Must order entree. Dine-in only.",
+      createdAt: new Date("2024-06-05")
+    },
+    {
+      id: 6,
+      brandName: "Red Hook Records",
+      brandIgHandle: "@redhookrecords",
+      brandBio: "Independent record store and vinyl collection",
+      offerDescription: "Buy 2 vinyls, get 1 used vinyl free",
+      productName: "Vinyl Record Collection",
+      brandLogoUrl: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=64&h=64&fit=crop",
+      offerId: "RHR006",
+      redeemableAmount: "FREE VINYL",
+      latitude: "40.6762",
+      longitude: "-74.0058",
+      radius: "2km",
+      status: "active",
+      perUserLimit: 1,
+      category: "Entertainment",
+      position: { bottom: "45%", left: "20%" },
+      legalDisclaimer: "Free vinyl must be from used section. Value up to $15.",
+      createdAt: new Date("2024-06-06")
     }
   ];
 
-  // Use provided campaigns or fallback to dummy data
-  const displayCampaigns = campaigns.length > 0 ? campaigns : dummyCampaigns;
+  // Use provided campaigns or fall back to Brooklyn campaigns
+  const displayCampaigns = campaigns.length > 0 ? campaigns : brooklynCampaigns;
 
   const handlePinClick = (campaign: Campaign) => {
     setSelectedCampaign(campaign);
-  };
-
-  const handleLocationClick = (location: any) => {
-    if (campaigns.length === 0) return;
-
-    // Create a campaign for the location
-    const locationCampaign = {
-      ...campaigns[0],
-      id: Math.random(),
-      brandName: location.name,
-      offerDescription: getOfferForType(location.type),
-      productName: location.address,
-      brandLogoUrl: "",
-      latitude: "40.7128",
-      longitude: "-73.9578"
-    };
-    setSelectedCampaign(locationCampaign);
+    if (onCampaignClick) {
+      onCampaignClick(campaign);
+    }
   };
 
   const getOfferForType = (type: string) => {
