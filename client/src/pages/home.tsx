@@ -180,6 +180,48 @@ export default function HomePage() {
         </div>
       </header>
 
+      {/* Featured Brands Section */}
+      <section className="max-w-md mx-auto px-4 mb-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-bold text-white">Featured Brands</h2>
+          <button className="text-purple-400 text-sm font-medium">View All</button>
+        </div>
+        
+        <div className="flex space-x-4 overflow-x-auto pb-2 scrollbar-hide smooth-scroll">
+          {campaigns.slice(0, 6).map((campaign: Campaign) => (
+            <div
+              key={campaign.id}
+              className="flex-shrink-0 bg-gray-900/60 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-4 min-w-[120px] cursor-pointer hover:border-purple-400/50 brand-card"
+              onClick={() => {
+                setSelectedCampaign(campaign);
+                setShowPartnershipModal(true);
+              }}
+            >
+              <div className="flex flex-col items-center text-center">
+                <img
+                  src={campaign.brandLogoUrl}
+                  alt={campaign.brandName}
+                  className="w-16 h-16 rounded-xl object-cover mb-3 shadow-lg"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" fill="%23374151"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="24" font-weight="bold">${campaign.brandName.charAt(0)}</text></svg>`;
+                  }}
+                />
+                <h3 className="text-white font-medium text-sm mb-1 truncate w-full">
+                  {campaign.brandName}
+                </h3>
+                <p className="text-gray-400 text-xs leading-tight line-clamp-2">
+                  {campaign.category}
+                </p>
+                <div className="mt-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs px-2 py-1 rounded-full">
+                  Active
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Content */}
       <main className="max-w-md mx-auto px-4 py-6 pb-24">
         {Object.entries(groupedCampaigns).map(([category, categoryCampaigns]) => (

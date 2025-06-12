@@ -90,7 +90,19 @@ const CampaignCard = memo(({ campaign, onClaim, onCardClick, className = '' }: C
       <CardContent className="p-4">
         <div className="flex items-start space-x-3">
           <div className="relative">
-            <div className="w-12 h-12 bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg flex items-center justify-center border border-gray-600">
+            <img
+              src={campaign.brandLogoUrl}
+              alt={campaign.brandName}
+              className="w-12 h-12 rounded-lg object-cover border border-gray-600 shadow-md"
+              onError={(e) => {
+                // Fallback to letter if image fails to load
+                const target = e.target as HTMLImageElement;
+                target.style.display = 'none';
+                const fallback = target.nextElementSibling as HTMLElement;
+                if (fallback) fallback.style.display = 'flex';
+              }}
+            />
+            <div className="w-12 h-12 bg-gradient-to-br from-gray-700 to-gray-800 rounded-lg flex items-center justify-center border border-gray-600 hidden">
               <span className="text-white font-bold text-lg">
                 {campaign.brandName.charAt(0)}
               </span>
