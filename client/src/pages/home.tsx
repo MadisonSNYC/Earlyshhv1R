@@ -363,15 +363,15 @@ export default function HomePage() {
                               </div>
                             </div>
                             
-                            <div className="flex items-center justify-between gap-4">
+                            <div className="flex items-center justify-center gap-6">
                               <div className="bg-gradient-to-r from-orange-400/20 to-pink-400/20 rounded-xl px-3 py-1.5 border border-orange-300/30 flex-shrink-0">
                                 <span className="text-orange-200 text-xs font-medium drop-shadow-md">
                                   Partnership Opportunity
                                 </span>
                               </div>
                               
-                              <button className="bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 text-white px-4 py-1.5 rounded-xl font-semibold text-xs hover:scale-105 transition-all duration-300 shadow-lg shadow-pink-400/30 hover:shadow-cyan-400/30 flex items-center gap-1.5">
-                                <ExternalLink className="w-3 h-3" />
+                              <button className="bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 text-white px-3 py-1 rounded-lg font-semibold text-xs hover:scale-105 transition-all duration-300 shadow-lg shadow-pink-400/30 hover:shadow-cyan-400/30 flex items-center gap-1">
+                                <ExternalLink className="w-2.5 h-2.5" />
                                 Partner Up
                               </button>
                             </div>
