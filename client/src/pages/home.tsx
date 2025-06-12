@@ -4,6 +4,7 @@ import { useLocation } from 'wouter';
 import CampaignCard from '@/components/campaign-card';
 import BottomNavigation from '@/components/bottom-navigation';
 import PartnershipTermsModal from '@/components/partnership-terms-modal';
+import MapView from '@/components/map-view';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Search, Filter, Map, Grid3X3 } from 'lucide-react';

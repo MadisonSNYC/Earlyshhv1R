@@ -8,9 +8,10 @@ import { Campaign } from "@shared/schema";
 interface MapViewProps {
   campaigns: Campaign[];
   onCouponClaimed?: (coupon: any) => void;
+  onCampaignClick?: (campaign: Campaign) => void;
 }
 
-export default function MapView({ campaigns, onCouponClaimed }: MapViewProps) {
+export default function MapView({ campaigns, onCouponClaimed, onCampaignClick }: MapViewProps) {
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
 
   // Brooklyn locations near 120 Bedford Ave
@@ -235,9 +236,9 @@ function MapViewAlternative({ campaigns, userLocation, onCampaignClick }: {
                     {campaign.brandName.charAt(0)}
                   </span>
                 </div>
-                {campaign.spotsRemaining && campaign.spotsRemaining < 5 && (
+                {campaign.perUserLimit && campaign.perUserLimit < 5 && (
                   <Badge className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 py-0 h-4">
-                    {campaign.spotsRemaining}
+                    {campaign.perUserLimit}
                   </Badge>
                 )}
               </div>
@@ -277,19 +278,14 @@ function MapViewAlternative({ campaigns, userLocation, onCampaignClick }: {
                 </div>
 
                 <div className="flex space-x-2">
-                  {selectedCampaign.distance && (
-                    <Badge variant="outline" className="border-white/30">
-                      <MapPin className="w-3 h-3 mr-1" />
-                      {selectedCampaign.distance < 1 
-                        ? `${Math.round(selectedCampaign.distance * 1000)}m`
-                        : `${selectedCampaign.distance.toFixed(1)}km`
-                      }
-                    </Badge>
-                  )}
+                  <Badge variant="outline" className="border-white/30">
+                    <MapPin className="w-3 h-3 mr-1" />
+                    {selectedCampaign.radius ? `${selectedCampaign.radius} radius` : "Nearby"}
+                  </Badge>
 
                   <Button
                     size="sm"
-                    onClick={() => onCampaignClick(selectedCampaign)}
+                    onClick={() => onCampaignClick?.(selectedCampaign)}
                     className="bg-gradient-to-r from-pink-500 to-cyan-500"
                   >
                     Claim
