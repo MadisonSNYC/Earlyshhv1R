@@ -1,6 +1,6 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
-import { insertNotificationSchema } from "@shared/schema";
+import { insertNotificationSchema, insertFeedbackRequestSchema, insertProductFeedbackSchema, insertCampaignAccessLogSchema } from "@shared/schema";
 import { z } from "zod";
 import { storage } from "./storage";
 

@@ -61,6 +61,19 @@ export interface IStorage {
   
   getUserStoriesInTimeframe(userId: number, timeframe: string): Promise<number>;
 
+  // Feedback gating operations
+  getFeedbackRequest(id: number): Promise<FeedbackRequest | undefined>;
+  getUserPendingFeedback(userId: number): Promise<FeedbackRequest[]>;
+  createFeedbackRequest(request: InsertFeedbackRequest): Promise<FeedbackRequest>;
+  updateFeedbackRequest(id: number, updates: Partial<FeedbackRequest>): Promise<FeedbackRequest | undefined>;
+  
+  getProductFeedback(id: number): Promise<ProductFeedback | undefined>;
+  getFeedbackByRequest(requestId: number): Promise<ProductFeedback | undefined>;
+  createProductFeedback(feedback: InsertProductFeedback): Promise<ProductFeedback>;
+  
+  logCampaignAccess(log: InsertCampaignAccessLog): Promise<CampaignAccessLog>;
+  canUserAccessCampaign(userId: number, campaignId: number): Promise<{ canAccess: boolean; reason?: string; pendingCount?: number }>;
+  
   // Favorite operations - commented out for now as not implemented
   // getFavorite(id: number): Promise<Favorite | undefined>;
   // getUserFavorites(userId: number): Promise<Favorite[]>;
@@ -80,6 +93,9 @@ export class MemStorage implements IStorage {
   private userBadges: Map<number, UserBadge> = new Map();
   private userActivities: Map<number, UserActivity> = new Map();
   private userStats: Map<number, UserStats> = new Map();
+  private feedbackRequests: Map<number, FeedbackRequest> = new Map();
+  private productFeedback: Map<number, ProductFeedback> = new Map();
+  private campaignAccessLogs: Map<number, CampaignAccessLog> = new Map();
   private currentUserId = 1;
   private currentCampaignId = 1;
   private currentCouponId = 1;
@@ -88,6 +104,9 @@ export class MemStorage implements IStorage {
   private currentNotificationId = 1;
   private currentUserBadgeId = 1;
   private currentUserActivityId = 1;
+  private currentFeedbackRequestId = 1;
+  private currentProductFeedbackId = 1;
+  private currentCampaignAccessLogId = 1;
 
   constructor() {
     this.seedData();
@@ -696,6 +715,108 @@ export class MemStorage implements IStorage {
         story.userId === userId && 
         story.createdAt >= startDate
       ).length;
+  }
+
+  // Feedback gating operations
+  async getFeedbackRequest(id: number): Promise<FeedbackRequest | undefined> {
+    return this.feedbackRequests.get(id);
+  }
+
+  async getUserPendingFeedback(userId: number): Promise<FeedbackRequest[]> {
+    return Array.from(this.feedbackRequests.values())
+      .filter(request => request.userId === userId && request.status === 'pending');
+  }
+
+  async createFeedbackRequest(insertRequest: InsertFeedbackRequest): Promise<FeedbackRequest> {
+    const request: FeedbackRequest = {
+      ...insertRequest,
+      id: this.currentFeedbackRequestId++,
+      status: insertRequest.status || 'pending',
+      remindersSent: insertRequest.remindersSent || 0,
+      createdAt: new Date(),
+      completedAt: null,
+      bypassReason: null,
+    };
+    this.feedbackRequests.set(request.id, request);
+    return request;
+  }
+
+  async updateFeedbackRequest(id: number, updates: Partial<FeedbackRequest>): Promise<FeedbackRequest | undefined> {
+    const request = this.feedbackRequests.get(id);
+    if (!request) return undefined;
+    
+    const updated = { ...request, ...updates };
+    this.feedbackRequests.set(id, updated);
+    return updated;
+  }
+
+  async getProductFeedback(id: number): Promise<ProductFeedback | undefined> {
+    return this.productFeedback.get(id);
+  }
+
+  async getFeedbackByRequest(requestId: number): Promise<ProductFeedback | undefined> {
+    return Array.from(this.productFeedback.values())
+      .find(feedback => feedback.feedbackRequestId === requestId);
+  }
+
+  async createProductFeedback(insertFeedback: InsertProductFeedback): Promise<ProductFeedback> {
+    const feedback: ProductFeedback = {
+      ...insertFeedback,
+      id: this.currentProductFeedbackId++,
+      experience: insertFeedback.experience || null,
+      improvements: insertFeedback.improvements || null,
+      productQuality: insertFeedback.productQuality || null,
+      packaging: insertFeedback.packaging || null,
+      value: insertFeedback.value || null,
+      brandHelpfulness: insertFeedback.brandHelpfulness || null,
+      createdAt: new Date(),
+    };
+    this.productFeedback.set(feedback.id, feedback);
+    
+    // Mark the feedback request as completed
+    await this.updateFeedbackRequest(feedback.feedbackRequestId, {
+      status: 'completed',
+      completedAt: new Date(),
+    });
+    
+    return feedback;
+  }
+
+  async logCampaignAccess(insertLog: InsertCampaignAccessLog): Promise<CampaignAccessLog> {
+    const log: CampaignAccessLog = {
+      ...insertLog,
+      id: this.currentCampaignAccessLogId++,
+      accessAttemptedAt: new Date(),
+    };
+    this.campaignAccessLogs.set(log.id, log);
+    return log;
+  }
+
+  async canUserAccessCampaign(userId: number, campaignId: number): Promise<{ canAccess: boolean; reason?: string; pendingCount?: number }> {
+    // Get all pending feedback requests for the user
+    const pendingFeedback = await this.getUserPendingFeedback(userId);
+    
+    // Check if any feedback is overdue
+    const now = new Date();
+    const overdueFeedback = pendingFeedback.filter(request => request.deadline < now);
+    
+    if (overdueFeedback.length > 0) {
+      return {
+        canAccess: false,
+        reason: 'overdue_feedback',
+        pendingCount: overdueFeedback.length,
+      };
+    }
+    
+    if (pendingFeedback.length > 0) {
+      return {
+        canAccess: false,
+        reason: 'pending_feedback',
+        pendingCount: pendingFeedback.length,
+      };
+    }
+    
+    return { canAccess: true };
   }
 }
 
