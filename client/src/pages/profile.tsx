@@ -210,17 +210,6 @@ export default function ProfilePage() {
                 </div>
               </div>
             </div>
-            
-            {/* Enhanced settings button with opaque background */}
-            <div className="bg-gray-800/80 backdrop-blur-sm rounded-2xl p-2 border border-white/20">
-              <Button 
-                onClick={() => console.log('Navigate to settings')}
-                className="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-500 hover:to-gray-600 text-white border-0 rounded-xl shadow-lg transition-all duration-300 hover:scale-105"
-                size="sm"
-              >
-                <Settings className="w-5 h-5" />
-              </Button>
-            </div>
           </div>
 
           {/* Enhanced bio section */}
@@ -236,13 +225,22 @@ export default function ProfilePage() {
                 <span>Class of {profileData.graduationYear}</span>
               </span>
             </div>
-            <Button 
-              onClick={handleEditProfile}
-              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg shadow-purple-500/30"
-              size="sm"
-            >
-              Edit Profile
-            </Button>
+            <div className="flex gap-3">
+              <Button 
+                onClick={handleEditProfile}
+                className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 rounded-2xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg shadow-purple-500/30"
+                size="sm"
+              >
+                Edit Profile
+              </Button>
+              <Button 
+                onClick={() => console.log('Navigate to settings')}
+                className="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-500 hover:to-gray-600 text-white border-0 rounded-2xl shadow-lg transition-all duration-300 hover:scale-105"
+                size="sm"
+              >
+                <Settings className="w-4 h-4" />
+              </Button>
+            </div>
           </div>
         </div>
 
@@ -428,17 +426,10 @@ export default function ProfilePage() {
         <div className="flex gap-4">
           <Button
             onClick={handleLogout}
-            className="flex-1 bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-bold rounded-2xl border-0 transition-all duration-300 hover:scale-105 shadow-lg"
+            className="w-full bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-bold rounded-2xl border-0 transition-all duration-300 hover:scale-105 shadow-lg"
           >
             <LogOut className="w-4 h-4 mr-2" />
             Sign Out
-          </Button>
-          <Button 
-            onClick={() => console.log('Navigate to settings')}
-            className="flex-1 bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-500 hover:to-gray-600 text-white font-bold rounded-2xl border-0 transition-all duration-300 hover:scale-105 shadow-lg"
-          >
-            <Settings className="w-4 h-4 mr-2" />
-            Settings
           </Button>
         </div>
 
