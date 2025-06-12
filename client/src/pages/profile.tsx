@@ -29,6 +29,7 @@ import BottomNavigation from "@/components/bottom-navigation";
 export default function ProfilePage() {
   const [, setLocation] = useLocation();
   const [notifications, setNotifications] = useState(3);
+  const [selectedAchievement, setSelectedAchievement] = useState<number | null>(null);
 
   // Mock user profile data
   const profileData = {
@@ -350,34 +351,42 @@ export default function ProfilePage() {
           
           <div className="grid grid-cols-2 gap-4">
             {achievements.map((achievement) => (
-              <div 
-                key={achievement.id} 
-                className={`relative group p-4 rounded-2xl border transition-all duration-300 ${
-                  achievement.unlocked 
-                    ? `bg-gradient-to-br ${achievement.gradient.replace('from-', 'from-').replace('via-', 'via-').replace('to-', 'to-')}/20 border-white/20 ${achievement.shadowColor} shadow-lg hover:scale-105` 
-                    : 'bg-gray-800/60 border-gray-600/50 opacity-60 hover:opacity-80 cursor-pointer'
-                }`}
-              >
-                <div className={`${achievement.unlocked ? 'text-white' : 'text-gray-500'} mb-3`}>
-                  <achievement.icon className="w-8 h-8" />
+              <div key={achievement.id} className="relative">
+                <div 
+                  onClick={() => {
+                    if (!achievement.unlocked) {
+                      setSelectedAchievement(
+                        selectedAchievement === achievement.id ? null : achievement.id
+                      );
+                    }
+                  }}
+                  className={`p-4 rounded-2xl border transition-all duration-300 ${
+                    achievement.unlocked 
+                      ? `bg-gradient-to-br ${achievement.gradient.replace('from-', 'from-').replace('via-', 'via-').replace('to-', 'to-')}/20 border-white/20 ${achievement.shadowColor} shadow-lg hover:scale-105` 
+                      : 'bg-gray-800/60 border-gray-600/50 opacity-60 hover:opacity-80 cursor-pointer'
+                  }`}
+                >
+                  <div className={`${achievement.unlocked ? 'text-white' : 'text-gray-500'} mb-3`}>
+                    <achievement.icon className="w-8 h-8" />
+                  </div>
+                  <h4 className={`font-bold text-sm mb-1 ${achievement.unlocked ? 'text-white drop-shadow-md' : 'text-gray-500'}`}>
+                    {achievement.title}
+                  </h4>
+                  <p className={`text-xs ${achievement.unlocked ? 'text-white/80 drop-shadow-sm' : 'text-gray-600'}`}>
+                    {achievement.description}
+                  </p>
                 </div>
-                <h4 className={`font-bold text-sm mb-1 ${achievement.unlocked ? 'text-white drop-shadow-md' : 'text-gray-500'}`}>
-                  {achievement.title}
-                </h4>
-                <p className={`text-xs ${achievement.unlocked ? 'text-white/80 drop-shadow-sm' : 'text-gray-600'}`}>
-                  {achievement.description}
-                </p>
-                
-                {/* Hover tooltip for locked achievements */}
-                {!achievement.unlocked && (
-                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-10">
-                    <div className="bg-gray-900/95 backdrop-blur-md text-white text-xs rounded-xl px-3 py-2 shadow-xl border border-white/20 whitespace-nowrap">
+
+                {/* Click tooltip for locked achievements */}
+                {!achievement.unlocked && selectedAchievement === achievement.id && (
+                  <div className="absolute top-full left-0 right-0 mt-2 z-20">
+                    <div className="bg-gray-900/95 backdrop-blur-md text-white text-xs rounded-xl p-3 shadow-xl border border-white/20 mx-2">
                       <div className="text-center">
-                        <div className="text-yellow-300 font-bold mb-1">How to unlock:</div>
-                        <div className="text-gray-200">{achievement.unlockHint}</div>
+                        <div className="text-yellow-300 font-bold mb-2">How to unlock:</div>
+                        <div className="text-gray-200 leading-relaxed">{achievement.unlockHint}</div>
                       </div>
                       {/* Tooltip arrow */}
-                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-900/95"></div>
+                      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-l-transparent border-r-transparent border-b-gray-900/95"></div>
                     </div>
                   </div>
                 )}
