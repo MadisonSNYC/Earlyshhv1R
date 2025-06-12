@@ -1,0 +1,50 @@
+Please update the profile page to match our new bright, colorful design system with these specific enhancements:
+
+## 🎨 **DESIGN SYSTEM UPDATES**
+
+### **Background & Visual Foundation:**
+- **New gradient background:** Pink-500 via Purple-600 via Blue-500 to Cyan-500 (match home/notifications)
+- **Enhanced overlays:** Orange-400/20 via Pink-500/15 to Cyan-400/20 + Gray-900 depth layers
+- **Better contrast:** Multiple overlay layers for excellent text readability
+- **All text shadows:** drop-shadow-lg, drop-shadow-md, drop-shadow-sm throughout
+
+### **Profile Header Enhancements:**
+- **Much larger profile picture:** Upgrade from w-16 h-16 to w-24 h-24
+- **Gradient border:** Purple-400 via Pink-500 to Orange-500 with white/30 border
+- **Photo upload functionality:** Hover overlay with camera icon and onClick handler
+- **Enhanced verification badge:** w-8 h-8 with Green-400 to Cyan-400 gradient
+
+### **Username & Identity:**
+- **Prominent gradient text:** text-3xl font-black with animated gradient (Yellow-400 via Orange-500 to Pink-500)
+- **Shimmer animation:** Same as logo with backgroundSize 200% and 3s infinite animation
+- **Better hierarchy:** Larger, bolder text with proper shadows and spacing
+- **Enhanced user info:** Improved spacing and color contrast
+
+### **Settings Button Fix:**
+- **Opaque container:** bg-gray-800/80 backdrop-blur-sm rounded-2xl p-2 border border-white/20
+- **Gradient button:** from-gray-600 to-gray-700 with hover effects and shadows
+- **Better visibility:** Contained within its own rounded container for prominence
+
+## 🎮 **GAMIFICATION ENHANCEMENTS**
+
+### **Premium Discoverer Section:**
+- **Crown icon:** Replace trophy with Crown from lucide-react
+- **Larger progress circle:** w-36 h-36 instead of w-32 h-32
+- **Multi-stop gradient:** Green-400 → Cyan-400 → Pink-500 → Yellow-400 for progress
+- **Enhanced styling:** text-3xl for title, stronger shadows, better button
+
+### **Achievement Cards with Individual Gradients:**
+```javascript
+const achievements = [
+  { 
+    gradient: 'from-yellow-400 via-orange-500 to-red-500',
+    shadowColor: 'shadow-yellow-400/30',
+    // ... other props
+  },
+  { 
+    gradient: 'from-blue-400 via-purple-500 to-pink-500',
+    shadowColor: 'shadow-blue-400/30',
+    // ... other props
+  },
+  // etc.
+];
