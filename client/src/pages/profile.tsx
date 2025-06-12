@@ -50,7 +50,7 @@ export default function ProfilePage() {
   const redeemedCount = 8;
   const currentStreak = 7;
 
-  // Enhanced achievements with gradient colors
+  // Enhanced achievements with gradient colors and unlock instructions
   const achievements = [
     { 
       id: 1, 
@@ -59,7 +59,8 @@ export default function ProfilePage() {
       icon: Trophy, 
       unlocked: true, 
       gradient: 'from-yellow-400 via-orange-500 to-red-500',
-      shadowColor: 'shadow-yellow-400/30'
+      shadowColor: 'shadow-yellow-400/30',
+      unlockHint: 'Claim any partnership to unlock this achievement'
     },
     { 
       id: 2, 
@@ -68,7 +69,8 @@ export default function ProfilePage() {
       icon: Share2, 
       unlocked: true, 
       gradient: 'from-blue-400 via-purple-500 to-pink-500',
-      shadowColor: 'shadow-blue-400/30'
+      shadowColor: 'shadow-blue-400/30',
+      unlockHint: 'Share 15 Instagram stories featuring partnerships'
     },
     { 
       id: 3, 
@@ -77,7 +79,8 @@ export default function ProfilePage() {
       icon: Target, 
       unlocked: redeemedCount >= 10, 
       gradient: 'from-green-400 via-cyan-500 to-blue-500',
-      shadowColor: 'shadow-green-400/30'
+      shadowColor: 'shadow-green-400/30',
+      unlockHint: `Redeem ${10 - redeemedCount} more partnerships to unlock (${redeemedCount}/10)`
     },
     { 
       id: 4, 
@@ -86,7 +89,28 @@ export default function ProfilePage() {
       icon: Crown, 
       unlocked: false, 
       gradient: 'from-purple-400 via-pink-500 to-red-500',
-      shadowColor: 'shadow-purple-400/30'
+      shadowColor: 'shadow-purple-400/30',
+      unlockHint: 'Be among the first 1000 users to join Earlyshh'
+    },
+    { 
+      id: 5, 
+      title: 'Content Creator', 
+      description: 'Captured 20+ stories with camera', 
+      icon: Camera, 
+      unlocked: false, 
+      gradient: 'from-pink-400 via-orange-500 to-yellow-500',
+      shadowColor: 'shadow-pink-400/30',
+      unlockHint: 'Use the in-app camera to capture 20 Instagram stories'
+    },
+    { 
+      id: 6, 
+      title: 'Local Explorer', 
+      description: 'Visited 5+ different locations', 
+      icon: MapPin, 
+      unlocked: false, 
+      gradient: 'from-cyan-400 via-blue-500 to-purple-500',
+      shadowColor: 'shadow-cyan-400/30',
+      unlockHint: 'Redeem partnerships at 5 different locations'
     },
   ];
 
@@ -328,10 +352,10 @@ export default function ProfilePage() {
             {achievements.map((achievement) => (
               <div 
                 key={achievement.id} 
-                className={`p-4 rounded-2xl border transition-all duration-300 ${
+                className={`relative group p-4 rounded-2xl border transition-all duration-300 ${
                   achievement.unlocked 
                     ? `bg-gradient-to-br ${achievement.gradient.replace('from-', 'from-').replace('via-', 'via-').replace('to-', 'to-')}/20 border-white/20 ${achievement.shadowColor} shadow-lg hover:scale-105` 
-                    : 'bg-gray-800/60 border-gray-600/50 opacity-60'
+                    : 'bg-gray-800/60 border-gray-600/50 opacity-60 hover:opacity-80 cursor-pointer'
                 }`}
               >
                 <div className={`${achievement.unlocked ? 'text-white' : 'text-gray-500'} mb-3`}>
@@ -343,6 +367,20 @@ export default function ProfilePage() {
                 <p className={`text-xs ${achievement.unlocked ? 'text-white/80 drop-shadow-sm' : 'text-gray-600'}`}>
                   {achievement.description}
                 </p>
+                
+                {/* Hover tooltip for locked achievements */}
+                {!achievement.unlocked && (
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-10">
+                    <div className="bg-gray-900/95 backdrop-blur-md text-white text-xs rounded-xl px-3 py-2 shadow-xl border border-white/20 whitespace-nowrap">
+                      <div className="text-center">
+                        <div className="text-yellow-300 font-bold mb-1">How to unlock:</div>
+                        <div className="text-gray-200">{achievement.unlockHint}</div>
+                      </div>
+                      {/* Tooltip arrow */}
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-900/95"></div>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>
