@@ -47,7 +47,7 @@ export default function PartnershipTermsModal({
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-gray-900/60" />
         
         {/* Scrollable Content Container */}
-        <div className="relative z-10 h-full overflow-y-auto scrollbar-hide">
+        <div className="relative z-10 h-full overflow-y-auto overflow-x-hidden modal-scroll">
           <div className="p-6 space-y-6">
             {/* Close Button */}
             <button
