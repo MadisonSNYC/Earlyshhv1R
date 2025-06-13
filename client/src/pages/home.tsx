@@ -208,28 +208,7 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Map Preview Section */}
-      <section className="relative z-10 w-full px-4 py-4">
-        <div className="bg-gradient-to-r from-gray-900/70 via-purple-900/60 to-gray-900/70 backdrop-blur-md rounded-3xl p-4 mb-6 border border-cyan-400/30 shadow-xl">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-812-lg font-black text-white drop-shadow-lg">Map Preview</h2>
-            <button 
-              onClick={() => setViewMode('map')}
-              className="text-cyan-300 hover:text-cyan-100 text-812-sm font-medium transition-colors duration-300"
-            >
-              Full Map
-            </button>
-          </div>
-          
-          {/* Simple map preview placeholder */}
-          <div className="h-32 bg-gradient-to-br from-blue-900/50 to-purple-900/50 rounded-2xl border border-blue-400/20 flex items-center justify-center">
-            <div className="text-center">
-              <MapPin className="w-8 h-8 text-cyan-400 mx-auto mb-2" />
-              <p className="text-cyan-200 text-812-sm font-medium">3 partnerships nearby</p>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* Near You Section */}
       <section className="relative z-10 w-full px-4 py-2">
