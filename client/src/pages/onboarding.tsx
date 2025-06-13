@@ -126,32 +126,32 @@ export default function OnboardingPage() {
   const currentStepData = onboardingSteps.find(step => step.id === currentStep);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-cyan-400 flex items-center justify-center px-4">
-      <Card className="w-full max-w-md bg-white/10 backdrop-blur-lg border-white/20">
-        <CardContent className="p-8">
-          {/* Header */}
-          <div className="flex items-center justify-between mb-6">
+    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-cyan-400 flex items-center justify-center iphone-container iphone-safe-area">
+      <Card className="w-full bg-white/10 backdrop-blur-lg border-white/20 card-375">
+        <CardContent className="p-6">
+          {/* Header - iPhone optimized */}
+          <div className="flex items-center justify-between mb-4">
             {currentStep > 1 && (
               <Button
                 onClick={handleBack}
                 variant="ghost"
                 size="sm"
-                className="text-white hover:bg-white/20"
+                className="text-white hover:bg-white/20 touch-button"
               >
                 <ChevronLeft className="w-4 h-4" />
               </Button>
             )}
             <div className="flex items-center space-x-2">
-              <Zap className="w-5 h-5 text-white" />
-              <span className="text-white font-semibold">EARLYSHH</span>
+              <Zap className="w-4 h-4 text-white" />
+              <span className="text-white font-semibold text-375-base">EARLYSHH</span>
             </div>
-            <div className="text-white/70 text-sm">
+            <div className="text-white/70 text-375-sm">
               {currentStep}/{onboardingSteps.length}
             </div>
           </div>
 
           {/* Progress Bar */}
-          <div className="mb-8">
+          <div className="mb-6">
             <div className="w-full bg-white/20 rounded-full h-2">
               <div 
                 className="bg-white rounded-full h-2 transition-all duration-500"
@@ -161,8 +161,8 @@ export default function OnboardingPage() {
           </div>
 
           {/* Content */}
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-white mb-2">
+          <div className="text-center mb-6">
+            <h2 className="text-375-lg font-bold text-white mb-2">
               {currentStepData?.title}
             </h2>
             <p className="text-white/80 text-sm">
@@ -200,15 +200,15 @@ export default function OnboardingPage() {
                 </p>
                 <Button
                   onClick={handleLocationEnable}
-                  className="w-full bg-white/20 hover:bg-white/30 text-white border-white/30 h-12"
+                  className="touch-button w-full bg-white/20 hover:bg-white/30 text-white border-white/30"
                 >
-                  <MapPin className="w-5 h-5 mr-2" />
+                  <MapPin className="w-4 h-4 mr-2" />
                   Enable Location
                 </Button>
                 <Button
                   onClick={handleNext}
                   variant="ghost"
-                  className="w-full text-white/70 hover:text-white hover:bg-white/10"
+                  className="touch-button w-full text-white/70 hover:text-white hover:bg-white/10"
                 >
                   Skip for now
                 </Button>

@@ -110,33 +110,33 @@ export default function HomePage() {
 
   if (campaignsLoading) {
     return (
-      <div className="min-h-screen earlyshh-bg flex items-center justify-center">
+      <div className="min-h-screen earlyshh-bg flex items-center justify-center iphone-container">
         <div className="text-white text-center">
           <div className="loading-skeleton w-12 h-12 rounded-full mx-auto mb-4"></div>
-          <p>Loading amazing offers...</p>
+          <p className="text-375-base">Loading amazing offers...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-500 via-purple-600 via-blue-500 to-cyan-500 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-pink-500 via-purple-600 via-blue-500 to-cyan-500 relative overflow-hidden iphone-container iphone-safe-area">
       {/* Colorful overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-orange-400/30 via-pink-500/20 to-cyan-400/30" />
       
       {/* Additional depth layer for text readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 via-transparent to-gray-900/20" />
       
-      {/* Header */}
+      {/* Header - iPhone 375×667 optimized */}
       <header className="relative z-10 bg-gradient-to-r from-gray-900/80 via-purple-900/70 to-gray-900/80 backdrop-blur-md border-b border-pink-400/30 sticky top-0 shadow-lg">
-        <div className="max-w-md mx-auto px-6 py-6">
-          <div className="flex items-start justify-between mb-6">
-            <div className="bg-gradient-to-r from-gray-900/60 to-purple-900/60 backdrop-blur-sm rounded-2xl px-5 py-4 border border-pink-300/20 flex-1 mr-4">
-              <h1 className="text-2xl font-black text-white mb-1 drop-shadow-lg">
-                Hey {user?.fullName || 'there'}! 
+        <div className="w-full px-4 py-4">
+          <div className="flex items-start justify-between mb-4">
+            <div className="bg-gradient-to-r from-gray-900/60 to-purple-900/60 backdrop-blur-sm rounded-2xl px-4 py-3 border border-pink-300/20 flex-1 mr-3">
+              <h1 className="text-375-lg font-black text-white mb-1 drop-shadow-lg">
+                Hey there! 
                 <span className="ml-2">👋</span>
               </h1>
-              <p className="text-pink-200 font-medium drop-shadow-md">
+              <p className="text-pink-200 text-375-sm font-medium drop-shadow-md">
                 Discover exclusive partnerships near you
               </p>
             </div>
@@ -148,9 +148,9 @@ export default function HomePage() {
                 className={`${viewMode === 'grid' 
                   ? 'bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 text-white border-0 shadow-lg shadow-pink-400/30' 
                   : 'text-pink-200 hover:text-white bg-gray-800/50 hover:bg-gradient-to-r hover:from-pink-400/20 hover:to-cyan-400/20'
-                } rounded-2xl transition-all duration-300 w-12 h-12 p-0`}
+                } rounded-2xl transition-all duration-300 touch-button`}
               >
-                <Grid3X3 className="w-5 h-5" />
+                <Grid3X3 className="w-4 h-4" />
               </Button>
               <Button
                 variant={viewMode === 'map' ? 'default' : 'ghost'}
@@ -159,22 +159,22 @@ export default function HomePage() {
                 className={`${viewMode === 'map' 
                   ? 'bg-gradient-to-r from-orange-400 via-pink-500 to-purple-400 text-white border-0 shadow-lg shadow-orange-400/30' 
                   : 'text-pink-200 hover:text-white bg-gray-800/50 hover:bg-gradient-to-r hover:from-orange-400/20 hover:to-purple-400/20'
-                } rounded-2xl transition-all duration-300 w-12 h-12 p-0`}
+                } rounded-2xl transition-all duration-300 touch-button`}
               >
-                <Map className="w-5 h-5" />
+                <Map className="w-4 h-4" />
               </Button>
             </div>
           </div>
 
-          {/* Search Bar */}
-          <div className="relative mb-6">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-pink-300 w-5 h-5 drop-shadow-md" />
+          {/* Search Bar - iPhone optimized */}
+          <div className="relative mb-4">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-pink-300 w-4 h-4 drop-shadow-md" />
             <input
               type="text"
               placeholder="Search brands or partnerships..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 bg-gradient-to-r from-gray-900/70 via-purple-900/60 to-gray-900/70 backdrop-blur-md border border-pink-300/30 rounded-3xl text-white placeholder-pink-200 focus:outline-none focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-400/30 transition-all duration-300 text-lg shadow-xl"
+              className="touch-button w-full pl-12 pr-4 bg-gradient-to-r from-gray-900/70 via-purple-900/60 to-gray-900/70 backdrop-blur-md border border-pink-300/30 rounded-3xl text-white placeholder-pink-200 focus:outline-none focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-400/30 transition-all duration-300 shadow-xl"
             />
           </div>
 
@@ -208,18 +208,18 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Featured Brands Section */}
-      <section className="relative z-10 max-w-md mx-auto px-6 py-6">
-        <div className="bg-gradient-to-r from-gray-900/60 via-purple-900/50 to-gray-900/60 backdrop-blur-sm rounded-2xl p-4 mb-6 border border-orange-300/20">
+      {/* Featured Brands Section - iPhone 375×667 optimized */}
+      <section className="relative z-10 w-full px-4 py-4">
+        <div className="bg-gradient-to-r from-gray-900/60 via-purple-900/50 to-gray-900/60 backdrop-blur-sm rounded-2xl p-3 mb-4 border border-orange-300/20">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-black text-white drop-shadow-lg">Featured Brands</h2>
-            <button className="text-transparent bg-gradient-to-r from-orange-400 via-pink-400 to-cyan-400 bg-clip-text font-semibold hover:scale-105 transition-transform duration-300 drop-shadow-lg">
+            <h2 className="text-375-lg font-black text-white drop-shadow-lg">Featured Brands</h2>
+            <button className="text-transparent bg-gradient-to-r from-orange-400 via-pink-400 to-cyan-400 bg-clip-text text-375-sm font-semibold hover:scale-105 transition-transform duration-300 drop-shadow-lg">
               View All
             </button>
           </div>
         </div>
         
-        <div className="flex space-x-4 overflow-x-auto pb-4 scrollbar-hide">
+        <div className="flex space-x-3 overflow-x-auto pb-3 scrollbar-hide">
           {campaigns.slice(0, 6).map((campaign: Campaign, index: number) => {
             const cardGradients = [
               'from-pink-500/20 to-purple-500/20',
@@ -237,14 +237,14 @@ export default function HomePage() {
             return (
               <div
                 key={campaign.id}
-                className={`flex-shrink-0 bg-gradient-to-br ${cardGradient} backdrop-blur-md border ${borderGradient} rounded-3xl p-6 min-w-[140px] cursor-pointer hover:border-purple-400/70 hover:bg-gradient-to-br hover:from-purple-500/30 hover:to-cyan-500/30 hover:scale-105 transition-all duration-300 group shadow-xl`}
+                className={`flex-shrink-0 bg-gradient-to-br ${cardGradient} backdrop-blur-md border ${borderGradient} rounded-3xl p-4 min-w-[120px] cursor-pointer hover:border-purple-400/70 hover:bg-gradient-to-br hover:from-purple-500/30 hover:to-cyan-500/30 hover:scale-105 transition-all duration-300 group shadow-xl card-375`}
                 onClick={() => {
                   setSelectedCampaign(campaign);
                   setShowPartnershipModal(true);
                 }}
               >
                 <div className="flex flex-col items-center text-center">
-                  <div className="relative mb-4">
+                  <div className="relative mb-3">
                     <div className="absolute inset-0 bg-gradient-to-r from-orange-400/30 to-cyan-400/30 rounded-2xl blur-lg group-hover:from-pink-400/50 group-hover:to-cyan-400/50 transition-all duration-300" />
                     <img
                       src={campaign.brandLogoUrl}
