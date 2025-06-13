@@ -115,11 +115,11 @@
 }
 
 /* Custom Scrollbar */
-/* iPhone 375×667 pt specific optimizations */
+/* iPhone 375×812 pt specific optimizations */
 .iphone-container {
   width: 100%;
   max-width: 375px;
-  min-height: 667px;
+  min-height: 812px;
   margin: 0 auto;
   padding: 0 16px; /* Optimal touch targets */
   box-sizing: border-box;
@@ -164,25 +164,28 @@
   padding: 16px;
 }
 
-/* Typography optimized for 375px reading */
-.text-375-lg { font-size: 1.125rem; line-height: 1.4; }
-.text-375-base { font-size: 1rem; line-height: 1.5; }
-.text-375-sm { font-size: 0.875rem; line-height: 1.4; }
-.text-375-xs { font-size: 0.75rem; line-height: 1.3; }
+/* Typography optimized for 375×812pt reading */
+.text-812-hero { font-size: 2.5rem; line-height: 1.2; }
+.text-812-title { font-size: 1.75rem; line-height: 1.3; }
+.text-812-lg { font-size: 1.125rem; line-height: 1.4; }
+.text-812-base { font-size: 1rem; line-height: 1.5; }
+.text-812-sm { font-size: 0.875rem; line-height: 1.4; }
+.text-812-xs { font-size: 0.75rem; line-height: 1.3; }
 
-/* Spacing system for 375px */
-.space-375-xs { margin: 4px; }
-.space-375-sm { margin: 8px; }
-.space-375-md { margin: 16px; }
-.space-375-lg { margin: 24px; }
-.space-375-xl { margin: 32px; }
+/* Spacing system optimized for 812pt height */
+.space-812-xs { margin: 6px 0; }
+.space-812-sm { margin: 12px 0; }
+.space-812-md { margin: 20px 0; }
+.space-812-lg { margin: 28px 0; }
+.space-812-xl { margin: 36px 0; }
+.space-812-2xl { margin: 48px 0; }
 
-/* Modal optimizations for small screen */
-.modal-375 {
+/* Modal optimizations for 812pt screen */
+.modal-812 {
   width: calc(100vw - 32px);
   max-width: 343px;
-  max-height: calc(100vh - 80px);
-  margin: 40px auto;
+  max-height: calc(100vh - 120px);
+  margin: 60px auto;
   border-radius: 16px;
 }
 

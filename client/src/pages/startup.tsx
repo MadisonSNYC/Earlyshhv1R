@@ -37,14 +37,14 @@ export default function StartupPage() {
       <div className="min-h-screen bg-gradient-to-br from-purple-900 via-gray-900 to-indigo-900 flex items-center justify-center relative overflow-hidden iphone-container">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-800/20 via-transparent to-cyan-800/20" />
         
-        <div className="relative z-10 text-center space-375-lg">
-          <div className="w-16 h-16 bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 rounded-full flex items-center justify-center mx-auto shadow-xl shadow-purple-500/30">
-            <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="relative z-10 text-center space-812-xl">
+          <div className="w-20 h-20 bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 rounded-full flex items-center justify-center mx-auto shadow-xl shadow-purple-500/30">
+            <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h2 className="text-375-lg font-black text-white tracking-tight">Welcome to Earlyshh!</h2>
-          <p className="text-gray-300 text-375-base font-medium">Your partnership dashboard awaits...</p>
+          <h2 className="text-812-title font-black text-white tracking-tight">Welcome to Earlyshh!</h2>
+          <p className="text-gray-300 text-812-lg font-medium">Your partnership dashboard awaits...</p>
         </div>
       </div>
     );
@@ -55,9 +55,9 @@ export default function StartupPage() {
       {/* Subtle overlay for depth */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-800/20 via-transparent to-cyan-800/20" />
       
-      <div className="relative z-10 text-center w-full space-375-lg">
-        {/* Logo with prominent animated gradient - optimized for 375px */}
-        <div className="space-375-md">
+      <div className="relative z-10 text-center w-full space-812-xl">
+        {/* Logo with prominent animated gradient - optimized for 375×812pt */}
+        <div className="space-812-lg">
           <h1 className="text-5xl font-black tracking-tight relative">
             <span 
               className="bg-gradient-to-r from-pink-400 via-purple-400 via-cyan-400 to-yellow-400 bg-clip-text text-transparent"
@@ -76,7 +76,7 @@ export default function StartupPage() {
         </div>
 
         {/* Auth Section - appears after delay */}
-        <div className={`space-375-md transition-all duration-1000 ${showAuth ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <div className={`space-812-lg transition-all duration-1000 ${showAuth ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           {/* Instagram Login Button - optimized for touch */}
           <Button 
             onClick={handleInstagramLogin}
@@ -86,15 +86,15 @@ export default function StartupPage() {
             Join with Instagram
           </Button>
 
-          {/* Dev Mode Section - iPhone optimized */}
-          <div className="space-375-sm pt-6">
+          {/* Dev Mode Section - iPhone 812pt optimized */}
+          <div className="space-812-md pt-8">
             <div className="flex items-center justify-center space-x-2">
               <div className="h-px bg-cyan-400 flex-1" />
-              <span className="text-cyan-400 text-375-xs font-medium px-3">Dev Mode Options</span>
+              <span className="text-cyan-400 text-812-xs font-medium px-3">Dev Mode Options</span>
               <div className="h-px bg-cyan-400 flex-1" />
             </div>
             
-            <div className="space-375-xs">
+            <div className="space-812-sm">
               <input
                 type="text"
                 placeholder="Username (test)"
