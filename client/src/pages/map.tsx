@@ -19,8 +19,12 @@ const formatTimeLeft = (date: Date): string => {
 };
 
 const formatDistance = (distance: number): string => {
-  if (distance < 1000) return `${Math.round(distance)}m`;
-  return `${(distance / 1000).toFixed(1)}km`;
+  // Convert meters to feet (1 meter = 3.28084 feet)
+  const feet = distance * 3.28084;
+  if (feet < 5280) return `${Math.round(feet)} feet`;
+  // Convert feet to miles (1 mile = 5280 feet)
+  const miles = feet / 5280;
+  return `${miles.toFixed(1)} mi`;
 };
 
 export default function MapPage() {
