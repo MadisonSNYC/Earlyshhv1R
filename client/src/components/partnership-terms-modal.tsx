@@ -143,22 +143,6 @@ export default function PartnershipTermsModal({
                 </div>
                 
                 {/* Secondary Benefits */}
-                <div className="bg-gradient-to-r from-purple-900/60 to-pink-900/60 backdrop-blur-sm rounded-2xl p-5 flex items-center space-x-4 border border-purple-400/20 shadow-lg">
-                  <div className="w-4 h-4 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full shadow-lg"></div>
-                  <div>
-                    <p className="text-white font-bold drop-shadow-md">Early Access Privileges</p>
-                    <p className="text-purple-200 text-sm drop-shadow-sm">Future {campaign.brandName} partnerships</p>
-                  </div>
-                </div>
-                
-                <div className="bg-gradient-to-r from-pink-900/60 to-orange-900/60 backdrop-blur-sm rounded-2xl p-5 flex items-center space-x-4 border border-pink-400/20 shadow-lg">
-                  <div className="w-4 h-4 bg-gradient-to-r from-pink-400 to-orange-400 rounded-full shadow-lg"></div>
-                  <div>
-                    <p className="text-white font-bold drop-shadow-md">VIP Community Status</p>
-                    <p className="text-pink-200 text-sm drop-shadow-sm">Exclusive perks & insider access</p>
-                  </div>
-                </div>
-
                 <div className="bg-gradient-to-r from-yellow-900/60 to-orange-900/60 backdrop-blur-sm rounded-2xl p-5 flex items-center space-x-4 border border-yellow-400/20 shadow-lg">
                   <div className="w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full shadow-lg"></div>
                   <div>
@@ -207,7 +191,7 @@ export default function PartnershipTermsModal({
                     <div className="w-3 h-3 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full mt-1 flex-shrink-0"></div>
                     <div>
                       <p className="text-white font-bold drop-shadow-sm">Share Instagram Story (Required)</p>
-                      <p className="text-purple-200 text-sm drop-shadow-sm mt-1">Tag @{campaign.brandIgHandle} and use #EarlyshhPartner</p>
+                      <p className="text-purple-200 text-sm drop-shadow-sm mt-1">Tag {campaign.brandIgHandle} and @Earlyshh with #EarlyshhPartner</p>
                     </div>
                   </div>
                 </div>
