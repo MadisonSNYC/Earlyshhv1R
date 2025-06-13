@@ -6,8 +6,13 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 
 export default function InstagramStoryPage() {
+  // Route and navigation hooks
   const [, params] = useRoute('/instagram-story/:couponId');
   const [, setLocation] = useLocation();
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  // State management
   const [storyPosted, setStoryPosted] = useState(false);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [showCamera, setShowCamera] = useState(false);
@@ -15,13 +20,11 @@ export default function InstagramStoryPage() {
   const [capturedPhoto, setCapturedPhoto] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [facingMode, setFacingMode] = useState<'user' | 'environment'>('environment');
-  
+
+  // Refs for camera functionality
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
 
   // Fetch coupon data for context
   const { data: coupon, isLoading } = useQuery({
@@ -48,7 +51,7 @@ export default function InstagramStoryPage() {
   const startCamera = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { 
+        video: {
           facingMode: facingMode,
           width: { ideal: 1080 },
           height: { ideal: 1920 }
@@ -90,18 +93,18 @@ export default function InstagramStoryPage() {
       const video = videoRef.current;
       const canvas = canvasRef.current;
       const context = canvas.getContext('2d');
-      
+
       // Set canvas dimensions to match video
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
-      
+
       if (context) {
         // Draw the video frame
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        
+
         // Add brand tag overlay
         addBrandOverlay(context, canvas.width, canvas.height);
-        
+
         // Convert to base64
         const photoData = canvas.toDataURL('image/jpeg', 0.8);
         setCapturedPhoto(photoData);
@@ -114,19 +117,19 @@ export default function InstagramStoryPage() {
     // Set up text styling for brand tag
     context.fillStyle = 'rgba(0, 0, 0, 0.7)';
     context.fillRect(20, height - 100, width - 40, 80);
-    
+
     // Brand tag (visible and prominent)
     context.fillStyle = '#FFFFFF';
     context.font = 'bold 32px Arial';
     context.textAlign = 'left';
     context.fillText(activeCoupon.brandIgHandle, 40, height - 60);
-    
+
     // Hidden tag (smaller, less prominent but still visible)
     context.fillStyle = 'rgba(255, 255, 255, 0.6)';
     context.font = '16px Arial';
     context.textAlign = 'left';
     context.fillText('@earlyshh', 40, height - 30);
-    
+
     // Tracking hashtag (nearly invisible)
     context.fillStyle = 'rgba(255, 255, 255, 0.05)';
     context.font = '8px Arial';
@@ -185,14 +188,14 @@ export default function InstagramStoryPage() {
 
   const handleSubmitStory = async () => {
     setIsSubmitting(true);
-    
+
     if (params?.couponId) {
       submitStoryMutation.mutate({
         couponId: params.couponId,
         storyImage: capturedPhoto || uploadedImage || undefined,
       });
     }
-    
+
     setIsSubmitting(false);
   };
 
@@ -229,7 +232,7 @@ export default function InstagramStoryPage() {
             playsInline
             className="w-full h-full object-cover"
           />
-          
+
           {/* Camera Controls */}
           <div className="absolute top-6 left-6 right-6 flex justify-between items-center">
             <Button
@@ -238,11 +241,11 @@ export default function InstagramStoryPage() {
             >
               <X className="w-6 h-6" />
             </Button>
-            
+
             <div className="bg-gray-900/80 backdrop-blur-md rounded-full px-4 py-2 border border-white/20">
               <span className="text-white font-medium">Story Camera</span>
             </div>
-            
+
             <Button
               onClick={switchCamera}
               className="bg-gray-900/80 backdrop-blur-md text-white rounded-full w-12 h-12 p-0 border border-white/20"
@@ -250,7 +253,7 @@ export default function InstagramStoryPage() {
               <RotateCcw className="w-6 h-6" />
             </Button>
           </div>
-          
+
           {/* Brand Tag Preview */}
           <div className="absolute bottom-32 left-6 right-6 bg-gray-900/80 backdrop-blur-md rounded-2xl p-4 border border-white/20">
             <div className="flex items-center space-x-3 mb-2">
@@ -270,7 +273,7 @@ export default function InstagramStoryPage() {
               </div>
             </div>
           </div>
-          
+
           {/* Capture Button */}
           <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
             <Button
@@ -281,7 +284,7 @@ export default function InstagramStoryPage() {
             </Button>
           </div>
         </div>
-        
+
         <canvas ref={canvasRef} className="hidden" />
       </div>
     );
@@ -292,7 +295,7 @@ export default function InstagramStoryPage() {
       {/* Enhanced background overlays */}
       <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 via-pink-500/15 to-cyan-400/20" />
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/40 via-transparent to-gray-900/20" />
-      
+
       <div className="relative z-10 container mx-auto px-6 py-8 max-w-md">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -336,7 +339,7 @@ export default function InstagramStoryPage() {
                     Take Photo with Auto-Tags
                     <Sparkles className="w-5 h-5 ml-3" />
                   </Button>
-                  
+
                   {/* Upload Option */}
                   <div className="text-center">
                     <p className="text-gray-300 text-sm mb-3">or</p>
@@ -363,9 +366,9 @@ export default function InstagramStoryPage() {
                 <div className="mb-8">
                   <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
                     <div className="space-y-4">
-                      <img 
-                        src={capturedPhoto || uploadedImage} 
-                        alt="Story preview" 
+                      <img
+                        src={capturedPhoto || uploadedImage}
+                        alt="Story preview"
                         className="w-full max-w-xs mx-auto rounded-2xl shadow-xl object-cover"
                       />
                       <div className="text-center">
