@@ -39,12 +39,13 @@ function AuthenticatedApp() {
     return <div className="flex items-center justify-center min-h-screen"><div className="loading-skeleton w-8 h-8 rounded-full"></div></div>;
   }
 
+  // For demo purposes, always show startup page on root path unless explicitly navigating to /home
   return (
     <Switch>
       <Route path="/startup" component={StartupPage} />
       <Route path="/onboarding" component={OnboardingPage} />
       <Route path="/home" component={HomePage} />
-      <Route path="/" component={user ? HomePage : StartupPage} />
+      <Route path="/" component={StartupPage} />
       <Route path="/partnership/:id" component={PartnershipConfirmationPage} />
       <Route path="/profile" component={ProfilePage} />
       <Route path="/my-coupons" component={MyCouponsPage} />

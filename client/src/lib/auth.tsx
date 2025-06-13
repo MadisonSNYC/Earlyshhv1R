@@ -23,18 +23,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check if user is stored in localStorage
-    const storedUser = localStorage.getItem('earlyshh_user');
-    if (storedUser) {
-      try {
-        const userData = JSON.parse(storedUser);
-        setUser(userData);
-        apiClient.setUser(userData);
-      } catch (error) {
-        console.error('Failed to parse stored user:', error);
-        localStorage.removeItem('earlyshh_user');
-      }
-    }
+    // For demo purposes, clear any existing session and start fresh
+    localStorage.removeItem('earlyshh_user');
+    setUser(null);
     setIsLoading(false);
   }, []);
 
