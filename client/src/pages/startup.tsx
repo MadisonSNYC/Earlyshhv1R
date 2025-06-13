@@ -94,7 +94,7 @@ export default function StartupPage() {
               <div className="h-px bg-cyan-400 flex-1" />
             </div>
             
-            <div className="space-812-sm">
+            <div className="space-y-4">
               <input
                 type="text"
                 placeholder="Username (test)"
