@@ -240,20 +240,20 @@ export default function PartnershipTermsModal({
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="space-y-4">
+            {/* Action Buttons - iPhone touch optimized */}
+            <div className="space-y-3">
               <Button
                 onClick={handleAcceptPartnership}
-                className="w-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 text-white font-black py-4 rounded-2xl text-lg shadow-xl shadow-yellow-500/40 transform hover:scale-105 transition-all duration-300"
+                className="touch-button w-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 text-white font-black rounded-2xl shadow-xl shadow-yellow-500/40 transform hover:scale-105 transition-all duration-300"
               >
-                <MapPin className="w-5 h-5 mr-2" />
+                <MapPin className="w-4 h-4 mr-2" />
                 Verify Location & Unlock
-                <Sparkles className="w-5 h-5 ml-2" />
+                <Sparkles className="w-4 h-4 ml-2" />
               </Button>
               
               <Button
                 onClick={handleViewBrandProfile}
-                className="w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-bold py-3 rounded-2xl border-0 transition-all duration-300 hover:scale-105 shadow-lg shadow-purple-500/30"
+                className="touch-button w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-bold rounded-2xl border-0 transition-all duration-300 hover:scale-105 shadow-lg shadow-purple-500/30"
               >
                 View Brand Profile
               </Button>
