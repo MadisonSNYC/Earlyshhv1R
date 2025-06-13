@@ -208,16 +208,32 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Featured Brands Section - iPhone 375×667 optimized */}
+      {/* Map Preview Section */}
       <section className="relative z-10 w-full px-4 py-4">
-        <div className="bg-gradient-to-r from-gray-900/60 via-purple-900/50 to-gray-900/60 backdrop-blur-sm rounded-2xl p-3 mb-4 border border-orange-300/20">
-          <div className="flex items-center justify-between">
-            <h2 className="text-375-lg font-black text-white drop-shadow-lg">Featured Brands</h2>
-            <button className="text-transparent bg-gradient-to-r from-orange-400 via-pink-400 to-cyan-400 bg-clip-text text-375-sm font-semibold hover:scale-105 transition-transform duration-300 drop-shadow-lg">
-              View All
+        <div className="bg-gradient-to-r from-gray-900/70 via-purple-900/60 to-gray-900/70 backdrop-blur-md rounded-3xl p-4 mb-6 border border-cyan-400/30 shadow-xl">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-812-lg font-black text-white drop-shadow-lg">Map Preview</h2>
+            <button 
+              onClick={() => setViewMode('map')}
+              className="text-cyan-300 hover:text-cyan-100 text-812-sm font-medium transition-colors duration-300"
+            >
+              Full Map
             </button>
           </div>
+          
+          {/* Simple map preview placeholder */}
+          <div className="h-32 bg-gradient-to-br from-blue-900/50 to-purple-900/50 rounded-2xl border border-blue-400/20 flex items-center justify-center">
+            <div className="text-center">
+              <MapPin className="w-8 h-8 text-cyan-400 mx-auto mb-2" />
+              <p className="text-cyan-200 text-812-sm font-medium">3 partnerships nearby</p>
+            </div>
+          </div>
         </div>
+      </section>
+
+      {/* Near You Section */}
+      <section className="relative z-10 w-full px-4 py-2">
+        <h2 className="text-812-title font-black text-white mb-4 drop-shadow-lg">Near you</h2>
         
         <div className="flex space-x-3 overflow-x-auto pb-3 scrollbar-hide">
           {campaigns.slice(0, 6).map((campaign: Campaign, index: number) => {
@@ -274,7 +290,7 @@ export default function HomePage() {
 
       {/* Partnership Listings */}
       <main className="relative z-10 max-w-md mx-auto px-6 py-6 pb-32">
-{viewMode === 'map' ? (
+        {viewMode === 'map' ? (
           <div className="text-center py-16">
             <button 
               onClick={() => setLocation('/map')}
@@ -314,12 +330,13 @@ export default function HomePage() {
                     return (
                       <div
                         key={campaign.id}
-                        className={`bg-gradient-to-r ${cardGradient} backdrop-blur-md border ${borderGradient} rounded-3xl p-6 cursor-pointer hover:border-cyan-400/60 hover:bg-gradient-to-r hover:from-purple-500/30 hover:to-cyan-500/30 hover:scale-105 transition-all duration-300 group shadow-xl`}
+                        className={`bg-gradient-to-r ${cardGradient} backdrop-blur-md border ${borderGradient} rounded-3xl p-5 cursor-pointer hover:border-cyan-400/60 hover:bg-gradient-to-r hover:from-purple-500/30 hover:to-cyan-500/30 hover:scale-105 transition-all duration-300 group shadow-xl space-y-4`}
                         onClick={() => {
                           setSelectedCampaign(campaign);
                           setShowPartnershipModal(true);
                         }}
                       >
+                        {/* Header Section */}
                         <div className="flex items-start space-x-4">
                           <div className="relative flex-shrink-0">
                             <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 to-purple-400/30 rounded-2xl blur-lg group-hover:from-pink-400/50 group-hover:to-cyan-400/50 transition-all duration-300" />
@@ -336,50 +353,50 @@ export default function HomePage() {
                           
                           <div className="flex-1 min-w-0">
                             <div className="flex items-start justify-between mb-2">
-                              <h3 className="text-white font-black text-lg leading-tight drop-shadow-lg">
+                              <h3 className="text-white font-black text-812-lg leading-tight drop-shadow-lg">
                                 {campaign.brandName}
                               </h3>
-                              <div className="flex items-center space-x-2 ml-2">
-                                <div className="bg-gradient-to-r from-green-400 to-cyan-400 text-white text-xs px-3 py-1.5 rounded-full font-bold shadow-lg">
-                                  Live
-                                </div>
+                              <div className="bg-gradient-to-r from-green-400 to-cyan-400 text-white text-xs px-3 py-1.5 rounded-full font-bold shadow-lg">
+                                Live
                               </div>
                             </div>
                             
-                            <p className="text-pink-200 font-medium mb-3 drop-shadow-md">
+                            <p className="text-pink-200 font-medium text-812-sm drop-shadow-md">
                               {campaign.offerDescription}
                             </p>
-                            
-                            <div className="flex items-center space-x-6 text-sm mb-5">
-                              <div className="flex items-center text-cyan-200 drop-shadow-md">
-                                <Users className="w-4 h-4 mr-1" />
-                                <span>{campaign.slotsRemaining || 0} slots left</span>
-                              </div>
-                              
-                              <div className="flex items-center text-orange-200 drop-shadow-md">
-                                <Clock className="w-4 h-4 mr-1" />
-                                <span>{formatTimeLeft(new Date(campaign.expiresAt))}</span>
-                              </div>
-                              
-                              <div className="flex items-center text-pink-200 drop-shadow-md">
-                                <MapPin className="w-4 h-4 mr-1" />
-                                <span>{formatDistance(150)}</span>
-                              </div>
-                            </div>
-                            
-                            <div className="flex items-center justify-center gap-6">
-                              <div className="bg-gradient-to-r from-orange-400/20 to-pink-400/20 rounded-xl px-3 py-1.5 border border-orange-300/30 flex-shrink-0">
-                                <span className="text-orange-200 text-xs font-medium drop-shadow-md">
-                                  Partnership Opportunity
-                                </span>
-                              </div>
-                              
-                              <button className="bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 text-white px-3 py-1 rounded-lg font-semibold text-xs hover:scale-105 transition-all duration-300 shadow-lg shadow-pink-400/30 hover:shadow-cyan-400/30 flex items-center gap-1">
-                                <ExternalLink className="w-2.5 h-2.5" />
-                                Partner Up
-                              </button>
-                            </div>
                           </div>
+                        </div>
+                        
+                        {/* Info Section */}
+                        <div className="flex items-center justify-between text-812-xs">
+                          <div className="flex items-center text-cyan-200 drop-shadow-md">
+                            <Users className="w-4 h-4 mr-1.5" />
+                            <span>{campaign.slotsRemaining || 0} slots</span>
+                          </div>
+                          
+                          <div className="flex items-center text-orange-200 drop-shadow-md">
+                            <Clock className="w-4 h-4 mr-1.5" />
+                            <span>{formatTimeLeft(new Date(campaign.expiresAt))}</span>
+                          </div>
+                          
+                          <div className="flex items-center text-pink-200 drop-shadow-md">
+                            <MapPin className="w-4 h-4 mr-1.5" />
+                            <span>490 feet</span>
+                          </div>
+                        </div>
+                        
+                        {/* Action Section */}
+                        <div className="flex items-center justify-between">
+                          <div className="bg-gradient-to-r from-orange-400/20 to-pink-400/20 rounded-xl px-3 py-2 border border-orange-300/30">
+                            <span className="text-orange-200 text-812-xs font-medium drop-shadow-md">
+                              Partnership
+                            </span>
+                          </div>
+                          
+                          <button className="touch-button bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 text-white px-4 py-2 rounded-2xl font-semibold text-812-xs hover:scale-105 transition-all duration-300 shadow-lg shadow-pink-400/30 hover:shadow-cyan-400/30 flex items-center gap-2">
+                            <ExternalLink className="w-3 h-3" />
+                            Partner Up
+                          </button>
                         </div>
                       </div>
                     );
