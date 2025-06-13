@@ -46,7 +46,7 @@ A social-first coupon platform PWA that revolutionizes digital deal discovery th
 - **User Flow**: Streamlined to Instagram auth and "Explore Without Account" options
 - **Component Clarity**: Distinguished primary actions (bold, gradients) from secondary (lighter, borders)
 - **Modal Optimization**: Enhanced partnership modal with clear button hierarchy and improved spacing
-- **Home Page Enhancement**: Redesigned header, compact map sneak peek, "Near you" section, improved card layouts with feet distance, visual slots indicator
+- **Home Page Enhancement**: Simplified header with logo only, compact map sneak peek, "Near you" section, improved card layouts with feet distance, visual slots indicator
 - **Partnership Modal**: Removed "Early Access" and "VIP" cards, fixed Instagram handle to "@Earlyshh"
 
 ### iPhone 375×812 pt Optimization (June 13, 2025)

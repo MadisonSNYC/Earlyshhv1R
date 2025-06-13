@@ -127,78 +127,13 @@ export default function HomePage() {
       {/* Additional depth layer for text readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 via-transparent to-gray-900/20" />
       
-      {/* Header - Streamlined */}
+      {/* Header - Logo Only */}
       <header className="relative z-10 bg-gradient-to-r from-gray-900/80 via-purple-900/70 to-gray-900/80 backdrop-blur-md border-b border-pink-400/30 sticky top-0 shadow-lg">
-        <div className="w-full px-4 py-3">
-          {/* Top Row */}
-          <div className="flex items-center justify-between mb-3">
-            <h1 className="text-812-lg font-black text-white drop-shadow-lg">
-              Partnerships
+        <div className="w-full px-4 py-4 flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-812-title font-black bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent drop-shadow-lg">
+              Earlyshh
             </h1>
-            <div className="flex space-x-2">
-              <Button
-                variant={viewMode === 'grid' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setViewMode('grid')}
-                className={`${viewMode === 'grid' 
-                  ? 'bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 text-white border-0 shadow-lg shadow-pink-400/30' 
-                  : 'text-pink-200 hover:text-white bg-gray-800/50 hover:bg-gradient-to-r hover:from-pink-400/20 hover:to-cyan-400/20'
-                } rounded-2xl transition-all duration-300 touch-button`}
-              >
-                <Grid3X3 className="w-4 h-4" />
-              </Button>
-              <Button
-                variant={viewMode === 'map' ? 'default' : 'ghost'}
-                size="sm"
-                onClick={() => setViewMode('map')}
-                className={`${viewMode === 'map' 
-                  ? 'bg-gradient-to-r from-orange-400 via-pink-500 to-purple-400 text-white border-0 shadow-lg shadow-orange-400/30' 
-                  : 'text-pink-200 hover:text-white bg-gray-800/50 hover:bg-gradient-to-r hover:from-orange-400/20 hover:to-purple-400/20'
-                } rounded-2xl transition-all duration-300 touch-button`}
-              >
-                <Map className="w-4 h-4" />
-              </Button>
-            </div>
-          </div>
-
-          {/* Search Bar */}
-          <div className="relative mb-3">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-pink-300 w-4 h-4 drop-shadow-md" />
-            <input
-              type="text"
-              placeholder="Search brands..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="touch-button w-full pl-12 pr-4 py-3 bg-gradient-to-r from-gray-900/70 via-purple-900/60 to-gray-900/70 backdrop-blur-md border border-pink-300/30 rounded-2xl text-white placeholder-pink-200 focus:outline-none focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-400/30 transition-all duration-300"
-            />
-          </div>
-
-          {/* Category Filter */}
-          <div className="flex space-x-3 overflow-x-auto pb-2 scrollbar-hide">
-            {['All', ...categories].map((category: string, index) => {
-              const gradients = [
-                'from-pink-400 to-purple-500',
-                'from-orange-400 to-pink-500', 
-                'from-purple-400 to-blue-500',
-                'from-cyan-400 to-teal-500',
-                'from-green-400 to-blue-500'
-              ];
-              const gradient = gradients[index % gradients.length];
-              
-              return (
-                <Badge
-                  key={category}
-                  className={`whitespace-nowrap cursor-pointer px-3 py-1.5 rounded-xl font-medium transition-all duration-300 ${
-                    selectedCategory === category
-                      ? `bg-gradient-to-r ${gradient} text-white shadow-lg shadow-pink-400/30`
-                      : 'bg-gray-800/60 text-pink-200 hover:bg-gray-700/60 border border-pink-300/20 hover:border-pink-300/40'
-                  }`}
-                  onClick={() => setSelectedCategory(category)}
-                >
-                  {category}
-                </Badge>
-              );
-            })}
           </div>
         </div>
       </header>
