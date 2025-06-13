@@ -7,40 +7,44 @@ import { QRCodeSVG } from 'qrcode.react';
 import { useToast } from '@/hooks/use-toast';
 
 export default function QRCodePage() {
-  const [, params] = useRoute('/qr/:couponId');
+  const [, params] = useRoute('/qr-code/:couponId');
   const [, setLocation] = useLocation();
   const [timeLeft, setTimeLeft] = useState('24 minutes');
   const [isRedeemed, setIsRedeemed] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  // Create mock coupon for demo purposes
-  const mockCoupon = {
-    id: params?.couponId || '1',
-    code: 'DEMO-EARLY-2024',
-    qrData: `https://earlyshh.com/redeem/${params?.couponId || '1'}`,
-    fetchCode: '1234-5678-9012-3456',
-    productName: 'SuperRoot Premium Energy Formula',
-    brandName: 'SuperRoot Energy',
-    brandLogo: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=100&h=100&fit=crop',
-    redeemableAmount: '3.99',
-    expirationDate: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // 24 hours from now
-    legalDisclaimer: 'Valid at participating locations. One per customer. Terms apply.',
-    dateFetched: new Date().toISOString(),
-    offerDescription: 'Free Sample Energy Drink',
-    campaign: {
-      brandName: 'SuperRoot Energy',
-      brandIgHandle: '@superrootenergy'
-    }
-  };
-
-  // Fetch coupon data, fallback to mock for demo
-  const { data: fetchedCoupon, isLoading } = useQuery({
+  // Fetch coupon data
+  const { data: coupon, isLoading } = useQuery({
     queryKey: ['/api/coupons', params?.couponId],
     enabled: !!params?.couponId,
   });
 
-  const coupon = fetchedCoupon || mockCoupon;
+  // For investor demo, show empty state if no data
+  if (!coupon && !isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-cyan-400 flex items-center justify-center px-4">
+        <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-2xl text-center max-w-md">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">QR Code Demo</h2>
+          <p className="text-gray-600 mb-6">
+            This page generates QR codes for partnership redemption when users complete the full journey.
+          </p>
+          <div className="w-48 h-48 bg-gray-100 rounded-2xl mx-auto mb-6 flex items-center justify-center">
+            <div className="text-gray-400 text-center">
+              <div className="text-4xl mb-2">📱</div>
+              <div>QR Code Preview</div>
+            </div>
+          </div>
+          <button 
+            onClick={() => setLocation('/home')}
+            className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-2xl font-semibold"
+          >
+            Back to Home
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   // Mark coupon as redeemed mutation
   const markRedeemedMutation = useMutation({

@@ -499,7 +499,8 @@ export default function ProfilePage() {
       </div>
 
       {/* Bottom Navigation */}
-      <BottomNavigation />
+      {/* Only show bottom navigation if not in iframe */}
+      {window.self === window.top && <BottomNavigation />}
     </div>
   );
 }
