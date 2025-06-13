@@ -127,7 +127,7 @@ export default function HomePage() {
       {/* Additional depth layer for text readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 via-transparent to-gray-900/20" />
       
-      {/* Header - iPhone 375×667 optimized */}
+      {/* Header - iPhone 375×812 optimized */}
       <header className="relative z-10 bg-gradient-to-r from-gray-900/80 via-purple-900/70 to-gray-900/80 backdrop-blur-md border-b border-pink-400/30 sticky top-0 shadow-lg">
         <div className="w-full px-4 py-4">
           <div className="flex items-start justify-between mb-4">

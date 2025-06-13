@@ -3,14 +3,14 @@
 ## Overview
 A social-first coupon platform PWA that revolutionizes digital deal discovery through an engaging, location-aware mobile experience. Transforms how users discover, share, and collect location-based coupon opportunities with intuitive interaction design.
 
-**Target Audience:** iPhone users (375×667 pt screen size) - optimized for maximum compatibility across iPhone models
+**Target Audience:** iPhone users (375×812 pt screen size) - optimized for efficient coverage of most iPhone users
 **Primary Goal:** Authentic brand partnerships with free products + content creation
 
 ## Project Architecture
 
 ### Frontend Stack
 - React PWA with TypeScript
-- Tailwind CSS with iPhone 375×667 pt optimization
+- Tailwind CSS with iPhone 375×812 pt optimization
 - Gradient design system with glass-morphism effects
 - Mobile-first responsive design
 - Advanced UI/UX components
@@ -34,44 +34,47 @@ A social-first coupon platform PWA that revolutionizes digital deal discovery th
 
 ## Recent Changes
 
-### iPhone 375×667 pt Optimization (June 13, 2025)
-**Major architectural change targeting wider iPhone audience compatibility**
+### iPhone 375×812 pt Optimization (June 13, 2025)
+**Major architectural change targeting efficient user coverage for most iPhone users**
 
 #### Updates Made:
-- **Global CSS System**: Added iPhone-specific utility classes and containers
-  - `.iphone-container`: 375px max-width with proper margins
+- **Global CSS System**: Enhanced iPhone-specific utility classes and containers
+  - `.iphone-container`: 375px max-width with 812pt min-height
   - `.touch-button`: 44px minimum touch targets (Apple guidelines)
-  - `.text-375-*`: Typography scale optimized for 375px viewport
-  - `.space-375-*`: Spacing system for compact layouts
-  - `.modal-375`: Modal sizing for small screens
+  - `.text-812-*`: Typography scale optimized for 375×812pt viewport
+  - `.space-812-*`: Enhanced spacing system for taller screens
+  - `.modal-812`: Modal sizing optimized for 812pt height
 
 - **Core Components Updated**:
   - App.tsx: Added iphone-container and safe-area classes
-  - Startup page: Optimized logo sizing, button spacing, typography
-  - Home page: Compressed header, optimized search bar, partnership cards
-  - Onboarding: Reduced padding, touch-optimized buttons
-  - Partnership modal: Mobile-first sizing, improved touch targets
+  - Startup page: Optimized for taller screen with improved spacing
+  - Home page: Enhanced header and layout for 812pt format
+  - Onboarding: Touch-optimized buttons with better vertical spacing
+  - Partnership modal: Improved sizing for taller screen format
 
 - **Design Optimizations**:
-  - Reduced font sizes for better readability on 375px width
-  - Increased touch target sizes (minimum 44px)
-  - Optimized spacing for compact layout
-  - Improved button accessibility for touch interaction
-  - Enhanced card layouts for single-column mobile view
+  - Enhanced typography hierarchy for 812pt screens
+  - Improved vertical spacing to utilize additional screen height
+  - Optimized touch targets (minimum 44px) across all components
+  - Better content organization for taller viewport
+  - Enhanced user experience for modern iPhone form factor
 
 #### Technical Implementation:
 ```css
-/* Key CSS additions for iPhone optimization */
-.iphone-container { max-width: 375px; margin: 0 auto; padding: 0 16px; }
+/* Key CSS additions for iPhone 375×812pt optimization */
+.iphone-container { max-width: 375px; min-height: 812px; margin: 0 auto; padding: 0 16px; }
 .touch-button { min-height: 44px; min-width: 44px; padding: 12px 24px; font-size: 16px; }
-.modal-375 { width: calc(100vw - 32px); max-width: 343px; }
+.modal-812 { width: calc(100vw - 32px); max-width: 343px; max-height: calc(100vh - 120px); }
+.text-812-hero { font-size: 2.5rem; line-height: 1.2; }
+.space-812-xl { margin: 36px 0; }
 ```
 
 #### Impact:
-- Wider iPhone compatibility (375×667 pt is most popular screen size)
-- Improved touch interaction and accessibility
-- Better content density and readability
-- Enhanced user experience across older iPhone models
+- Efficient coverage of most iPhone users (375×812 pt is optimal target)
+- Better utilization of vertical screen space
+- Improved content hierarchy and readability
+- Enhanced user experience for modern iPhone form factors
+- Scalable foundation for adapting to other screen sizes
 
 ### Previous Milestones
 - Completed full survey system with star ratings and purchase intent tracking
@@ -88,16 +91,18 @@ A social-first coupon platform PWA that revolutionizes digital deal discovery th
 - Clean, modern aesthetic with glass-morphism effects
 
 ## Development Guidelines
-- Always test on 375×667 pt viewport
+- Always test on 375×812 pt viewport for optimal user coverage
 - Use touch-optimized button sizing (44px minimum)
-- Prioritize single-column mobile layouts
-- Maintain gradient design consistency
+- Prioritize single-column mobile layouts with enhanced vertical spacing
+- Maintain gradient design consistency across all components
 - Ensure proper safe area handling for iOS devices
 - Use authentic API data for all features
+- Leverage additional vertical space for better content organization
 
 ## Current Status
 - Fully functional 7-step user journey
-- iPhone 375×667 pt optimized design system
+- iPhone 375×812 pt optimized design system
 - Real investor presentation materials
 - Complete partnership discovery and redemption flow
-- Ready for broader iPhone audience deployment
+- Enhanced spacing and typography for modern iPhone form factors
+- Ready for efficient deployment targeting most iPhone users
