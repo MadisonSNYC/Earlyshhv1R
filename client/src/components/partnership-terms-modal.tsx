@@ -117,108 +117,77 @@ export default function PartnershipTermsModal({
               </div>
             </div>
 
-            {/* Partnership Benefits */}
+            {/* Partnership Details */}
             <div className="bg-gray-900/70 backdrop-blur-md rounded-3xl p-6 border border-white/20 shadow-xl">
               <div className="flex items-center space-x-3 mb-6">
                 <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg">
                   <Check className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-white font-black text-xl drop-shadow-lg">Partnership Benefits</h3>
+                <h3 className="text-white font-black text-xl drop-shadow-lg">Partnership Details</h3>
               </div>
               
-              <div className="space-y-4">
-                {/* Primary Benefit */}
-                <div className="bg-gradient-to-r from-green-900/60 to-cyan-900/60 backdrop-blur-sm rounded-2xl p-5 flex items-center justify-between border border-green-400/20 shadow-lg">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-4 h-4 bg-gradient-to-r from-green-400 to-cyan-400 rounded-full shadow-lg"></div>
-                    <div>
-                      <p className="text-white font-bold text-lg drop-shadow-md">Free {campaign.productName}</p>
-                      <p className="text-green-200 text-sm drop-shadow-sm">Premium quality sample</p>
+              <div className="space-y-5">
+                {/* What You Get */}
+                <div>
+                  <h4 className="text-green-300 font-bold text-sm mb-3 drop-shadow-md">What You Get</h4>
+                  <div className="bg-gradient-to-r from-green-900/60 to-cyan-900/60 backdrop-blur-sm rounded-2xl p-4 flex items-center justify-between border border-green-400/20 shadow-lg">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-3 h-3 bg-gradient-to-r from-green-400 to-cyan-400 rounded-full shadow-lg"></div>
+                      <div>
+                        <p className="text-white font-bold drop-shadow-md">Free {campaign.productName}</p>
+                        <p className="text-green-200 text-xs drop-shadow-sm">Premium quality + creator recognition</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="bg-gradient-to-r from-green-400/20 to-cyan-400/20 px-4 py-2 rounded-full border border-green-400/30">
-                    <span className="text-green-300 font-bold text-lg drop-shadow-md">${campaign.redeemableAmount}</span>
-                    <span className="text-green-200 text-sm ml-1">value</span>
-                  </div>
-                </div>
-                
-                {/* Secondary Benefits */}
-                <div className="bg-gradient-to-r from-yellow-900/60 to-orange-900/60 backdrop-blur-sm rounded-2xl p-5 flex items-center space-x-4 border border-yellow-400/20 shadow-lg">
-                  <div className="w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full shadow-lg"></div>
-                  <div>
-                    <p className="text-white font-bold drop-shadow-md">Creator Recognition</p>
-                    <p className="text-yellow-200 text-sm drop-shadow-sm">Build your discovery profile</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Partnership Requirements */}
-            <div className="bg-gray-900/70 backdrop-blur-md rounded-3xl p-6 border border-white/20 shadow-xl">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-r from-red-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
-                  <Sparkles className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-white font-black text-xl drop-shadow-lg">Partnership Requirements</h3>
-              </div>
-              
-              <div className="space-y-4">
-                {/* Location Requirement */}
-                <div className="bg-red-900/40 backdrop-blur-sm rounded-2xl p-4 border border-red-400/30">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-3 h-3 bg-gradient-to-r from-red-400 to-orange-400 rounded-full mt-1 flex-shrink-0"></div>
-                    <div>
-                      <p className="text-white font-bold drop-shadow-sm">Must be within 500 feet of store location</p>
-                      <p className="text-red-200 text-sm drop-shadow-sm mt-1">Location verification required to unlock offer</p>
+                    <div className="bg-gradient-to-r from-green-400/20 to-cyan-400/20 px-3 py-1.5 rounded-full border border-green-400/30">
+                      <span className="text-green-300 font-bold drop-shadow-md">${campaign.redeemableAmount}</span>
+                      <span className="text-green-200 text-xs ml-1">value</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Time Limit */}
-                <div className="bg-orange-900/40 backdrop-blur-sm rounded-2xl p-4 border border-orange-400/30">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-3 h-3 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-full mt-1 flex-shrink-0"></div>
-                    <div>
-                      <p className="text-white font-bold drop-shadow-sm">Complete within 1 hour of unlocking</p>
-                      <p className="text-orange-200 text-sm drop-shadow-sm mt-1">Offer expires 60 minutes after activation</p>
+                {/* What You Do */}
+                <div>
+                  <h4 className="text-orange-300 font-bold text-sm mb-3 drop-shadow-md">What You Do</h4>
+                  <div className="space-y-3">
+                    {/* Location Requirement */}
+                    <div className="bg-red-900/40 backdrop-blur-sm rounded-xl p-3 border border-red-400/30">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-gradient-to-r from-red-400 to-orange-400 rounded-full mt-1.5 flex-shrink-0"></div>
+                        <div>
+                          <p className="text-white font-medium text-sm drop-shadow-sm">Be within 500 feet of store location</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
 
-                {/* Instagram Story Requirement */}
-                <div className="bg-purple-900/40 backdrop-blur-sm rounded-2xl p-4 border border-purple-400/30">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-3 h-3 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full mt-1 flex-shrink-0"></div>
-                    <div>
-                      <p className="text-white font-bold drop-shadow-sm">Share Instagram Story (Required)</p>
-                      <p className="text-purple-200 text-sm drop-shadow-sm mt-1">Tag {campaign.brandIgHandle} and @Earlyshh with #EarlyshhPartner</p>
+                    {/* Time Limit */}
+                    <div className="bg-orange-900/40 backdrop-blur-sm rounded-xl p-3 border border-orange-400/30">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-full mt-1.5 flex-shrink-0"></div>
+                        <div>
+                          <p className="text-white font-medium text-sm drop-shadow-sm">Complete within 1 hour of unlocking</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
 
-                {/* Feedback Requirement */}
-                <div className="bg-pink-900/40 backdrop-blur-sm rounded-2xl p-4 border border-pink-400/30">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-3 h-3 bg-gradient-to-r from-pink-400 to-red-400 rounded-full mt-1 flex-shrink-0"></div>
-                    <div>
-                      <p className="text-white font-bold drop-shadow-sm">Complete brand feedback survey (Required)</p>
-                      <p className="text-pink-200 text-sm drop-shadow-sm mt-1">Share your authentic experience within 24 hours</p>
+                    {/* Instagram Story Requirement */}
+                    <div className="bg-purple-900/40 backdrop-blur-sm rounded-xl p-3 border border-purple-400/30">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full mt-1.5 flex-shrink-0"></div>
+                        <div>
+                          <p className="text-white font-medium text-sm drop-shadow-sm">Share Instagram Story with {campaign.brandIgHandle} and @Earlyshh</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              </div>
 
-              {/* Important Notice */}
-              <div className="mt-6 bg-gradient-to-r from-red-900/60 to-orange-900/60 backdrop-blur-sm rounded-2xl p-4 border border-red-400/40">
-                <div className="flex items-start space-x-3">
-                  <div className="w-5 h-5 bg-gradient-to-r from-red-400 to-orange-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-white text-xs font-bold">!</span>
-                  </div>
-                  <div>
-                    <p className="text-white font-bold text-sm drop-shadow-sm">All requirements must be completed</p>
-                    <p className="text-red-200 text-xs drop-shadow-sm mt-1">
-                      Failure to complete any requirement may result in partnership restrictions
-                    </p>
+                    {/* Feedback Requirement */}
+                    <div className="bg-pink-900/40 backdrop-blur-sm rounded-xl p-3 border border-pink-400/30">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-gradient-to-r from-pink-400 to-red-400 rounded-full mt-1.5 flex-shrink-0"></div>
+                        <div>
+                          <p className="text-white font-medium text-sm drop-shadow-sm">Complete feedback survey within 24 hours</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -49,7 +49,7 @@ A social-first coupon platform PWA that revolutionizes digital deal discovery th
 - **Home Page Enhancement**: Simplified header with logo only, compact map sneak peek, "Near you" section, improved card layouts with feet distance, visual slots indicator
 - **Map Page Enhancement**: Complete card redesign with compact layout, proper component fitting, reduced card size, miniaturized elements
 - **Distance Display**: Standardized all distance measurements to show feet/miles instead of meters/kilometers throughout the app
-- **Partnership Modal**: Removed "Early Access" and "VIP" cards, fixed Instagram handle to "@Earlyshh"
+- **Partnership Modal**: Removed "Early Access" and "VIP" cards, fixed Instagram handle to "@Earlyshh", combined benefits and requirements into single card
 
 ### iPhone 375×812 pt Optimization (June 13, 2025)
 **Major architectural change targeting efficient user coverage for most iPhone users**
