@@ -51,14 +51,17 @@ export default function StartupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-gray-900 to-indigo-900 flex flex-col items-center justify-center relative overflow-hidden iphone-container">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-gray-900 to-indigo-900 flex flex-col items-center justify-between relative overflow-hidden iphone-container py-8">
       {/* Subtle overlay for depth */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-800/20 via-transparent to-cyan-800/20" />
       
-      <div className="relative z-10 text-center w-full space-812-xl">
+      <div className="relative z-10 text-center w-full flex flex-col justify-between min-h-full">
+        {/* Top spacer */}
+        <div className="flex-1"></div>
+        
         {/* Logo with prominent animated gradient - optimized for 375×812pt */}
-        <div className="space-812-lg">
-          <h1 className="text-5xl font-black tracking-tight relative">
+        <div className="mb-12">
+          <h1 className="text-5xl font-black tracking-tight relative mb-4">
             <span 
               className="bg-gradient-to-r from-pink-400 via-purple-400 via-cyan-400 to-yellow-400 bg-clip-text text-transparent"
               style={{
@@ -70,13 +73,13 @@ export default function StartupPage() {
             </span>
           </h1>
           
-          <p className="text-gray-300 text-375-base font-medium tracking-wide px-4">
+          <p className="text-gray-300 text-812-base font-medium tracking-wide px-4">
             Your neighborhood partnership awaits
           </p>
         </div>
 
         {/* Auth Section - appears after delay */}
-        <div className={`space-812-lg transition-all duration-1000 ${showAuth ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <div className={`mb-8 transition-all duration-1000 ${showAuth ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           {/* Instagram Login Button - optimized for touch */}
           <Button 
             onClick={handleInstagramLogin}
@@ -87,14 +90,14 @@ export default function StartupPage() {
           </Button>
 
           {/* Dev Mode Section - iPhone 812pt optimized */}
-          <div className="space-812-md pt-8">
-            <div className="flex items-center justify-center space-x-2">
+          <div className="mt-6">
+            <div className="flex items-center justify-center space-x-2 mb-4">
               <div className="h-px bg-cyan-400 flex-1" />
               <span className="text-cyan-400 text-812-xs font-medium px-3">Dev Mode Options</span>
               <div className="h-px bg-cyan-400 flex-1" />
             </div>
             
-            <div className="space-y-4">
+            <div className="space-y-3">
               <input
                 type="text"
                 placeholder="Username (test)"
@@ -119,9 +122,11 @@ export default function StartupPage() {
               </Button>
             </div>
           </div>
+        </div>
 
-          {/* Partnership Terms */}
-          <p className="text-gray-400 text-sm leading-relaxed pt-4">
+        {/* Partnership Terms - Bottom section */}
+        <div className="mt-auto">
+          <p className="text-gray-400 text-812-xs leading-relaxed px-4">
             By joining, you confirm you are 18+ and agree to our Partnership Terms.
           </p>
         </div>
