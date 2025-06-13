@@ -356,8 +356,9 @@ export default function HomePage() {
                               <h3 className="text-white font-black text-812-lg leading-tight drop-shadow-lg">
                                 {campaign.brandName}
                               </h3>
-                              <div className="bg-gradient-to-r from-green-400 to-cyan-400 text-white text-xs px-3 py-1.5 rounded-full font-bold shadow-lg">
-                                Live
+                              <div className="flex items-center text-orange-200 drop-shadow-md">
+                                <Clock className="w-4 h-4 mr-1.5" />
+                                <span className="text-812-xs">{formatTimeLeft(new Date(campaign.expiresAt))}</span>
                               </div>
                             </div>
                             
@@ -368,29 +369,21 @@ export default function HomePage() {
                         </div>
                         
                         {/* Info Section */}
-                        <div className="flex items-center justify-between text-812-xs">
-                          <div className="flex items-center text-cyan-200 drop-shadow-md">
-                            <Users className="w-4 h-4 mr-1.5" />
-                            <span>{campaign.slotsRemaining || 0} slots</span>
-                          </div>
-                          
-                          <div className="flex items-center text-orange-200 drop-shadow-md">
-                            <Clock className="w-4 h-4 mr-1.5" />
-                            <span>{formatTimeLeft(new Date(campaign.expiresAt))}</span>
-                          </div>
-                          
-                          <div className="flex items-center text-pink-200 drop-shadow-md">
-                            <MapPin className="w-4 h-4 mr-1.5" />
-                            <span>490 feet</span>
-                          </div>
-                        </div>
-                        
-                        {/* Action Section */}
                         <div className="flex items-center justify-between">
-                          <div className="bg-gradient-to-r from-orange-400/20 to-pink-400/20 rounded-xl px-3 py-2 border border-orange-300/30">
-                            <span className="text-orange-200 text-812-xs font-medium drop-shadow-md">
-                              Partnership
-                            </span>
+                          <div className="flex items-center space-x-4">
+                            {/* Visual Slots Indicator */}
+                            <div className="flex items-center space-x-1">
+                              <div className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full shadow-sm"></div>
+                              <div className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full shadow-sm"></div>
+                              <div className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full shadow-sm"></div>
+                              <div className="w-2 h-2 bg-gray-600/50 rounded-full"></div>
+                              <div className="w-2 h-2 bg-gray-600/50 rounded-full"></div>
+                            </div>
+                            
+                            <div className="flex items-center text-pink-200 drop-shadow-md">
+                              <MapPin className="w-4 h-4 mr-1.5" />
+                              <span className="text-812-xs">490 feet</span>
+                            </div>
                           </div>
                           
                           <button className="touch-button bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 text-white px-4 py-2 rounded-2xl font-semibold text-812-xs hover:scale-105 transition-all duration-300 shadow-lg shadow-pink-400/30 hover:shadow-cyan-400/30 flex items-center gap-2">
