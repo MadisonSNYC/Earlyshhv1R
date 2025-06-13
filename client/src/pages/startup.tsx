@@ -90,7 +90,7 @@ export default function StartupPage() {
           <div className="space-y-4 pt-8">
             <div className="flex items-center justify-center space-x-2">
               <div className="h-px bg-cyan-400 flex-1" />
-              <span className="text-cyan-400 text-sm font-medium px-3">Dev Mode Bypass</span>
+              <span className="text-cyan-400 text-sm font-medium px-3">Dev Mode Options</span>
               <div className="h-px bg-cyan-400 flex-1" />
             </div>
             
@@ -108,7 +108,14 @@ export default function StartupPage() {
                 disabled={!username.trim()}
                 className="w-full h-12 bg-transparent border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-gray-900 font-semibold rounded-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-cyan-400/30"
               >
-                Bypass Login
+                Skip to Home
+              </Button>
+              
+              <Button 
+                onClick={() => setLocation('/onboarding')}
+                className="w-full h-12 bg-transparent border-2 border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-gray-900 font-semibold rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-purple-400/30"
+              >
+                Test Onboarding Flow
               </Button>
             </div>
           </div>
