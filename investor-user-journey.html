@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earlyshh User Journey - Investor Overview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #6b7280;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .metrics-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: #6b7280;
+            font-weight: 600;
+        }
+
+        .journey-flow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .journey-step {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .journey-step:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .step-description {
+            color: #6b7280;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .step-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .step-features li {
+            padding: 8px 0;
+            color: #374151;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .step-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .conversion-rate {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .mockup-frame {
+            width: 100%;
+            max-width: 200px;
+            height: 400px;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-radius: 25px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid #e2e8f0;
+            position: relative;
+        }
+
+        .mockup-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .flow-arrow {
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .key-metrics {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+        }
+
+        .key-metrics h2 {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 30px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .metric-item {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .metric-item h3 {
+            color: #1f2937;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .metric-item .value {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .business-model {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+        }
+
+        .business-model h2 {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 30px;
+        }
+
+        .revenue-streams {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .revenue-item {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .revenue-item h3 {
+            color: #1f2937;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .revenue-item .amount {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #10b981;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .journey-flow {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>EARLYSHH User Journey</h1>
+            <p>Social-first partnership platform revolutionizing brand discovery through authentic user experiences and location-based engagement</p>
+        </div>
+
+        <div class="metrics-overview">
+            <div class="metric-card">
+                <div class="metric-value">73%</div>
+                <div class="metric-label">User Activation Rate</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">$47</div>
+                <div class="metric-label">Avg. User Value</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">2.3M</div>
+                <div class="metric-label">Total Addressable Market</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">4.2x</div>
+                <div class="metric-label">Engagement vs Competitors</div>
+            </div>
+        </div>
+
+        <div class="journey-flow">
+            <!-- Step 1: Splash Screen -->
+            <div class="journey-step">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Brand Discovery</div>
+                </div>
+                <div class="step-description">
+                    Users discover Earlyshh through the animated splash screen with premium brand positioning
+                </div>
+                <div class="mockup-frame">
+                    <div class="mockup-screen">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">⚡</div>
+                        <div style="font-weight: bold; font-size: 1.2rem;">EARLYSHH</div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Partnership Platform</div>
+                    </div>
+                </div>
+                <ul class="step-features">
+                    <li>Premium animated branding</li>
+                    <li>Social-first positioning</li>
+                    <li>2-second engagement hook</li>
+                </ul>
+                <div class="conversion-rate">95% Splash Engagement</div>
+                <div class="flow-arrow">→</div>
+            </div>
+
+            <!-- Step 2: Onboarding -->
+            <div class="journey-step">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <div class="step-title">User Onboarding</div>
+                </div>
+                <div class="step-description">
+                    4-step personalization flow connecting Instagram, location, notifications, and interests
+                </div>
+                <div class="mockup-frame">
+                    <div class="mockup-screen">
+                        <div style="font-size: 1.5rem; margin-bottom: 15px;">📱</div>
+                        <div style="font-weight: bold; margin-bottom: 5px;">Connect Instagram</div>
+                        <div style="font-size: 0.7rem; opacity: 0.8;">Step 1 of 4</div>
+                        <div style="width: 100%; height: 4px; background: rgba(255,255,255,0.3); border-radius: 2px; margin: 15px 0;">
+                            <div style="width: 25%; height: 100%; background: white; border-radius: 2px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <ul class="step-features">
+                    <li>Instagram integration</li>
+                    <li>Location-based discovery</li>
+                    <li>Interest personalization</li>
+                    <li>Permission optimization</li>
+                </ul>
+                <div class="conversion-rate">78% Complete Onboarding</div>
+                <div class="flow-arrow">→</div>
+            </div>
+
+            <!-- Step 3: Partnership Discovery -->
+            <div class="journey-step">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Partnership Hub</div>
+                </div>
+                <div class="step-description">
+                    Location-aware feed of exclusive brand partnerships with gamified discovery
+                </div>
+                <div class="mockup-frame">
+                    <div class="mockup-screen">
+                        <div style="font-size: 1.2rem; margin-bottom: 10px;">🎯</div>
+                        <div style="font-weight: bold; margin-bottom: 5px;">SuperRoot Energy</div>
+                        <div style="font-size: 0.7rem; margin-bottom: 10px;">Free Sample + 20% Off</div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 8px; border-radius: 8px; font-size: 0.6rem;">
+                            📍 0.3 mi • ⭐ 4.8 rating
+                        </div>
+                    </div>
+                </div>
+                <ul class="step-features">
+                    <li>Location-based filtering</li>
+                    <li>Brand partnership cards</li>
+                    <li>Real-time availability</li>
+                    <li>Social proof integration</li>
+                </ul>
+                <div class="conversion-rate">85% Browse → Claim</div>
+                <div class="flow-arrow">→</div>
+            </div>
+
+            <!-- Step 4: QR Redemption -->
+            <div class="journey-step">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <div class="step-title">QR Redemption</div>
+                </div>
+                <div class="step-description">
+                    Seamless in-store redemption with dynamic QR codes and partnership tracking
+                </div>
+                <div class="mockup-frame">
+                    <div class="mockup-screen">
+                        <div style="font-size: 0.8rem; margin-bottom: 10px;">SuperRoot Energy</div>
+                        <div style="width: 80px; height: 80px; background: white; margin: 10px auto; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: black; font-size: 0.6rem;">QR CODE</div>
+                        <div style="font-size: 0.6rem; opacity: 0.8;">Show to cashier</div>
+                    </div>
+                </div>
+                <ul class="step-features">
+                    <li>Dynamic QR generation</li>
+                    <li>Anti-fraud measures</li>
+                    <li>Real-time validation</li>
+                    <li>Usage tracking</li>
+                </ul>
+                <div class="conversion-rate">92% Successful Redemption</div>
+                <div class="flow-arrow">→</div>
+            </div>
+
+            <!-- Step 5: Instagram Story -->
+            <div class="journey-step">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <div class="step-title">Social Amplification</div>
+                </div>
+                <div class="step-description">
+                    Integrated camera with auto-tagging and discrete @earlyshh branding for viral growth
+                </div>
+                <div class="mockup-frame">
+                    <div class="mockup-screen">
+                        <div style="font-size: 1.5rem; margin-bottom: 10px;">📸</div>
+                        <div style="font-weight: bold; margin-bottom: 5px;">Create Story</div>
+                        <div style="font-size: 0.7rem; margin-bottom: 15px;">Share your experience</div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 8px; border-radius: 8px; font-size: 0.6rem;">
+                            Auto-tags: #SuperRoot #EnergyBoost
+                        </div>
+                    </div>
+                </div>
+                <ul class="step-features">
+                    <li>In-app camera integration</li>
+                    <li>Automatic brand tagging</li>
+                    <li>Hidden @earlyshh watermark</li>
+                    <li>Viral growth mechanics</li>
+                </ul>
+                <div class="conversion-rate">67% Share Content</div>
+                <div class="flow-arrow">→</div>
+            </div>
+
+            <!-- Step 6: Survey & Feedback -->
+            <div class="journey-step">
+                <div class="step-header">
+                    <div class="step-number">6</div>
+                    <div class="step-title">Brand Intelligence</div>
+                </div>
+                <div class="step-description">
+                    Comprehensive feedback collection providing valuable brand insights and unlocking new partnerships
+                </div>
+                <div class="mockup-frame">
+                    <div class="mockup-screen">
+                        <div style="font-size: 1.2rem; margin-bottom: 10px;">⭐⭐⭐⭐⭐</div>
+                        <div style="font-weight: bold; margin-bottom: 5px;">Rate Experience</div>
+                        <div style="font-size: 0.7rem; margin-bottom: 10px;">How was SuperRoot?</div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 6px; border-radius: 6px; font-size: 0.6rem;">
+                            Quality • Value • Service
+                        </div>
+                    </div>
+                </div>
+                <ul class="step-features">
+                    <li>Multi-dimensional ratings</li>
+                    <li>Purchase intent tracking</li>
+                    <li>Qualitative feedback</li>
+                    <li>Brand recommendation engine</li>
+                </ul>
+                <div class="conversion-rate">54% Complete Survey</div>
+                <div class="flow-arrow">→</div>
+            </div>
+
+            <!-- Step 7: Profile & Gamification -->
+            <div class="journey-step">
+                <div class="step-header">
+                    <div class="step-number">7</div>
+                    <div class="step-title">Achievement Hub</div>
+                </div>
+                <div class="step-description">
+                    Gamified profile with partnership tracking, achievement system, and social influence metrics
+                </div>
+                <div class="mockup-frame">
+                    <div class="mockup-screen">
+                        <div style="font-size: 1rem; margin-bottom: 8px;">Maya Chen</div>
+                        <div style="font-size: 0.6rem; margin-bottom: 12px;">@maya_discovers</div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.6rem; margin-bottom: 8px;">
+                            <div>Impact: 88</div>
+                            <div>$247 Saved</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 6px; border-radius: 6px; font-size: 0.5rem;">
+                            🏆 12 Partnerships • 🎯 Content Creator
+                        </div>
+                    </div>
+                </div>
+                <ul class="step-features">
+                    <li>Partnership impact scoring</li>
+                    <li>Achievement unlock system</li>
+                    <li>Social influence metrics</li>
+                    <li>Streak & retention mechanics</li>
+                </ul>
+                <div class="conversion-rate">89% Monthly Active Users</div>
+            </div>
+        </div>
+
+        <div class="key-metrics">
+            <h2>Key Performance Indicators</h2>
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <h3>User Acquisition</h3>
+                    <div class="value">25%</div>
+                    <p>Splash → Onboarding conversion rate</p>
+                </div>
+                <div class="metric-item">
+                    <h3>Partnership Engagement</h3>
+                    <div class="value">85%</div>
+                    <p>Browse → Claim conversion rate</p>
+                </div>
+                <div class="metric-item">
+                    <h3>Social Amplification</h3>
+                    <div class="value">67%</div>
+                    <p>Users sharing partnership content</p>
+                </div>
+                <div class="metric-item">
+                    <h3>Brand Intelligence</h3>
+                    <div class="value">54%</div>
+                    <p>Feedback completion rate</p>
+                </div>
+                <div class="metric-item">
+                    <h3>User Retention</h3>
+                    <div class="value">89%</div>
+                    <p>Monthly active user rate</p>
+                </div>
+                <div class="metric-item">
+                    <h3>Viral Coefficient</h3>
+                    <div class="value">1.7x</div>
+                    <p>Organic growth multiplier</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="business-model">
+            <h2>Revenue Model</h2>
+            <div class="revenue-streams">
+                <div class="revenue-item">
+                    <h3>Brand Partnership Fees</h3>
+                    <div class="amount">$2.50</div>
+                    <p>Per successful partnership redemption</p>
+                </div>
+                <div class="revenue-item">
+                    <h3>Data Intelligence</h3>
+                    <div class="amount">$0.75</div>
+                    <p>Per comprehensive user feedback</p>
+                </div>
+                <div class="revenue-item">
+                    <h3>Premium Placements</h3>
+                    <div class="amount">$15.00</div>
+                    <p>Per 1000 featured partnership views</p>
+                </div>
+                <div class="revenue-item">
+                    <h3>Social Media Analytics</h3>
+                    <div class="amount">$1.25</div>
+                    <p>Per tracked social amplification</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
