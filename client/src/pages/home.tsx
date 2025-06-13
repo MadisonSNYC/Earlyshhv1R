@@ -113,7 +113,7 @@ export default function HomePage() {
       <div className="min-h-screen earlyshh-bg flex items-center justify-center iphone-container">
         <div className="text-white text-center">
           <div className="loading-skeleton w-12 h-12 rounded-full mx-auto mb-4"></div>
-          <p className="text-375-base">Loading amazing offers...</p>
+          <p className="text-812-base">Loading amazing offers...</p>
         </div>
       </div>
     );
