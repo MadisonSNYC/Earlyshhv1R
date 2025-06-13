@@ -127,20 +127,15 @@ export default function HomePage() {
       {/* Additional depth layer for text readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 via-transparent to-gray-900/20" />
       
-      {/* Header - iPhone 375×812 optimized */}
+      {/* Header - Streamlined */}
       <header className="relative z-10 bg-gradient-to-r from-gray-900/80 via-purple-900/70 to-gray-900/80 backdrop-blur-md border-b border-pink-400/30 sticky top-0 shadow-lg">
-        <div className="w-full px-4 py-4">
-          <div className="flex items-start justify-between mb-4">
-            <div className="bg-gradient-to-r from-gray-900/60 to-purple-900/60 backdrop-blur-sm rounded-2xl px-4 py-3 border border-pink-300/20 flex-1 mr-3">
-              <h1 className="text-812-lg font-black text-white mb-1 drop-shadow-lg">
-                Hey there! 
-                <span className="ml-2">👋</span>
-              </h1>
-              <p className="text-pink-200 text-812-sm font-medium drop-shadow-md">
-                Discover exclusive partnerships near you
-              </p>
-            </div>
-            <div className="flex flex-col space-y-2">
+        <div className="w-full px-4 py-3">
+          {/* Top Row */}
+          <div className="flex items-center justify-between mb-3">
+            <h1 className="text-812-lg font-black text-white drop-shadow-lg">
+              Partnerships
+            </h1>
+            <div className="flex space-x-2">
               <Button
                 variant={viewMode === 'grid' ? 'default' : 'ghost'}
                 size="sm"
@@ -166,15 +161,15 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Search Bar - iPhone optimized */}
-          <div className="relative mb-4">
+          {/* Search Bar */}
+          <div className="relative mb-3">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-pink-300 w-4 h-4 drop-shadow-md" />
             <input
               type="text"
-              placeholder="Search brands or partnerships..."
+              placeholder="Search brands..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="touch-button w-full pl-12 pr-4 bg-gradient-to-r from-gray-900/70 via-purple-900/60 to-gray-900/70 backdrop-blur-md border border-pink-300/30 rounded-3xl text-white placeholder-pink-200 focus:outline-none focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-400/30 transition-all duration-300 shadow-xl"
+              className="touch-button w-full pl-12 pr-4 py-3 bg-gradient-to-r from-gray-900/70 via-purple-900/60 to-gray-900/70 backdrop-blur-md border border-pink-300/30 rounded-2xl text-white placeholder-pink-200 focus:outline-none focus:border-cyan-400 focus:shadow-lg focus:shadow-cyan-400/30 transition-all duration-300"
             />
           </div>
 
@@ -193,7 +188,7 @@ export default function HomePage() {
               return (
                 <Badge
                   key={category}
-                  className={`whitespace-nowrap cursor-pointer px-4 py-2 rounded-2xl font-medium transition-all duration-300 ${
+                  className={`whitespace-nowrap cursor-pointer px-3 py-1.5 rounded-xl font-medium transition-all duration-300 ${
                     selectedCategory === category
                       ? `bg-gradient-to-r ${gradient} text-white shadow-lg shadow-pink-400/30`
                       : 'bg-gray-800/60 text-pink-200 hover:bg-gray-700/60 border border-pink-300/20 hover:border-pink-300/40'
@@ -208,7 +203,33 @@ export default function HomePage() {
         </div>
       </header>
 
-
+      {/* Map Sneak Peek */}
+      <section className="relative z-10 w-full px-4 py-3">
+        <div className="bg-gradient-to-r from-gray-900/70 via-blue-900/60 to-gray-900/70 backdrop-blur-md rounded-2xl p-3 border border-cyan-400/20 shadow-lg">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center space-x-2">
+              <MapPin className="w-4 h-4 text-cyan-400" />
+              <span className="text-white font-bold text-812-sm">3 nearby</span>
+            </div>
+            <button 
+              onClick={() => setViewMode('map')}
+              className="text-cyan-300 hover:text-cyan-100 text-812-xs font-medium transition-colors duration-300"
+            >
+              View Map
+            </button>
+          </div>
+          
+          <div className="h-20 bg-gradient-to-br from-blue-900/50 to-purple-900/50 rounded-xl border border-blue-400/20 flex items-center justify-center">
+            <div className="text-center">
+              <div className="flex items-center justify-center space-x-2">
+                <div className="w-2 h-2 bg-pink-400 rounded-full animate-pulse"></div>
+                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse delay-75"></div>
+                <div className="w-2 h-2 bg-purple-400 rounded-full animate-pulse delay-150"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Near You Section */}
       <section className="relative z-10 w-full px-4 py-2">
