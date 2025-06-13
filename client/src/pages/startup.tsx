@@ -48,17 +48,14 @@ export default function StartupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-gray-900 to-indigo-900 flex flex-col items-center justify-between relative overflow-hidden iphone-container py-8">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-gray-900 to-indigo-900 relative overflow-hidden iphone-container">
       {/* Subtle overlay for depth */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-800/20 via-transparent to-cyan-800/20" />
       
-      <div className="relative z-10 text-center w-full flex flex-col justify-between min-h-full">
-        {/* Top spacer */}
-        <div className="flex-1"></div>
-        
-        {/* Logo with prominent animated gradient - optimized for 375×812pt */}
-        <div className="mb-12">
-          <h1 className="text-5xl font-black tracking-tight relative mb-4">
+      <div className="relative z-10 flex flex-col min-h-screen px-6 py-12">
+        {/* Logo Section */}
+        <div className="flex-1 flex flex-col justify-center text-center">
+          <h1 className="text-4xl font-black tracking-tight mb-4">
             <span 
               className="bg-gradient-to-r from-pink-400 via-purple-400 via-cyan-400 to-yellow-400 bg-clip-text text-transparent"
               style={{
@@ -70,50 +67,45 @@ export default function StartupPage() {
             </span>
           </h1>
           
-          <p className="text-gray-300 text-812-base font-medium tracking-wide px-4">
+          <p className="text-gray-300 text-base font-medium">
             Your neighborhood partnership awaits
           </p>
         </div>
 
-        {/* Auth Section - appears after delay */}
-        <div className={`mb-16 transition-all duration-1000 ${showAuth ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          {/* Primary Action - Instagram Login */}
-          <div className="mb-8">
-            <Button 
-              onClick={handleInstagramLogin}
-              className="touch-button w-full bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 hover:from-pink-500 hover:via-purple-600 hover:to-cyan-500 text-white font-bold text-812-base rounded-3xl border-0 transition-all duration-300 transform hover:scale-105 shadow-xl shadow-purple-500/30 py-4"
-            >
-              <Instagram className="w-5 h-5 mr-3" />
-              Join with Instagram
-            </Button>
-          </div>
+        {/* Auth Section */}
+        <div className={`space-y-6 transition-all duration-1000 ${showAuth ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          {/* Primary Action */}
+          <Button 
+            onClick={handleInstagramLogin}
+            className="touch-button w-full bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 hover:from-pink-500 hover:via-purple-600 hover:to-cyan-500 text-white font-semibold rounded-3xl border-0 transition-all duration-300 transform hover:scale-105 shadow-xl shadow-purple-500/30"
+          >
+            <Instagram className="w-5 h-5 mr-3" />
+            Join with Instagram
+          </Button>
 
-          {/* Secondary Action - Clear visual separation */}
-          <div className="mt-8">
-            <div className="flex items-center justify-center space-x-3 mb-6">
-              <div className="h-px bg-gray-600/50 flex-1" />
-              <span className="text-gray-500 text-812-xs font-normal px-4 tracking-wide">More Options</span>
-              <div className="h-px bg-gray-600/50 flex-1" />
-            </div>
-            
-            <Button 
-              onClick={handleExploreWithoutAccount}
-              className="touch-button w-full bg-transparent border border-purple-400/40 text-purple-200 hover:bg-purple-400/10 hover:text-purple-100 hover:border-purple-400/60 font-normal text-812-sm rounded-2xl transition-all duration-300 py-3"
-            >
-              Explore Without Account
-            </Button>
+          {/* Divider */}
+          <div className="flex items-center justify-center space-x-3">
+            <div className="h-px bg-gray-600 flex-1" />
+            <span className="text-gray-400 text-sm px-3">or</span>
+            <div className="h-px bg-gray-600 flex-1" />
           </div>
+          
+          {/* Secondary Action */}
+          <Button 
+            onClick={handleExploreWithoutAccount}
+            className="touch-button w-full bg-transparent border border-purple-400/50 text-purple-200 hover:bg-purple-400/10 hover:text-purple-100 hover:border-purple-400 font-medium rounded-2xl transition-all duration-300"
+          >
+            Explore Without Account
+          </Button>
         </div>
 
-        {/* Partnership Terms - Bottom section with enhanced spacing */}
-        <div className="mt-auto pt-8">
-          <p className="text-gray-500 text-812-xs leading-relaxed text-center px-6 font-light">
+        {/* Bottom Terms */}
+        <div className="pt-8">
+          <p className="text-gray-400 text-xs text-center leading-relaxed">
             By joining, you confirm you are 18+ and agree to our Partnership Terms.
           </p>
         </div>
       </div>
-
-
     </div>
   );
 }
