@@ -89,7 +89,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <GlobalErrorHandler />
-          <div className="min-h-screen earlyshh-bg">
+          <div className="min-h-screen earlyshh-bg iphone-container iphone-safe-area">
             <Suspense fallback={<div className="flex items-center justify-center min-h-screen"><div className="loading-skeleton w-8 h-8 rounded-full"></div></div>}>
               <AuthenticatedApp />
             </Suspense>
