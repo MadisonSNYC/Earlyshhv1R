@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Check, Instagram, MapPin, X, Sparkles, Crown, Gift } from "lucide-react";
+import { Check, Instagram, MapPin, X, Sparkles, Crown, Gift, Clock4, MessageCircle } from "lucide-react";
 import { Campaign } from "@shared/schema";
 import { useLocation } from "wouter";
 
@@ -117,55 +117,52 @@ export default function PartnershipTermsModal({
               </div>
             </div>
 
-            {/* Partnership Details */}
-            <div className="bg-gray-900/70 backdrop-blur-md rounded-3xl p-6 border border-white/20 shadow-xl">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg">
-                  <Check className="w-6 h-6 text-white" />
+            {/* Partnership Overview */}
+            <div className="bg-gradient-to-br from-gray-900/80 via-gray-800/70 to-gray-900/80 backdrop-blur-md rounded-3xl p-6 border border-white/10 shadow-2xl">
+              {/* Value Proposition */}
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-green-400 to-cyan-500 rounded-full mb-4 shadow-lg">
+                  <span className="text-white font-black text-2xl drop-shadow-lg">${campaign.redeemableAmount}</span>
                 </div>
-                <h3 className="text-white font-black text-xl drop-shadow-lg">Partnership Details</h3>
+                <h3 className="text-white font-black text-xl mb-2 drop-shadow-lg">Free {campaign.productName}</h3>
+                <p className="text-gray-300 text-sm drop-shadow-sm">Premium partnership opportunity with creator recognition</p>
               </div>
-              
-              <div className="space-y-4">
-                {/* Main Benefit */}
-                <div className="bg-gradient-to-r from-green-900/60 to-cyan-900/60 backdrop-blur-sm rounded-2xl p-4 flex items-center justify-between border border-green-400/20 shadow-lg">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-3 h-3 bg-gradient-to-r from-green-400 to-cyan-400 rounded-full shadow-lg"></div>
-                    <div>
-                      <p className="text-white font-bold drop-shadow-md">Free {campaign.productName}</p>
-                      <p className="text-green-200 text-xs drop-shadow-sm">Premium quality + creator recognition</p>
-                    </div>
+
+              {/* Partnership Flow */}
+              <div className="space-y-3">
+                <div className="flex items-center space-x-4 p-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
+                    <MapPin className="w-4 h-4 text-white" />
                   </div>
-                  <div className="bg-gradient-to-r from-green-400/20 to-cyan-400/20 px-3 py-1.5 rounded-full border border-green-400/30">
-                    <span className="text-green-300 font-bold drop-shadow-md">${campaign.redeemableAmount}</span>
-                    <span className="text-green-200 text-xs ml-1">value</span>
+                  <div className="flex-1">
+                    <p className="text-white font-medium text-sm">Visit store location within 500 feet</p>
                   </div>
                 </div>
 
-                {/* Requirements */}
-                <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-4 border border-gray-400/20 space-y-3">
-                  {/* Location Requirement */}
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-gradient-to-r from-red-400 to-orange-400 rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-white font-medium text-sm drop-shadow-sm">Be within 500 feet of store location</p>
+                <div className="flex items-center space-x-4 p-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full flex items-center justify-center">
+                    <Clock4 className="w-4 h-4 text-white" />
                   </div>
-
-                  {/* Time Limit */}
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-white font-medium text-sm drop-shadow-sm">Complete within 1 hour of unlocking</p>
+                  <div className="flex-1">
+                    <p className="text-white font-medium text-sm">Complete within 1 hour of unlock</p>
                   </div>
+                </div>
 
-                  {/* Instagram Story Requirement */}
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-white font-medium text-sm drop-shadow-sm">Share Instagram Story with {campaign.brandIgHandle} and @Earlyshh</p>
+                <div className="flex items-center space-x-4 p-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-pink-400 to-red-500 rounded-full flex items-center justify-center">
+                    <Instagram className="w-4 h-4 text-white" />
                   </div>
+                  <div className="flex-1">
+                    <p className="text-white font-medium text-sm">Share story with {campaign.brandIgHandle} & @Earlyshh</p>
+                  </div>
+                </div>
 
-                  {/* Feedback Requirement */}
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-gradient-to-r from-pink-400 to-red-400 rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-white font-medium text-sm drop-shadow-sm">Complete feedback survey within 24 hours</p>
+                <div className="flex items-center space-x-4 p-3 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-orange-400 to-yellow-500 rounded-full flex items-center justify-center">
+                    <MessageCircle className="w-4 h-4 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-white font-medium text-sm">Complete feedback survey within 24 hours</p>
                   </div>
                 </div>
               </div>
