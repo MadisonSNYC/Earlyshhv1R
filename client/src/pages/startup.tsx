@@ -6,7 +6,6 @@ import { Instagram } from "lucide-react";
 export default function StartupPage() {
   const [, setLocation] = useLocation();
   const [showAuth, setShowAuth] = useState(false);
-  const [username, setUsername] = useState("");
   const [navigated, setNavigated] = useState(false);
 
   // Simple 2-second delay before showing auth options
@@ -24,11 +23,9 @@ export default function StartupPage() {
     setTimeout(() => setLocation('/home'), 1500);
   };
 
-  const handleDevBypass = () => {
-    if (username.trim()) {
-      setNavigated(true);
-      setTimeout(() => setLocation('/home'), 1500);
-    }
+  const handleExploreWithoutAccount = () => {
+    setNavigated(true);
+    setTimeout(() => setLocation('/onboarding'), 1500);
   };
 
   // Show success state when navigated
@@ -79,8 +76,8 @@ export default function StartupPage() {
         </div>
 
         {/* Auth Section - appears after delay */}
-        <div className={`mb-8 transition-all duration-1000 ${showAuth ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          {/* Instagram Login Button - optimized for touch */}
+        <div className={`mb-12 transition-all duration-1000 ${showAuth ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          {/* Instagram Login Button - production ready */}
           <Button 
             onClick={handleInstagramLogin}
             className="touch-button w-full bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 hover:from-pink-500 hover:via-purple-600 hover:to-cyan-500 text-white font-semibold rounded-3xl border-0 transition-all duration-300 transform hover:scale-105 shadow-xl shadow-purple-500/30"
@@ -89,38 +86,20 @@ export default function StartupPage() {
             Join with Instagram
           </Button>
 
-          {/* Dev Mode Section - iPhone 812pt optimized */}
+          {/* Alternative Access */}
           <div className="mt-6">
             <div className="flex items-center justify-center space-x-2 mb-4">
-              <div className="h-px bg-cyan-400 flex-1" />
-              <span className="text-cyan-400 text-812-xs font-medium px-3">Dev Mode Options</span>
-              <div className="h-px bg-cyan-400 flex-1" />
+              <div className="h-px bg-gray-600 flex-1" />
+              <span className="text-gray-400 text-812-xs font-medium px-3">More Options</span>
+              <div className="h-px bg-gray-600 flex-1" />
             </div>
             
-            <div className="space-y-3">
-              <input
-                type="text"
-                placeholder="Username (test)"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="touch-button w-full bg-gray-800/50 border border-gray-600 rounded-2xl px-4 text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 focus:bg-gray-800 transition-all"
-              />
-              
-              <Button 
-                onClick={handleDevBypass}
-                disabled={!username.trim()}
-                className="touch-button w-full bg-transparent border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-gray-900 font-semibold rounded-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-cyan-400/30"
-              >
-                Skip to Home
-              </Button>
-              
-              <Button 
-                onClick={() => setLocation('/onboarding')}
-                className="touch-button w-full bg-transparent border-2 border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-gray-900 font-semibold rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-purple-400/30"
-              >
-                Test Onboarding Flow
-              </Button>
-            </div>
+            <Button 
+              onClick={handleExploreWithoutAccount}
+              className="touch-button w-full bg-transparent border-2 border-purple-400/60 text-purple-300 hover:bg-purple-400 hover:text-gray-900 hover:border-purple-400 font-medium rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-purple-400/20"
+            >
+              Explore Without Account
+            </Button>
           </div>
         </div>
 

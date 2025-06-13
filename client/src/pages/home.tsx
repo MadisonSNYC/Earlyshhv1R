@@ -132,11 +132,11 @@ export default function HomePage() {
         <div className="w-full px-4 py-4">
           <div className="flex items-start justify-between mb-4">
             <div className="bg-gradient-to-r from-gray-900/60 to-purple-900/60 backdrop-blur-sm rounded-2xl px-4 py-3 border border-pink-300/20 flex-1 mr-3">
-              <h1 className="text-375-lg font-black text-white mb-1 drop-shadow-lg">
+              <h1 className="text-812-lg font-black text-white mb-1 drop-shadow-lg">
                 Hey there! 
                 <span className="ml-2">👋</span>
               </h1>
-              <p className="text-pink-200 text-375-sm font-medium drop-shadow-md">
+              <p className="text-pink-200 text-812-sm font-medium drop-shadow-md">
                 Discover exclusive partnerships near you
               </p>
             </div>
