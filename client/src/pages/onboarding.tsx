@@ -198,20 +198,22 @@ export default function OnboardingPage() {
                 <p className="text-white/80 text-sm text-center">
                   Enable location to find exclusive partnerships and deals near you
                 </p>
-                <Button
-                  onClick={handleLocationEnable}
-                  className="touch-button w-full bg-white/20 hover:bg-white/30 text-white border-white/30"
-                >
-                  <MapPin className="w-4 h-4 mr-2" />
-                  Enable Location
-                </Button>
-                <Button
-                  onClick={handleNext}
-                  variant="ghost"
-                  className="touch-button w-full text-white/70 hover:text-white hover:bg-white/10"
-                >
-                  Skip for now
-                </Button>
+                <div className="space-y-4">
+                  <Button
+                    onClick={handleLocationEnable}
+                    className="touch-button w-full bg-white/20 hover:bg-white/30 text-white border-white/30 font-semibold text-812-base py-4"
+                  >
+                    <MapPin className="w-5 h-5 mr-3" />
+                    Enable Location
+                  </Button>
+                  <Button
+                    onClick={handleNext}
+                    variant="ghost"
+                    className="touch-button w-full text-white/60 hover:text-white/80 hover:bg-white/5 font-normal text-812-sm py-3"
+                  >
+                    Skip for now
+                  </Button>
+                </div>
               </div>
             )}
 

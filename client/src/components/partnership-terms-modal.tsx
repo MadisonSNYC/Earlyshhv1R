@@ -240,27 +240,30 @@ export default function PartnershipTermsModal({
               </div>
             </div>
 
-            {/* Action Buttons - iPhone touch optimized */}
-            <div className="space-y-3">
+            {/* Action Buttons - Enhanced visual hierarchy */}
+            <div className="space-y-4">
+              {/* Primary Action */}
               <Button
                 onClick={handleAcceptPartnership}
-                className="touch-button w-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 text-white font-black rounded-2xl shadow-xl shadow-yellow-500/40 transform hover:scale-105 transition-all duration-300"
+                className="touch-button w-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 text-white font-black text-812-base py-4 rounded-2xl shadow-xl shadow-yellow-500/40 transform hover:scale-105 transition-all duration-300"
               >
-                <MapPin className="w-4 h-4 mr-2" />
+                <MapPin className="w-5 h-5 mr-3" />
                 Verify Location & Unlock
-                <Sparkles className="w-4 h-4 ml-2" />
+                <Sparkles className="w-5 h-5 ml-3" />
               </Button>
               
+              {/* Secondary Action */}
               <Button
                 onClick={handleViewBrandProfile}
-                className="touch-button w-full bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 text-white font-bold rounded-2xl border-0 transition-all duration-300 hover:scale-105 shadow-lg shadow-purple-500/30"
+                className="touch-button w-full bg-transparent border border-purple-400/50 text-purple-200 hover:bg-purple-400/10 hover:text-purple-100 hover:border-purple-400/70 font-medium text-812-sm py-3 rounded-2xl transition-all duration-300"
               >
                 View Brand Profile
               </Button>
               
-              <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
-                <p className="text-orange-200 text-center text-sm drop-shadow-sm">
-                  Partnership valid up to <span className="font-bold text-yellow-300">${campaign.redeemableAmount}</span>. 
+              {/* Terms Notice - Improved spacing and typography */}
+              <div className="bg-gray-800/60 backdrop-blur-sm rounded-2xl p-5 border border-white/10 mt-6">
+                <p className="text-orange-200 text-center text-812-xs leading-relaxed drop-shadow-sm font-light">
+                  Partnership valid up to <span className="font-semibold text-yellow-300">${campaign.redeemableAmount}</span>. 
                   Must be within 500ft of store location. Instagram story & feedback required.
                   One per community member. No purchase required.
                 </p>
