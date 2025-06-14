@@ -183,16 +183,16 @@ export default function NotificationsPage() {
         {/* Enhanced Header with compartmentalized logo section */}
         <div className="bg-gray-900/60 backdrop-blur-md rounded-3xl p-6 mb-6 border border-white/20 shadow-xl">
           {/* Separate Earlyshh Logo Container */}
-          <div className="bg-gray-800/40 backdrop-blur-sm rounded-2xl p-4 mb-4 border border-white/10">
-            <div className="flex items-center space-x-4">
+          <div className="bg-gray-800/40 backdrop-blur-sm rounded-2xl p-5 mb-6 border border-white/10">
+            <div className="flex items-center justify-center space-x-4">
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl blur-lg opacity-60 animate-pulse" />
-                <div className="relative w-12 h-12 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-2xl flex items-center justify-center shadow-xl">
-                  <Zap className="w-7 h-7 text-white drop-shadow-lg" />
+                <div className="relative w-14 h-14 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-2xl flex items-center justify-center shadow-xl">
+                  <Zap className="w-8 h-8 text-white drop-shadow-lg" />
                 </div>
               </div>
-              <div>
-                <h1 className="text-2xl font-black text-white drop-shadow-lg tracking-tight">
+              <div className="text-center">
+                <h1 className="text-2xl font-black text-white drop-shadow-lg tracking-tight mb-1">
                   <span 
                     className="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 bg-clip-text text-transparent"
                   >
@@ -206,21 +206,25 @@ export default function NotificationsPage() {
             </div>
           </div>
 
-          {/* Updates Section */}
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-lg font-bold text-white/95 drop-shadow-md">Partnership Updates</h2>
+          {/* Updates Section - Redesigned for better layout */}
+          <div className="space-y-4">
+            <div className="text-center">
+              <h2 className="text-xl font-bold text-white/95 drop-shadow-md mb-2">Partnership Updates</h2>
               <p className="text-orange-200 text-sm font-medium drop-shadow-sm">
-                {newNotifications.length} new updates
+                {newNotifications.length} new updates available
               </p>
             </div>
-            <Button
-              onClick={markAllAsRead}
-              disabled={newNotifications.length === 0}
-              className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white border-0 font-semibold rounded-xl shadow-lg shadow-orange-400/30 transition-all duration-300 hover:scale-105 px-3 py-2 h-8 text-xs"
-            >
-              Mark all read
-            </Button>
+            
+            {/* Button centered and properly sized */}
+            <div className="flex justify-center">
+              <Button
+                onClick={markAllAsRead}
+                disabled={newNotifications.length === 0}
+                className="bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 disabled:from-gray-500 disabled:to-gray-600 text-white border-0 font-semibold rounded-xl shadow-lg shadow-orange-400/30 transition-all duration-300 hover:scale-105 px-6 py-2.5 h-auto text-sm min-w-[140px]"
+              >
+                Mark all read
+              </Button>
+            </div>
           </div>
         </div>
 
