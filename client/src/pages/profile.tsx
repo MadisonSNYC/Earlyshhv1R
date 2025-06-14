@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -22,7 +23,9 @@ import {
   Calendar,
   Sparkles,
   Crown,
-  Gift
+  Gift,
+  Edit,
+  ExternalLink
 } from "lucide-react";
 import BottomNavigation from "@/components/bottom-navigation";
 
@@ -167,157 +170,148 @@ export default function ProfilePage() {
       <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 via-pink-500/15 to-cyan-400/20" />
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-gray-900/20 to-gray-900/30" />
       
-      <div className="relative z-10 px-6 pt-12 pb-32 space-y-6">
-        {/* Enhanced Profile Header - Redesigned Layout */}
-        <div className="bg-gray-900/70 backdrop-blur-md rounded-3xl p-6 border border-white/20 shadow-xl space-y-6">
-          {/* Top Section: Profile Picture and Core Info */}
-          <div className="flex items-start space-x-6">
-            {/* Profile Picture - Centered and Prominent */}
-            <div className="flex-shrink-0">
-              <div className="relative">
-                <div className="w-28 h-28 bg-gradient-to-br from-purple-400 via-pink-500 to-orange-500 rounded-full flex items-center justify-center shadow-2xl border-4 border-white/30 relative overflow-hidden group cursor-pointer"
-                     onClick={handlePhotoUpload}>
-                  {profileData.profileImage ? (
-                    <img src={profileData.profileImage} alt="Profile" className="w-full h-full rounded-full object-cover" />
-                  ) : (
-                    <div className="w-24 h-24 bg-gradient-to-br from-purple-300 to-pink-400 rounded-full flex items-center justify-center">
-                      <span className="text-white font-black text-3xl drop-shadow-lg">M</span>
-                    </div>
-                  )}
-                  {/* Photo upload overlay */}
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-full flex items-center justify-center">
-                    <Camera className="w-7 h-7 text-white" />
+      <div className="relative z-10 px-4 pt-8 pb-32 space-y-6 max-w-md mx-auto">
+        {/* Header Section - Profile Picture and Basic Info */}
+        <div className="bg-gray-900/80 backdrop-blur-lg rounded-3xl p-6 border border-white/20 shadow-2xl">
+          {/* Profile Picture */}
+          <div className="flex justify-center mb-6">
+            <div className="relative">
+              <div className="w-32 h-32 bg-gradient-to-br from-purple-400 via-pink-500 to-orange-500 rounded-full flex items-center justify-center shadow-2xl border-4 border-white/30 relative overflow-hidden group cursor-pointer"
+                   onClick={handlePhotoUpload}>
+                {profileData.profileImage ? (
+                  <img src={profileData.profileImage} alt="Profile" className="w-full h-full rounded-full object-cover" />
+                ) : (
+                  <div className="w-28 h-28 bg-gradient-to-br from-purple-300 to-pink-400 rounded-full flex items-center justify-center">
+                    <span className="text-white font-black text-4xl drop-shadow-lg">M</span>
                   </div>
-                </div>
-                {/* Enhanced verification badge */}
-                <div className="absolute -bottom-2 -right-2 w-9 h-9 bg-gradient-to-r from-green-400 to-cyan-400 rounded-full border-4 border-gray-900 flex items-center justify-center shadow-lg">
-                  <CheckCircle className="w-6 h-6 text-white" />
+                )}
+                {/* Photo upload overlay */}
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-full flex items-center justify-center">
+                  <Camera className="w-8 h-8 text-white" />
                 </div>
               </div>
-            </div>
-            
-            {/* User Info - Better Organized */}
-            <div className="flex-1 min-w-0 space-y-3">
-              {/* Name and Handle */}
-              <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
-                <h1 className="text-2xl font-black drop-shadow-lg tracking-tight mb-2">
-                  <span 
-                    className="bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text text-transparent"
-                    style={{
-                      backgroundSize: '200% 100%',
-                      animation: 'shimmer 3s ease-in-out infinite'
-                    }}
-                  >
-                    {profileData.instagramHandle}
-                  </span>
-                </h1>
-                <p className="text-white text-lg font-bold drop-shadow-md">{profileData.fullName}</p>
-              </div>
-
-              {/* Follower Stats */}
-              <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
-                <div className="flex items-center justify-center space-x-8">
-                  <div className="text-center">
-                    <p className="text-2xl font-black text-cyan-300 drop-shadow-lg">
-                      {profileData.followerCount.toLocaleString()}
-                    </p>
-                    <p className="text-xs font-bold text-cyan-200 drop-shadow-md">Followers</p>
-                  </div>
-                  <div className="w-px h-8 bg-white/20"></div>
-                  <div className="text-center">
-                    <p className="text-2xl font-black text-purple-300 drop-shadow-lg">
-                      {profileData.followingCount.toLocaleString()}
-                    </p>
-                    <p className="text-xs font-bold text-purple-200 drop-shadow-md">Following</p>
-                  </div>
-                </div>
+              {/* Enhanced verification badge */}
+              <div className="absolute -bottom-1 -right-1 w-10 h-10 bg-gradient-to-r from-green-400 to-cyan-400 rounded-full border-4 border-gray-900 flex items-center justify-center shadow-lg">
+                <CheckCircle className="w-6 h-6 text-white" />
               </div>
             </div>
           </div>
 
-          {/* Social Links Section */}
-          <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-4 border border-white/10">
-            <div className="flex items-center justify-center gap-4">
-              <a 
-                href={`https://instagram.com/${profileData.instagramHandle.replace('@', '')}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-gradient-to-r from-pink-500/30 to-purple-500/30 hover:from-pink-500/40 hover:to-purple-500/40 border border-pink-400/40 rounded-xl px-4 py-2 transition-all duration-300 hover:scale-105 shadow-lg"
+          {/* User Identity */}
+          <div className="text-center space-y-3 mb-6">
+            <h1 className="text-3xl font-black drop-shadow-lg tracking-tight">
+              <span 
+                className="bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500 bg-clip-text text-transparent"
+                style={{
+                  backgroundSize: '200% 100%',
+                  animation: 'shimmer 3s ease-in-out infinite'
+                }}
               >
-                <span className="text-pink-300 text-lg">📷</span>
-                <span className="text-pink-200 text-sm font-bold">Instagram</span>
-              </a>
-              <a 
-                href={`https://tiktok.com/@${profileData.instagramHandle.replace('@', '')}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-gradient-to-r from-cyan-500/30 to-blue-500/30 hover:from-cyan-500/40 hover:to-blue-500/40 border border-cyan-400/40 rounded-xl px-4 py-2 transition-all duration-300 hover:scale-105 shadow-lg"
-              >
-                <span className="text-cyan-300 text-lg">🎵</span>
-                <span className="text-cyan-200 text-sm font-bold">TikTok</span>
-              </a>
+                {profileData.instagramHandle}
+              </span>
+            </h1>
+            <p className="text-white text-xl font-bold drop-shadow-md">{profileData.fullName}</p>
+          </div>
+
+          {/* Follower Stats */}
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-4 border border-white/10 text-center">
+              <div className="text-2xl font-black text-cyan-300 drop-shadow-lg">
+                {profileData.followerCount.toLocaleString()}
+              </div>
+              <div className="text-sm font-bold text-cyan-200 drop-shadow-md">Followers</div>
+            </div>
+            <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-4 border border-white/10 text-center">
+              <div className="text-2xl font-black text-purple-300 drop-shadow-lg">
+                {profileData.followingCount.toLocaleString()}
+              </div>
+              <div className="text-sm font-bold text-purple-200 drop-shadow-md">Following</div>
             </div>
           </div>
 
-          {/* Bio and Education Section */}
-          <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 border border-white/10 space-y-4">
-            <p className="text-white text-base leading-relaxed drop-shadow-sm text-center">
+          {/* Social Links */}
+          <div className="grid grid-cols-2 gap-3 mb-6">
+            <a 
+              href={`https://instagram.com/${profileData.instagramHandle.replace('@', '')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 bg-gradient-to-r from-pink-500/30 to-purple-500/30 hover:from-pink-500/40 hover:to-purple-500/40 border border-pink-400/40 rounded-xl px-4 py-3 transition-all duration-300 hover:scale-105 shadow-lg"
+            >
+              <span className="text-pink-300 text-lg">📷</span>
+              <span className="text-pink-200 text-sm font-bold">Instagram</span>
+            </a>
+            <a 
+              href={`https://tiktok.com/@${profileData.instagramHandle.replace('@', '')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500/30 to-blue-500/30 hover:from-cyan-500/40 hover:to-blue-500/40 border border-cyan-400/40 rounded-xl px-4 py-3 transition-all duration-300 hover:scale-105 shadow-lg"
+            >
+              <span className="text-cyan-300 text-lg">🎵</span>
+              <span className="text-cyan-200 text-sm font-bold">TikTok</span>
+            </a>
+          </div>
+
+          {/* Bio */}
+          <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 border border-white/10 mb-6">
+            <p className="text-white text-base leading-relaxed drop-shadow-sm text-center mb-4">
               {profileData.bio}
             </p>
             
             {/* Education Info */}
-            <div className="flex items-center justify-center gap-8 text-sm text-orange-200 py-3 bg-gray-700/30 rounded-xl">
-              <span className="flex items-center space-x-2">
+            <div className="bg-gray-700/30 rounded-xl p-3 space-y-2">
+              <div className="flex items-center justify-center gap-2 text-sm text-orange-200">
                 <span className="text-lg">🎓</span>
                 <span className="font-medium">{profileData.school}</span>
-              </span>
-              <div className="w-px h-4 bg-white/20"></div>
-              <span className="flex items-center space-x-2">
+              </div>
+              <div className="flex items-center justify-center gap-2 text-sm text-orange-200">
                 <span className="text-lg">📅</span>
                 <span className="font-medium">Class of {profileData.graduationYear}</span>
-              </span>
+              </div>
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-4">
+          <div className="grid grid-cols-2 gap-3">
             <Button 
               onClick={handleEditProfile}
-              className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 rounded-2xl font-bold py-3 transition-all duration-300 hover:scale-105 shadow-lg shadow-purple-500/30"
+              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white border-0 rounded-xl font-bold py-3 transition-all duration-300 hover:scale-105 shadow-lg shadow-purple-500/30"
             >
+              <Edit className="w-4 h-4 mr-2" />
               Edit Profile
             </Button>
             <Button 
               onClick={() => setLocation('/settings')}
-              className="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-500 hover:to-gray-600 text-white border-0 rounded-2xl shadow-lg transition-all duration-300 hover:scale-105 px-6"
+              className="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-500 hover:to-gray-600 text-white border-0 rounded-xl shadow-lg transition-all duration-300 hover:scale-105"
             >
-              <Settings className="w-5 h-5" />
+              <Settings className="w-4 h-4 mr-2" />
+              Settings
             </Button>
           </div>
         </div>
 
-        {/* Enhanced Premium Discoverer Badge */}
-        <div className="bg-gradient-to-br from-yellow-900/80 via-orange-900/70 to-red-900/80 backdrop-blur-md rounded-3xl p-6 border border-yellow-400/30 shadow-xl">
-          <div className="flex items-center space-x-3 mb-4">
-            <div className="w-10 h-10 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
-              <Crown className="w-6 h-6 text-white" />
+        {/* Partnership Impact Score */}
+        <div className="bg-gradient-to-br from-yellow-900/90 via-orange-900/80 to-red-900/90 backdrop-blur-lg rounded-3xl p-6 border border-yellow-400/30 shadow-2xl">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
+              <Crown className="w-7 h-7 text-white" />
             </div>
-            <span className="text-yellow-300 font-black text-lg drop-shadow-lg">PREMIUM DISCOVERER</span>
+            <div className="text-center">
+              <div className="text-yellow-300 font-black text-lg drop-shadow-lg">PREMIUM DISCOVERER</div>
+              <div className="text-yellow-200 text-sm font-medium">Partnership Impact Score</div>
+            </div>
           </div>
           
-          <h3 className="text-white font-black text-3xl mb-6 drop-shadow-lg">Partnership Impact Score</h3>
-          
           <div className="relative mb-6">
-            <div className="w-36 h-36 mx-auto relative">
+            <div className="w-40 h-40 mx-auto relative">
               <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
-                <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="10"/>
+                <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="8"/>
                 <circle 
                   cx="60" 
                   cy="60" 
                   r="50" 
                   fill="none" 
                   stroke="url(#discoveryGradient)" 
-                  strokeWidth="10"
+                  strokeWidth="8"
                   strokeLinecap="round"
                   strokeDasharray={`${(discoveryScore / 100) * 314} 314`}
                   className="drop-shadow-lg"
@@ -338,43 +332,41 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          <p className="text-center text-white text-sm mb-4 drop-shadow-md">
-            You're in the top <span className="text-cyan-300 font-black text-lg">12%</span> of partnership creators!
-          </p>
+          <div className="text-center mb-6">
+            <p className="text-white text-sm drop-shadow-md">
+              You're in the top <span className="text-cyan-300 font-black text-lg">12%</span> of partnership creators!
+            </p>
+          </div>
 
-          <Button className="w-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 text-white font-black py-3 rounded-2xl border-0 transition-all duration-300 transform hover:scale-105 shadow-xl shadow-yellow-500/40">
-            <Sparkles className="w-4 h-4 mr-2" />
+          <Button className="w-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 text-white font-black py-3 rounded-xl border-0 transition-all duration-300 transform hover:scale-105 shadow-xl shadow-yellow-500/40">
+            <Sparkles className="w-5 h-5 mr-2" />
             Boost Score
           </Button>
         </div>
 
-        {/* Enhanced Color-Coded Stats Grid with Larger Numbers */}
+        {/* Stats Grid */}
         <div className="grid grid-cols-2 gap-4">
-          <div className="bg-gradient-to-br from-green-900/80 to-cyan-900/80 backdrop-blur-md rounded-3xl p-5 border border-green-400/30 shadow-xl">
-            <div className="text-center">
-              <div className="text-4xl font-black text-green-300 drop-shadow-lg mb-1">{completedPartnerships}</div>
-              <div className="text-sm font-bold text-green-200 drop-shadow-md">Partnerships Claimed</div>
-            </div>
+          <div className="bg-gradient-to-br from-green-900/90 to-cyan-900/90 backdrop-blur-lg rounded-2xl p-5 border border-green-400/30 shadow-xl text-center">
+            <div className="text-4xl font-black text-green-300 drop-shadow-lg mb-2">{completedPartnerships}</div>
+            <div className="text-sm font-bold text-green-200 drop-shadow-md">Partnerships Claimed</div>
           </div>
           
-          <div className="bg-gradient-to-br from-blue-900/80 to-purple-900/80 backdrop-blur-md rounded-3xl p-5 border border-blue-400/30 shadow-xl">
-            <div className="text-center">
-              <div className="text-4xl font-black text-blue-300 drop-shadow-lg mb-1">${totalSavings}</div>
-              <div className="text-sm font-bold text-blue-200 drop-shadow-md">Total Value</div>
-            </div>
+          <div className="bg-gradient-to-br from-blue-900/90 to-purple-900/90 backdrop-blur-lg rounded-2xl p-5 border border-blue-400/30 shadow-xl text-center">
+            <div className="text-4xl font-black text-blue-300 drop-shadow-lg mb-2">${totalSavings}</div>
+            <div className="text-sm font-bold text-blue-200 drop-shadow-md">Total Value</div>
           </div>
         </div>
 
-        {/* Enhanced Achievements with Individual Gradients */}
-        <div className="bg-gray-900/70 backdrop-blur-md rounded-3xl p-6 border border-white/20 shadow-xl">
-          <div className="flex items-center space-x-3 mb-6">
+        {/* Achievements Section */}
+        <div className="bg-gray-900/80 backdrop-blur-lg rounded-3xl p-6 border border-white/20 shadow-2xl">
+          <div className="flex items-center justify-center gap-3 mb-6">
             <div className="w-10 h-10 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
               <Award className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-white font-black text-2xl drop-shadow-lg">Achievements</h3>
+            <h3 className="text-white font-black text-xl drop-shadow-lg">Achievements</h3>
           </div>
           
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-3">
             {achievements.map((achievement) => (
               <div key={achievement.id} className="relative">
                 <div 
@@ -385,16 +377,16 @@ export default function ProfilePage() {
                       );
                     }
                   }}
-                  className={`p-4 rounded-2xl border transition-all duration-300 ${
+                  className={`p-4 rounded-xl border transition-all duration-300 ${
                     achievement.unlocked 
                       ? `bg-gradient-to-br ${achievement.gradient.replace('from-', 'from-').replace('via-', 'via-').replace('to-', 'to-')}/20 border-white/20 ${achievement.shadowColor} shadow-lg hover:scale-105` 
                       : 'bg-gray-800/60 border-gray-600/50 opacity-60 hover:opacity-80 cursor-pointer'
                   }`}
                 >
-                  <div className={`${achievement.unlocked ? 'text-white' : 'text-gray-500'} mb-3`}>
-                    <achievement.icon className="w-8 h-8" />
+                  <div className={`${achievement.unlocked ? 'text-white' : 'text-gray-500'} mb-2`}>
+                    <achievement.icon className="w-7 h-7" />
                   </div>
-                  <h4 className={`font-bold text-sm mb-1 ${achievement.unlocked ? 'text-white drop-shadow-md' : 'text-gray-500'}`}>
+                  <h4 className={`font-bold text-xs mb-1 ${achievement.unlocked ? 'text-white drop-shadow-md' : 'text-gray-500'}`}>
                     {achievement.title}
                   </h4>
                   <p className={`text-xs ${achievement.unlocked ? 'text-white/80 drop-shadow-sm' : 'text-gray-600'}`}>
@@ -420,16 +412,16 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Enhanced Analytics Dashboard */}
-        <div className="bg-gradient-to-br from-purple-900/80 to-pink-900/80 backdrop-blur-md rounded-3xl p-6 border border-purple-400/30 shadow-xl cursor-pointer hover:scale-[1.02] transition-all duration-300">
-          <div className="flex items-center space-x-3 mb-6">
+        {/* Analytics Dashboard */}
+        <div className="bg-gradient-to-br from-purple-900/90 to-pink-900/90 backdrop-blur-lg rounded-3xl p-6 border border-purple-400/30 shadow-2xl cursor-pointer hover:scale-[1.02] transition-all duration-300">
+          <div className="flex items-center justify-center gap-3 mb-6">
             <div className="w-10 h-10 bg-gradient-to-r from-purple-400 to-pink-500 rounded-2xl flex items-center justify-center shadow-lg">
               <BarChart3 className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-white font-black text-2xl drop-shadow-lg">Analytics Dashboard</h3>
+            <h3 className="text-white font-black text-xl drop-shadow-lg">Analytics Dashboard</h3>
           </div>
           
-          <div className="grid grid-cols-3 gap-4 mb-4">
+          <div className="grid grid-cols-3 gap-4 mb-6">
             <div className="text-center">
               <div className="text-3xl font-black text-green-300 drop-shadow-lg">{completedPartnerships}</div>
               <div className="text-xs font-bold text-green-200 drop-shadow-md">Claimed</div>
@@ -444,36 +436,37 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold rounded-2xl border-0 transition-all duration-300">
+          <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold rounded-xl border-0 transition-all duration-300">
             View Full Analytics →
           </Button>
         </div>
 
-        {/* Partnership Completion Tracker */}
-        <div className="bg-gray-900/70 backdrop-blur-md rounded-3xl p-6 border border-white/20 shadow-xl">
+        {/* Partnership Completions */}
+        <div className="bg-gray-900/80 backdrop-blur-lg rounded-3xl p-6 border border-white/20 shadow-2xl">
           <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-gradient-to-r from-green-400 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg">
                 <CheckCircle className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-white font-black text-2xl drop-shadow-lg">Partnership Completions</h3>
+              <h3 className="text-white font-black text-lg drop-shadow-lg">Recent Completions</h3>
             </div>
-            <Button className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-bold rounded-2xl border-0 transition-all duration-300 text-sm">
+            <Button className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white font-bold rounded-xl border-0 transition-all duration-300 text-sm px-4 py-2">
               View All
             </Button>
           </div>
           
-          <div className="space-y-4">
+          <div className="space-y-3">
             {partnershipStats.map((partnership) => (
-              <div key={partnership.id} className="flex items-center space-x-4 p-4 bg-gray-800/50 backdrop-blur-sm rounded-2xl hover:bg-gray-800/70 transition-all cursor-pointer border border-white/10">
-                <div className={`w-12 h-12 bg-gradient-to-r ${partnership.gradient} rounded-2xl flex items-center justify-center shadow-lg`}>
+              <div key={partnership.id} className="flex items-center gap-4 p-4 bg-gray-800/50 backdrop-blur-sm rounded-xl hover:bg-gray-800/70 transition-all cursor-pointer border border-white/10">
+                <div className={`w-12 h-12 bg-gradient-to-r ${partnership.gradient} rounded-xl flex items-center justify-center shadow-lg flex-shrink-0`}>
                   <span className="text-white text-lg">{partnership.icon}</span>
                 </div>
-                <div className="flex-1">
-                  <p className="text-white font-bold text-sm drop-shadow-md">{partnership.brandName} • {partnership.location}</p>
-                  <p className="text-orange-200 text-xs drop-shadow-sm">{partnership.completedDate} • Saved {partnership.savings}</p>
+                <div className="flex-1 min-w-0">
+                  <p className="text-white font-bold text-sm drop-shadow-md truncate">{partnership.brandName}</p>
+                  <p className="text-orange-200 text-xs drop-shadow-sm">{partnership.location}</p>
+                  <p className="text-gray-300 text-xs">{partnership.completedDate} • Saved {partnership.savings}</p>
                 </div>
-                <div className="w-8 h-8 bg-green-500/20 text-green-300 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-green-500/20 text-green-300 rounded-full flex items-center justify-center flex-shrink-0">
                   <CheckCircle className="w-5 h-5" />
                 </div>
               </div>
@@ -481,26 +474,26 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Enhanced Call to Action */}
-        <div className="bg-gradient-to-br from-yellow-900/80 via-orange-900/70 to-red-900/80 backdrop-blur-md rounded-3xl p-6 border border-yellow-400/30 shadow-xl">
-          <h3 className="text-white font-black text-2xl mb-3 drop-shadow-lg">Ready for your next partnership?</h3>
-          <p className="text-orange-100 text-sm mb-6 drop-shadow-md">
+        {/* Call to Action */}
+        <div className="bg-gradient-to-br from-yellow-900/90 via-orange-900/80 to-red-900/90 backdrop-blur-lg rounded-3xl p-6 border border-yellow-400/30 shadow-2xl">
+          <h3 className="text-white font-black text-xl mb-3 drop-shadow-lg text-center">Ready for your next partnership?</h3>
+          <p className="text-orange-100 text-sm mb-6 drop-shadow-md text-center">
             Premium discoverers get first access to exclusive brand partnerships.
           </p>
           <Button 
             onClick={() => setLocation('/')}
-            className="w-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 text-white font-black py-4 rounded-2xl border-0 transition-all duration-300 transform hover:scale-105 shadow-xl shadow-yellow-500/40"
+            className="w-full bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 hover:from-yellow-500 hover:via-orange-600 hover:to-red-600 text-white font-black py-4 rounded-xl border-0 transition-all duration-300 transform hover:scale-105 shadow-xl shadow-yellow-500/40"
           >
             <Gift className="w-5 h-5 mr-2" />
             Discover New Partnerships
           </Button>
         </div>
 
-        {/* Enhanced Account Actions */}
-        <div className="flex gap-4">
+        {/* Account Actions */}
+        <div className="space-y-3">
           <Button
             onClick={handleLogout}
-            className="w-full bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-bold rounded-2xl border-0 transition-all duration-300 hover:scale-105 shadow-lg"
+            className="w-full bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white font-bold rounded-xl border-0 transition-all duration-300 hover:scale-105 shadow-lg py-3"
           >
             <LogOut className="w-4 h-4 mr-2" />
             Sign Out
@@ -524,7 +517,6 @@ export default function ProfilePage() {
       </div>
 
       {/* Bottom Navigation */}
-      {/* Only show bottom navigation if not in iframe */}
       {window.self === window.top && <BottomNavigation />}
     </div>
   );
