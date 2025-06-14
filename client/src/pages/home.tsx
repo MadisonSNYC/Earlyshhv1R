@@ -188,32 +188,32 @@ export default function HomePage() {
             return (
               <div
                 key={campaign.id}
-                className={`flex-shrink-0 bg-gradient-to-br ${cardGradient} backdrop-blur-md border ${borderGradient} rounded-3xl p-4 min-w-[120px] cursor-pointer hover:border-purple-400/70 hover:bg-gradient-to-br hover:from-purple-500/30 hover:to-cyan-500/30 hover:scale-105 transition-all duration-300 group shadow-xl card-375`}
+                className={`flex-shrink-0 bg-gradient-to-br ${cardGradient} backdrop-blur-md border ${borderGradient} rounded-3xl p-3 w-[110px] cursor-pointer hover:border-purple-400/70 hover:bg-gradient-to-br hover:from-purple-500/30 hover:to-cyan-500/30 hover:scale-105 transition-all duration-300 group shadow-xl`}
                 onClick={() => {
                   setSelectedCampaign(campaign);
                   setShowPartnershipModal(true);
                 }}
               >
                 <div className="flex flex-col items-center text-center">
-                  <div className="relative mb-3">
-                    <div className="absolute inset-0 bg-gradient-to-r from-orange-400/30 to-cyan-400/30 rounded-2xl blur-lg group-hover:from-pink-400/50 group-hover:to-cyan-400/50 transition-all duration-300" />
+                  <div className="relative mb-2">
+                    <div className="absolute inset-0 bg-gradient-to-r from-orange-400/30 to-cyan-400/30 rounded-xl blur-sm group-hover:from-pink-400/50 group-hover:to-cyan-400/50 transition-all duration-300" />
                     <img
                       src={campaign.brandLogoUrl}
                       alt={campaign.brandName}
-                      className="relative w-16 h-16 rounded-2xl object-cover shadow-xl"
+                      className="relative w-12 h-12 rounded-xl object-cover shadow-lg"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
-                        target.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" fill="%23374151" rx="16"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="24" font-weight="bold">${campaign.brandName.charAt(0)}</text></svg>`;
+                        target.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><rect width="48" height="48" fill="%23374151" rx="12"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="18" font-weight="bold">${campaign.brandName.charAt(0)}</text></svg>`;
                       }}
                     />
                   </div>
-                  <h3 className="text-white font-bold text-sm mb-2 truncate w-full">
+                  <h3 className="text-white font-bold text-xs mb-1 truncate w-full leading-tight">
                     {campaign.brandName}
                   </h3>
-                  <p className="text-pink-200 text-xs mb-3 line-clamp-2">
+                  <p className="text-pink-200 text-xs mb-2 line-clamp-1">
                     {campaign.category}
                   </p>
-                  <div className="bg-gradient-to-r from-green-400 to-cyan-400 text-white text-xs px-3 py-1.5 rounded-full font-medium shadow-lg">
+                  <div className="bg-gradient-to-r from-green-400 to-cyan-400 text-white text-xs px-2 py-1 rounded-full font-medium shadow-sm">
                     Active
                   </div>
                 </div>
@@ -224,7 +224,7 @@ export default function HomePage() {
       </section>
 
       {/* Partnership Listings */}
-      <main className="relative z-10 max-w-md mx-auto px-6 py-6 pb-32">
+      <main className="relative z-10 w-full px-4 py-6 pb-32">
         {viewMode === 'map' ? (
           <div className="text-center py-16">
             <button 
@@ -247,7 +247,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 
-                <div className="space-y-6">
+                <div className="space-y-4">
                   {(categoryCampaigns as any[]).map((campaign, index) => {
                     const cardGradients = [
                       'from-gray-900/80 via-purple-900/60 to-gray-900/80',
@@ -265,59 +265,57 @@ export default function HomePage() {
                     return (
                       <div
                         key={campaign.id}
-                        className={`bg-gradient-to-br ${cardGradient} backdrop-blur-md border ${borderGradient} rounded-2xl p-5 cursor-pointer hover:border-cyan-400/60 hover:bg-gradient-to-br hover:from-purple-500/30 hover:to-cyan-500/30 hover:scale-[1.02] transition-all duration-300 group shadow-xl`}
+                        className={`bg-gradient-to-br ${cardGradient} backdrop-blur-md border ${borderGradient} rounded-2xl p-4 cursor-pointer hover:border-cyan-400/60 hover:bg-gradient-to-br hover:from-purple-500/30 hover:to-cyan-500/30 hover:scale-[1.02] transition-all duration-300 group shadow-xl w-full max-w-full`}
                         onClick={() => {
                           setSelectedCampaign(campaign);
                           setShowPartnershipModal(true);
                         }}
                       >
-                        {/* Header Section */}
-                        <div className="flex items-start space-x-4 mb-4">
+                        {/* Compact Header */}
+                        <div className="flex items-center space-x-3 mb-3">
                           {/* Brand Logo */}
                           <div className="relative flex-shrink-0">
-                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-purple-400/20 rounded-xl blur-md group-hover:from-pink-400/30 group-hover:to-cyan-400/30 transition-all duration-300" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-purple-400/20 rounded-lg blur-sm group-hover:from-pink-400/30 group-hover:to-cyan-400/30 transition-all duration-300" />
                             <img
                               src={campaign.brandLogoUrl}
                               alt={campaign.brandName}
-                              className="relative w-14 h-14 rounded-xl object-cover shadow-lg border border-white/10"
+                              className="relative w-12 h-12 rounded-lg object-cover shadow-lg border border-white/10"
                               onError={(e) => {
                                 const target = e.target as HTMLImageElement;
-                                target.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56"><rect width="56" height="56" fill="%23374151" rx="12"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="20" font-weight="bold">${campaign.brandName.charAt(0)}</text></svg>`;
+                                target.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><rect width="48" height="48" fill="%23374151" rx="8"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="16" font-weight="bold">${campaign.brandName.charAt(0)}</text></svg>`;
                               }}
                             />
                           </div>
                           
-                          {/* Brand Info and Time Badge */}
-                          <div className="flex-1 min-w-0 flex justify-between items-start">
-                            <div className="flex-1 min-w-0 mr-3">
-                              <h3 className="text-white font-bold text-lg leading-tight drop-shadow-md truncate">
-                                {campaign.brandName}
-                              </h3>
-                              <p className="text-pink-200/90 font-medium text-sm mt-1 drop-shadow-sm line-clamp-2">
-                                {campaign.offerDescription}
-                              </p>
-                            </div>
-                            
-                            {/* Time Badge */}
-                            <div className="flex-shrink-0">
-                              <div className="bg-gradient-to-r from-orange-400/20 to-red-400/20 backdrop-blur-sm border border-orange-300/30 rounded-lg px-3 py-1.5">
-                                <div className="flex items-center text-orange-200">
-                                  <Clock className="w-3 h-3 mr-1" />
-                                  <span className="text-xs font-semibold">{formatTimeLeft(new Date(campaign.expiresAt))}</span>
-                                </div>
+                          {/* Brand Info */}
+                          <div className="flex-1 min-w-0">
+                            <h3 className="text-white font-bold text-base leading-tight drop-shadow-md truncate">
+                              {campaign.brandName}
+                            </h3>
+                            <p className="text-pink-200/90 text-sm mt-0.5 drop-shadow-sm line-clamp-1">
+                              {campaign.offerDescription}
+                            </p>
+                          </div>
+                          
+                          {/* Time Badge */}
+                          <div className="flex-shrink-0">
+                            <div className="bg-gradient-to-r from-orange-400/20 to-red-400/20 backdrop-blur-sm border border-orange-300/30 rounded-lg px-2 py-1">
+                              <div className="flex items-center text-orange-200">
+                                <Clock className="w-3 h-3 mr-1" />
+                                <span className="text-xs font-semibold">{formatTimeLeft(new Date(campaign.expiresAt))}</span>
                               </div>
                             </div>
                           </div>
                         </div>
                         
-                        {/* Bottom Section */}
-                        <div className="flex items-center justify-between pt-2">
+                        {/* Bottom Row */}
+                        <div className="flex items-center justify-between">
                           {/* Left Info */}
-                          <div className="flex items-center space-x-4 flex-1">
+                          <div className="flex items-center space-x-3 flex-1">
                             {/* Distance */}
                             <div className="flex items-center text-cyan-200/90">
-                              <MapPin className="w-4 h-4 mr-1.5" />
-                              <span className="text-sm font-medium">{formatDistance(150)}</span>
+                              <MapPin className="w-3 h-3 mr-1" />
+                              <span className="text-xs font-medium">{formatDistance(150)}</span>
                             </div>
                             
                             {/* Available Spots */}
@@ -327,21 +325,21 @@ export default function HomePage() {
                               <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
                               <div className="w-1.5 h-1.5 bg-gray-500/50 rounded-full"></div>
                               <div className="w-1.5 h-1.5 bg-gray-500/50 rounded-full"></div>
-                              <span className="text-xs text-gray-300 ml-2 font-medium">3/5 spots</span>
+                              <span className="text-xs text-gray-300 ml-1 font-medium">3/5</span>
                             </div>
                           </div>
                           
                           {/* Action Button */}
                           <button 
-                            className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white px-4 py-2 rounded-xl font-semibold text-sm transition-all duration-300 hover:scale-105 shadow-lg shadow-pink-500/30 hover:shadow-purple-500/40 flex items-center gap-2 border border-white/10 ml-3 flex-shrink-0"
+                            className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white px-3 py-1.5 rounded-lg font-semibold text-xs transition-all duration-300 hover:scale-105 shadow-lg shadow-pink-500/30 hover:shadow-purple-500/40 flex items-center gap-1.5 border border-white/10 flex-shrink-0"
                             onClick={(e) => {
                               e.stopPropagation();
                               setSelectedCampaign(campaign);
                               setShowPartnershipModal(true);
                             }}
                           >
-                            <ExternalLink className="w-4 h-4" />
-                            Partner Up
+                            <Sparkles className="w-3 h-3" />
+                            Partner
                           </button>
                         </div>
                       </div>

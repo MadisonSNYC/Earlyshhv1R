@@ -94,6 +94,7 @@ A social-first coupon platform PWA that revolutionizes digital deal discovery th
 - Scalable foundation for adapting to other screen sizes
 
 ### Previous Milestones
+- Redesigned home page card components to prevent design overflow and ensure proper partnership linking
 - Implemented full-page earlyshh-bg overlay with fixed positioning covering entire viewport
 - Fixed design cutoff issues with comprehensive responsive design improvements
 - Fixed broken "View Full Analytics" button in profile page with comprehensive modal
