@@ -289,7 +289,7 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Partnership Impact Score */}
+        {/* Partnership Impact Score - Moved to Top */}
         <div className="bg-gradient-to-br from-yellow-900/90 via-orange-900/80 to-red-900/90 backdrop-blur-lg rounded-3xl p-6 border border-yellow-400/30 shadow-2xl">
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
@@ -343,6 +343,8 @@ export default function ProfilePage() {
             Boost Score
           </Button>
         </div>
+
+        
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 gap-4">
