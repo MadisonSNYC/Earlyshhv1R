@@ -94,6 +94,7 @@ A social-first coupon platform PWA that revolutionizes digital deal discovery th
 - Scalable foundation for adapting to other screen sizes
 
 ### Previous Milestones
+- Updated App.tsx structure so earlyshh-bg overlay covers entire page viewport
 - Fixed design cutoff issues with comprehensive responsive design improvements
 - Fixed broken "View Full Analytics" button in profile page with comprehensive modal
 - Completed full survey system with star ratings and purchase intent tracking
