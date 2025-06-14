@@ -36,25 +36,26 @@
     @apply bg-background text-foreground;
     background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(240 4% 6%) 100%);
     min-height: 100vh;
-    /* iPhone 375×667 optimization */
     width: 100vw;
-    max-width: 375px;
-    margin: 0 auto;
+    margin: 0;
+    padding: 0;
     overflow-x: hidden;
   }
 
-  /* Base mobile-first design for 375×667 pt */
+  /* Base mobile-first design */
   html {
-    font-size: 16px; /* Base for 375px width */
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
   }
 
   /* App container optimization */
   #root {
     width: 100%;
-    max-width: 375px;
-    margin: 0 auto;
-    min-height: 667px;
+    min-height: 100vh;
     position: relative;
+    margin: 0;
+    padding: 0;
   }
 }
 
@@ -117,19 +118,22 @@
 /* Custom Scrollbar */
 /* iPhone 375×812 pt specific optimizations */
 .iphone-container {
-  width: 100%;
-  max-width: 375px;
-  min-height: 812px;
+  width: 100vw;
+  max-width: 100%;
+  min-height: 100vh;
   margin: 0 auto;
-  padding: 0 16px; /* Optimal touch targets */
+  padding: 0;
   box-sizing: border-box;
+  position: relative;
 }
 
 .iphone-safe-area {
-  padding-top: env(safe-area-inset-top, 0);
-  padding-bottom: env(safe-area-inset-bottom, 0);
-  padding-left: env(safe-area-inset-left, 0);
-  padding-right: env(safe-area-inset-right, 0);
+  padding-top: max(env(safe-area-inset-top, 0), 16px);
+  padding-bottom: max(env(safe-area-inset-bottom, 0), 16px);
+  padding-left: max(env(safe-area-inset-left, 0), 16px);
+  padding-right: max(env(safe-area-inset-right, 0), 16px);
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 /* Touch-optimized button sizing for 375px width */
@@ -140,12 +144,14 @@
   font-size: 16px; /* Prevents zoom on iOS */
 }
 
-/* Grid layouts optimized for 375px */
+/* Grid layouts optimized for responsive design */
 .grid-2-375 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .grid-1-375 {
@@ -153,15 +159,34 @@
   grid-template-columns: 1fr;
   gap: 16px;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
-/* Card sizing for 375px viewport */
+/* Prevent horizontal overflow */
+* {
+  box-sizing: border-box;
+}
+
+/* Container constraints */
+.container-safe {
+  width: 100%;
+  max-width: 100vw;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow-x: hidden;
+}
+
+/* Card sizing for responsive viewport */
 .card-375 {
   width: 100%;
-  max-width: 343px; /* 375 - 32px padding */
+  max-width: calc(100vw - 32px);
   margin: 0 auto;
   border-radius: 12px;
   padding: 16px;
+  box-sizing: border-box;
 }
 
 /* Typography optimized for 375×812pt reading */
@@ -180,13 +205,14 @@
 .space-812-xl { margin: 36px 0; }
 .space-812-2xl { margin: 48px 0; }
 
-/* Modal optimizations for 812pt screen */
+/* Modal optimizations for responsive screens */
 .modal-812 {
   width: calc(100vw - 32px);
-  max-width: 343px;
-  max-height: calc(100vh - 120px);
-  margin: 60px auto;
+  max-width: min(343px, calc(100vw - 32px));
+  max-height: calc(100vh - 80px);
+  margin: 40px auto;
   border-radius: 16px;
+  box-sizing: border-box;
 }
 
 .scrollbar-hide {
@@ -411,6 +437,9 @@
 .earlyshh-bg {
   background: linear-gradient(135deg, #673AB7 0%, #9C27B0 25%, #E91E63 75%, #FF5722 100%);
   min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
 }
 
 /* Electric vibrant background */
