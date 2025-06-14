@@ -33,6 +33,7 @@ export default function ProfilePage() {
   const [, setLocation] = useLocation();
   const [notifications, setNotifications] = useState(3);
   const [selectedAchievement, setSelectedAchievement] = useState<number | null>(null);
+  const [showAnalytics, setShowAnalytics] = useState(false);
 
   // Mock user profile data
   const profileData = {
@@ -438,7 +439,11 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold rounded-xl border-0 transition-all duration-300">
+          <Button 
+            onClick={() => setShowAnalytics(true)}
+            className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold rounded-xl border-0 transition-all duration-300 hover:scale-105 shadow-lg"
+          >
+            <BarChart3 className="w-4 h-4 mr-2" />
             View Full Analytics →
           </Button>
         </div>
@@ -508,15 +513,177 @@ export default function ProfilePage() {
           <p className="text-sm text-orange-200 leading-relaxed drop-shadow-md">© 2024 Earlyshh Inc. All rights reserved.</p>
         </div>
 
-        {/* CSS for shimmer animation */}
-        <style jsx>{`
+      </div>
+
+      {/* Analytics Modal */}
+      {showAnalytics && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+          <div className="bg-gradient-to-br from-gray-900/95 via-gray-800/90 to-gray-900/95 backdrop-blur-md rounded-3xl border border-white/20 shadow-2xl w-full max-w-md max-h-[90vh] overflow-y-auto">
+            {/* Header */}
+            <div className="flex items-center justify-between p-6 border-b border-white/10">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center">
+                  <BarChart3 className="w-6 h-6 text-white" />
+                </div>
+                <h2 className="text-white font-black text-xl">Full Analytics</h2>
+              </div>
+              <Button
+                onClick={() => setShowAnalytics(false)}
+                className="w-8 h-8 rounded-full bg-gray-700/50 hover:bg-gray-600/50 border-0 p-0 flex items-center justify-center"
+              >
+                <span className="text-white text-lg">×</span>
+              </Button>
+            </div>
+
+            {/* Analytics Content */}
+            <div className="p-6 space-y-6">
+              {/* Monthly Overview */}
+              <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 border border-white/10">
+                <h3 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
+                  <Calendar className="w-5 h-5 text-blue-400" />
+                  This Month
+                </h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center">
+                    <div className="text-2xl font-black text-green-400">12</div>
+                    <div className="text-xs text-gray-300">Partnerships</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-black text-yellow-400">$347</div>
+                    <div className="text-xs text-gray-300">Value Saved</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-black text-purple-400">28</div>
+                    <div className="text-xs text-gray-300">Stories Shared</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-2xl font-black text-cyan-400">4.8</div>
+                    <div className="text-xs text-gray-300">Avg Rating</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Performance Trends */}
+              <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 border border-white/10">
+                <h3 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
+                  <TrendingUp className="w-5 h-5 text-green-400" />
+                  Performance Trends
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-300 text-sm">Partnership Success Rate</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-16 h-2 bg-gray-700 rounded-full">
+                        <div className="w-14 h-2 bg-gradient-to-r from-green-400 to-cyan-400 rounded-full"></div>
+                      </div>
+                      <span className="text-green-400 font-bold text-sm">92%</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-300 text-sm">Story Engagement</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-16 h-2 bg-gray-700 rounded-full">
+                        <div className="w-12 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></div>
+                      </div>
+                      <span className="text-purple-400 font-bold text-sm">78%</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-300 text-sm">Brand Satisfaction</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-16 h-2 bg-gray-700 rounded-full">
+                        <div className="w-15 h-2 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full"></div>
+                      </div>
+                      <span className="text-yellow-400 font-bold text-sm">96%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Category Breakdown */}
+              <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 border border-white/10">
+                <h3 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
+                  <Target className="w-5 h-5 text-orange-400" />
+                  Category Breakdown
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-300 text-sm">🧴 Beauty & Wellness</span>
+                    <span className="text-pink-400 font-bold text-sm">8 partnerships</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-300 text-sm">☕ Food & Beverage</span>
+                    <span className="text-yellow-400 font-bold text-sm">6 partnerships</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-300 text-sm">👔 Fashion & Lifestyle</span>
+                    <span className="text-blue-400 font-bold text-sm">4 partnerships</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-300 text-sm">💪 Fitness & Health</span>
+                    <span className="text-green-400 font-bold text-sm">3 partnerships</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Achievement Progress */}
+              <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-5 border border-white/10">
+                <h3 className="text-white font-bold text-lg mb-4 flex items-center gap-2">
+                  <Trophy className="w-5 h-5 text-yellow-400" />
+                  Next Achievements
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                        <Crown className="w-4 h-4 text-white" />
+                      </div>
+                      <div>
+                        <div className="text-white font-medium text-sm">VIP Discoverer</div>
+                        <div className="text-gray-400 text-xs">Complete 25 partnerships</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-purple-400 font-bold text-sm">21/25</div>
+                      <div className="w-12 h-1 bg-gray-700 rounded-full mt-1">
+                        <div className="w-10 h-1 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center">
+                        <Star className="w-4 h-4 text-white" />
+                      </div>
+                      <div>
+                        <div className="text-white font-medium text-sm">5-Star Reviewer</div>
+                        <div className="text-gray-400 text-xs">Get 50 perfect ratings</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-yellow-400 font-bold text-sm">43/50</div>
+                      <div className="w-12 h-1 bg-gray-700 rounded-full mt-1">
+                        <div className="w-10 h-1 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* CSS for shimmer animation */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
           @keyframes shimmer {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
           }
-        `}</style>
-      </div>
+        `
+      }} />
 
       {/* Bottom Navigation */}
       {window.self === window.top && <BottomNavigation />}
