@@ -265,14 +265,14 @@ export default function HomePage() {
                     return (
                       <div
                         key={campaign.id}
-                        className={`bg-gradient-to-br ${cardGradient} backdrop-blur-md border ${borderGradient} rounded-2xl p-6 cursor-pointer hover:border-cyan-400/60 hover:bg-gradient-to-br hover:from-purple-500/30 hover:to-cyan-500/30 hover:scale-[1.02] transition-all duration-300 group shadow-xl`}
+                        className={`bg-gradient-to-br ${cardGradient} backdrop-blur-md border ${borderGradient} rounded-2xl p-5 cursor-pointer hover:border-cyan-400/60 hover:bg-gradient-to-br hover:from-purple-500/30 hover:to-cyan-500/30 hover:scale-[1.02] transition-all duration-300 group shadow-xl`}
                         onClick={() => {
                           setSelectedCampaign(campaign);
                           setShowPartnershipModal(true);
                         }}
                       >
-                        {/* Main Content */}
-                        <div className="flex items-center space-x-4 mb-4">
+                        {/* Header Section */}
+                        <div className="flex items-start space-x-4 mb-4">
                           {/* Brand Logo */}
                           <div className="relative flex-shrink-0">
                             <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-purple-400/20 rounded-xl blur-md group-hover:from-pink-400/30 group-hover:to-cyan-400/30 transition-all duration-300" />
@@ -287,31 +287,33 @@ export default function HomePage() {
                             />
                           </div>
                           
-                          {/* Brand Info */}
-                          <div className="flex-1 min-w-0">
-                            <h3 className="text-white font-bold text-lg leading-tight drop-shadow-md truncate">
-                              {campaign.brandName}
-                            </h3>
-                            <p className="text-pink-200/90 font-medium text-sm mt-1 drop-shadow-sm line-clamp-2">
-                              {campaign.offerDescription}
-                            </p>
-                          </div>
-                          
-                          {/* Time Badge */}
-                          <div className="flex-shrink-0">
-                            <div className="bg-gradient-to-r from-orange-400/20 to-red-400/20 backdrop-blur-sm border border-orange-300/30 rounded-lg px-3 py-1.5">
-                              <div className="flex items-center text-orange-200">
-                                <Clock className="w-3 h-3 mr-1" />
-                                <span className="text-xs font-semibold">{formatTimeLeft(new Date(campaign.expiresAt))}</span>
+                          {/* Brand Info and Time Badge */}
+                          <div className="flex-1 min-w-0 flex justify-between items-start">
+                            <div className="flex-1 min-w-0 mr-3">
+                              <h3 className="text-white font-bold text-lg leading-tight drop-shadow-md truncate">
+                                {campaign.brandName}
+                              </h3>
+                              <p className="text-pink-200/90 font-medium text-sm mt-1 drop-shadow-sm line-clamp-2">
+                                {campaign.offerDescription}
+                              </p>
+                            </div>
+                            
+                            {/* Time Badge */}
+                            <div className="flex-shrink-0">
+                              <div className="bg-gradient-to-r from-orange-400/20 to-red-400/20 backdrop-blur-sm border border-orange-300/30 rounded-lg px-3 py-1.5">
+                                <div className="flex items-center text-orange-200">
+                                  <Clock className="w-3 h-3 mr-1" />
+                                  <span className="text-xs font-semibold">{formatTimeLeft(new Date(campaign.expiresAt))}</span>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                         
                         {/* Bottom Section */}
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between pt-2">
                           {/* Left Info */}
-                          <div className="flex items-center space-x-4">
+                          <div className="flex items-center space-x-4 flex-1">
                             {/* Distance */}
                             <div className="flex items-center text-cyan-200/90">
                               <MapPin className="w-4 h-4 mr-1.5" />
@@ -330,7 +332,14 @@ export default function HomePage() {
                           </div>
                           
                           {/* Action Button */}
-                          <button className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 hover:scale-105 shadow-lg shadow-pink-500/30 hover:shadow-purple-500/40 flex items-center gap-2 border border-white/10">
+                          <button 
+                            className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white px-4 py-2 rounded-xl font-semibold text-sm transition-all duration-300 hover:scale-105 shadow-lg shadow-pink-500/30 hover:shadow-purple-500/40 flex items-center gap-2 border border-white/10 ml-3 flex-shrink-0"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedCampaign(campaign);
+                              setShowPartnershipModal(true);
+                            }}
+                          >
                             <ExternalLink className="w-4 h-4" />
                             Partner Up
                           </button>
