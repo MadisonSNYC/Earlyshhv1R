@@ -265,64 +265,73 @@ export default function HomePage() {
                     return (
                       <div
                         key={campaign.id}
-                        className={`bg-gradient-to-r ${cardGradient} backdrop-blur-md border ${borderGradient} rounded-3xl p-5 cursor-pointer hover:border-cyan-400/60 hover:bg-gradient-to-r hover:from-purple-500/30 hover:to-cyan-500/30 hover:scale-105 transition-all duration-300 group shadow-xl space-y-4`}
+                        className={`bg-gradient-to-br ${cardGradient} backdrop-blur-md border ${borderGradient} rounded-2xl p-6 cursor-pointer hover:border-cyan-400/60 hover:bg-gradient-to-br hover:from-purple-500/30 hover:to-cyan-500/30 hover:scale-[1.02] transition-all duration-300 group shadow-xl`}
                         onClick={() => {
                           setSelectedCampaign(campaign);
                           setShowPartnershipModal(true);
                         }}
                       >
-                        {/* Header Section */}
-                        <div className="flex items-start space-x-4">
+                        {/* Main Content */}
+                        <div className="flex items-center space-x-4 mb-4">
+                          {/* Brand Logo */}
                           <div className="relative flex-shrink-0">
-                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 to-purple-400/30 rounded-2xl blur-lg group-hover:from-pink-400/50 group-hover:to-cyan-400/50 transition-all duration-300" />
+                            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-purple-400/20 rounded-xl blur-md group-hover:from-pink-400/30 group-hover:to-cyan-400/30 transition-all duration-300" />
                             <img
                               src={campaign.brandLogoUrl}
                               alt={campaign.brandName}
-                              className="relative w-16 h-16 rounded-2xl object-cover shadow-xl"
+                              className="relative w-14 h-14 rounded-xl object-cover shadow-lg border border-white/10"
                               onError={(e) => {
                                 const target = e.target as HTMLImageElement;
-                                target.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" fill="%23374151" rx="16"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="24" font-weight="bold">${campaign.brandName.charAt(0)}</text></svg>`;
+                                target.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56"><rect width="56" height="56" fill="%23374151" rx="12"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="20" font-weight="bold">${campaign.brandName.charAt(0)}</text></svg>`;
                               }}
                             />
                           </div>
                           
+                          {/* Brand Info */}
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-start justify-between mb-2">
-                              <h3 className="text-white font-black text-812-lg leading-tight drop-shadow-lg">
-                                {campaign.brandName}
-                              </h3>
-                              <div className="flex items-center text-orange-200 drop-shadow-md">
-                                <Clock className="w-4 h-4 mr-1.5" />
-                                <span className="text-812-xs">{formatTimeLeft(new Date(campaign.expiresAt))}</span>
-                              </div>
-                            </div>
-                            
-                            <p className="text-pink-200 font-medium text-812-sm drop-shadow-md">
+                            <h3 className="text-white font-bold text-lg leading-tight drop-shadow-md truncate">
+                              {campaign.brandName}
+                            </h3>
+                            <p className="text-pink-200/90 font-medium text-sm mt-1 drop-shadow-sm line-clamp-2">
                               {campaign.offerDescription}
                             </p>
                           </div>
+                          
+                          {/* Time Badge */}
+                          <div className="flex-shrink-0">
+                            <div className="bg-gradient-to-r from-orange-400/20 to-red-400/20 backdrop-blur-sm border border-orange-300/30 rounded-lg px-3 py-1.5">
+                              <div className="flex items-center text-orange-200">
+                                <Clock className="w-3 h-3 mr-1" />
+                                <span className="text-xs font-semibold">{formatTimeLeft(new Date(campaign.expiresAt))}</span>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                         
-                        {/* Info Section */}
+                        {/* Bottom Section */}
                         <div className="flex items-center justify-between">
+                          {/* Left Info */}
                           <div className="flex items-center space-x-4">
-                            {/* Visual Slots Indicator */}
-                            <div className="flex items-center space-x-1">
-                              <div className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full shadow-sm"></div>
-                              <div className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full shadow-sm"></div>
-                              <div className="w-2 h-2 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full shadow-sm"></div>
-                              <div className="w-2 h-2 bg-gray-600/50 rounded-full"></div>
-                              <div className="w-2 h-2 bg-gray-600/50 rounded-full"></div>
+                            {/* Distance */}
+                            <div className="flex items-center text-cyan-200/90">
+                              <MapPin className="w-4 h-4 mr-1.5" />
+                              <span className="text-sm font-medium">{formatDistance(150)}</span>
                             </div>
                             
-                            <div className="flex items-center text-pink-200 drop-shadow-md">
-                              <MapPin className="w-4 h-4 mr-1.5" />
-                              <span className="text-812-xs">{formatDistance(150)}</span>
+                            {/* Available Spots */}
+                            <div className="flex items-center space-x-1">
+                              <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
+                              <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
+                              <div className="w-1.5 h-1.5 bg-green-400 rounded-full"></div>
+                              <div className="w-1.5 h-1.5 bg-gray-500/50 rounded-full"></div>
+                              <div className="w-1.5 h-1.5 bg-gray-500/50 rounded-full"></div>
+                              <span className="text-xs text-gray-300 ml-2 font-medium">3/5 spots</span>
                             </div>
                           </div>
                           
-                          <button className="touch-button bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 text-white px-4 py-2 rounded-2xl font-semibold text-812-xs hover:scale-105 transition-all duration-300 shadow-lg shadow-pink-400/30 hover:shadow-cyan-400/30 flex items-center gap-2">
-                            <ExternalLink className="w-3 h-3" />
+                          {/* Action Button */}
+                          <button className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-all duration-300 hover:scale-105 shadow-lg shadow-pink-500/30 hover:shadow-purple-500/40 flex items-center gap-2 border border-white/10">
+                            <ExternalLink className="w-4 h-4" />
                             Partner Up
                           </button>
                         </div>
