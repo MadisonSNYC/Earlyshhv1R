@@ -175,7 +175,7 @@ export default function PartnershipDetailPage() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-white font-semibold text-sm">Share on Instagram Story</p>
-                  <p className="text-gray-300 text-xs">Post with subtle @earlyshh branding</p>
+                  <p className="text-gray-300 text-xs">Tag @{campaign.brandIgHandle} and @earlyshh in your story</p>
                 </div>
               </div>
               
