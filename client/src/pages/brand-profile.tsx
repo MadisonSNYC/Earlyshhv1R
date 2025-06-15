@@ -143,9 +143,19 @@ export default function BrandProfilePage() {
 
         {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto">
+          {/* Cover Image */}
+          <div className="relative h-48 mb-6">
+            <div 
+              className="absolute inset-0 bg-cover bg-center rounded-b-3xl"
+              style={{ backgroundImage: `url(${brandData.coverImage})` }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent rounded-b-3xl"></div>
+            </div>
+          </div>
+
           {/* Brand Header Card */}
-          <div className="px-4 mb-6">
-            <div className="bg-gradient-to-br from-gray-900/80 via-purple-900/60 to-gray-900/80 backdrop-blur-md border border-purple-300/30 rounded-2xl p-4 shadow-xl">
+          <div className="px-4 mb-6 -mt-20 relative z-10">
+            <div className="bg-gradient-to-br from-gray-900/95 via-purple-900/80 to-gray-900/95 backdrop-blur-xl border border-purple-300/40 rounded-2xl p-4 shadow-2xl">
               <div className="flex items-start gap-4">
                 <div className="relative flex-shrink-0">
                   <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl flex items-center justify-center text-white font-bold text-lg">
