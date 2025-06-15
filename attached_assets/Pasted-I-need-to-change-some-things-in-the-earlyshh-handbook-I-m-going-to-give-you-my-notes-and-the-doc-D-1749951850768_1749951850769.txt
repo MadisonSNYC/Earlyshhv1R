@@ -1,0 +1,654 @@
+I need to change some things in the earlyshh handbook, I'm going to give you my notes and the doc, DO NOT CHANGE ANYTHING UNTIL YOU ASK QUESTIONS, the notes below are very important and my feed back to the handbook , you should be extremely digigent with this, its extremely important, I'll need you to redo the doc accordingly some of it is just very false, so after I give you my notes, also add a things to do doc because i'm thinking of things i need to fix, this is serpate from the handbook , It's very important that we're very specific about this. Like, if I ask a question, it implies a to-do. This needs to be extremely thorough. If there's absolutely anything that you need clarity on, don't assume. The only thing I didn't really thoroughly go through at the end was the user journey and the appendix, but I feel like I went through a lot of those elements when I was giving these notes. It's better to assume that something hasn't been done if the wording implies that and put it as a to-do and have us check it off than to assume it's been done. Also, please analyze the website copy. Overall, I really like the website messaging and theme and how it's being messaged, but let's make sure it's all aligned.  Ask any claifying questions before you get too far in  :
+Notes on handbook :
+Company Overview
+ADD: Elements of these perks as well including digital exposure with real people 🎯 COMPREHENSIVE BRAND BENEFITS & VALUE PROPOSITIONS
+Complete List of Earlyshh Advantages for DTC Brands
+CORE DIFFERENTIATORS (Enhanced)
+1. First-Time Customer Guarantee
+New customer acquisition focus - Target people who haven't tried your product yet
+Conversion tracking from trial to purchase behavior
+Customer lifetime value analysis of partnership-acquired customers
+Acquisition cost comparison vs. paid advertising and traditional influencer marketing
+2. Hyper-Local Targeting & Demographics Testing
+Neighborhood-level precision - Target specific zip codes, college campuses, apartment complexes
+Micro-demographic testing - Test product-market fit in diverse local communities
+Cultural demographic insights - Understand how different communities respond to your brand
+Income bracket targeting - Reach specific socioeconomic segments for product positioning
+Age cohort analysis - Gen Z vs. Millennial response patterns in same geographic area
+Lifestyle segmentation - Health-conscious, eco-friendly, convenience-focused demographics
+3. Creator Trust Scores & Quality Assurance
+Follower authenticity verification - No bot-inflated engagement metrics
+Engagement quality scoring - Meaningful interactions vs. vanity metrics
+Creator reliability tracking - Historical partnership completion rates
+Content quality assessment - Story authenticity vs. promotional tone analysis
+Brand safety scoring - Creator content history and brand alignment
+ADVANCED ANALYTICS & INSIGHTS DASHBOARD
+Real-Time Performance Metrics:
+Live partnership completion tracking - See redemptions happen in real-time
+Story posting rate monitoring - Track creator follow-through as it happens
+Engagement velocity analysis - How quickly stories gain views, shares, saves
+Geographic heat mapping - Visual representation of partnership density and performance
+Time-based performance trends - Hour-by-hour, day-by-day completion patterns
+Creator Intelligence Analytics:
+Demographic breakdown dashboards - Age, location, follower count, engagement rates
+Creator journey mapping - From application to partnership completion behavior
+Retention and loyalty scoring - Which creators repeatedly choose your brand
+Cross-brand performance analysis - How creators perform with complementary brands
+Influence network mapping - Creator connections and referral patterns
+Market Research & Competitive Intelligence:
+Local market penetration analysis - Your brand presence vs. competitors by neighborhood
+Category performance benchmarking - How your partnerships perform vs. industry averages
+Seasonal trend identification - Partnership performance across different times of year
+Competitor mention tracking - When creators mention competing brands in content
+Price sensitivity analysis - Creator and audience response to different product price points
+ROI & Business Impact Metrics:
+Cost-per-new-customer calculation - Exact acquisition cost vs. lifetime value
+Viral coefficient measurement - How many additional customers each partnership generates
+Brand mention quality scoring - Positive vs. neutral vs. negative sentiment analysis
+Local buzz amplification tracking - Story views leading to word-of-mouth conversations
+Purchase behavior correlation - Partnership participation to actual purchase conversion
+CONTENT & USER-GENERATED ASSETS
+Authentic Content Library:
+High-quality story screenshots - Professional-grade UGC for marketing reuse
+Video testimonials collection - Creator video reviews and unboxing content
+Before/after photo documentation - Product trial results and transformation content
+Usage scenario documentation - How creators integrate products into daily life
+Seasonal content calendars - UGC organized by holidays, seasons, trends
+Content Analytics & Optimization:
+Story performance scoring - Which creator content drives highest engagement
+Hashtag effectiveness analysis - Best-performing tags and keyword combinations
+Visual content analysis - Photo quality, composition, and engagement correlation
+Caption sentiment analysis - Language patterns that drive positive brand perception
+Story feature utilization - Polls, questions, links usage and effectiveness
+Repurposing & Distribution Rights:
+Content licensing agreements - Rights to use creator content in brand marketing
+Cross-platform adaptation - Instagram stories optimized for TikTok, Twitter, Facebook
+Advertising creative library - UGC content formatted for paid advertising campaigns
+Website testimonial integration - Creator reviews formatted for e-commerce sites
+Email marketing assets - UGC content optimized for newsletter campaigns
+LOCAL MARKET PENETRATION & RETAIL INTEGRATION
+Neighborhood Discovery & Influence:
+Local retailer partnership data - Which stores see increased foot traffic from partnerships
+Geographic expansion insights - Identify high-potential neighborhoods for product placement
+Community influence mapping - Track how partnerships spread through local social networks
+Local event integration - Coordinate partnerships with neighborhood events and activities
+Campus penetration analysis - University and college market penetration tracking
+Retail Performance Integration:
+Store-level performance tracking - Which locations see highest partnership redemption rates
+Inventory optimization insights - Demand forecasting based on partnership interest
+Local supplier relationship building - Connect with neighborhood stores for broader distribution
+Pop-up event coordination - Use creator data to plan local activation events
+Market timing optimization - Best days/times for partnership launches by location
+COMPREHENSIVE SURVEY & FEEDBACK SYSTEM
+Mandatory Product Feedback Surveys:
+Category-specific questionnaires - Taste for food, application for beauty, effectiveness for supplements
+Photo documentation requirements - Before/after product usage photos
+Usage behavior tracking - How, when, where creators use products
+Purchase intent measurement - Likelihood to buy after trial experience
+Recommendation willingness - Probability of recommending to friends/followers
+Market Research Integration:
+Product development insights - Creator feedback for R&D and product improvement
+Packaging feedback analysis - What works/doesn't work about product presentation
+Price point sensitivity testing - Creator and audience reaction to different price ranges
+Flavor/variant preference data - Which product options perform best with different demographics
+Competitor comparison insights - How your product stacks up against alternatives
+Long-term Relationship Building:
+Creator satisfaction scoring - Partnership experience quality measurement
+Brand loyalty tracking - Repeat partnership participation and advocacy development
+Improvement suggestion collection - Creator input on partnership process optimization
+Community building feedback - How to better serve creator community needs
+Platform feature requests - Creator input on app functionality improvements
+CRM DASHBOARD & BRAND MANAGEMENT TOOLS
+Campaign Management Suite:
+Multi-campaign coordination - Manage multiple partnerships across different products/regions
+Creator application workflow - Streamlined approval/rejection process with reasoning
+Budget allocation tools - Distribute partnership budget across demographics and locations
+Timeline management - Campaign scheduling with seasonal optimization recommendations
+Performance prediction modeling - AI-powered forecasting based on historical data
+Creator Relationship Management:
+Creator database with performance history - Detailed profiles with partnership success rates
+Communication tools - Direct messaging and announcement capabilities
+Creator tier management - VIP creator identification and special partnership offers
+Performance coaching resources - Help creators improve content quality and engagement
+Recognition and rewards system - Creator appreciation and loyalty building tools
+Business Intelligence & Reporting:
+Executive dashboard summaries - High-level KPIs formatted for C-suite presentations
+Detailed performance reports - Comprehensive analytics for marketing team analysis
+Competitive benchmarking reports - How your partnerships perform vs. industry standards
+ROI justification documentation - Data to support continued partnership investment
+Growth forecasting models - Predictive analytics for scaling partnership programs
+ ADDITIONAL VALUE-ADD SERVICES
+Strategic Consulting & Optimization:
+Partnership strategy consulting - Best practices for campaign design and creator selection
+Local market entry guidance - Data-driven recommendations for geographic expansion
+Creator community building - Strategies for developing brand advocate networks
+Seasonal campaign planning - Year-round partnership calendar optimization
+Crisis management support - Rapid response for negative feedback or content issues
+Premium Integration Services:
+Shopify/E-commerce integration - Direct connection between partnerships and sales data
+Email marketing platform syncing - Creator data integrated with Klaviyo, Mailchimp, etc.
+Social media management tools - Content scheduling and cross-platform optimization
+Customer service integration - Creator feedback routed to appropriate support teams
+Inventory management coordination - Partnership demand forecasting for supply planning
+Exclusive Access & Networking:
+Brand community access - Network with other DTC brands using the platform
+Creator events and activations - Coordinate local brand experience events
+Industry insights and trends - Quarterly reports on creator economy and local marketing trends
+Partnership best practices sharing - Learn from other brands' successful campaigns
+Early access to new features - Beta testing opportunities for platform enhancements
+White-Label & Custom Solutions:
+Branded creator portal - Custom-branded creator experience for enterprise clients
+API access for custom integrations - Technical integration with existing marketing stack
+Custom reporting and analytics - Tailored dashboards for specific business needs
+Dedicated account management - Personal success manager for high-value partnerships
+Custom creator recruitment - Targeted creator outreach for specific brand requirements
+ UNIQUE PLATFORM ADVANTAGES
+Technology Differentiators:
+In-app camera with auto-tagging - Seamless brand mention integration without creator effort
+Hidden tracking capabilities - Analytics data collection without compromising content authenticity
+Real-time verification system - Immediate confirmation of story posting and brand mentions
+Mobile-first experience - Higher completion rates due to native mobile optimization
+Gamification integration - Creator motivation through achievements and progress tracking
+Community & Network Effects:
+Viral campus adoption patterns - "Moving in herds" creator recruitment and influence
+Neighborhood social proof - Local recommendations carry higher conversion weight
+Creator referral networks - Existing creators bring friends, expanding reach organically
+Cross-partnership synergies - Creators comfortable with brand partnerships try complementary products
+Local market dominance - First-mover advantage in specific neighborhoods and campuses
+2. Founders bios are wrong, the founder is Madison Sutton and Cofounder is Rob Onslow , Madison Bio has two parts so combine them into one
+Madison - Founders’ Bios: Earlyshh’s leadership reflects its brand values – passionate, authentic, and driven by community impact. The founders each bring unique expertise that guides the company’s vision in a tone consistent with our brand voice (confident, yet human and down-to-earth): 
+•  ADD: Make Madison Bio Cohensive : 
+Madison Sutton : Founder : "Madison founded Earlyshh after too many disappointing dates filled with influencer-talk and close calls with aggressive street-sampling marketers. She decided brands and communities deserved better—a simpler, more sustainable, genuinely local way to connect. Her approach? Cut the influencer, eliminate the drama, and put products directly in the hands of real, present, everyday people." Madison Sutton is a systems strategist, AI consultant, and former top-producing real estate professional known for blending emotional intelligence with technical precision. After building a widely recognized career in NYC luxury real estate—with over 100 press features in outlets like The Wall Street Journal, Bloomberg, Forbes, CNN, and TIME—she transitioned into a hybrid role at the intersection of automation, decision-making psychology, and digital identity.
+Madison now helps founders, operators, and creative professionals architect smarter workflows, clarify their leadership voice, and integrate AI into their daily systems without losing the human side of their business. Her work has spanned CRM development, AI prompt design, process automation, and visibility strategy—often bridging the gap between high-level vision and real-world application.
+Known for her strategic clarity and grounded voice, Madison writes and speaks on topics like synthetic intimacy, decision fatigue, emotional resilience, and what it means to trust yourself in a hyper-automated world. She calls her role a Technical Perspective Architect—part translator, part builder, part coach.
+When she’s not working behind the scenes, she’s reflecting publicly on Substack and LinkedIn, exploring how systems shape our stories—and how to reclaim authorship in the process.
+Robert Onslow
+Co-Founder
+"Rob's our fintech and payments guru from London, with a knack for making complex financial stuff feel refreshingly simple. Before Earlyshh, he founded Bread, a platform making sure creators get paid fast—like, next-day fast. Rob saw firsthand how tricky creator finances can get, so he's spent his career building easy solutions that give freelancers and creators some much-needed peace of mind. When he's not simplifying finance, you'll probably find him exploring London’s coffee shops or debating the best spots to grab a pint."
+Mobile App User Journey - I want to make sure its noted that this is location based , user will need to share their location and will only be able to activate offers if theyre within 500 feet, the link and coupon will then be accessible and unique to that user for 15 minutes, what we'll need to make sure we prevent is a user from activating a code, screenshotting it or something of that nature, then using it off the platofrm, and then relaunching the offer an hour later with a new qr code , make a note ot that as a to do, also make a note for madison to add an open maps feature for people to get easy diretcions to deals
+Also note that a user will get toast notifactions when they are within "X" amount of feet of a deal maybe 1000?
+Also note of the discover page theres also a sneak peek of a map which has its own page as well but it allows the users to access it that way as well
+ALso lets make a things to discuss part of the to do doc for madison
+If we should show how many offers are left or add a timer to do a count down etc
+Phase 3: Partnership Activation - to do i need to make a page bettwen the offer requirements, and qr activation page and make a page that shows a picture of the item with name saying "confirm you got the correct item or somethign like that i sum so when checking out its frictionless
+Note on things to do we have to figure out what percentage to expect form users who dont 1. redeem, or redeem and dont follow through and what value that has to brands meaning - many of these brands just want to get their product out there in peoples hands, if they dont post they may not care as much but they might
+Another hting to question is how many users hit redeem and then let it expire, and reopen and use it etc 
+I would like to note here the tcb requirements which we can reference here but go into more detail later - i’ll give you the doc
+Another thing we want to track is howmuch busienss this is bringing to a vendor, do we expose all the locations a product might be or a limited amount? If its bringing more business to the vendor it might make sense to partner or reach out to vendors benefits of that could be strengthening that relationship, getting additional product ie brand contacts, and setting up a strong distribution network which may be a whole component down the road, we were talking about maybe creating a product incubator, where were able to set up a lot of those main elements, a full product crm, consultations, distribution, data etc 
+Note on “Using the app, they pull up the saved QR code (accessible via their Profile or a “My Partnerships” section). At checkout or at the counter, the user shows the QR code to the staff. The staff member scans the QR code using their POS scanner or, if they don’t have a scanner, manually enters the numeric fetch code displayed. The coupon is validated (either through our system or The Coupon Bureau integration at POS) and the user receives the promised product or discount. After this, the app may prompt the user: “Did you successfully redeem 25 your offer?” so they can confirm and proceed to the next step (sharing) .  Key Features: High-contrast QR code display (the code is shown full-screen with bold contrast “
+Note that users can save deals/brands to set up to notified if a new brand drops ( add this to madisons to dos) but they cant claim a deal unless in proximity rules
+Phase 5: Social Sharing - to do: we need to add a feature that locks them out of the next collab until they complete the requirements, we also need to create a penalty system or something of that nature if a user doesnt post it within 24 hours with the requirements (at minimum they are “@Product tag and a hidden Earlyshh tag, our going is to be able to autotag them ideal user journey is its a 10 minute lifecycle from notification to completion, so after the user redeems the deal the next page that pops up has the option for the user to take the story in app, this gives us raw content to give to the brand The next thing we want to have and add is a toggle. This would be a pre-arranged deal with the brand where users would toggle if they wanted to be included in a top content creators' prize. This could be based on a combination of views and quality. I don't want to overly emphasize the views because I don't want to discourage people who don't have a big following from participating. What this toggle is supposed to do is it's supposed to be a psychological trigger that encourages higher quality content for the brand. So maybe it's like for example, top partnerships based on quality of content are eligible for a free case of XYZ. Other things could be like you know like featured on the brand's page and other elements. I need to figure out what that looks like for the brand.  Now, if the user posts out of app, what the API or Instagram Graph is supposed to do is still clock that. So it still gets reviewed by Instagram's, it still gets logged and then reviewed by our AI. There's also a upload photo option or upload video option as well. They can then directly upload from the app their photo or video if they already took it, and it would still go through the app automatically.  Also, my to-do's note that I want to set up a notification system. If the API doesn't read that the user posted and tagged properly (if they did it independently of the app), that they would be notified within certain parameters. So maybe like a 1-hour mark. And then maybe within certain hours, so we'll say from 9am to 8pm. If it's after that 1-hour period, maybe 6 hours after the partnership was "redeemed", then they get another one, but if it's past 8pm they don't and it rolls over to the next day and so on and so on. That's also something I'll need to set up and things to think about, so put that on both of those items. 
+- add itional Madison todo here:
+1.  Set up camera feature, placeholder is there
+2. Set up storage 
+3. Setup instagram graph api 
+4. See what autotagging is possible
+5. Set up ai that reads and scores the story 
+6. Set up prize toggle 
+7.Add a figure out component of a user disclaimer that generative AI is not allowed. Also ask Raf to how he set up his. 
+8. For things to figure out later, ask if maybe they upload their receipt or connect their credit card or something of that nature. They can get more points or something of that nature. 
+9. Figure out for the product survey how to set up that in-brand onboarding so it's customized per campaign. I want it to be a mix of brand-specific data points, product points, as well as general data points that we're going to collect. 
+10. We then pull their analytics and they go not only into the user profile but into the campaign dashboard. 
+
+
+
+Phase 6: Profile & Gamification - Right now, the user can see their active campaigns and partnerships. We're going to be calling them partnerships, so we have to make sure that wording is consistent throughout. I also don't want to use the word "creator" when referencing the user. That's very important to me. On the notification page, they can see their active partnerships. What I want to do is that's fine and those should always be prioritized at the top. Added to do for me to make sure that that's the case. I also wanted to show on their profile. 
+Impact Score- Added to you here that I have to go in and define that, and also figure out how to set that up AI-wise. One of the first to-do's segments on the list should be research-based things. And that is something I'd wanna do deep research on. So make sure that is noted in two separate areas as a task, but then also the sub-task which is a high priority because it does take some time to do deep research on how that is done. On their profile, they should see if they have any flags for the impact score per campaign. They should be able to click into former campaigns and see what their score was for that. The ability to do that is a to-do that we need to add. If they are flagged for any negative behavior, not posting, or there are any issues with their account standing. Also the ability to challenge or review a score if they don't feel like it's properly assigned or it was properly scored. 
+Another element I want to add to the gamification model is to encourage users to get higher scores. Figuring out some kind of structure for how points work and if that opens them up to higher dollar value or more desirable campaigns with maybe limited spots. 
+Brand Offering & Value Propositions -
+So obviously note the ones above, and let's figure out if we forgot any or if we can elaborate on any of these better.
+Performance-Based Customer Growth: For things we'll have to figure out and to do this would be for Rob Amodson is figuring out like a pricing model on this. We already have pulled the UGC and influencer rate research, but what we need to do is figure out like the additional set up and value of this because the redemption thing is one element, but just even like the scale of it is another big one. So we have to figure out how to charge for that. 
+Another data point we want to talk about is tracking. We have to figure out how to do that. Did the brand see growth in social media following? Let's make sure we add that as a perk because if people are tagging the brand, they're most likely going to follow it. So it's not just product exposure, it's also social media exposure. We could even think about additional features on the road for brands in that case where you know there's social media services being offered and branding services being offered. I think for the platform we also have the brand sign on through their Instagram so we can get access to their analytics as a whole as well. I'd be curious to see if it's different than what we're pulling or if you know if we can't see certain elements of it if people don't know about like the hidden tag and things of that nature, Another to-do related to this is in the user terms and agreement - you know, that they give the brand the right to use that content. If we're going to have issues with that or if we should have a another kind of concept for that, in terms of if it's just in the user agreement that's one thing. If they're reposting it, that's one thing that the brands don't have to pay for. Anyways, like someone would traditionally tag them and they repost it, that's not considered an ad. But if they create content with ad dollars behind it, does that change the scenario? Another research point we'll have to look up is there a legality component to that for users in the U.S. 
+. Cost-Effective Marketing: I would like to make more of a case study style note on our website with this and try to pull more user data.
+Something we could do is ask Superroot for their history of campaigns and how they're tracking performance.
+Another thing that we want to offer maybe down the line is let's just say 100 people repost the product or participate in the campaign. If there are 5-10 really big influencers or pieces that perform really well, we want to note that. How do we set up that system that kind of singles those out and then potentially setting up brand partnerships? Could we have the user say "I'm also interested in a brand partnership". Would that be a different toggle? Would that be a setting struggle? 
+Another thing we'll have to pull research wise for each product. Part of this is just an onboarding process of you know what the average retail value is. From what I know, the actual vendor sets it, so even if they say our retail value is $3 but the vendor/store says it's $3.50, you know we have that in the QR right now that will be telling the user "opt-to-X amount". But do we have to make that clear? Is that something we're going to run into? Are brands aware of how much their products are being charged for and do they set that as well for these kinds of more independent, smaller retailers? 
+Turnkey Campaign Management: Initially, and I think you know for always, the onboarding process for the brand is going to have to be a call. Let's word that in a way of like an individual campaign manager or something of that nature. Dedicated campaign manager something of that nature who not only onboards the brand but also onboards each campaign.We have to also figure out what exactly is our timeline going to be if we are a TCB access partner vs not, and what are those costs associated? 
+“ From user outreach and onboarding (finding the right users in our community to participate) to coupon distribution, fraud prevention, and social post verification “ We're going to have to brainstorm what the fraud prevention is other than the natural TCP and things we have. I want to also try to prevent other cases, so that's going to be a to-do and thing to think about.
+
+
+The other thing is we have to figure out more of the finding the right community to participate. For the pilot, it's going to be quite open-ended and it's going to be any user. How many users do we need before we can start getting into those specific details of only targeting maybe female users for you know if a brand wants to test that out and I think that's also a really unique offering. That we should specify more on not only the website but in the brand pitch which is also what to do we need to do a brand pitch.Also, I would like to note to add a for brands section of our website that they have to fill out a form to access. We already have a component to it, so maybe we have a more detailed segment for it. Maybe it's permissions-based, and let's figure out what that looks like. 
+Also another thing is I don't want to refer to it as a coupon. I don't know if we want to refer to it as an offering or a deal, but that's definitely something to brainstorm. I want to make sure that all our copy is consistent. And I want to make the same thing with like the user where I don't wanna use the word creator, but I wanna have a few different varieties of like the word user that really kind of fits the theme of real authentic XYZ that's style . 
+I also want to develop an FAQ section for brands. 
+And right now, we're mostly only focusing on CPG. But I would be interested in also focusing on a secondary element if it's not too tough to set up. Where we also do like a pizza shop that we work with Vinny's where it's also like a free slice of pizza or something of that nature. Let's play around with that concept. I want to note that there's a lot of flexibility within the campaign due to it being live. The user has to post within 24 hours, I think is what we're saying right now. If the campaign is 5 days, and then within that 24-36 hour mark, we start seeing results that aren't great. We have the power to pause the campaign live or modify it live, which I think is a really important thing.The counter example to this would be brands like Red Bull, who have to plan a day to go to a park (Central Park) and so that's employee resources, the cost of the employee, there's a cost of planning and moving the product, and then also just executing that as well as any liability risk associated with it. A huge component to the brand is they don't have to ship any products; it's pretty hands-off for them. The user goes in and acquires the product. 
+We should probably make the user aware of that, so put that into the FAQ's on both the website copy and the brand is you know, fraud prevention. The way the TCB is set up is once an offer is redeemed or a coupon is redeemed, that it basically in live time kills that code, so it's marked so a user is not gonna be able to go and utilize multiple back-to-back or hit it like one store and then go to another with the same code because it already acts. We should probably make the user aware of that, so put that into things to think about and to-dos for any of these elements if you think they could even potentially be a to-do. Put them on the to-do list. 
+Targeted Local Impact:  The copy for this says we specialize in hyper-localization, which we do, but it's also very scalable with our backend being set up and multiple POS systems, which could be in Whole Foods or a local bodega. As long as it's in one of the major POS systems, and make a note that I have to fact-check this.
+Figure out for not only the brand pitch but for our own information, like which POS systems the TCP is connected to. They could run a campaign in New York and they can run a campaign in Nashville and there wouldn't be any other really massive setup issues from what I'm aware of. The main thing would be, do we have users in that city already?  And is that even going to be an issue if the brand says "no, I want this across" - we have a large following across the U.S. We can post on our own socials and we think that you know that will work and attract. Is that an issue? And is it going to be an issue if it's only live in New York if they post on their socials? And do we prepare that media for them and that social post for them? Is that in feed? Is that story? And is there a specific link to the app that we track or that? 
+“concentrated in urban 18–34-year-olds, a demographic that is highly socially connected and trend setting. When these users share their experiences, it creates a ripple effect of interest in their local networks” We change this copy, and if we're already figuring out all the API stuff with Instagram (which is obviously meta), could this be implemented through Facebook? And most people have essentially the settings set up on Instagram story that it automatically shares to Facebook. Are we also able to grab those analytics? Is that lumped in one? How does that work? The kind of comment about changing the copy is, is that too isolating for other demographics? So if a product has a specific demographic that's 45-50 and we have that as our copy, does that deter them from using it? 
+“This community-driven virality amplifies the campaign’s impact in a focused region. Brands also love that Earlyshh drives in-store visits — a boon for local retail partners and a tangible outcome beyond online impressions.  “ Let's again figure out a plan and brainstorm ways that this could be a vendor partnership as well for smaller vendors. Figure out how we're going to track if this is bringing additional foot traffic, and is that done through the localization element or is that done by in redemptions? How can we tell? And how can we tell if users are buying additional products? Those should also be questions on the survey:Have you been to that store before?Have you tried this product before?Do you buy any additional products?
+Precise Geo-Targeting & Segmentation: Does this change based on city or market? Like, where in New York a mile away is really far, but in Atlanta, where people drive, is it that far? I think still in terms of the activation that should stay the same, but in terms of the notification and that toast notification, is that geographically changed city by city? 
+“This precision means brands can run highly tailored campaigns (such as a vegan snack bar brand targeting users who have shown interest in health & wellness offers). The Earlyshh platform can also enforce one redemption per user per campaign, so brands don’t worry about coupon abuse and can focus on attracting new, unique customers. “ So it's also interesting because the other component we can add here is much like a mailing campaign or another kind of discount campaign. We can essentially do that in an app. If a user tried the product and didn't purchase it through the app, we can offer a discount. Especially for lower-dollar products, but I don't even want to limit it. We can offer discounts on the partnership page or the brand page. You'll see that there are multiple levels of discounts that you have to unlock one to get the next. We could essentially play around with that and those links which I will also need to set up in the onboarding will go direct to their website. A question is do we take a percentage of that? Like a traditional referral.
+ Real-Time Analytics & Insights - One of the things we need to figure out here is the actual time frame that we're going to tell brands/products when they can expect these results to come in. Is it hour-by-hour? Is it minute-by-minute? I think it's partially it updates each minute but the reports come out at the 6 hour mark, the 12 hour mark. What are those parameters for that and how do we measure the growth of it? 
+“. For example, if by midday only 10 of 50 coupons were claimed, a brand might choose to boost the campaign visibility (Earlyshh can advise on this). The platform also sends daily summary reports via email or API, integrating with the brand’s CRM if desired . “ One of the things we'll have to figure out here, and it'll be a deep research thing, so keep that in mind for the to-dos and the implementation is: What are the top CRMs being used here, and do they vary based on company size? Where do the smaller CPG ones go, where do the mid-size, where do the large ones go?The other element of this is I want to push on the flexibility of it. Can we make social media recommendations based on outspun? Can we make SEO recommendations? How does that get set up. 
+“ These insights not only show marketing ROI but also provide learnings (e.g., which locations had better uptake, what time of day people redeem most) that the brand can use beyond Earlyshh campaigns.  “ This is interesting. We noted the locations being an interesting data point, but how can we get highly specific with those data points? I didn't even think of what time of day redeemed the most, but can we also say do women redeem more in the morning? Do women sign up more in the morning? Does this age group use it more this time of day? That's a really interesting insight, and we should think of additional points like that for data.
+ CRM Integration & Data Export: So this is another thing. I think our reports should be heavily branded. So it can't just be handed off to a team within that own brand and company saying, "oh, look at what we did". So maybe that is a premium model. Another thing I wanted to add as a thing to think about and to do is: do we define different partnership models and levels there? So like if they were in the premium model, what does that cost? Is that a subscription? Is that a setup thing? Is that per campaign? And two, do we use their own branded materials? 
+“For instance, a brand can receive a webhook or API push to their HubSpot/Mailchimp/Monday.com with the list of users (who opt-in) that claimed their offer and whether they completed the steps. “ This one I want to rephrase a bit because this might be a coming soon kind of thing. Essentially, could we even keep this internal in our own CRM or the CRM that we're planning on offering post-pilot where they can do these newsletters and campaigns and management through us? Figuring out what data we're allowed to share is the thing. I'm under the impression that we'll have to keep users anonymous and not even really assign a user ID because they could potentially figure out who that user was based on some of their metrics. So I don't want to give out individual user information, but bulk. Maybe that's something we changed on the line, but we have to not only research privacy concerns with it. It's a change state by state and does it affect different markets differently? What are the data points we're going to offer initially? The data points that these brands will find most useful? (perhaps sending a coupon for a follow-up purchase or inviting them to join a loyalty program). And how do we track this?
+ Consumer Feedback & Market Research - For this element, it's not only about what we gather but also how we compile this into useful insights? And do we give all of it at once? What do we keep for internal use? 
+Anti-Influencer Positioning: For this copy, I want to get more into why that's important in terms of the overall sourcing of potential partnerships, the negotiation element, the timing (which obviously is former correspondence takes time to go back and forth). The negotiation, the logistics of it and so on. Can we do research on what that conversion is and how that reflects differently. Also add in a research component: What are the rules with #ad? Will that be something that we need to require? If it's price point related, how does that work? 
+Local Activation & First-Time Customer Focus: Earlyshh is particularly powerful for local launches and store-specific promotions. - With this copy, I also want to add elements that highlight the perks of it also allowing for repeat customers to try new products and to test a new product in a market before it goes into full production mode. Let's play around with that concept as well. I also don't know if we want to specifically focus so much on the terminology first time here. 
+For signage at a vendor location, is that something we can arrange beforehand? How would that process look? What would it take to set up? And could this be actually a perk to the vendor and brand, especially for the pilot phase where it's not at every location they have, but it's at specific ones. So that would be a perk to the vendor. 
+Also, we need to finalize what this cost looks like. You know, full circle with all the TCE requirements and whatnot. 
+4. Technology & Feature Set 
+“Tech Stack & Architecture: Under the hood, Earlyshh is powered by modern web and mobile technologies. The frontend is built with React and TypeScript, using a component library (shadcn/Radix UI) and Tailwind 3 
+CSS for stylish, responsive design  “ Make a note to confirm this because I'm not 100% sure if that is the case. Is that different for the dashboard vs the native app? That's a very strong to-do. 
+And make a note that we're moving hosting to Firebase. It doesn't have to be a note that we are actually moving it, but that the language will need to be adjusted for that, as well as Google Cloud. 
+Do we also offer a web app version? I think we don't, and the reason is, the pro would be the ability to access it for emergencies, but the features and design would be compromised, and would it kill the incentive to download the native app? Another thing I want to make a note of is to explore what analytics we can provide the user. If a brand reposts their story and they see a different, much larger reach, is there a way for us to track that? Followers etc. Can we track that in our general data?
+ QR Code Redemption with Timer:  Amongst the earlier notes, we have to make sure that this can actually be a QCAR code and not a BAr code. Another thing is we have to make sure that it's a template so that our logo and the brand logo are always there. Now another question is: was a part of the premium model the removal of our logo? 
+Push Notifications & Alerts- “Success! We detected your Instagram story – thanks for sharing!” Notifications are delivered via the app’s push service (and via email for certain events, if the user opted in).” Can we also do tax notifications that aren't location-based? Are they location-based as well? What are the permissions associated with that, and what are the costs associated with that? I don't necessarily think that's the most necessary one, but I think we need to figure out which are the mandatory ones. Are the mandatory ones just location-based? What user settings are defined here? Can they turn them off for certain categories? We have to go through that whole process, and then we would also have to make the changes in the app. 
+“ This feature dramatically improves engagement and completion rates by nudging users at the right moments. (Current status: notifications are implemented for basic events, and richer scheduling logic is being added.) •  “ Is there a way for us early on to test if it does and by how much it improves engagement? Can we pull research on that beforehand and see if this has been noted prior? What is that rate and what other metrics can we capture? 
+Another note of something we'll need to figure out is, for each campaign, is it done in a release style way where it's like a rolling basis of x amount per hour? Or is it all at once? How do we determine that and how do we set that up from a tech perspective, but also from a logistics perspective and a consulting perspective when onboarding? 
+In-App Camera & Story Tool: Can we implement an app optimization of the logo/sticker? If it's done this way, I think I mentioned this earlier, but is this mandatory to have it be an app? How would we explain that to users? Also, what kind of metadata is being collected on that? Let's have a research prompt pull the metadata of the category (like "general" and the concept) “taches the required tags in the metadata of the image. It streamlines the process so that even users not savvy with Instagram “ can easily create a story that meets the campaign requirements . After capturing, the app can either direct-post t” Is this also something we should explain in the onboarding process for users as a perk? Is there a way to encourage it in-app? I feel like if it's done in-app, we'll have a much higher redemption rate and a faster life cycle here. 
+User Profile with Stats: Let's brainstorm on what additional stats we can pull. And how do we define the gamification elements? What incentives are there? And can we craft incentives in? 
+Analytics Dashboard for Brands: This will not be necessarily a beta feature. This will need to be a part of the pilot. So we have to define what that user journey looks like from onboarding to completion of a campaign. What metrics do we need to capture? What product information do we have to capture in the onboarding for a campaign? What does that timeline look like and how are we going to do it as it via form? And what are the points around how we consult for them? And what points can we expand on? Again, we want to capture as many of these as possible. And also, we want to capture this on the brand side as well. We don't want to just be collecting points of data for the users.
+
+
+So if there's a way we can capture overall growth, what size they're at, products moved, products moved, campaign one, two, three. Do we define a campaign within a certain timeframe? Or is it something that we try to do weekly? What are these structural elements? And what do they entail? 
+Content & Campaign Library: Internally, Earlyshh maintains a library of past campaigns and user generated content. While not yet exposed as a user-facing “content library” feature for brands, we do curate the best user stories and feedback. In the near future, we plan to give brands access to this library so they can download the Instagram story content (with user permission) for reuse in their own marketing. This effectively turns campaign outputs into a repository of testimonials. “ We have to figure out where this is hosted and how much or how little access we give to this. How do we sort it? How do we rank it? If there are 100 users in a campaign, would that be an overwhelming amount of content to sort through? So how do we define this sorting process in a way that doesn't seem like added work? And what does that process look like? Also, can different campaigns have different score parameters? I know we have different requirements, but how do we set up the review process in a way that is tailored to each campaign?
+ Map View for Campaigns: “We plan to introduce a map-based discovery option. Users will be able to toggle from the list view to a map of the city with pins representing active partnerships. This visual approach highlights how close opportunities are and can help users plan a route to redeem multiple offers. The map will use a familiar interface (think Google Maps style) and custom pin icons with brand logos. This feature is in development to further enhance the location-based discovery aspect of Earlyshh.   “ This is already an app. A lot of the backend needs to be cleaned up with us. Figuring out how we implement these points location-wise is going to be definitely a task we need to do. But it is there. 
+Enhanced Push Notifications: This is something we still need to set up. The basic ones aren't set up yet, as well. The custom message is good, but that needs to be a part of the onboarding process. How do we set that up? How many do we pull? Do we send different ones to different demographics? What data points can we pull from that? 
+Campaign Management Portal: This will be an element of the dashboard, I think. How do we set this up, and where do we host it? How are these things defined, and how do we do different types of A/B testing? What are the parameters around those, and where does this go in the process? We'll need to expand on all those items.
+“ Advanced Analytics Dashboard: Expanding on our current analytics, we will add more in-depth metrics and visualizations. For example, heatmaps of redemption locations, time-series graphs of claim/redeem activity, and cohort analysis (how users from one campaign engaged in others). Brands might also see user demographics (aggregated) of who participated. We’re also building  uplift modeling to show how a campaign in one area can increase sales in that region (if we can tie in with sales data) . Another planned metric is virality tracking – e.g., if one user’s story prompted others to join (via referral codes or hashtags). Such analytics will be accessible via the brand dashboard and downloadable in reports.  “ I still have to set that up. Is there going to be a premium model? Is there going to be a base model? What's needed for the MVP? How do we track virality tracking, especially with hashtags and things of that nature? Are there specific hashtags we use? Do we encourage hashtags? Can we embed them into the story post?But all of these are to-dos. And what is the best way of doing it? Also, how can we get sales data and what sales data do we need? With the White Glove Service element, can we make this a conversational element where on our side, we know that these are very specific points we need to capture, but not to seem abrasive? And how do we distinguish if a sale or benefit comes from a campaign vs. just general elements of that business? 
+CRM & E-Commerce Integrations: What are the steps to set up e-commerce integration? We need to do research on that and also implement it. 
+Content Library for Brands: Is there a way to track what percentage the brand is reposting, and is there a recommended percentage? 
+Also, how do we handle more negative style feedback? How do we prep the brand for that (other than it's part of the organic process)? One of our fundamental values is authenticity and organic elements. 
+Earlyshh will facilitate this by making it easy to download or directly repost content (with credit).  I wouldn't say it like this because that's not necessarily something we've ironed out yet. The downloading capability is and directly reposting content and story is not going to be allowed with or without credit, but it will naturally have credit. But if they essentially artificially do it, meaning it's after the 24 hour period of the story being posted and they have access to download that content and they post it without the credit of the user who gave it is on the terms and conditions. Will users be upset with that? How do we define that? 
+Market Expansion & Multi-City Support: Let's pull the numbers on what that looks like on a national scale, in terms of backend integrations already set up.And what do we need tech-wise on the back-end to support that? What are some potential issues we can come across? Let's also have a research element for that.  
+“We’re also working on localization (language support) for when we move beyond English-speaking markets or serve diverse communities in the U.S. What does that look like? “
+Data Collection Mechanisms : We've talked about this before on how we can strategically collect these points and metrics. What is a way that we can plan ahead? I would rather have hundreds of points and only use 20% of them than need more. So I'd rather start early on and capture absolutely anything we can think of: How many items are in a product line? Do certain items perform better than others? Whether it's wellness or health or food or XYZ.Even potentially even like color scheme or style things.
+ Conversion & Funnel Metrics: Right now, we're not really putting our conversion metrics into it - it's not really based on data.How can we pull the data from other companies at a variety of stages, from when they were beginners to now if they're larger?How do we accurately predict it?What is the message we convey?
+KPIs: How and what are our KPIS for each element and feature?
+Can we measure the brands KPIS?
+How many questions are on the product surveys?
+Potential Brand asked: How do you prevent a user From basically having you know 10 campaigns back-to-back back on their story and I think you know a huge element of that is the blocker until the first campaign is completed and the first partnership is completed. Down the line is a question might be if we are scaled on a national level and a user at a Walmart and there's five items right do we allow the user to redeem those 5 or are they gonna have to make 5 separate purchases? The way it is right now is that would be 5 separate purchases but it would have to be purchase post purchase post purchase post so would we allow you know stacking with a plan and at what level point wise and reliability wise would a user have to get to that? Are we going to deal with pushback from only offering certain deals to certain users if they fit demographics? Is that a legal issue we could run into? And make a note to research that. 
+Content & Sentiment Metrics: I think it's important to mention in the copy and also to the message to the brands that negative feedback isn't bad. If a user posts negative feedback, or they give you negative feedback in the survey, that is an organic reaction and a huge fundamental value. I think we should have that. This is a question: Is that a part of our messaging to brands? That we stand firm on. That they have the choice not to repost, of course, but at the end of the day, oh feedback is good feedback. Oh press is good press. 
+Another note I want to make here is: Can we partner or set up an API through Qwuoted to help future models, especially for younger brands, get press? 
+And we have to set up a press campaign for ourselves, as well as a social media campaign. 
+Also note that anything that says "we are going to do" X, Y, and Z is put on some kind of to-do list with the other elements. Like, we are planning to have a predictive market element. A predictive model is what we're calling it for the research and iterations. That would require researching competitor models of it and things of that. 
+Initially, we only do free or exchange-based products, but for the pilot, do we test things that are 50% off that may have a higher dollar value and how those convert? 
+What is our privacy model, and how do we define it? 
+. Strategic Roadmap - Overall, let's remove the timelines from these because we want to have a pilot ready to launch by August 1. If we're going to have timelines, adjust them to that. 
+
+- Full Coupon Bureau Integration: This is a multi-step process. I already have the research, but I don't have the defined timeline and to-dos for this. I know we want to at least submit the form by Monday, June 16. So I will give you the documents for that so you can help to find that. 
+Can we integrate directly with Amazon's API? And what would that take? And would that benefit a brand more than directly to their website? Or are users more likely to purchase from Amazon because of the convenience? Or can we prove a model where if we offer let's research how much Amazon takes as a commission. That is one of the research tasks as well. Research prompts we'll have to generate vs. incentivizing the user to buy directly in person and live at their stores. And should this feature be messaged to brands early on as a plus? Essentially, if the user tries the product under the initial exchange of getting a free product and then we offer them a 50% off directly from the website, but we also know that that product is local to the user, can we incentivize them to go get the product directly to avoid shipping costs and things of that nature? What does that messaging look like and what does that entail? 
+- Feature Refinements: For the integration of the camera and directly posting, let's pull research on how TikTok does it. TikTok usually has little logos and things of that nature. I would like to have that in the MVP. I don't want that to be a future element of the product, I want that immediately. 
+“We also plan to pilot the refer-a-friend or social sharing of Earlyshh itself (users inviting friends can earn extra perks) to fuel growth.  “ Like I mentioned before, this still needs to be done. This will need to be a part of the pilot. Do we do a refer a business incentive to the creator and other brands as well?
+ Geographic Expansion - I don't want to put a timeline on this, but I do want to map out a plan for that. Another research to do is, "Where would this be set best?" In terms of what would be the next city and the city after that? Do we only do metropolitan, large cities like LA, New York, Miami, or do we go like New York, Nashville, and try playing with middle markets as well? I'm under the impression it'd be very scalable because it'd just be my mind simply opening up to what stores the user can do it at. But what are some issues we'll run into that needs to be a part of the plan and research as well? And also, we need to ask ourselves, "Just because something is a redeemed coupon, is there a way to guarantee that it was redeemed at that store during the process?" What if a user took it to a nearby store? How does that work with the TCB? 
+- Vertical Expansion: I don't want to limit us and say this is going to be on a rejected timeline. This might even be something worth testing out in the pilot. I don't want to say we're only doing certain styles of CPG, especially because that doesn't make any difference to us. I don't want to limit the dollar value. And I'm curious how there's different types of conversions relative to the cost value. What assumptions can we make about it? Beforehand, what assumptions are we proving incorrect and how can we research that more? 
+That goes into the next question as well. If we try things like slice a pizza from Vinny's, how do we on-board that and how do we source those opportunities? How do we track outreach and what systems are we using for that? 
+ Smart Personalization & AI: How do we integrate that earlier on? What are some simple ways of doing so that we can have that as an offering? I want to have at least one of those ready for the MVP. 
+Another thing I think we want to do is potentially down the line facilitate brand partnerships for more in-feed style content. 
+How do we define the pilot? That's a huge thing that's going to be very multi-step and research-based. 
+Are we opening ourselves up to any liabilities, and what are potential issues we could see? How do we predict those? 
+Is there a way to engage with more of an agentic model? 
+What is our marketing strategy for the pilot, MVP, and so on? 
+How do we find out how much money we need for this? 
+- Physical Accessibility of Redemptions: We consider the accessibility of the physical redemption locations too. We favor retail partners that are easily reachable (not overly obscure or limited in access). In the future, we might indicate on a campaign if the location is wheelchair accessible or have certain amenities, as that can matter to participants.  I want to be careful about the wording of this statement here because it just seems iffy. Let's play around with that. 
+ Internal Culture: It’s worth noting that Earlyshh’s team culture also values diversity – a variety of perspectives helps us build a product that serves a wide community.  Let's remove that statement or change it up. There's only two of us right now, and it's not very diverse. But, I think some of the messaging here is that we're trying to help out the underdog in comparison to what it would take to start a CPG branding campaign like this and get the these elements. I want to pull research on what that traditionally costs. 
+“We show this by giving everyone a chance at cool campaigns (sometimes using a lottery or fairness system if slots are limited, rather than just first-come that might favor certain groups). “ Let's strike this because let's not even touch that because we don't have a strategy for that. We can mark that as a later date or rephrase it. I don't want to touch that right now. 
+Make a note to potentially do a pilot or even after research on Too Good To Go, which is an app in New York. If we can maybe try to do a pilot with a few of those, especially the ones on Bedford Ave. 
+How do we tell the user if a product ran out if we're not sure of the stock? Unless the brand has a strong enough idea of what their stock is, but from what I'm gathering, a majority of brands won't. That's only really for large-scale brands and major retailers.
+What happens if a user gets there and there's no product? Can we incentivize them to say "will that affect retention" and can we incentivize the first user to activate that promotion there? Maybe like fill us in I guess. Is there a way to gamify this? And how do we put in the user messaging early on? We strive to always have pillars of accuracy, but with startups and small brands in general, if a product still sells out or doesn't have stock anymore, we're working to improve that and there's an element of risk there for it. Can we also have users preview campaigns and say, "Coming soon, this product." We'll say Superroot, so we say, "Coming soon Superroot on next Friday" and there's a countdown thing so the user can save that. Then we can get an idea of how many users are interested in the campaign before we even launch, so we can potentially adjust it. And what will those numbers look like in terms of prediction models? 
+Another messaging element here is "everyone wins". I want to make that clear to the user and the brand. It's when the few businesses out there where every single one, every single person in this wins, the brands get benefits, the user gets benefits, and local vendors and stores get benefits. 
+And I want to be careful about what we can guarantee early on. Let's figure out what we can guarantee. 
+Another thing I want to add to the handbook is a brand kit, so I will give you that. 
+Resource Hub/Blog: This is an interesting one. We should develop a social media campaign before we launch around this and new brands we're showcasing and brands for showcasing and how do we do that before we get our pilot live and how do we enact user waitlist? 
+What SEO elements do we need to get here? 
+Also, we have the Instagram and website, but we don't have the other social media channels, LinkedIn, etc. So all of those are to-dos. 
+Also, we have to set up the LLC. 
+Contact Email: hello@earlyshh.com (for general inquiries) and possibly brands@earlyshh.com (for business inquiries) – these should be listed on the site.  Right now, we only have Madison and Rob. 
+This will be another to-do. We also imagine adding a learning center in the dashboard with FAQs or tips, so brands can educate themselves on best practices (almost like how Facebook Ads or Google have their help sections).  
+We need to set up a ticketed support element. Could this be Agentic and like a chatbot? 
+Do we have a reserve amount in the campaign? Is there anything we need to notify or change around that? 
+How do brands submit support issues in real-time? What would be a big enough issue that it would need immediate attention? Can we brainstorm these?
+ 10. Appendices  Earlyshh User Journey Map (Full Detail)  - I feel like we've gone through this pretty well, so this will need to be updated. 
+
+
+
+
+Other:
+
+
+Add a page during the signup process with terms and conditions. 
+ I need to make sure that the login screen has both creating a new account through Instagram or Meta in general as well as sign on through a account
+Also note for user terms that they also give us the authority to use it content-wise and analytics-wise.
+
+
+ via Instagram’s Graph API Do research and compile on what we can actually pull from this. If there are different levels of interest, see if we're setting this up. If there are, and if there are certain access points or permissions that we're not inherently able to have, what would be the process on obtaining those? 
+I also need to make the location and notifications required, not optional. And put explanations on why. So that might look like a "what is earlyshh" as a platform. So I would have to add a "If they're on that screen, why do we need this? Even though it would be explained in an earlier screen." I just want to have that and I want to remove the skip for now. 
+And with that, I need to make sure that we are connected to Apple and Android's location-based API. And set that up, so that's another to-do. 
+I also need to set up the toast notification system. 
+On the 4th setup screen, where it says "set your interest", I just need to go back in and edit those and potentially change some of those around. So that's also a thing to think about. 
+On the home screen, I need to add a filter option or maybe a by category option. What I mean by that is you'll see on the home screen you have the map sneak peek, you have nearby (that may be an additional categories section), so it's not just going on forever. That could be like food, beauty, popular things of that nature. 
+On the home screen, the "View map" button doesn't go to view map, it goes to another button that says "View map".That button does go to the map page, but what we'll need to do is have it route to the map page originally without that inner button or middle button. 
+Another thing we'll need to fix is when going backwards, it's restarting the app over. So you should go through this time and process again. And I believe when you click home as well, it does that. So we'll have to make sure that clicking the home page routes to the home page, not the entire restarting of the app and starting that process over. 
+Also, for the sign-on page, we're going to have to remove the "Explore without an account" button and maybe put in a "Learn about" button that can open up some additional resources. That's something that I'll have to do. 
+Redo on the home screen the partnership card component. Right now, it's just kind of size-wise a bit off, and the internal elements don't fit neatly within it. That was done incorrectly and not well at all. The buttons are still overlapping, especially the Partner Up button, and the card itself is not linking to the campaign. And neither is the partner up button. 
+The Live Partnerships card on the Notifications page: I want to redo the card and change from the sizes. Also, I want to change the word notifications to something like actions, activities, or updates. Make a note to play around with that wording and a note to change it. 
+We also need to add an element Of assigning the partnership a score that they can click into, but then also things to think about are assigning an individual promo code or link tailored to that brand and for that unique user. So there needs to be a few different promo codes and links: Partnership specific or brand specific Signed-up link 
+If we could add that to the story. I'm not sure if we'll be able to do that with current Instagram API constraints, but we could encourage them to add it outside of the app. That would also be for the app. How are we going to incentivize them to share the app with people? And we just have to figure out a bunch of stuff around that. Maybe we could track how many people they shared that. And it could be a combo thing. It can run through us, so if they sent it through the iMessage share button through Messenger, can we make that unique user link? Unique to that campaigner? Or is that going to be too many links? And also have that be an added service to the brand, so an added plus. Which is we handle the affiliate marketing components of it. And obviously, all these things. If we can pull additional data points, make note of: 
+
+
+Website Copy: Of course. Here is all of the copy from the website, organized by page and section for your analysis.
+
+---
+
+### **Global Components (Header & Footer)**
+
+- **Header Logo:** EARLYSHH
+- **Header Navigation Links:** Home, How It Works, About, Contact
+- **Header Button:** Book a Demo
+- **Footer Copyright:** © 2024 EARLYSHH. All rights reserved.
+- **Footer Link:** Are you a Creator? Sign up here.
+
+
+---
+
+### **Homepage (`/`)**
+
+- **Hero Section**
+
+- **Headline:** Connect Directly With Real Local Consumers
+- **Sub-headline:** Earlyshh empowers everyday people to authentically engage with your products, delivering genuine local insights and sustainable brand growth—without the influencer headaches.
+- **Primary Button:** Set Up a Call
+- **Secondary Links:** Learn More, Explore Possibilities
+
+
+
+- **Instagram Story Mockup**
+
+- **Username:** TheNYCAgent_
+- **Text:** Finally got to try @Superoot - no chance I'm going back to coffee!! ☕️
+
+
+
+- **Why Brands Choose Earlyshh Section**
+
+- **Headline:** Why Brands Choose Earlyshh Over Influencers
+- **Paragraph:** Avoid costly influencer campaigns that don’t resonate. Earlyshh gives you direct access to local consumers, sustainable product exposure, and valuable market insights.
+- **Benefit 1:** *Direct Local Consumer Insights* - Receive immediate, actionable feedback from actual consumers who genuinely experience your products.
+- **Benefit 2:** *Authentic Engagement at Scale* - Activate hundreds of real community members per campaign, organically growing brand loyalty.
+- **Benefit 3:** *Cost-Effective and Sustainable* - Eliminate influencer markups and shipping waste with direct, in-person, local connections.
+- **Benefit 4:** *Simplified Campaign Management* - We handle outreach, logistics, and tracking—allowing you to focus on your business growth.
+- **Benefit 5:** *Precision Local Targeting* - Pinpoint and engage your brand's ideal customers within specific local communities, ensuring impactful connections that align with your unique demographic profile.
+- **Benefit 6:** *Quality Assurance & Verification* - Every participant is verified for authentic local engagement, ensuring quality interactions and brand safety.
+
+
+
+- **Future-Focused Features Section**
+
+- **Headline:** Future-Focused Tools & Market Insights
+- **Tagline:** Coming Soon
+- **Feature 1:** *Advanced Analytics & Insights* - Real-time metrics, deep local consumer intelligence, precise ROI tracking.
+- **Feature 2:** *Content & User-Generated Assets* - Curated local consumer-generated content and performance analytics.
+- **Feature 3:** *Local Market Integration* - Actionable neighborhood-level consumer insights and retail optimization tools.
+- **Feature 4:** *Feedback System* - Detailed category-specific consumer feedback surveys, integrated with market research.
+- **Feature 5:** *CRM & Brand Management* - Efficient tools for campaign management, consumer relationship tracking, and strategic reporting.
+- **Feature 6:** *Value-Add & Strategic Services* - Expert recommendations for local market engagement and upcoming seamless integrations.
+
+
+
+- **Industry Insights Section**
+
+- **Headline:** Industry Trends Supporting Earlyshh’s Authentic Approach
+- **Insight 1:** Local consumer recommendations outperform influencer-driven campaigns significantly.
+- **Insight 2:** Sustainable, direct community engagement is quickly becoming a key differentiator.
+- **Quote 1:** "Earlyshh’s authentic, consumer-driven approach aligns perfectly with rising market demand for genuine engagement." - Generalized Industry Expectation
+- **Quote 2:** "Brands adopting direct local consumer engagement experience deeper loyalty and higher ROI." - Projected Market Observation
+
+
+
+- **Simplified "How Earlyshh Works" Section**
+
+- **Headline:** Simplified, Sustainable, Authentic
+- **Step 1:** *01. Strategy Alignment Call* - Clearly define brand goals, ideal local demographics, and key campaign details.
+- **Step 2:** *02. Local Consumer Activation* - Seamlessly connect brands directly with genuine local consumers in real-time, in person.
+- **Step 3:** *03. Real-Time Insights* - Gain immediate access to genuine feedback and actionable market data for smarter business decisions.
+
+
+
+- **Research & Insights Section**
+
+- **Headline:** Stay Informed with Market Trends
+- **Trend 1:** *U.S. Instagram Demographics* - Reports emphasize strong engagement among urban young adults (18-34), a key demographic for many DTC brands.
+- **Trend 2:** *Social-Driven Sampling & UGC* - Insights show growing effectiveness and popularity of user-generated content and social sampling in driving purchasing decisions.
+- **Trend 3:** *Consumer Shift to Authenticity* - Analysis indicates a clear consumer preference shift towards authentic voices and away from overly polished traditional advertising.
+
+
+
+- **Final Call to Action**
+
+- **Headline:** Ready to Engage Authentically with Your Local Community?
+- **Button:** Schedule Your Strategy Call
+
+
+
+
+
+---
+
+### **How It Works Page (`/how-it-works`)**
+
+- **Hero Section**
+
+- **Headline:** Effortless Authenticity. Measurable Results.
+- **Sub-headline:** See how Earlyshh seamlessly turns real Instagram users into enthusiastic brand advocates, driving authentic content and tangible growth.
+
+
+
+- **Four-Step Process Section**
+
+- **Step 1:** *Define Your Campaign Vision* - Schedule an introductory call where we deep-dive into your marketing goals, target demographics, geographic preferences, and desired outcomes. We'll align on objectives, customer segments, and success metrics, ensuring your campaign is strategically optimized from the start. (Benefit: Clarity from day one, tailored specifically to your brand's growth ambitions.)
+- **Step 2:** *Connect with Verified Instagram Advocates* - Our advanced matching system identifies and selects verified creators whose demographics, lifestyle, content quality, and engagement metrics perfectly align with your brand identity. You'll gain immediate access to a community of real, enthusiastic Instagram users ready to share authentic experiences. (Benefit: Precision targeting ensures your message resonates with the right audience—authentically.)
+- **Step 3:** *Sit Back—We Do All the Heavy Lifting* - Once matched, our turnkey system manages every aspect of your campaign—from creator onboarding and partnership confirmations to content verification and compliance checks. You can confidently rely on our platform to deliver authentic stories and measurable customer engagement without operational headaches. (Benefit: Focus on strategic oversight while Earlyshh handles execution seamlessly.)
+- **Step 4:** *Track, Analyze & Scale Success* - Access our sophisticated analytics dashboard, tracking real-time campaign performance: from initial story postings and engagement metrics, to customer acquisition and redemption rates. Use these actionable insights to refine future campaigns, optimize creator selection, and maximize ongoing marketing ROI. (Benefit: Complete transparency and real-time visibility into your campaign’s success.)
+
+
+
+- **Platform Advantages Section**
+
+- **Headline:** Earlyshh Platform Advantages
+- **Advantage 1:** *Verified & Trustworthy Creators* - Rigorously vetted Instagram users guarantee genuine engagement and brand-safe content.
+- **Advantage 2:** *Scalable Authenticity* - Hundreds of real, enthusiastic advocates organically amplify your brand through authentic storytelling.
+- **Advantage 3:** *Real-Time Campaign Management* - Instantly track content postings, engagements, and conversions through a user-friendly interface.
+- **Advantage 4:** *Local & Hyper-Targeted Insights* - Deep demographic targeting, from neighborhood-level reach to precise community segments.
+- **Advantage 5:** *Performance-Based Pricing* - Only invest in proven results—eliminate wasted budgets and maximize ROI.
+- **Advantage 6:** *Sophisticated Creator Intelligence* - Detailed performance analytics to continuously optimize creator quality and content impact.
+
+
+
+- **Social Proof Section**
+
+- **Quote 1:** "Earlyshh consistently generates authentic consumer buzz, significantly reducing acquisition costs compared to traditional influencer methods." - Generalized Industry Observation
+- **Quote 2:** "Brands experience enhanced credibility and community engagement through Earlyshh’s targeted, genuine user advocacy." - Projected Market Trend
+
+
+
+- **Final Call to Action**
+
+- **Headline:** Ready to Activate Your Brand Advocates?
+- **Button:** Schedule Your Strategy Call
+
+
+
+
+
+---
+
+### **About Page (`/about`)**
+
+- **Hero Section**
+
+- **Headline:** Real Products, Real People— Right in Your Neighborhood.
+- **Sub-headline:** Earlyshh connects everyday people directly with new brands through local, authentic experiences—no influencers, no complexity, just genuine insights.
+
+
+
+- **Origin Story**
+
+- **Headline:** A Bad Date, Aggressive Energy Drinks, and a New Way Forward
+- **Paragraph:** Earlyshh started from a familiar frustration—a bad date involving endless talk of 'marketing strategies' and nearly being run over by aggressive energy-drink sample teams on Brooklyn sidewalks. Our founder, Madison, found herself thinking: 'Why does introducing new products have to be so complicated, wasteful, and honestly, stressful?' There had to be a simpler, more authentic way for brands to reach local communities without relying on costly influencers or complicated logistics. Earlyshh was born to eliminate the influencer hassle and reconnect brands directly to real, local communities—in person, sustainably, and authentically.
+
+
+
+- **Our Mission & Vision**
+
+- **Headline:** Reinventing Brand Discovery—Sustainably & Locally
+- **Mission:** We’re simplifying how brands introduce their products—by placing them directly in the hands of local communities in a sustainable, cost-effective way that ensures real feedback, genuine engagement, and meaningful local economic impact.
+- **Vision:** Earlyshh aims to become the go-to platform where everyday consumers shape local market trends, brands gain invaluable data-driven insights, and communities thrive through authentic, present, and sustainable interactions.
+
+
+
+- **Feedback & Insights Section**
+
+- **Headline:** Giving Brands an Authentic, Data-Driven Head Start
+- **Point 1:** *Direct Consumer Feedback* - Brands instantly access authentic, actionable feedback from local consumers who genuinely experience their products first-hand.
+- **Point 2:** *Market Intelligence & Early Insights* - With detailed surveys and real-time market data, brands can make smarter decisions, refine products, and effectively target their ideal audiences early in their growth.
+- **Point 3:** *Sustainability in Product Launch* - By ensuring products reach genuinely interested individuals locally and in-person, Earlyshh significantly reduces product waste, creating more sustainable brand experiences.
+
+
+
+- **Community Impact & Sustainability Section**
+
+- **Headline:** Real Presence. Real Sustainability. Real Community Impact.
+- **Point 1:** *Local Economic Empowerment* - Every interaction through Earlyshh directly supports local economies, helping small and emerging brands become genuine community favorites without enormous budgets.
+- **Point 2:** *Embracing Diversity Locally* - Earlyshh promotes genuine local connections, making brand discovery diverse, inclusive, and reflective of the community's authentic preferences.
+- **Point 3:** *Reducing Environmental Impact* - Proximity-based activation ensures products reach consumers who are physically present and genuinely interested, dramatically reducing environmental waste.
+- **Point 4:** *Presence & Authentic Connections* - Experiences happen in real-time and in person. Our technology ensures offers activate only when users are physically present—real people, real engagement, authentic moments.
+
+
+
+- **Anti-Influencer Approach Section**
+
+- **Headline:** All the Benefits of Authentic Engagement, None of the Influencer Hassle
+- **Point 1:** *No More Negotiation & Complexity* - Forget complicated influencer negotiations, costly contracts, and logistical headaches. Earlyshh simplifies everything, so brands can focus on growth.
+- **Point 2:** *Direct Local Connections* - Reach real people directly in their own communities, without shipping costs or influencer markups.
+- **Point 3:** *Transparent, Performance-Based Results* - Get measurable insights immediately from actual customers—clear, direct, and actionable, without the uncertainty of influencer campaigns.
+
+
+
+- **Why Choose Earlyshh Section**
+
+- **Headline:** Why Brands are Choosing Authenticity Over Influence
+- **Point 1:** *Real Recommendations, Zero Influence* - Every recommendation on Earlyshh comes from real people who authentically engage with your products—not paid influencers.
+- **Point 2:** *Precision Local Targeting* - Connect with consumers exactly where your product matters—right in local neighborhoods, campuses, and communities.
+- **Point 3:** *Immediate, Actionable Insights* - Get instant access to valuable, real-world market feedback, giving your brand an early competitive advantage.
+
+
+
+- **Future Outlook**
+
+- **Headline:** Building a Future on Authentic, Sustainable Connections
+- **Paragraph:** Earlyshh is continuously evolving, committed to innovation, deeper community impact, and sustainable brand advocacy—always prioritizing genuine local connections and authentic consumer feedback.
+
+
+
+- **Founder's Story**
+
+- **Headline:** A Note from Our Founder
+- **Quote:** "Madison founded Earlyshh after too many disappointing dates filled with influencer-talk and close calls with aggressive street-sampling marketers. She decided brands and communities deserved better—a simpler, more sustainable, genuinely local way to connect. Her approach? Cut the influencer, eliminate the drama, and put products directly in the hands of real, present, everyday people."
+- **Attribution:** - Madison, Founder of Earlyshh
+
+
+
+- **Meet the Founders Section**
+
+- **Headline:** Meet the Earlyshh Founders
+- **Madison's Bio:** "Madison founded Earlyshh after too many disappointing dates filled with influencer-talk and close calls with aggressive street-sampling marketers. She decided brands and communities deserved better—a simpler, more sustainable, genuinely local way to connect. Her approach? Cut the influencer, eliminate the drama, and put products directly in the hands of real, present, everyday people."
+- **Rob's Bio:** "Rob's our fintech and payments guru from London, with a knack for making complex financial stuff feel refreshingly simple. Before Earlyshh, he founded Bread, a platform making sure creators get paid fast—like, next-day fast. Rob saw firsthand how tricky creator finances can get, so he's spent his career building easy solutions that give freelancers and creators some much-needed peace of mind. When he's not simplifying finance, you'll probably find him exploring London’s coffee shops or debating the best spots to grab a pint."
+- **Summary:** Together, Madison and Rob combine authentic, local connections with simplified financial expertise—uniquely positioning Earlyshh to revolutionize brand engagement and sustainable local marketing.
+
+
+
+- **Final Call to Action**
+
+- **Headline:** Ready to Get Real Insights from Real People?
+- **Buttons:** Schedule Your Call, Press Inquiry, Contact Us
+
+
+
+
+
+---
+
+### **Contact Page (`/contact`)**
+
+- **Hero Section**
+
+- **Headline:** Get in Touch With the Earlyshh Team
+- **Sub-headline:** Questions, press inquiries, or interested in partnerships? We'd love to hear from you!
+
+
+
+- **Direct Contact Section**
+
+- **Headline:** Or Reach Out Directly
+- **Email:** [hello@earlyshh.com](mailto:hello@earlyshh.com)
+
+
+
+- **Local Presence Section**
+
+- **Headline:** We’re Right Here in Your Neighborhood
+- **Paragraph:** Earlyshh is committed to fostering genuine local engagement and sustainable community connections—right where you live.
+
+
+
+- **Contact Forms**
+
+- **Tab 1:** Strategy Call
+
+- *Title:* Schedule Your Strategy Call
+- *Description:* Let's discuss how Earlyshh can help your brand grow.
+- *Fields:* Name, Company Name, Company Email, Phone Number, Website (optional), Preferred Date/Time for Call, Briefly describe your brand
+- *Button:* Request Your Call
+
+
+
+- **Tab 2:** Press Inquiry
+
+- *Title:* Press & Media Inquiries
+- *Description:* For all media-related questions, please use this form.
+- *Fields:* Name, Media Outlet, Email, Inquiry Details
+- *Button:* Submit Press Inquiry
+
+
+
+- **Tab 3:** General/Support
+
+- *Title:* General Questions & Support
+- *Description:* Have a general question, feedback, or a technical issue? Let us know.
+- *Fields:* Name, Email, Subject (General Question, Technical Issue, Feedback, Other), Message
+- *Button:* Send Message
+
+
+
+- **Tab 4:** User Waitlist
+
+- *Title:* Join Our User Waitlist
+- *Description:* Be the first to know when Earlyshh is available in your area.
+- *Fields:* Name, Email, City or Neighborhood (optional), How did you hear about us? (optional)
+- *Button:* Join Waitlist
+
+
+
+
+
+
+
+
+---
+
+### **Other Pages**
+
+- **Book a Demo Page (`/book-demo`)**
+
+- **Headline:** Book a Demo
+- **Paragraph:** Scheduling interface (e.g., Calendly embed) will be here.
+
+
+
+- **Creator Signup Page (`/creator-signup`)**
+
+- **Headline:** Creator Signup
+- **Paragraph:** Information and signup form for creators coming soon.
+
