@@ -57,7 +57,6 @@ export default function PartnershipDetailPage() {
   return (
     <div className="min-h-screen earlyshh-bg relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-purple-800/20 via-transparent to-cyan-800/20" />
-      
       <div className="relative z-10 min-h-screen flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between p-4 pt-8">
@@ -141,7 +140,7 @@ export default function PartnershipDetailPage() {
               </div>
               <div className="flex items-center">
                 <Users className="w-3 h-3 mr-1" />
-                <span className="text-sm font-medium">3/5 spots available</span>
+                <span className="text-sm font-medium">3/50spots available</span>
               </div>
             </div>
 
@@ -175,7 +174,7 @@ export default function PartnershipDetailPage() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-white font-semibold text-sm">Share on Instagram Story</p>
-                  <p className="text-gray-300 text-xs">Tag @{campaign.brandIgHandle} and @earlyshh in your story</p>
+                  <p className="text-gray-300 text-xs">Tag @superrootenergy and @earlyshh in your story</p>
                 </div>
               </div>
               
