@@ -14,6 +14,7 @@ import { BundleAnalyzer, markModuleAsUsed } from './lib/bundle-analyzer';
 const StartupPage = React.lazy(() => import(/* webpackChunkName: "startup" */ './pages/startup'));
 const HomePage = React.lazy(() => import(/* webpackChunkName: "home" */ './pages/home'));
 const OnboardingPage = React.lazy(() => import(/* webpackChunkName: "onboarding" */ './pages/onboarding'));
+const PartnershipDetailPage = React.lazy(() => import(/* webpackChunkName: "partnership-detail" */ './pages/partnership-detail'));
 const PartnershipConfirmationPage = React.lazy(() => import(/* webpackChunkName: "partnership" */ './pages/partnership-confirmation'));
 const ProfilePage = React.lazy(() => import(/* webpackChunkName: "profile" */ './pages/profile'));
 const ProfileDemoPage = React.lazy(() => import(/* webpackChunkName: "profile-demo" */ './pages/profile-demo'));
@@ -40,14 +41,14 @@ function AuthenticatedApp() {
     return <div className="flex items-center justify-center min-h-screen"><div className="loading-skeleton w-8 h-8 rounded-full"></div></div>;
   }
 
-  // For demo purposes, always show startup page on root path unless explicitly navigating to /home
   return (
     <Switch>
       <Route path="/startup" component={StartupPage} />
       <Route path="/onboarding" component={OnboardingPage} />
       <Route path="/home" component={HomePage} />
-      <Route path="/" component={StartupPage} />
-      <Route path="/partnership/:id" component={PartnershipConfirmationPage} />
+      <Route path="/" component={HomePage} />
+      <Route path="/partnership/:id" component={PartnershipDetailPage} />
+      <Route path="/partnership-confirmation/:id" component={PartnershipConfirmationPage} />
       <Route path="/profile" component={ProfilePage} />
       <Route path="/profile-demo" component={ProfileDemoPage} />
       <Route path="/my-coupons" component={MyCouponsPage} />
