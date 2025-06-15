@@ -128,7 +128,7 @@ export default function PartnershipDetailPage() {
                 className="bg-gradient-to-r from-pink-500/20 to-purple-500/20 hover:from-pink-500/30 hover:to-purple-500/30 text-white border border-pink-400/30 rounded-lg h-8 px-3 text-xs font-medium"
               >
                 <Instagram className="w-3 h-3 mr-1" />
-                @{campaign.brandIgHandle}
+                {campaign.brandIgHandle}
               </Button>
 
             </div>

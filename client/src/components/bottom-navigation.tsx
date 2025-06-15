@@ -2,11 +2,12 @@ import { useLocation, Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Home, User, Bell, Map } from "lucide-react";
+import { Home, User, Bell, Map, QrCode } from "lucide-react";
 
 const NAV_ITEMS = [
   { href: '/', icon: Home, label: 'Home' },
   { href: '/map', icon: Map, label: 'Map' },
+  { href: '/qr-code/1', icon: QrCode, label: 'QR Code' },
   { href: '/notifications', icon: Bell, label: 'Notifications' },
   { href: '/profile', icon: User, label: 'Profile' }
 ];

@@ -143,7 +143,7 @@ export class MemStorage implements IStorage {
         brandName: "SuperRoot Energy",
         brandIgHandle: "@superrootenergy",
         brandBio: "SuperRoot Energy is a premium wellness brand dedicated to providing natural, plant-based energy solutions for active lifestyles. Founded by nutrition experts and fitness enthusiasts, we believe in harnessing the power of adaptogenic roots and superfoods to fuel your daily adventures.\n\nOur flagship SuperRoot Premium Energy Formula combines organic maca root, ginseng, and green tea extract with essential vitamins and minerals to deliver sustained energy without the crash. Sourced from sustainable farms and rigorously tested for purity, each bottle represents our commitment to quality and environmental responsibility.\n\nWhether you're a college student powering through late-night study sessions, a fitness enthusiast crushing your morning workout, or a busy professional navigating a demanding schedule, SuperRoot Energy provides the clean, natural boost you need to perform at your best.\n\nJoin thousands of satisfied customers who have made SuperRoot their go-to energy solution. Experience the difference that premium, natural ingredients can make in your daily performance and overall well-being.",
-        offerDescription: "Free Sample Energy Drink",
+        offerDescription: "Free Sample Electrolyte Drink",
         productName: "SuperRoot Premium Energy Formula",
         brandLogoUrl: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=100&h=100&fit=crop",
         offerId: null,
