@@ -224,7 +224,7 @@ export default function InstagramStoryPage() {
     if (params?.couponId) {
       submitStoryMutation.mutate({
         couponId: params.couponId,
-        storyImage: capturedPhoto || uploadedImage || undefined,
+        storyImage: capturedPhoto || uploadedImage || '',
       });
     }
 
@@ -307,7 +307,7 @@ export default function InstagramStoryPage() {
             <div className="flex items-center space-x-3 mb-2">
               <Instagram className="w-6 h-6 text-pink-400" />
               <div>
-                <p className="text-white font-bold">{activeCoupon.brandIgHandle}</p>
+                <p className="text-white font-bold">{activeCoupon.brandIgHandle || '@drinksuperoot'}</p>
                 <p className="text-gray-400 text-sm">Primary brand tag</p>
               </div>
             </div>
@@ -370,7 +370,7 @@ export default function InstagramStoryPage() {
                   Share on Instagram Stories
                 </h2>
                 <p className="text-orange-200 drop-shadow-md">
-                  Post about your experience with <span className="font-bold text-yellow-300">{activeCoupon.brandName}</span>, tag <span className="font-bold text-pink-300">{activeCoupon.brandIgHandle}</span>, and include <span className="font-bold text-gray-300">@earlyshh</span> as a hidden tag
+                  Post about your experience with <span className="font-bold text-yellow-300">{activeCoupon.brandName || 'SUPEROOT'}</span>, tag <span className="font-bold text-pink-300">{activeCoupon.brandIgHandle || '@drinksuperoot'}</span>, and include <span className="font-bold text-gray-300">@earlyshh</span> as a hidden tag
                   <span className="block text-gray-400 text-xs mt-2">*Hidden tag = smaller, discrete placement in your story</span>
                 </p>
               </div>
@@ -449,7 +449,7 @@ export default function InstagramStoryPage() {
                   </div>
                   <div className="flex items-start space-x-3">
                     <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-lg">2</div>
-                    <p className="text-white font-medium drop-shadow-sm">Tag <span className="text-pink-300 font-bold">{activeCoupon.brandIgHandle}</span> and include <span className="text-gray-300 font-bold">@earlyshh</span> as hidden tag</p>
+                    <p className="text-white font-medium drop-shadow-sm">Tag <span className="text-pink-300 font-bold">{activeCoupon.brandIgHandle || '@drinksuperoot'}</span> and include <span className="text-gray-300 font-bold">@earlyshh</span> as hidden tag</p>
                   </div>
                   <div className="flex items-start space-x-3">
                     <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-lg">3</div>
@@ -483,7 +483,7 @@ export default function InstagramStoryPage() {
               <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
               <h2 className="text-2xl font-black text-white mb-2 drop-shadow-lg">Story Submitted!</h2>
               <p className="text-orange-200 mb-4 drop-shadow-md">
-                Thank you for sharing your experience with {activeCoupon.brandName}
+                Thank you for sharing your experience with {activeCoupon.brandName || 'SUPEROOT'}
               </p>
               <p className="text-purple-300 font-bold drop-shadow-md">
                 Redirecting to product survey...
