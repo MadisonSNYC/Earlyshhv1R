@@ -174,7 +174,7 @@ export default function PartnershipDetailPage() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-white font-semibold text-sm">Share on Instagram Story</p>
-                  <p className="text-gray-300 text-xs">Tag @superrootenergy and @earlyshh in your story</p>
+                  <p className="text-gray-300 text-xs">Tag @drinksuperoot and @earlyshh in your story</p>
                 </div>
               </div>
               

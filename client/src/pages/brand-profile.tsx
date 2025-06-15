@@ -15,13 +15,13 @@ export default function BrandProfilePage() {
   // Mock brand data - in real app this would come from API
   const brandData = {
     id: params?.brandId || '1',
-    name: 'SuperRoot Energy',
-    handle: '@superrootenergy',
+    name: 'SUPEROOT',
+    handle: '@drinksuperoot',
     category: 'Health & Wellness',
-    description: 'Premium energy drinks crafted with natural ingredients for sustained performance.',
+    description: 'Dry powder electrolyte mix with natural roots for immunity, hydration, and vitality.',
     logo: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=100&h=100&fit=crop',
     coverImage: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=200&fit=crop',
-    website: 'https://superroot.com',
+    website: 'https://drinksuperoot.com',
     followers: 12500,
     rating: 4.8,
     totalReviews: 342,
@@ -37,8 +37,8 @@ export default function BrandProfilePage() {
     campaigns: [
       {
         id: 1,
-        title: 'Free Energy Sample',
-        description: 'Try our premium energy formula - Complete this first!',
+        title: 'Free Electrolyte Sample',
+        description: 'Try our daily electrolyte mix - Complete this first!',
         value: '$3.99',
         status: 'active',
         claimed: 85,
