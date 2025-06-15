@@ -61,6 +61,7 @@ function AuthenticatedApp() {
       <Route path="/activity/:id" component={ActivityDetailPage} />
       <Route path="/qr/:couponId" component={QRCodePage} />
       <Route path="/qr-code/:couponId" component={QRCodePage} />
+      <Route path="/qr-code" component={QRCodePage} />
       <Route path="/instagram-story/:couponId" component={InstagramStoryPage} />
       <Route path="/survey/:couponId" component={SurveyPage} />
       <Route path="/brand/:brandId" component={BrandProfilePage} />

@@ -34,6 +34,22 @@ A social-first coupon platform PWA that revolutionizes digital deal discovery th
 
 ## Recent Changes
 
+### QR Code Page Navigation Fix (June 15, 2025)
+**Fixed critical routing issue preventing QR code page access**
+
+#### Updates Made:
+- **Route Configuration**: Added `/qr-code` route to App.tsx for direct access without parameters
+- **Bottom Navigation**: Updated QR Code tab to use correct route `/qr-code`
+- **Demo Data Integration**: QR code page displays SuperRoot Energy partnership content when accessed directly
+- **Complete Functionality**: QR code generation, fetch code backup, Instagram sharing integration
+- **User Experience**: Seamless access to QR code redemption from bottom navigation
+
+#### Impact:
+- QR code page now fully accessible from bottom navigation
+- Complete redemption experience with SuperRoot Energy branding
+- Instagram story sharing functionality for post-redemption engagement
+- Backup fetch code system for reliability
+
 ### Production-Ready Design System Adherence (June 13, 2025)
 **Implemented strict design system consistency and removed dev mode elements**
 

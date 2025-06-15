@@ -7,7 +7,7 @@ import { Home, User, Bell, Map, QrCode } from "lucide-react";
 const NAV_ITEMS = [
   { href: '/', icon: Home, label: 'Home' },
   { href: '/map', icon: Map, label: 'Map' },
-  { href: '/qr-code/1', icon: QrCode, label: 'QR Code' },
+  { href: '/qr-code', icon: QrCode, label: 'QR Code' },
   { href: '/notifications', icon: Bell, label: 'Notifications' },
   { href: '/profile', icon: User, label: 'Profile' }
 ];
