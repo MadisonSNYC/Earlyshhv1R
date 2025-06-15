@@ -50,23 +50,50 @@ export default function InstagramStoryPage() {
   // Camera functions
   const startCamera = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({
+      // Try with basic constraints first for better MacBook compatibility
+      const constraints: MediaStreamConstraints = {
         video: {
-          facingMode: facingMode,
-          width: { ideal: 1080 },
-          height: { ideal: 1920 }
+          width: { ideal: 1280, max: 1920 },
+          height: { ideal: 720, max: 1080 },
+          frameRate: { ideal: 30 }
         }
-      });
+      };
+
+      // Add facingMode only for mobile devices
+      if (navigator.userAgent.includes('Mobile')) {
+        (constraints.video as any).facingMode = facingMode;
+      }
+
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
       setCameraStream(stream);
+      
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
+        videoRef.current.onloadedmetadata = () => {
+          console.log('Video metadata loaded, attempting to play...');
+          videoRef.current?.play().catch(err => {
+            console.error('Play failed:', err);
+            // Try with user interaction
+            toast({
+              title: "Camera Ready",
+              description: "Tap the video to start camera preview.",
+            });
+          });
+        };
+        
+        // Additional play attempt after a short delay
+        setTimeout(() => {
+          if (videoRef.current && videoRef.current.paused) {
+            videoRef.current.play().catch(console.error);
+          }
+        }, 500);
       }
       setShowCamera(true);
     } catch (error) {
       console.error('Error accessing camera:', error);
       toast({
         title: "Camera Error",
-        description: "Could not access camera. Please check permissions.",
+        description: "Could not access camera. Please check permissions and try again.",
         variant: "destructive",
       });
     }
@@ -230,7 +257,23 @@ export default function InstagramStoryPage() {
             ref={videoRef}
             autoPlay
             playsInline
+            muted
+            controls={false}
             className="w-full h-full object-cover"
+            style={{ 
+              transform: facingMode === 'user' ? 'scaleX(-1)' : 'none',
+              objectFit: 'cover'
+            }}
+            onLoadedMetadata={() => {
+              if (videoRef.current) {
+                videoRef.current.play().catch(console.error);
+              }
+            }}
+            onClick={() => {
+              if (videoRef.current && videoRef.current.paused) {
+                videoRef.current.play().catch(console.error);
+              }
+            }}
           />
 
           {/* Camera Controls */}
