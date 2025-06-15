@@ -3,7 +3,7 @@ import { useLocation } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, MapPin, Clock, Users, Instagram, Camera, Star, CheckCircle, ExternalLink } from 'lucide-react';
+import { ArrowLeft, MapPin, Clock, Users, Instagram, Camera, Star, CheckCircle, ExternalLink, Globe, User } from 'lucide-react';
 import { Campaign } from '@shared/schema';
 
 export default function PartnershipDetailPage() {
@@ -74,35 +74,35 @@ export default function PartnershipDetailPage() {
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 px-4 pb-6">
+        <div className="flex-1 px-4 pb-6 space-y-4">
           {/* Brand Header */}
-          <div className="bg-gradient-to-br from-gray-900/80 via-purple-900/60 to-gray-900/80 backdrop-blur-md border border-purple-300/30 rounded-3xl p-6 mb-6 shadow-2xl">
-            <div className="flex items-center space-x-4 mb-4">
+          <div className="bg-gradient-to-br from-gray-900/80 via-purple-900/60 to-gray-900/80 backdrop-blur-md border border-purple-300/30 rounded-2xl p-4 shadow-xl">
+            <div className="flex items-center space-x-3 mb-3">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/30 to-cyan-400/30 rounded-2xl blur-lg" />
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-400/30 to-cyan-400/30 rounded-xl blur-md" />
                 <img
                   src={campaign.brandLogoUrl}
                   alt={campaign.brandName}
-                  className="relative w-20 h-20 rounded-2xl object-cover shadow-xl border border-white/10"
+                  className="relative w-16 h-16 rounded-xl object-cover shadow-lg border border-white/10"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
-                    target.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><rect width="80" height="80" fill="%23374151" rx="16"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="28" font-weight="bold">${campaign.brandName.charAt(0)}</text></svg>`;
+                    target.src = `data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" fill="%23374151" rx="12"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-size="24" font-weight="bold">${campaign.brandName.charAt(0)}</text></svg>`;
                   }}
                 />
               </div>
               
-              <div className="flex-1">
-                <h2 className="text-white font-black text-2xl mb-2 drop-shadow-lg">
+              <div className="flex-1 min-w-0">
+                <h2 className="text-white font-black text-lg mb-1 drop-shadow-lg truncate">
                   {campaign.brandName}
                 </h2>
                 <p className="text-pink-200 text-sm font-medium drop-shadow-sm">
                   {campaign.category}
                 </p>
                 <div className="flex items-center gap-2 mt-2">
-                  <Badge className="bg-green-500/20 text-green-300 border-green-400/30">
+                  <Badge className="bg-green-500/20 text-green-300 border-green-400/30 text-xs">
                     Active
                   </Badge>
-                  <Badge className="bg-orange-500/20 text-orange-300 border-orange-400/30">
+                  <Badge className="bg-orange-500/20 text-orange-300 border-orange-400/30 text-xs">
                     <Clock className="w-3 h-3 mr-1" />
                     24h left
                   </Badge>
@@ -110,77 +110,100 @@ export default function PartnershipDetailPage() {
               </div>
             </div>
 
+            {/* Brand Links */}
+            <div className="flex items-center gap-2 mb-3">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => navigate(`/brand/${campaign.id}`)}
+                className="bg-gradient-to-r from-purple-500/20 to-blue-500/20 hover:from-purple-500/30 hover:to-blue-500/30 text-white border border-purple-400/30 rounded-lg h-8 px-3 text-xs font-medium"
+              >
+                <User className="w-3 h-3 mr-1" />
+                Brand Profile
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => window.open(`https://instagram.com/${campaign.brandIgHandle}`, '_blank')}
+                className="bg-gradient-to-r from-pink-500/20 to-purple-500/20 hover:from-pink-500/30 hover:to-purple-500/30 text-white border border-pink-400/30 rounded-lg h-8 px-3 text-xs font-medium"
+              >
+                <Instagram className="w-3 h-3 mr-1" />
+                @{campaign.brandIgHandle}
+              </Button>
+
+            </div>
+
             {/* Location & Distance */}
-            <div className="flex items-center gap-4 text-cyan-200 mb-4">
+            <div className="flex items-center gap-4 text-cyan-200 mb-3">
               <div className="flex items-center">
-                <MapPin className="w-4 h-4 mr-1" />
+                <MapPin className="w-3 h-3 mr-1" />
                 <span className="text-sm font-medium">{formatDistance(150)}</span>
               </div>
               <div className="flex items-center">
-                <Users className="w-4 h-4 mr-1" />
+                <Users className="w-3 h-3 mr-1" />
                 <span className="text-sm font-medium">3/5 spots available</span>
               </div>
             </div>
 
             {/* Offer Description */}
-            <p className="text-white text-base leading-relaxed drop-shadow-md">
+            <p className="text-white text-sm leading-relaxed drop-shadow-md">
               {campaign.offerDescription}
             </p>
           </div>
 
           {/* Partnership Requirements */}
-          <div className="bg-gradient-to-br from-gray-900/80 via-blue-900/60 to-gray-900/80 backdrop-blur-md border border-blue-300/30 rounded-3xl p-6 mb-6 shadow-2xl">
-            <h3 className="text-white font-bold text-lg mb-4 flex items-center">
-              <CheckCircle className="w-5 h-5 mr-2 text-green-400" />
+          <div className="bg-gradient-to-br from-gray-900/80 via-blue-900/60 to-gray-900/80 backdrop-blur-md border border-blue-300/30 rounded-2xl p-4 shadow-xl">
+            <h3 className="text-white font-bold text-base mb-3 flex items-center">
+              <CheckCircle className="w-4 h-4 mr-2 text-green-400" />
               What You'll Do
             </h3>
             
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Camera className="w-4 h-4 text-white" />
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-6 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Camera className="w-3 h-3 text-white" />
                 </div>
-                <div>
-                  <p className="text-white font-semibold">Take authentic photos</p>
-                  <p className="text-gray-300 text-sm">Capture your genuine experience with the product</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Instagram className="w-4 h-4 text-white" />
-                </div>
-                <div>
-                  <p className="text-white font-semibold">Share on Instagram Story</p>
-                  <p className="text-gray-300 text-sm">Post to your story with subtle @earlyshh branding</p>
+                <div className="flex-1 min-w-0">
+                  <p className="text-white font-semibold text-sm">Take authentic photos</p>
+                  <p className="text-gray-300 text-xs">Capture your genuine experience</p>
                 </div>
               </div>
               
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Star className="w-4 h-4 text-white" />
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Instagram className="w-3 h-3 text-white" />
                 </div>
-                <div>
-                  <p className="text-white font-semibold">Complete feedback survey</p>
-                  <p className="text-gray-300 text-sm">Share your honest experience and recommendations</p>
+                <div className="flex-1 min-w-0">
+                  <p className="text-white font-semibold text-sm">Share on Instagram Story</p>
+                  <p className="text-gray-300 text-xs">Post with subtle @earlyshh branding</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-3">
+                <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Star className="w-3 h-3 text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-white font-semibold text-sm">Complete feedback survey</p>
+                  <p className="text-gray-300 text-xs">Share honest experience</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Value Proposition */}
-          <div className="bg-gradient-to-br from-green-900/60 via-gray-900/80 to-green-900/60 backdrop-blur-md border border-green-300/30 rounded-3xl p-6 mb-8 shadow-2xl">
-            <h3 className="text-white font-bold text-lg mb-4 flex items-center">
-              <ExternalLink className="w-5 h-5 mr-2 text-green-400" />
+          <div className="bg-gradient-to-br from-green-900/60 via-gray-900/80 to-green-900/60 backdrop-blur-md border border-green-300/30 rounded-2xl p-4 shadow-xl">
+            <h3 className="text-white font-bold text-base mb-3 flex items-center">
+              <ExternalLink className="w-4 h-4 mr-2 text-green-400" />
               What You'll Get
             </h3>
             
             <div className="text-center">
-              <div className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400 mb-2">
+              <div className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400 mb-1">
                 FREE PRODUCT
               </div>
               <p className="text-gray-300 text-sm">
-                Get the full product value at no cost in exchange for authentic content creation
+                Full product value at no cost for authentic content
               </p>
             </div>
           </div>
