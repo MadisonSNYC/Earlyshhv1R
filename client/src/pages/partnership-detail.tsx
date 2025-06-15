@@ -51,7 +51,7 @@ export default function PartnershipDetailPage() {
   }
 
   const handleStartPartnership = () => {
-    navigate(`/partnership-confirmation/${campaign.id}`);
+    navigate(`/product-confirmation/${campaign.id}`);
   };
 
   return (

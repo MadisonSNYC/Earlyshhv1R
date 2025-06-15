@@ -31,6 +31,9 @@ const SurveyPage = React.lazy(() => import(/* webpackChunkName: "survey" */ './p
 const BrandProfilePage = React.lazy(() => import(/* webpackChunkName: "brand-profile" */ './pages/brand-profile'));
 const BrandAboutPage = React.lazy(() => import(/* webpackChunkName: "brand-about" */ './pages/brand-about'));
 const MapPage = React.lazy(() => import(/* webpackChunkName: "map" */ './pages/map'));
+const ProductConfirmationPage = React.lazy(() => import(/* webpackChunkName: "product-confirmation" */ './pages/product-confirmation'));
+const PartnershipQRPage = React.lazy(() => import(/* webpackChunkName: "partnership-qr" */ './pages/partnership-qr'));
+const PartnershipLoadingPage = React.lazy(() => import(/* webpackChunkName: "partnership-loading" */ './pages/partnership-loading'));
 const NotFoundPage = React.lazy(() => import(/* webpackChunkName: "not-found" */ './pages/not-found'));
 
 // Authenticated app wrapper
