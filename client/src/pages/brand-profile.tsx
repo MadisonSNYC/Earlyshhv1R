@@ -251,13 +251,13 @@ export default function BrandProfilePage() {
                     </div>
                   </div>
                   <div className="flex-1 h-px bg-gray-600"></div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
-                      <span className="text-gray-400 text-sm font-bold">3</span>
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gradient-to-r from-gray-600 to-gray-700 rounded-full flex items-center justify-center shadow-lg">
+                      <span className="text-gray-300 text-sm font-bold">3</span>
                     </div>
-                    <div>
-                      <p className="text-gray-400 text-sm font-medium">VIP Access</p>
-                      <p className="text-gray-500 text-xs">Coming soon</p>
+                    <div className="flex-1">
+                      <p className="text-white text-sm font-semibold">VIP Access</p>
+                      <p className="text-gray-400 text-xs">Coming soon</p>
                     </div>
                   </div>
                 </div>
@@ -265,45 +265,49 @@ export default function BrandProfilePage() {
             </Card>
 
             {brandData.campaigns.map((campaign) => (
-              <Card key={campaign.id} className={`bg-gray-900/90 border-gray-700/50 ${
+              <Card key={campaign.id} className={`bg-gradient-to-br from-gray-900/90 via-gray-900/80 to-gray-800/90 backdrop-blur-md border border-gray-700/50 rounded-2xl shadow-xl ${
                 campaign.status === 'locked' ? 'opacity-75' : ''
               }`}>
-                <CardContent className="p-4">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-semibold text-white text-sm">{campaign.title}</h3>
+                <CardContent className="p-5">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex-1 pr-3">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h3 className="font-bold text-white text-base leading-tight">{campaign.title}</h3>
                         {campaign.status === 'locked' && (
-                          <div className="w-4 h-4 bg-yellow-500 rounded-full flex items-center justify-center">
+                          <div className="w-5 h-5 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center shadow-lg">
                             <span className="text-black text-xs font-bold">🔒</span>
                           </div>
                         )}
                         {campaign.isPrerequisite && (
-                          <Badge className="bg-green-400/20 text-green-300 text-xs px-2 py-0.5">
+                          <Badge className="bg-gradient-to-r from-green-400/20 to-cyan-400/20 text-green-300 text-xs px-3 py-1 border border-green-400/30 rounded-full">
                             Step 1
                           </Badge>
                         )}
                       </div>
-                      <p className="text-gray-400 text-xs mt-1">{campaign.description}</p>
+                      <p className="text-gray-300 text-sm leading-relaxed mb-2">{campaign.description}</p>
                       {campaign.isPrerequisite && campaign.unlocks && (
-                        <p className="text-yellow-400 text-xs mt-1 font-medium">
-                          🎁 Unlocks: {campaign.unlocks}
-                        </p>
+                        <div className="bg-gradient-to-r from-yellow-400/10 to-orange-400/10 border border-yellow-400/30 rounded-lg p-2 mt-2">
+                          <p className="text-yellow-300 text-xs font-medium">
+                            🎁 Unlocks: {campaign.unlocks}
+                          </p>
+                        </div>
                       )}
                       {campaign.status === 'locked' && campaign.lockReason && (
-                        <p className="text-yellow-400 text-xs mt-2 bg-yellow-400/10 p-2 rounded">
-                          {campaign.lockReason}
-                        </p>
+                        <div className="bg-gradient-to-r from-yellow-400/10 to-orange-400/10 border border-yellow-400/30 rounded-lg p-3 mt-2">
+                          <p className="text-yellow-300 text-xs font-medium">
+                            {campaign.lockReason}
+                          </p>
+                        </div>
                       )}
                     </div>
                     <Badge
                       variant={campaign.status === 'active' ? 'default' : 'secondary'}
-                      className={`text-xs ${
+                      className={`text-xs font-semibold px-3 py-1 rounded-full border ${
                         campaign.status === 'active'
-                          ? 'bg-green-400/20 text-green-300'
+                          ? 'bg-gradient-to-r from-green-400/20 to-cyan-400/20 text-green-300 border-green-400/30'
                           : campaign.status === 'locked'
-                          ? 'bg-yellow-400/20 text-yellow-300'
-                          : 'bg-gray-600/50 text-gray-400'
+                          ? 'bg-gradient-to-r from-yellow-400/20 to-orange-400/20 text-yellow-300 border-yellow-400/30'
+                          : 'bg-gray-600/50 text-gray-400 border-gray-600/50'
                       }`}
                     >
                       {campaign.status === 'active' ? 'Active' : 
@@ -311,22 +315,22 @@ export default function BrandProfilePage() {
                     </Badge>
                   </div>
 
-                  <div className="flex items-center justify-between mb-3">
-                    <span className={`font-bold text-lg ${
-                      campaign.status === 'locked' ? 'text-gray-500' : 'text-cyan-400'
+                  <div className="flex items-center justify-between mb-4">
+                    <span className={`font-black text-xl ${
+                      campaign.status === 'locked' ? 'text-gray-500' : 'text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-green-400'
                     }`}>
                       {campaign.value}
                     </span>
-                    <span className="text-gray-400 text-xs">
+                    <span className="text-gray-400 text-sm font-medium">
                       {campaign.claimed}/{campaign.total} claimed
                     </span>
                   </div>
 
-                  <div className="w-full bg-gray-700 rounded-full h-2 mb-3">
+                  <div className="w-full bg-gray-700/50 rounded-full h-3 mb-4 shadow-inner">
                     <div
-                      className={`h-2 rounded-full ${
+                      className={`h-3 rounded-full shadow-lg ${
                         campaign.status === 'locked' 
-                          ? 'bg-gray-600' 
+                          ? 'bg-gradient-to-r from-gray-600 to-gray-500' 
                           : 'bg-gradient-to-r from-cyan-400 to-green-400'
                       }`}
                       style={{ width: `${(campaign.claimed / campaign.total) * 100}%` }}
@@ -334,12 +338,12 @@ export default function BrandProfilePage() {
                   </div>
 
                   <Button
-                    className={`w-full font-semibold ${
+                    className={`w-full font-bold py-3 rounded-xl text-sm transition-all duration-300 shadow-lg ${
                       campaign.status === 'active'
-                        ? 'bg-gradient-to-r from-cyan-400 to-green-400 text-black hover:from-cyan-500 hover:to-green-500'
+                        ? 'bg-gradient-to-r from-cyan-400 to-green-400 hover:from-cyan-500 hover:to-green-500 text-black shadow-cyan-400/30 hover:shadow-green-400/40 hover:scale-105 border border-white/10'
                         : campaign.status === 'locked'
-                        ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
-                        : 'bg-gray-600 text-gray-300'
+                        ? 'bg-gray-700/80 text-gray-400 cursor-not-allowed border border-gray-600/50'
+                        : 'bg-gray-600/80 text-gray-300 border border-gray-600/50'
                     }`}
                     disabled={campaign.status !== 'active'}
                     onClick={() => campaign.status === 'active' && handleCampaignClaim(campaign.id)}
@@ -353,41 +357,41 @@ export default function BrandProfilePage() {
           </TabsContent>
 
           <TabsContent value="about" className="mt-6">
-            <Card className="bg-gray-900/90 border-gray-700/50">
-              <CardContent className="p-6 space-y-4">
+            <Card className="bg-gradient-to-br from-gray-900/90 via-gray-900/80 to-gray-800/90 backdrop-blur-md border border-gray-700/50 rounded-2xl shadow-xl">
+              <CardContent className="p-6 space-y-6">
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-white">{brandData.activeCampaigns}</div>
-                    <div className="text-xs text-gray-400">Active Campaigns</div>
+                  <div className="text-center bg-gradient-to-br from-cyan-400/10 to-blue-400/10 rounded-xl p-4 border border-cyan-400/20">
+                    <div className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">{brandData.activeCampaigns}</div>
+                    <div className="text-xs text-gray-300 font-medium mt-1">Active Campaigns</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-white">{brandData.totalOffers}</div>
-                    <div className="text-xs text-gray-400">Total Offers</div>
+                  <div className="text-center bg-gradient-to-br from-green-400/10 to-cyan-400/10 rounded-xl p-4 border border-green-400/20">
+                    <div className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400">{brandData.totalOffers}</div>
+                    <div className="text-xs text-gray-300 font-medium mt-1">Total Offers</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-white">{brandData.stats.claimed}</div>
-                    <div className="text-xs text-gray-400">Claimed</div>
+                  <div className="text-center bg-gradient-to-br from-purple-400/10 to-pink-400/10 rounded-xl p-4 border border-purple-400/20">
+                    <div className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">{brandData.stats.claimed}</div>
+                    <div className="text-xs text-gray-300 font-medium mt-1">Claimed</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-white">{brandData.stats.satisfaction}%</div>
-                    <div className="text-xs text-gray-400">Satisfaction</div>
+                  <div className="text-center bg-gradient-to-br from-orange-400/10 to-red-400/10 rounded-xl p-4 border border-orange-400/20">
+                    <div className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-400">{brandData.stats.satisfaction}%</div>
+                    <div className="text-xs text-gray-300 font-medium mt-1">Satisfaction</div>
                   </div>
                 </div>
 
-                <div className="border-t border-gray-700 pt-4">
-                  <h3 className="font-semibold text-white mb-2">Company Info</h3>
-                  <div className="space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Founded</span>
-                      <span className="text-white">{brandData.founded}</span>
+                <div className="border-t border-gray-700/50 pt-6">
+                  <h3 className="font-bold text-white mb-4 text-lg">Company Info</h3>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center p-3 bg-gray-800/50 rounded-lg">
+                      <span className="text-gray-300 font-medium">Founded</span>
+                      <span className="text-white font-semibold">{brandData.founded}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Location</span>
-                      <span className="text-white">{brandData.location}</span>
+                    <div className="flex justify-between items-center p-3 bg-gray-800/50 rounded-lg">
+                      <span className="text-gray-300 font-medium">Location</span>
+                      <span className="text-white font-semibold">{brandData.location}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Website</span>
-                      <span className="text-cyan-400">{brandData.website}</span>
+                    <div className="flex justify-between items-center p-3 bg-gray-800/50 rounded-lg">
+                      <span className="text-gray-300 font-medium">Website</span>
+                      <span className="text-cyan-400 font-semibold">{brandData.website}</span>
                     </div>
                   </div>
                 </div>
@@ -396,50 +400,54 @@ export default function BrandProfilePage() {
           </TabsContent>
 
           <TabsContent value="reviews" className="space-y-4 mt-6">
-            <div className="text-center mb-6">
-              <div className="text-3xl font-bold text-white mb-1">{brandData.rating}</div>
-              <div className="flex justify-center items-center space-x-1 mb-1">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Star
-                    key={star}
-                    className={`w-4 h-4 ${
-                      star <= Math.floor(brandData.rating)
-                        ? 'text-yellow-400 fill-current'
-                        : 'text-gray-400'
-                    }`}
-                  />
-                ))}
-              </div>
-              <div className="text-sm text-gray-400">{brandData.totalReviews} reviews</div>
-            </div>
+            <Card className="bg-gradient-to-br from-gray-900/90 via-gray-900/80 to-gray-800/90 backdrop-blur-md border border-gray-700/50 rounded-2xl shadow-xl">
+              <CardContent className="p-6 text-center">
+                <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400 mb-2">{brandData.rating}</div>
+                <div className="flex justify-center items-center space-x-1 mb-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star
+                      key={star}
+                      className={`w-5 h-5 ${
+                        star <= Math.floor(brandData.rating)
+                          ? 'text-yellow-400 fill-current drop-shadow-lg'
+                          : 'text-gray-500'
+                      }`}
+                    />
+                  ))}
+                </div>
+                <div className="text-sm text-gray-300 font-medium">{brandData.totalReviews} reviews</div>
+              </CardContent>
+            </Card>
 
             {brandData.reviews.map((review) => (
-              <Card key={review.id} className="bg-gray-900/90 border-gray-700/50">
-                <CardContent className="p-4">
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-green-400 rounded-full flex items-center justify-center">
-                        <span className="text-black font-bold text-xs">
+              <Card key={review.id} className="bg-gradient-to-br from-gray-900/90 via-gray-900/80 to-gray-800/90 backdrop-blur-md border border-gray-700/50 rounded-2xl shadow-xl">
+                <CardContent className="p-5">
+                  <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-green-400 rounded-full flex items-center justify-center shadow-lg">
+                        <span className="text-black font-bold text-sm">
                           {review.user.charAt(0)}
                         </span>
                       </div>
-                      <span className="font-medium text-white text-sm">{review.user}</span>
+                      <div>
+                        <span className="font-bold text-white text-sm">{review.user}</span>
+                        <div className="flex items-center space-x-1 mt-1">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <Star
+                              key={star}
+                              className={`w-3 h-3 ${
+                                star <= review.rating
+                                  ? 'text-yellow-400 fill-current'
+                                  : 'text-gray-500'
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex items-center space-x-1">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <Star
-                          key={star}
-                          className={`w-3 h-3 ${
-                            star <= review.rating
-                              ? 'text-yellow-400 fill-current'
-                              : 'text-gray-400'
-                          }`}
-                        />
-                      ))}
-                    </div>
+                    <span className="text-gray-400 text-xs font-medium">{review.date}</span>
                   </div>
-                  <p className="text-gray-300 text-sm mb-2">{review.comment}</p>
-                  <span className="text-gray-400 text-xs">{review.date}</span>
+                  <p className="text-gray-300 text-sm leading-relaxed">{review.comment}</p>
                 </CardContent>
               </Card>
             ))}
