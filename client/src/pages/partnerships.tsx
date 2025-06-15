@@ -119,10 +119,12 @@ export default function PartnershipsPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-gray-900 to-indigo-900 flex flex-col relative overflow-hidden">
+    <div className="h-screen bg-gradient-to-br from-purple-900 via-gray-900 to-indigo-900 flex flex-col relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-purple-800/20 via-transparent to-cyan-800/20" />
       
-      <div className="relative z-10 flex-1 p-6 space-y-8 pb-24">
+      <div className="relative z-10 h-full flex flex-col">
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-8">
         {/* Header */}
         <div className="text-center pt-8 pb-6">
           <h1 className="text-5xl font-black tracking-tight text-white mb-4">
@@ -251,9 +253,16 @@ export default function PartnershipsPage() {
             )}
           </TabsContent>
         </Tabs>
-      </div>
+        
+        {/* Add padding at bottom for fixed navigation */}
+        <div className="h-20"></div>
+        </div>
 
-      <BottomNavigation />
+        {/* Fixed Bottom Navigation */}
+        <div className="flex-shrink-0">
+          <BottomNavigation />
+        </div>
+      </div>
     </div>
   );
 }

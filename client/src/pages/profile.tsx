@@ -166,12 +166,14 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-500 via-purple-600 via-blue-500 to-cyan-500 relative overflow-hidden">
+    <div className="h-screen bg-gradient-to-br from-pink-500 via-purple-600 via-blue-500 to-cyan-500 relative overflow-hidden">
       {/* Enhanced background overlays */}
       <div className="absolute inset-0 bg-gradient-to-br from-orange-400/20 via-pink-500/15 to-cyan-400/20" />
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-gray-900/20 to-gray-900/30" />
       
-      <div className="relative z-10 px-4 pt-8 pb-32 space-y-6 max-w-md mx-auto">
+      <div className="relative z-10 h-full flex flex-col">
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto px-4 pt-8 space-y-6 max-w-md mx-auto">
         {/* Header Section - Profile Picture and Basic Info */}
         <div className="bg-gray-900/80 backdrop-blur-lg rounded-3xl p-6 border border-white/20 shadow-2xl">
           {/* Profile Picture */}
@@ -675,18 +677,25 @@ export default function ProfilePage() {
       )}
 
       {/* CSS for shimmer animation */}
-      <style dangerouslySetInnerHTML={{
-        __html: `
-          @keyframes shimmer {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-          }
-        `
-      }} />
+        <style dangerouslySetInnerHTML={{
+          __html: `
+            @keyframes shimmer {
+              0% { background-position: 0% 50%; }
+              50% { background-position: 100% 50%; }
+              100% { background-position: 0% 50%; }
+            }
+          `
+        }} />
 
-      {/* Bottom Navigation */}
-      {window.self === window.top && <BottomNavigation />}
+        {/* Add padding at bottom for fixed navigation */}
+        <div className="h-20"></div>
+        </div>
+
+        {/* Fixed Bottom Navigation */}
+        <div className="flex-shrink-0">
+          {window.self === window.top && <BottomNavigation />}
+        </div>
+      </div>
     </div>
   );
 }

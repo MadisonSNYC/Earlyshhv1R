@@ -102,15 +102,16 @@ export default function MapPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-500 via-purple-600 via-blue-500 to-cyan-500 relative overflow-hidden">
+    <div className="h-screen bg-gradient-to-br from-pink-500 via-purple-600 via-blue-500 to-cyan-500 relative overflow-hidden">
       {/* Colorful overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-orange-400/30 via-pink-500/20 to-cyan-400/30" />
       
       {/* Additional depth layer for text readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 via-transparent to-gray-900/20" />
       
-      {/* Header */}
-      <header className="relative z-10 bg-gradient-to-r from-gray-900/80 via-purple-900/70 to-gray-900/80 backdrop-blur-md border-b border-pink-400/30 sticky top-0 shadow-lg">
+      <div className="relative z-10 h-full flex flex-col">
+        {/* Fixed Header */}
+        <header className="flex-shrink-0 bg-gradient-to-r from-gray-900/80 via-purple-900/70 to-gray-900/80 backdrop-blur-md border-b border-pink-400/30 shadow-lg">
         <div className="max-w-md mx-auto px-6 py-6">
           <div className="flex items-start justify-between mb-6">
             <div className="bg-gradient-to-r from-gray-900/60 to-purple-900/60 backdrop-blur-sm rounded-2xl px-5 py-4 border border-pink-300/20 flex-1 mr-4">
