@@ -35,13 +35,13 @@ export default function InstagramStoryPage() {
   // Mock coupon data for demo
   const mockCoupon = {
     id: params?.couponId || '1',
-    brandName: 'SuperRoot Energy',
-    productName: 'SuperRoot Premium Energy Formula',
-    brandIgHandle: '@superrootenergy',
+    brandName: 'SUPEROOT',
+    productName: 'SUPEROOT Daily Electrolyte Mix',
+    brandIgHandle: '@drinksuperoot',
     redeemableAmount: '$3.99',
     campaign: {
-      brandName: 'SuperRoot Energy',
-      brandIgHandle: '@superrootenergy'
+      brandName: 'SUPEROOT',
+      brandIgHandle: '@drinksuperoot'
     }
   };
 

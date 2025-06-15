@@ -21,13 +21,13 @@ export default function BrandAbout() {
   // Brand bio data - in a real app this would come from an API
   const brandBioData = {
     1: {
-      name: "SuperRoot Energy",
-      description: "Superoot is a dry powder electrolyte mix with ingredients that studies show can boost immunity, hydrate, detox, enhance mental clarity, improve physical stamina, and support long-term vitality.",
+      name: "SUPEROOT",
+      description: "SUPEROOT is a dry powder electrolyte mix with ingredients that studies show can boost immunity, hydrate, detox, enhance mental clarity, improve physical stamina, and support long-term vitality.",
       fullBio: "It blends a perfectly balanced 3-mineral electrolyte formula (potassium, magnesium, sodium) with the all-natural powder of 6 different roots—ginger, turmeric, beet, maca, carrot, and ginseng—and then a healthy helping of vitamin C to form a drink to support your immune system every day.",
       founded: "2020",
       location: "Los Angeles, CA",
       employees: "15-50",
-      website: "https://superoot.com",
+      website: "https://drinksuperoot.com",
       socialFollowers: "125K",
       categories: ["Health & Wellness", "Supplements", "Natural Products"],
       keyIngredients: ["Ginger", "Turmeric", "Beet", "Maca", "Carrot", "Ginseng", "Vitamin C"],
