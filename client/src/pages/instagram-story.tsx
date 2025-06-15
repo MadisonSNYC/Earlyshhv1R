@@ -32,13 +32,18 @@ export default function InstagramStoryPage() {
     enabled: !!params?.couponId,
   });
 
-  // Mock coupon data for demo
+  // SUPEROOT brand data for Instagram story creation
   const mockCoupon = {
     id: params?.couponId || '1',
     brandName: 'SUPEROOT',
     productName: 'SUPEROOT Daily Electrolyte Mix',
     brandIgHandle: '@drinksuperoot',
-    redeemableAmount: '$3.99',
+    redeemableAmount: '$29.99',
+    brandBio: 'Premium dry powder electrolyte mix for immunity, hydration, detox, mental clarity, stamina, and vitality',
+    offerDescription: 'Free SUPEROOT Daily Electrolyte Mix + Partnership Opportunity',
+    brandLogoUrl: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&h=400&fit=crop&crop=center',
+    category: 'Health & Wellness',
+    status: 'active',
     campaign: {
       brandName: 'SUPEROOT',
       brandIgHandle: '@drinksuperoot'
@@ -130,7 +135,7 @@ export default function InstagramStoryPage() {
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
         // Add brand tag overlay
-        addBrandOverlay(context, canvas.width, canvas.height);
+        addBrandOverlay(context, canvas.width, canvas.height, activeCoupon);
 
         // Convert to base64
         const photoData = canvas.toDataURL('image/jpeg', 0.8);
@@ -140,7 +145,7 @@ export default function InstagramStoryPage() {
     }
   };
 
-  const addBrandOverlay = (context: CanvasRenderingContext2D, width: number, height: number) => {
+  const addBrandOverlay = (context: CanvasRenderingContext2D, width: number, height: number, coupon: any) => {
     // Set up text styling for brand tag
     context.fillStyle = 'rgba(0, 0, 0, 0.7)';
     context.fillRect(20, height - 100, width - 40, 80);
@@ -149,7 +154,7 @@ export default function InstagramStoryPage() {
     context.fillStyle = '#FFFFFF';
     context.font = 'bold 32px Arial';
     context.textAlign = 'left';
-    context.fillText(activeCoupon.brandIgHandle, 40, height - 60);
+    context.fillText(coupon.brandIgHandle || '@drinksuperoot', 40, height - 60);
 
     // Hidden tag (smaller, less prominent but still visible)
     context.fillStyle = 'rgba(255, 255, 255, 0.6)';
