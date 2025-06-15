@@ -120,23 +120,27 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-500 via-purple-600 via-blue-500 to-cyan-500 relative overflow-hidden iphone-container iphone-safe-area">
+    <div className="h-screen bg-gradient-to-br from-pink-500 via-purple-600 via-blue-500 to-cyan-500 relative overflow-hidden iphone-container iphone-safe-area">
       {/* Colorful overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-orange-400/30 via-pink-500/20 to-cyan-400/30" />
       
       {/* Additional depth layer for text readability */}
       <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 via-transparent to-gray-900/20" />
       
-      {/* Header - Logo Only */}
-      <header className="relative z-10 bg-gradient-to-r from-gray-900/80 via-purple-900/70 to-gray-900/80 backdrop-blur-md border-b border-pink-400/30 sticky top-0 shadow-lg">
-        <div className="w-full px-4 py-4 flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-812-title font-black bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent drop-shadow-lg">
-              Earlyshh
-            </h1>
+      <div className="relative z-10 h-full flex flex-col">
+        {/* Fixed Header - Logo Only */}
+        <header className="flex-shrink-0 bg-gradient-to-r from-gray-900/80 via-purple-900/70 to-gray-900/80 backdrop-blur-md border-b border-pink-400/30 shadow-lg">
+          <div className="w-full px-4 py-4 flex items-center justify-center">
+            <div className="text-center">
+              <h1 className="text-812-title font-black bg-gradient-to-r from-pink-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent drop-shadow-lg">
+                Earlyshh
+              </h1>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto">
 
       {/* Map Sneak Peek */}
       <section className="relative z-10 w-full px-4 py-3">
@@ -370,8 +374,15 @@ export default function HomePage() {
         />
       )}
 
-      {/* Bottom Navigation */}
-      <BottomNavigation />
+        {/* Add padding at bottom for fixed navigation */}
+        <div className="h-20"></div>
+        </div>
+
+        {/* Fixed Bottom Navigation */}
+        <div className="flex-shrink-0">
+          <BottomNavigation />
+        </div>
+      </div>
     </div>
   );
 }

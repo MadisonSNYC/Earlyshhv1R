@@ -67,9 +67,9 @@ export default function PartnershipQRPage() {
   }
 
   return (
-    <div className="min-h-screen earlyshh-bg relative">
+    <div className="h-screen earlyshh-bg relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-purple-800/20 via-transparent to-cyan-800/20" />
-      <div className="relative z-10 min-h-screen flex flex-col">
+      <div className="relative z-10 h-full flex flex-col">
         {/* Fixed Header */}
         <div className="flex-shrink-0 flex items-center justify-between p-4 pt-8 bg-gradient-to-b from-black/30 to-transparent backdrop-blur-sm">
           <Button
