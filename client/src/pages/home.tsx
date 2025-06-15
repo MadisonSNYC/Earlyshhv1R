@@ -190,8 +190,7 @@ export default function HomePage() {
                 key={campaign.id}
                 className={`flex-shrink-0 bg-gradient-to-br ${cardGradient} backdrop-blur-md border ${borderGradient} rounded-3xl p-3 w-[110px] cursor-pointer hover:border-purple-400/70 hover:bg-gradient-to-br hover:from-purple-500/30 hover:to-cyan-500/30 hover:scale-105 transition-all duration-300 group shadow-xl`}
                 onClick={() => {
-                  setSelectedCampaign(campaign);
-                  setShowPartnershipModal(true);
+                  setLocation(`/partnership/${campaign.id}`);
                 }}
               >
                 <div className="flex flex-col items-center text-center">
@@ -267,8 +266,7 @@ export default function HomePage() {
                         key={campaign.id}
                         className={`bg-gradient-to-br ${cardGradient} backdrop-blur-md border ${borderGradient} rounded-2xl p-4 cursor-pointer hover:border-cyan-400/60 hover:bg-gradient-to-br hover:from-purple-500/30 hover:to-cyan-500/30 hover:scale-[1.02] transition-all duration-300 group shadow-xl w-full max-w-full`}
                         onClick={() => {
-                          setSelectedCampaign(campaign);
-                          setShowPartnershipModal(true);
+                          setLocation(`/partnership/${campaign.id}`);
                         }}
                       >
                         {/* Compact Header */}
@@ -334,8 +332,7 @@ export default function HomePage() {
                             className="bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600 text-white px-3 py-1.5 rounded-lg font-semibold text-xs transition-all duration-300 hover:scale-105 shadow-lg shadow-pink-500/30 hover:shadow-purple-500/40 flex items-center gap-1.5 border border-white/10 flex-shrink-0"
                             onClick={(e) => {
                               e.stopPropagation();
-                              setSelectedCampaign(campaign);
-                              setShowPartnershipModal(true);
+                              setLocation(`/partnership/${campaign.id}`);
                             }}
                           >
                             <Sparkles className="w-3 h-3" />
