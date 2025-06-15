@@ -15,21 +15,55 @@ export default function QRCodePage() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  // Fetch coupon data
-  const { data: coupon, isLoading } = useQuery<Coupon>({
+  // Fetch coupon data with campaign details
+  const { data: coupon, isLoading } = useQuery({
     queryKey: ['/api/coupons', params?.couponId],
     enabled: !!params?.couponId,
+    queryFn: async () => {
+      if (!params?.couponId) return null;
+      
+      // For demo purposes, return SuperRoot Energy partnership data
+      return {
+        id: 1,
+        campaignId: 1,
+        userId: 1,
+        code: 'DEMO-CODE',
+        productName: 'SuperRoot Energy Drink',
+        redeemableAmount: '30% OFF',
+        expirationDate: new Date(Date.now() + 24 * 60 * 60 * 1000),
+        legalDisclaimer: 'Terms and conditions apply',
+        qrData: 'DEMO-QR-CODE-DATA',
+        fetchCode: 'DEMO-1234',
+        dateFetched: new Date(),
+        claimedAt: new Date(),
+        redeemedAt: null,
+        status: 'claimed' as const,
+        // Campaign details
+        brandName: 'SuperRoot Energy',
+        brandLogoUrl: '/api/placeholder/120/120?color=ff6b35&text=SR'
+      };
+    }
   });
 
   // Show demo QR code if no coupon data
   if (!coupon && !isLoading) {
     const demoCoupon = {
-      brandName: 'SuperRoot Energy',
+      id: 1,
+      campaignId: 1,
+      userId: 1,
+      code: 'DEMO-CODE',
+      productName: 'SuperRoot Energy Drink',
       redeemableAmount: '30% OFF',
-      fetchCode: 'DEMO-1234',
-      id: '1',
+      expirationDate: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      legalDisclaimer: 'Terms and conditions apply',
       qrData: 'DEMO-QR-CODE-DATA',
-      expirationDate: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
+      fetchCode: 'DEMO-1234',
+      dateFetched: new Date(),
+      claimedAt: new Date(),
+      redeemedAt: null,
+      status: 'claimed' as const,
+      brandName: 'SuperRoot Energy',
+      brandLogoUrl: '/api/placeholder/120/120?color=ff6b35&text=SR'
     };
     
     return (
