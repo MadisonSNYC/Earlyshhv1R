@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback } from 'react';
 import { useLocation } from 'wouter';
+import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
@@ -22,16 +23,31 @@ export default function PartnershipConfirmationPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
 
-  // Get campaign data from navigation state or URL params
-  const urlParams = new URLSearchParams(location.split('?')[1] || '');
-  const campaignData = urlParams.get('campaign') ? JSON.parse(decodeURIComponent(urlParams.get('campaign')!)) : null;
+  // Extract campaign ID from URL path
+  const pathParts = location.split('/');
+  const campaignId = pathParts[pathParts.length - 1];
+
+  // Fetch campaign data based on ID
+  const { data: campaigns = [], isLoading } = useQuery<Campaign[]>({
+    queryKey: ['/api/campaigns'],
+  });
+
+  const campaignData = campaigns.find(c => c.id.toString() === campaignId);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen earlyshh-bg flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-purple-400 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   if (!campaignData) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4">
+      <div className="min-h-screen earlyshh-bg flex items-center justify-center p-4">
         <div className="text-center">
-          <h2 className="text-xl font-rubik font-bold text-white mb-4">Partnership not found</h2>
-          <Button onClick={() => navigate('/')} variant="outline">
+          <h2 className="text-xl font-bold text-white mb-4">Partnership not found</h2>
+          <Button onClick={() => navigate('/home')} variant="outline">
             Return Home
           </Button>
         </div>
