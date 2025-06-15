@@ -21,6 +21,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/campaigns/categories", async (req, res) => {
+    try {
+      // Return sample categories for partnership filtering
+      const categories = [
+        { id: 1, name: "Food & Beverage", icon: "🍽️" },
+        { id: 2, name: "Beauty & Wellness", icon: "💄" },
+        { id: 3, name: "Fitness & Health", icon: "💪" },
+        { id: 4, name: "Fashion & Style", icon: "👗" },
+        { id: 5, name: "Tech & Gadgets", icon: "📱" },
+        { id: 6, name: "Home & Living", icon: "🏠" }
+      ];
+      res.json(categories);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch categories", error: error instanceof Error ? error.message : "Unknown error" });
+    }
+  });
+
   // User routes
   app.get("/api/user", async (req, res) => {
     try {
@@ -50,10 +67,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // User coupons/partnerships routes
+  app.get("/api/users/:userId/coupons", async (req, res) => {
+    try {
+      const userId = parseInt(req.params.userId) || 1;
+      const coupons = await storage.getUserCoupons(userId);
+      
+      // Enhance coupons with campaign data
+      const enhancedCoupons = await Promise.all(
+        coupons.map(async (coupon) => {
+          const campaign = await storage.getCampaign(coupon.campaignId);
+          return {
+            ...coupon,
+            campaign: campaign
+          };
+        })
+      );
+      
+      res.json(enhancedCoupons);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch user coupons", error: error instanceof Error ? error.message : "Unknown error" });
+    }
+  });
+
   // Notification routes
   app.get("/api/notifications", async (req, res) => {
     try {
-      const userId = 1; // Hardcoded for MVP
+      const userId = req.query.userId ? parseInt(req.query.userId as string) : 1;
+      if (!userId) {
+        return res.status(400).json({ message: "User ID required" });
+      }
       const notifications = await storage.getUserNotifications(userId);
       res.json(notifications);
     } catch (error) {

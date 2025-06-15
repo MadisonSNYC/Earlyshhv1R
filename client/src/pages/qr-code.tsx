@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { QRCodeSVG } from 'qrcode.react';
 import { useToast } from '@/hooks/use-toast';
+import type { Coupon } from '@shared/schema';
 
 export default function QRCodePage() {
   const [, params] = useRoute('/qr-code/:couponId');
@@ -15,7 +16,7 @@ export default function QRCodePage() {
   const queryClient = useQueryClient();
 
   // Fetch coupon data
-  const { data: coupon, isLoading } = useQuery({
+  const { data: coupon, isLoading } = useQuery<Coupon>({
     queryKey: ['/api/coupons', params?.couponId],
     enabled: !!params?.couponId,
   });
@@ -27,7 +28,8 @@ export default function QRCodePage() {
       redeemableAmount: '30% OFF',
       fetchCode: 'DEMO-1234',
       id: '1',
-      qrData: 'DEMO-QR-CODE-DATA'
+      qrData: 'DEMO-QR-CODE-DATA',
+      expirationDate: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString()
     };
     
     return (
