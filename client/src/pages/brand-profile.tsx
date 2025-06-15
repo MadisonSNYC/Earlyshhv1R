@@ -219,67 +219,261 @@ export default function BrandProfilePage() {
             </div>
           </div>
 
-          {/* Campaigns */}
-          <div className="px-4 space-y-4 pb-32">
-            <h3 className="text-white font-bold text-lg mb-4">Available Partnerships</h3>
-            
-            {brandData.campaigns.map((campaign) => (
-              <div key={campaign.id} className="bg-gradient-to-br from-gray-900/80 via-purple-900/60 to-gray-900/80 backdrop-blur-md border border-purple-300/30 rounded-2xl p-4 shadow-xl">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex-1">
-                    <h4 className="text-white font-semibold text-base mb-1">{campaign.title}</h4>
-                    <p className="text-gray-300 text-sm mb-2">{campaign.description}</p>
-                    <div className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400">
-                      {campaign.value}
-                    </div>
-                  </div>
-                  <Badge 
-                    className={`ml-3 ${
-                      campaign.status === 'active' ? 'bg-green-500/20 text-green-400 border-green-400/30' :
-                      campaign.status === 'locked' ? 'bg-gray-500/20 text-gray-400 border-gray-400/30' :
-                      'bg-blue-500/20 text-blue-400 border-blue-400/30'
-                    }`}
-                  >
-                    {campaign.status === 'active' ? 'Available' :
-                     campaign.status === 'locked' ? 'Locked' : 'Coming Soon'}
-                  </Badge>
-                </div>
-                
-                {campaign.status === 'active' && (
-                  <div className="mb-3">
-                    <div className="flex items-center justify-between text-xs text-gray-400 mb-1">
-                      <span>Progress</span>
-                      <span>{campaign.claimed}/{campaign.total}</span>
-                    </div>
-                    <div className="w-full bg-gray-700/50 rounded-full h-2">
-                      <div 
-                        className="bg-gradient-to-r from-green-400 to-cyan-400 h-2 rounded-full"
-                        style={{ width: `${(campaign.claimed / campaign.total) * 100}%` }}
-                      />
-                    </div>
-                  </div>
-                )}
-
-                {campaign.status === 'locked' && campaign.lockReason && (
-                  <p className="text-yellow-400 text-xs mb-3 bg-yellow-400/10 p-2 rounded-lg">
-                    {campaign.lockReason}
-                  </p>
-                )}
-
-                <Button
-                  onClick={() => handleCampaignClaim(campaign.id)}
-                  disabled={campaign.status !== 'active'}
-                  className={`w-full ${
-                    campaign.status === 'active' 
-                      ? 'bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 text-white' 
-                      : 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                  }`}
+          {/* Enhanced Tabs Section */}
+          <div className="px-4 pb-32">
+            <Tabs defaultValue="campaigns" className="w-full">
+              <TabsList className="grid w-full grid-cols-3 bg-gradient-to-r from-gray-800/80 via-gray-900/90 to-gray-800/80 backdrop-blur-md border border-gray-700/50 rounded-xl mb-6">
+                <TabsTrigger 
+                  value="campaigns" 
+                  className="text-gray-300 data-[state=active]:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500/50 data-[state=active]:to-cyan-500/50 data-[state=active]:border-purple-400/30 rounded-lg transition-all duration-200"
                 >
-                  {campaign.status === 'active' ? 'Claim Partnership' :
-                   campaign.status === 'locked' ? 'Complete Previous First' : 'Coming Soon'}
-                </Button>
-              </div>
-            ))}
+                  Partnerships
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="about" 
+                  className="text-gray-300 data-[state=active]:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500/50 data-[state=active]:to-cyan-500/50 data-[state=active]:border-purple-400/30 rounded-lg transition-all duration-200"
+                >
+                  About
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="reviews" 
+                  className="text-gray-300 data-[state=active]:text-white data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500/50 data-[state=active]:to-cyan-500/50 data-[state=active]:border-purple-400/30 rounded-lg transition-all duration-200"
+                >
+                  Reviews
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="campaigns" className="space-y-4 mt-0">
+                {/* Progress Journey Card */}
+                <Card className="bg-gradient-to-r from-purple-900/60 via-indigo-900/50 to-cyan-900/60 border-purple-700/40 backdrop-blur-md rounded-2xl shadow-xl">
+                  <CardContent className="p-5">
+                    <h3 className="text-white font-bold text-lg mb-4 text-center">Your SUPEROOT Journey</h3>
+                    <div className="flex items-center justify-between">
+                      <div className="flex flex-col items-center space-y-2">
+                        <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full flex items-center justify-center shadow-lg border-2 border-green-300/30">
+                          <span className="text-white text-lg font-bold">1</span>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-green-300 text-sm font-semibold">Free Sample</p>
+                          <p className="text-gray-400 text-xs">Available now</p>
+                        </div>
+                      </div>
+                      <div className="flex-1 h-0.5 bg-gradient-to-r from-green-400 via-yellow-400 to-gray-600 mx-3"></div>
+                      <div className="flex flex-col items-center space-y-2">
+                        <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg border-2 border-yellow-400/30">
+                          <span className="text-white text-lg font-bold">🔒</span>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-yellow-300 text-sm font-semibold">50% Off Box</p>
+                          <p className="text-gray-400 text-xs">Complete step 1</p>
+                        </div>
+                      </div>
+                      <div className="flex-1 h-0.5 bg-gray-600 mx-3"></div>
+                      <div className="flex flex-col items-center space-y-2">
+                        <div className="w-12 h-12 bg-gradient-to-br from-gray-600 to-gray-700 rounded-full flex items-center justify-center shadow-lg border-2 border-gray-500/30">
+                          <span className="text-gray-300 text-lg font-bold">3</span>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-gray-300 text-sm font-semibold">VIP Access</p>
+                          <p className="text-gray-500 text-xs">Coming soon</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Partnership Cards */}
+                {brandData.campaigns.map((campaign) => (
+                  <Card key={campaign.id} className={`bg-gradient-to-br from-gray-900/90 via-gray-900/80 to-gray-800/90 backdrop-blur-md border border-gray-700/50 rounded-2xl shadow-xl transition-all duration-200 hover:scale-[1.02] hover:shadow-2xl ${
+                    campaign.status === 'locked' ? 'opacity-75' : ''
+                  }`}>
+                    <CardContent className="p-5">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex-1">
+                          <h4 className="text-white font-bold text-lg mb-2">{campaign.title}</h4>
+                          <p className="text-gray-300 text-sm mb-3 leading-relaxed">{campaign.description}</p>
+                          <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400">
+                            {campaign.value}
+                          </div>
+                        </div>
+                        <Badge 
+                          className={`ml-4 px-3 py-1 font-semibold ${
+                            campaign.status === 'active' ? 'bg-green-500/20 text-green-400 border-green-400/40' :
+                            campaign.status === 'locked' ? 'bg-yellow-500/20 text-yellow-400 border-yellow-400/40' :
+                            'bg-blue-500/20 text-blue-400 border-blue-400/40'
+                          }`}
+                        >
+                          {campaign.status === 'active' ? 'Available' :
+                           campaign.status === 'locked' ? 'Locked' : 'Coming Soon'}
+                        </Badge>
+                      </div>
+                      
+                      {campaign.status === 'active' && (
+                        <div className="mb-4">
+                          <div className="flex items-center justify-between text-sm text-gray-400 mb-2">
+                            <span>Campaign Progress</span>
+                            <span className="font-semibold">{campaign.claimed}/{campaign.total} claimed</span>
+                          </div>
+                          <div className="w-full bg-gray-700/60 rounded-full h-3 overflow-hidden">
+                            <div 
+                              className="bg-gradient-to-r from-green-400 to-cyan-400 h-3 rounded-full transition-all duration-500 shadow-sm"
+                              style={{ width: `${(campaign.claimed / campaign.total) * 100}%` }}
+                            />
+                          </div>
+                          <div className="text-xs text-gray-500 mt-1">
+                            {Math.round((campaign.claimed / campaign.total) * 100)}% completed
+                          </div>
+                        </div>
+                      )}
+
+                      {campaign.status === 'locked' && campaign.lockReason && (
+                        <div className="mb-4 p-3 bg-yellow-400/10 border border-yellow-400/20 rounded-lg">
+                          <p className="text-yellow-400 text-sm">
+                            <span className="font-semibold">🔒 Locked:</span> {campaign.lockReason}
+                          </p>
+                        </div>
+                      )}
+
+                      {campaign.isPrerequisite && campaign.unlocks && (
+                        <div className="mb-4 p-3 bg-cyan-400/10 border border-cyan-400/20 rounded-lg">
+                          <p className="text-cyan-400 text-sm">
+                            <span className="font-semibold">✨ Unlocks:</span> {campaign.unlocks}
+                          </p>
+                        </div>
+                      )}
+
+                      <Button
+                        onClick={() => handleCampaignClaim(campaign.id)}
+                        disabled={campaign.status !== 'active'}
+                        className={`w-full py-3 font-semibold transition-all duration-200 ${
+                          campaign.status === 'active' 
+                            ? 'bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 text-white shadow-lg hover:shadow-xl transform hover:scale-[1.02]' 
+                            : 'bg-gray-700/50 text-gray-400 cursor-not-allowed'
+                        }`}
+                      >
+                        {campaign.status === 'active' ? 'Claim Partnership' :
+                         campaign.status === 'locked' ? 'Complete Previous Partnership First' : 'Coming Soon'}
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ))}
+              </TabsContent>
+
+              <TabsContent value="about" className="mt-0">
+                <Card className="bg-gradient-to-br from-gray-900/90 via-purple-900/60 to-gray-900/90 backdrop-blur-md border border-gray-700/50 rounded-2xl shadow-xl">
+                  <CardContent className="p-6">
+                    <h3 className="text-white font-bold text-xl mb-4">About SUPEROOT</h3>
+                    <div className="space-y-4">
+                      <div>
+                        <h4 className="text-cyan-400 font-semibold mb-2">Our Mission</h4>
+                        <p className="text-gray-300 leading-relaxed">
+                          SUPEROOT creates premium dry powder electrolyte mixes using natural root extracts. 
+                          Our formulations support immunity, hydration, detox, mental clarity, stamina, and overall vitality 
+                          for active lifestyles.
+                        </p>
+                      </div>
+                      <div>
+                        <h4 className="text-cyan-400 font-semibold mb-2">Key Benefits</h4>
+                        <div className="grid grid-cols-2 gap-3">
+                          <div className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                            <span className="text-gray-300 text-sm">Enhanced Immunity</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                            <span className="text-gray-300 text-sm">Superior Hydration</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                            <span className="text-gray-300 text-sm">Natural Detox</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                            <span className="text-gray-300 text-sm">Mental Clarity</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-red-400 rounded-full"></div>
+                            <span className="text-gray-300 text-sm">Increased Stamina</span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
+                            <span className="text-gray-300 text-sm">Overall Vitality</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className="text-cyan-400 font-semibold mb-2">Company Info</h4>
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <p className="text-gray-400 text-sm">Founded</p>
+                            <p className="text-white font-semibold">{brandData.founded}</p>
+                          </div>
+                          <div>
+                            <p className="text-gray-400 text-sm">Location</p>
+                            <p className="text-white font-semibold">{brandData.location}</p>
+                          </div>
+                          <div>
+                            <p className="text-gray-400 text-sm">Active Partnerships</p>
+                            <p className="text-white font-semibold">{brandData.activeCampaigns}</p>
+                          </div>
+                          <div>
+                            <p className="text-gray-400 text-sm">Total Offers</p>
+                            <p className="text-white font-semibold">{brandData.totalOffers}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="reviews" className="mt-0">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-white font-bold text-lg">Customer Reviews</h3>
+                    <div className="flex items-center space-x-2">
+                      <div className="flex items-center">
+                        {[...Array(5)].map((_, i) => (
+                          <Star 
+                            key={i} 
+                            className={`w-4 h-4 ${i < Math.floor(brandData.rating) ? 'text-yellow-400 fill-current' : 'text-gray-600'}`} 
+                          />
+                        ))}
+                      </div>
+                      <span className="text-white font-semibold">{brandData.rating}</span>
+                      <span className="text-gray-400 text-sm">({brandData.totalReviews} reviews)</span>
+                    </div>
+                  </div>
+                  
+                  {brandData.reviews.map((review) => (
+                    <Card key={review.id} className="bg-gradient-to-br from-gray-900/80 via-gray-900/60 to-gray-800/80 backdrop-blur-md border border-gray-700/50 rounded-xl shadow-lg">
+                      <CardContent className="p-4">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-cyan-500 rounded-full flex items-center justify-center">
+                              <span className="text-white font-bold text-sm">{review.user.charAt(0)}</span>
+                            </div>
+                            <div>
+                              <p className="text-white font-semibold">{review.user}</p>
+                              <p className="text-gray-400 text-xs">{review.date}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center">
+                            {[...Array(5)].map((_, i) => (
+                              <Star 
+                                key={i} 
+                                className={`w-3 h-3 ${i < review.rating ? 'text-yellow-400 fill-current' : 'text-gray-600'}`} 
+                              />
+                            ))}
+                          </div>
+                        </div>
+                        <p className="text-gray-300 text-sm leading-relaxed">{review.comment}</p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
 
