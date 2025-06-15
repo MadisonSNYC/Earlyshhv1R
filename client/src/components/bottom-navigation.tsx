@@ -42,8 +42,8 @@ export default function BottomNavigation() {
                   className={`w-full flex flex-col items-center space-y-1 h-auto py-2 px-1 transition-all duration-200 ${
                     isQRCode
                       ? isActive 
-                        ? 'text-white bg-gradient-to-r from-purple-500/80 to-cyan-500/80 shadow-lg border border-purple-400/50' 
-                        : 'text-gray-300 bg-gradient-to-r from-purple-500/20 to-cyan-500/20 hover:from-purple-500/40 hover:to-cyan-500/40 border border-purple-400/30 shadow-md transform hover:scale-105'
+                        ? 'text-white bg-gradient-to-r from-orange-500/80 to-red-500/80 shadow-lg border border-orange-400/50' 
+                        : 'text-gray-300 bg-gradient-to-r from-orange-500/20 to-red-500/20 hover:from-orange-500/40 hover:to-red-500/40 border border-orange-400/30 shadow-md transform hover:scale-105'
                       : isActive 
                         ? 'text-cyan-400 bg-cyan-400/10' 
                         : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
@@ -60,7 +60,7 @@ export default function BottomNavigation() {
                       </Badge>
                     )}
                     {isQRCode && !isActive && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-cyan-400/20 rounded-lg animate-pulse" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-orange-400/20 to-red-400/20 rounded-lg animate-pulse" />
                     )}
                   </div>
                   <span className={`text-xs font-medium ${isQRCode ? 'font-semibold' : ''}`}>
