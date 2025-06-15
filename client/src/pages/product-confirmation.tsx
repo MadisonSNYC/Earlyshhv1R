@@ -45,11 +45,11 @@ export default function ProductConfirmationPage() {
   }
 
   return (
-    <div className="min-h-screen earlyshh-bg relative overflow-hidden">
+    <div className="min-h-screen earlyshh-bg relative">
       <div className="absolute inset-0 bg-gradient-to-br from-purple-800/20 via-transparent to-cyan-800/20" />
       <div className="relative z-10 min-h-screen flex flex-col">
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 pt-8">
+        {/* Fixed Header */}
+        <div className="flex-shrink-0 flex items-center justify-between p-4 pt-8 bg-gradient-to-b from-black/30 to-transparent backdrop-blur-sm">
           <Button
             variant="ghost"
             size="sm"
@@ -62,8 +62,8 @@ export default function ProductConfirmationPage() {
           <div className="w-10" />
         </div>
 
-        {/* Content */}
-        <div className="flex-1 px-4 py-6 space-y-6">
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto px-4 py-6 space-y-6">
           {/* Product Confirmation Card */}
           <div className="bg-gradient-to-br from-gray-900/95 via-purple-900/80 to-gray-900/95 backdrop-blur-xl border border-purple-300/40 rounded-3xl p-6 shadow-2xl">
             <div className="text-center mb-6">
@@ -130,10 +130,12 @@ export default function ProductConfirmationPage() {
               </div>
             </div>
           </div>
+          {/* Add padding at bottom for fixed button */}
+          <div className="h-24"></div>
         </div>
 
-        {/* Bottom Action */}
-        <div className="p-4 bg-gradient-to-t from-black/50 to-transparent">
+        {/* Fixed Bottom Action */}
+        <div className="flex-shrink-0 p-4 bg-gradient-to-t from-black/80 to-black/20 backdrop-blur-sm">
           <Button
             onClick={handleConfirmProduct}
             className="w-full bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 text-white font-bold py-4 rounded-2xl text-lg shadow-2xl shadow-green-500/30 hover:shadow-cyan-500/40 transition-all duration-300 hover:scale-[1.02] border border-white/10"

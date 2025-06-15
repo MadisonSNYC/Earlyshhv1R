@@ -76,11 +76,11 @@ export default function PartnershipLoadingPage() {
   }
 
   return (
-    <div className="min-h-screen earlyshh-bg relative overflow-hidden">
+    <div className="min-h-screen earlyshh-bg relative">
       <div className="absolute inset-0 bg-gradient-to-br from-purple-800/20 via-transparent to-cyan-800/20" />
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center p-4">
-        
-        {!isComplete ? (
+      <div className="relative z-10 min-h-screen flex flex-col">
+        <div className="flex-1 overflow-y-auto flex items-center justify-center p-4">
+          {!isComplete ? (
           // Loading State
           <div className="text-center max-w-sm mx-auto">
             <div className="mb-8">
@@ -175,6 +175,7 @@ export default function PartnershipLoadingPage() {
             </div>
           </div>
         )}
+        </div>
       </div>
     </div>
   );
