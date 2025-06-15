@@ -34,6 +34,37 @@ A social-first coupon platform PWA that revolutionizes digital deal discovery th
 
 ## Recent Changes
 
+### SUPEROOT Brand Correction & Partnership Navigation Fix (June 15, 2025)
+**Complete brand identity update and partnership page routing resolution**
+
+#### Brand Updates Made:
+- **Correct Brand Name**: Updated from "SuperRoot Energy" to "SUPEROOT" across all components
+- **Correct Instagram Handle**: Updated from "@superrootenergy" to "@drinksuperoot" 
+- **Product Description**: Updated to "dry powder electrolyte mix" instead of energy drinks
+- **Website URL**: Updated to "https://drinksuperoot.com"
+- **Product Name**: Changed to "SUPEROOT Daily Electrolyte Mix"
+- **Value Proposition**: Updated to emphasize immunity, hydration, detox, mental clarity, stamina, and vitality
+
+#### Files Updated:
+- `server/storage.ts`: Core campaign data with proper branding and bio
+- `client/src/pages/brand-profile.tsx`: Brand profile page with correct details
+- `client/src/pages/brand-about.tsx`: About page with accurate product description
+- `client/src/pages/partnership-detail.tsx`: Partnership instructions with @drinksuperoot handle
+- `client/src/pages/qr-code.tsx`: QR code redemption with SUPEROOT branding
+- `client/src/pages/instagram-story.tsx`: Story creation with correct brand mentions
+
+#### Partnership Navigation Resolution:
+- **Added `/api/campaigns/categories` endpoint**: Fixed 400 errors with proper category data
+- **Enhanced bottom navigation**: Added "Partnerships" tab with Heart icon
+- **Fixed API routing**: Resolved user ID requirements for notification endpoints
+- **Partnership Page Access**: Direct navigation from bottom navigation now working
+
+#### Impact:
+- Authentic brand representation throughout the platform
+- Proper Instagram handle for user story tagging (@drinksuperoot)
+- Accurate product descriptions matching actual SUPEROOT electrolyte mix
+- Complete partnership page functionality with correct routing
+
 ### QR Code Page Navigation Fix (June 15, 2025)
 **Fixed critical routing issue preventing QR code page access**
 
