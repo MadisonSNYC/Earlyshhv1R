@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, QrCode, Copy, Share2, Clock, CheckCircle } from 'lucide-react';
 import { Campaign } from '@shared/schema';
-import * as QRCode from 'qrcode.react';
+import { QRCodeSVG } from 'qrcode.react';
 
 export default function PartnershipQRPage() {
   const [location, navigate] = useLocation();
@@ -75,7 +75,7 @@ export default function PartnershipQRPage() {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => navigate(-1)}
+            onClick={() => window.history.back()}
             className="text-white hover:bg-white/10 rounded-full w-10 h-10 p-0"
           >
             <ArrowLeft className="w-5 h-5" />
@@ -119,7 +119,7 @@ export default function PartnershipQRPage() {
                 {/* QR Code Display */}
                 <div className="bg-white rounded-2xl p-6 mb-6">
                   <div className="flex justify-center">
-                    <QRCode
+                    <QRCodeSVG
                       value={qrValue}
                       size={200}
                       level="M"

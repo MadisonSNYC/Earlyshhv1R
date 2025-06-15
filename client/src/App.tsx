@@ -51,6 +51,9 @@ function AuthenticatedApp() {
       <Route path="/home" component={HomePage} />
       <Route path="/" component={HomePage} />
       <Route path="/partnership/:id" component={PartnershipDetailPage} />
+      <Route path="/product-confirmation/:id" component={ProductConfirmationPage} />
+      <Route path="/partnership-qr/:id" component={PartnershipQRPage} />
+      <Route path="/partnership-loading/:id" component={PartnershipLoadingPage} />
       <Route path="/partnership-confirmation/:id" component={PartnershipConfirmationPage} />
       <Route path="/profile" component={ProfilePage} />
       <Route path="/profile-demo" component={ProfileDemoPage} />

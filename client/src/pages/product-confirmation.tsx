@@ -53,7 +53,7 @@ export default function ProductConfirmationPage() {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => navigate(-1)}
+            onClick={() => window.history.back()}
             className="text-white hover:bg-white/10 rounded-full w-10 h-10 p-0"
           >
             <ArrowLeft className="w-5 h-5" />
